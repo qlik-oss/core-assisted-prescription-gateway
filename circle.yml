@@ -4,8 +4,8 @@ jobs:
     docker:
       - image: byrnedo/alpine-curl
     environment:
-      DOCKER_REPO: qlikea/qliktive-openresty-custom-analytics
-    working_directory: ~/qliktive-openresty-custom-analytics
+      DOCKER_REPO: qlikea/qliktive-custom-analytics-openresty
+    working_directory: ~/qliktive-custom-analytics-openresty
     steps:
       - checkout
       - run:
