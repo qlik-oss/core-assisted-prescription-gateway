@@ -1,0 +1,14 @@
+version: "3.1"
+
+services:
+  openresty:
+    build: .
+    command: -c /etc/nginx/compose.conf
+    networks:
+      - elastic_default
+    ports:
+      - "80:80"
+
+networks:
+  elastic_default:
+    external: true
