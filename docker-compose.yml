@@ -4,11 +4,13 @@ services:
   openresty:
     build: .
     command: -c /etc/nginx/compose.conf
+    environment:
+      SESSION_COOKIE_NAME: custom-analytics
     networks:
-      - elastic_default
+      - qliktivecustomanalytics_default
     ports:
       - "80:80"
 
 networks:
-  elastic_default:
+  qliktivecustomanalytics_default:
     external: true

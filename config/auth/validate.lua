@@ -1,4 +1,4 @@
-local COOKIE_NAME = "customanalytics"
+local COOKIE_NAME = os.getenv("SESSION_COOKIE_NAME")
 
 -- retrieves a ref to a redis connection
 local function getdb()
@@ -52,9 +52,13 @@ local function idToJWT(id)
   return jwt
 end
 
--- validate a request, can be used in location nginx entries to require
--- a user to have a jwt associated to their session
-local jwt = idToJWT(ngx.var["cookie_" .. COOKIE_NAME])
+local jwt
+
+if not COOKIE_NAME then
+  ngx.log(ngx.WARN, "No SESSION_COOKIE_NAME environment variable found")
+else
+  jwt = idToJWT(ngx.var["cookie_" .. COOKIE_NAME])
+end
 
 if not jwt then
   ngx.header["Content-Type"] = "text/html";
@@ -63,7 +67,7 @@ if not jwt then
   ngx.exit(ngx.HTTP_UNAUTHORIZED)
 end
 
--- validate JWT
+-- validate JWT?
 
 ngx.req.set_header("Authorization", "Bearer " .. jwt)
 --ngx.req.clear_header("Cookie")
