@@ -44,7 +44,7 @@ http {
     
     location /viz/ {
       include proxy_settings.conf;
-      proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT};
+      proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
     }
 
     location /qix_session_service {
