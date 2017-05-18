@@ -1,10 +1,15 @@
 FROM openresty/openresty:1.11.2.3-alpine
 
-RUN mkdir -p /etc/nginx
-COPY ./config/ /etc/nginx
+RUN apk add --no-cache gettext libintl
 
-RUN mkdir -p /usr/local/openresty/nginx/html/hellochart
-COPY ./hello-chart/dist/ /usr/local/openresty/nginx/html/hellochart
+WORKDIR /usr/local/openresty/nginx
 
-RUN mkdir -p /usr/local/openresty/nginx/html/data
-COPY ./hello-chart/data/ /usr/local/openresty/nginx/html/data
+COPY ./config/ .
+
+RUN mkdir -p ./html/hellochart
+COPY ./hello-chart/dist/ ./html/hellochart
+
+COPY ./entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
