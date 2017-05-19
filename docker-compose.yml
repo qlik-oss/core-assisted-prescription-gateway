@@ -3,7 +3,6 @@ version: "3.1"
 services:
   openresty:
     build: .
-    command: -c /etc/nginx/compose.conf
     environment:
       SESSION_COOKIE_NAME: custom-analytics
       KIBANA_HOST: kibana
