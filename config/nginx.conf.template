@@ -1,0 +1,101 @@
+worker_processes 1;
+error_log /dev/stdout debug;
+env SESSION_COOKIE_NAME;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+  init_by_lua_block {
+    string = require("string");
+    cjson = require("cjson");
+    balancer = require "ngx.balancer";
+  }
+
+  resolver 127.0.0.11 ipv6=off valid=2s;
+  default_type application/octet-stream;
+  sendfile on;
+  keepalive_timeout 65;
+  include mime_types.conf;
+
+  upstream authentication_backend {
+    server authentication:3000;
+  }
+
+  upstream engine_backend {
+    server 0.0.0.1; # just an invalid address as a place holder
+    balancer_by_lua_block {
+      local ok, err = balancer.set_current_peer(ngx.var.qix_session_host, ngx.var.qix_session_port);
+      if not ok then
+        return ngx.exit(500)
+      end;
+    }
+  }
+
+  server {
+    listen 80;
+    server_name _;
+
+    location /login {
+      proxy_http_version 1.1;
+      proxy_pass http://authentication_backend;
+    }
+
+    location /logout {
+      proxy_http_version 1.1;
+      proxy_pass http://authentication_backend;
+    }
+
+    location /auth-test {
+      add_header Cache-Control no-cache;
+      expires off;
+      access_by_lua_file auth/validate.lua;
+      alias html/hellochart/;
+      index index.html;
+    }
+
+    location /hellochart {
+      root html;
+      index index.html;
+    }
+
+    location /kibana/ {
+      include proxy_settings.conf;
+      proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
+    }
+
+    location /viz/ {
+      include proxy_settings.conf;
+      proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
+    }
+
+    location /qix_session_service {
+      internal; # only exposed internally, used during requests to /doc
+      proxy_pass http://${QIX_SESSION_HOST}:${QIX_SESSION_PORT}/v1/session;
+    }
+
+    location /doc {
+      set $qix_session_host '';
+      set $qix_session_port '';
+
+      rewrite_by_lua_block {
+        local uri = string.sub(ngx.var.request_uri, 5)
+        local routeResponse = ngx.location.capture("/qix_session_service" ..  uri)
+        if routeResponse.status == 200 then
+          local qix_session_route_data = cjson.decode(routeResponse.body);
+          ngx.var.qix_session_host = qix_session_route_data.ipAddress;
+          ngx.var.qix_session_port = qix_session_route_data.port;
+          ngx.req.set_header("X-Qlik-Session", qix_session_route_data.sessionId)
+          ngx.req.set_uri("/app/engineData")
+        else
+          ngx.log(ngx.WARN, "Failed to find an Engine")
+          ngx.exit(routeResponse.status)
+        end
+      }
+
+      include proxy_settings.conf;
+      proxy_pass http://engine_backend/;
+    }
+  }
+}
