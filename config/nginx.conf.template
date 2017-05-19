@@ -35,16 +35,19 @@ http {
     location /hellochart {
       root html;
       index index.html;
+      access_log off;
     }
 
     location /kibana/ {
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
+      access_log off;
     }
     
     location /viz/ {
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
+      access_log off;
     }
 
     location /qix_session_service {
