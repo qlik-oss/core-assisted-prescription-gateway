@@ -57,6 +57,13 @@ http {
       access_log off;
     }
 
+    location /dev {
+      add_header Cache-Control no-cache;
+      expires off;
+      root html;
+      index index.html;
+    }
+
     location /kibana/ {
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
