@@ -19,10 +19,6 @@ http {
   keepalive_timeout 65;
   include mime_types.conf;
 
-  upstream authentication_backend {
-    server authentication:3000;
-  }
-
   upstream engine_backend {
     server 0.0.0.1; # just an invalid address as a place holder
     balancer_by_lua_block {
@@ -39,12 +35,12 @@ http {
 
     location /login {
       proxy_http_version 1.1;
-      proxy_pass http://authentication_backend;
+      proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
     }
 
     location /logout {
       proxy_http_version 1.1;
-      proxy_pass http://authentication_backend;
+      proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
     }
 
     location /auth-test {
