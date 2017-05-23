@@ -61,6 +61,8 @@ http {
       add_header Cache-Control no-cache;
       expires off;
       root html;
+      sendfile off;
+      open_file_cache off;
       index index.html;
     }
 
