@@ -19,6 +19,11 @@ http {
   keepalive_timeout 65;
   include mime_types.conf;
 
+  map $http_upgrade $connection_upgrade {
+      default     upgrade;
+      ''          close;
+  }
+
   upstream engine_backend {
     server 0.0.0.1; # just an invalid address as a place holder
     balancer_by_lua_block {
