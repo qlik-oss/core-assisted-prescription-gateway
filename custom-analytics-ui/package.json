@@ -15,7 +15,8 @@
     "react-dom": "^0.14.2",
     "react-materialize": ">=0.14.0",
     "enigma.js": "^1.2.1",
-    "webpack": "^2.5.1"
+    "webpack": "^2.5.1",
+    "@qlik/picasso.js": "./picasso-0.22.1.tgz"
   },
   "devDependencies": {
     "babel": "^6.1.18",

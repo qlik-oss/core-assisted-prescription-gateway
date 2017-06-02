@@ -12,7 +12,6 @@ Prerequisites:
 run the UI with:
 
     npm install
-    manually copy picasso dist into node_modules/@qlik
     npm run start
 
 open http://localhost:8080/
