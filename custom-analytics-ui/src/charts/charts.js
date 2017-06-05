@@ -16,7 +16,6 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
     });
 
     function paintReactionsChart(app, elem) {
-        console.log('in priv method');
         app.createObject({
             qInfo: {
                 qType: 'visualization',
@@ -135,6 +134,7 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                         dock: 'bottom'
                     }]
                 };
+
                 const pic = picasso.chart({
                     element: elem,
                     data: data,
@@ -145,7 +145,8 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                     if (added.length + removed.length < 1) {
                         return;
                     }
-
+                    paintRiskChart(app, riskElem);
+                    paintTherapyChart(app, therapyElem);
                     const selections = picassoQ.qBrushHelper(pic.brush('highlight'));
                     model[selections[0].method](...selections[0].params).then((() => {
                     }
@@ -154,6 +155,8 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
 
                 window.onresize = () => { pic.resize; };
             });
+        }, (error) => {
+            console.log('Error painting reactions chart' + JSON.stringify(error));
         });
     }
 
@@ -277,6 +280,7 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                         dock: 'bottom'
                     }]
                 };
+
                 const pic = picasso.chart({
                     element: elem,
                     data: data,
@@ -287,7 +291,8 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                     if (added.length + removed.length < 1) {
                         return;
                     }
-
+                    paintReactionsChart(app, reactionsElem);
+                    paintRiskChart(app, riskElem);
                     const selections = picassoQ.qBrushHelper(pic.brush('highlight'));
                     model[selections[0].method](...selections[0].params).then((() => {
                     }
@@ -297,6 +302,8 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                 window.onresize = () => { pic.resize; };
             });
 
+        }, (error) => {
+            console.log('Error painting therapy chart' + JSON.stringify(error));
         });
     }
 
@@ -420,6 +427,7 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                         dock: 'bottom'
                     }]
                 };
+
                 const pic = picasso.chart({
                     element: elem,
                     data: data,
@@ -430,7 +438,8 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                     if (added.length + removed.length < 1) {
                         return;
                     }
-
+                    paintReactionsChart(app, reactionsElem);
+                    paintTherapyChart(app, therapyElem);
                     const selections = picassoQ.qBrushHelper(pic.brush('highlight'));
                     model[selections[0].method](...selections[0].params).then((() => {
                     }
@@ -440,6 +449,8 @@ export default function paintCharts(reactionsElem, therapyElem, riskElem) {
                 window.onresize = () => { pic.resize; };
             });
 
+        }, (error) => {
+            console.log('Error painting risk chart' + JSON.stringify(error));
         });
     }
 }
