@@ -6,8 +6,9 @@
   <title>Assisted Prescription</title>
   <link href="node_modules/materialize-css/bin/materialize.css" rel="stylesheet" type="text/css" media="screen" />
   <style>
-    .chart-tab {
-      margin-top: 10px;
+    html,
+    body {
+      height: 100%;
     }
     
     .chartpic {
@@ -25,13 +26,7 @@
 </head>
 
 <body>
-  <nav class="teal" role="navigation">
-    <div class="navbar container"></div>
-  </nav>
-
-  <div class="container">
-    <div class="chart-tab"></div>
-  </div>
+  <div id="app"></div>
   <script src="node_modules/jquery/dist/jquery.js"></script>
   <script src="node_modules/materialize-css/bin/materialize.js"></script>
   <script src="bundle.js"></script>

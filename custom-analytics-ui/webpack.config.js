@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 module.exports = {
   entry: [
-    './src/index.js'
+    './src/main.js'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -11,9 +11,11 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader',
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
-          presets: ['react', 'es2015', 'stage-0']
+          presets: ['es2015', 'react', 'stage-0']
         }
       },
       {
@@ -21,10 +23,9 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-0']
         }
-      }
-    ]
+      }]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
