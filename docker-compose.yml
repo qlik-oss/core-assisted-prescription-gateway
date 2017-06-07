@@ -13,10 +13,13 @@ services:
       QIX_SESSION_PORT: 9455
       AUTH_HOST: auth
       AUTH_PORT: 3000
+      CERT_FILE: /run/secrets/cert-gateway.crt
+      CERT_KEY: /run/secrets/cert-gateway.key
     networks:
       - qliktivecustomanalytics_default
     ports:
       - "80:80"
+      - "443:443"
 
 networks:
   qliktivecustomanalytics_default:
