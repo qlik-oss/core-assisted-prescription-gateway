@@ -1,5 +1,6 @@
 import React from 'react';
 import TopNavbar from './navbar.jsx';
+import Card from './card.jsx';
 import paintCharts from '../charts/charts';
 
 export default class App extends React.Component {
@@ -25,18 +26,9 @@ export default class App extends React.Component {
                         </div>
                         <div className='col s8'>
                             <div id='charts' className='section scrollspy'>
-                                <div id='reactions' className='card-panel'>
-                                    <h5>Reactions</h5>
-                                    <div className='chartpic'></div>
-                                </div>
-                                <div id='therapy' className='card-panel'>
-                                    <h5>Therapy</h5>
-                                    <div className='chartpic'></div>
-                                </div>
-                                <div id='risk' className='card-panel'>
-                                    <h5>Risk Assessment</h5>
-                                    <div className='chartpic'></div>
-                                </div>
+                                <Card id='reactions' title='Reactions'></Card>
+                                <Card id='therapy' title='Therapy'></Card>
+                                <Card id='risk' title='Risk Assessment'></Card>
                             </div>
                         </div>
                     </div>
@@ -46,7 +38,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        paintCharts(document.querySelector('#reactions .chartpic'),
-            document.querySelector('#therapy .chartpic'), document.querySelector('#risk .chartpic'));
+        paintCharts(document.querySelector('#reactions .picassochart'),
+            document.querySelector('#therapy .picassochart'), document.querySelector('#risk .picassochart'));
     }
 }
