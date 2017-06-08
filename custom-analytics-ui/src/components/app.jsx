@@ -8,12 +8,6 @@ export default class App extends React.Component {
     render() {
         return (
             <div className='main blue lighten-3'>
-                <nav className='blue' >
-                    <div className='navbar container'>
-                        <TopNavbar></TopNavbar>
-                    </div>
-                </nav>
-                <main>
                     <div className='row'>
                         <div className='col s3'>
                             <div className='section'>
@@ -32,7 +26,6 @@ export default class App extends React.Component {
                             </div>
                         </div>
                     </div>
-                </main>
             </div >
         )
     }

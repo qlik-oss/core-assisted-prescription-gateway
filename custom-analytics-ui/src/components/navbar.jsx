@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar, NavItem} from 'react-materialize';
 
-export default class TopNavbar extends React.Component {
+class TopNavbar extends React.Component {
     render() {
-        return <Navbar brand='Assisted Prescription' className='blue z-depth-0' right >
-            <NavItem href='https://react-materialize.github.io/#/navbar'>Getting started</NavItem>
-            <NavItem href=''>Logout</NavItem>
+        return <Navbar brand='Qliktive - Assisted Prescription' className='blue z-depth-0' right >
+            <NavItem href='/'>Home</NavItem>
+            <NavItem href='/#app'>App</NavItem>
+            <NavItem href='http://www.qlik.com'>About</NavItem>
+            <NavItem href=''>Sign in</NavItem>
         </Navbar>
     }
 }
+
+export default TopNavbar;
