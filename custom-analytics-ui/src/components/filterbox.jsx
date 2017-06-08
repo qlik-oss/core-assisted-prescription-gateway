@@ -1,53 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import enigma from 'enigma.js';
-import config from './../enigma-config';
-import TopNavbar from './navbar.jsx';
-import paintCharts from '../charts/charts';
+import Chart from './chart.jsx';
 
-
-const STATE = {
-  initializing: 0,
-  valid: 1,
-  error: 2
-};
-
-class Filterbox extends React.Component {
+class Filterbox extends Chart {
   constructor(...args) {
     super(...args);
-    this.state = {
-      current: STATE.initializing,
-      layout: null,
-      error: null
-    };
-  }
-
-  componentDidMount() {
-    const fail = (error) => {
-      this.setState({
-        current: STATE.error,
-        layout: null,
-        error
-      });
-    };
-
-    const update = () => {
-      this.model.getLayout().then((layout) => {
-        const error = layout.qListObject.qDimensionInfo.qError;
-        if (error) {
-          // generalize error:
-          fail({ message: `Could not find field: ${this.props.field}` });
-        } else {
-          this.setState({
-            current: STATE.valid,
-            layout,
-            error: null
-          });
-        }
-      }).catch(fail);
-    };
-
-    const definition = {
+    this.state.definition = {
       qInfo: {
         qType: "react-filterbox"
       },
@@ -72,27 +30,21 @@ class Filterbox extends React.Component {
         }]
       }
     };
+  }
 
-    this.modelPromise = enigma.getService('qix', config)
-      .then(qix => qix.global.getActiveDoc())
-      .then(app => app.createSessionObject(definition))
-      .then((model) => {
-        this.model = model;
-        model.on('changed', update);
-        model.emit('changed');
-      })
-      .catch(fail);
+  toggleValue(item) {
+    this.model.selectListObjectValues('/qListObjectDef', [item.qElemNumber], true);
   }
 
   render() {
-    if (this.state.current === STATE.initializing) {
+    if (this.state.current === Chart.STATE.initializing) {
       return (
         <div className='card-panel filterbox'>
           <p>Initializing...</p>
         </div>
       );
     }
-    if (this.state.current === STATE.error) {
+    if (this.state.current === Chart.STATE.error) {
       const msg = this.state.error instanceof Event ?
         'Failed to establish a connection to an Engine' :
         this.state.error.message;
@@ -102,9 +54,11 @@ class Filterbox extends React.Component {
         </div>
       );
     }
-    const items = this.state.layout.qListObject.qDataPages[0].qMatrix.map((item) => {
+    const items = this.state.layout.qListObject.qDataPages[0].qMatrix.map((matrixItem) => {
+      const item = matrixItem[0];
+      const classes = `item state-${item.qState}`;
       return (
-        <li key={item[0].qText} className='item'>{item[0].qText}</li>
+        <li key={item.qElemNumber} className={classes} onClick={() => this.toggleValue(item)}>{item.qText}</li>
       );
     });
     return (
@@ -119,7 +73,6 @@ class Filterbox extends React.Component {
 }
 
 Filterbox.propTypes = {
-  app: PropTypes.object.isRequired,
   field: PropTypes.string.isRequired
 };
 

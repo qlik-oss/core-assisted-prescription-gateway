@@ -14,7 +14,7 @@ export default class App extends React.Component {
                             <div className='section'>
                                 <div className='card-panel'>
                                     <h5>Filters</h5>
-                                    <Filterbox app={{}} field='Country'></Filterbox>
+                                    <Filterbox field='Country'></Filterbox>
                                     <div className='divider'></div>
                                     <h6>Demographics</h6>
                                 </div>
