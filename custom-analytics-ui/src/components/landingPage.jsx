@@ -6,7 +6,7 @@ class LandingPage extends React.Component {
     render() {
         return (
             <div>
-                <div className='landing' style={{ backgroundImage: 'url(http://usersthink.com/wp-content/uploads/55-usersthink-stock-image.jpg)' }}>
+                <div className='landing'>
                     <div className='content white-text right-align'>
                         <h2>Insights for prescriptions <br /> at your fingertips</h2>
                         <p>Save more lives, time and money</p>
