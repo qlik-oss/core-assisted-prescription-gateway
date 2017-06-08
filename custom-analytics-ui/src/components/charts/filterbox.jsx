@@ -5,6 +5,7 @@ import Chart from './chart.jsx';
 class Filterbox extends Chart {
   constructor(...args) {
     super(...args);
+
     this.state.definition = {
       qInfo: {
         qType: "react-filterbox"
@@ -33,7 +34,7 @@ class Filterbox extends Chart {
   }
 
   toggleValue(item) {
-    this.model.selectListObjectValues('/qListObjectDef', [item.qElemNumber], true);
+    this.state.model.selectListObjectValues('/qListObjectDef', [item.qElemNumber], true);
   }
 
   render() {
@@ -44,6 +45,7 @@ class Filterbox extends Chart {
         </div>
       );
     }
+
     if (this.state.current === Chart.STATE.error) {
       const msg = this.state.error instanceof Event ?
         'Failed to establish a connection to an Engine' :
@@ -54,6 +56,7 @@ class Filterbox extends Chart {
         </div>
       );
     }
+
     const items = this.state.layout.qListObject.qDataPages[0].qMatrix.map((matrixItem) => {
       const item = matrixItem[0];
       const classes = `item state-${item.qState}`;
@@ -61,6 +64,7 @@ class Filterbox extends Chart {
         <li key={item.qElemNumber} className={classes} onClick={() => this.toggleValue(item)}>{item.qText}</li>
       );
     });
+
     return (
       <div className='card-panel'>
         <h5>{this.props.field}</h5>

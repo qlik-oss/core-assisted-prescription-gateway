@@ -9,15 +9,16 @@
   "author": "QLIK",
   "license": "MIT",
   "dependencies": {
+    "@qlik/picasso": "./picasso-0.22.1.tgz",
+    "deep-extend": "^0.5.0",
+    "enigma.js": "^1.2.1",
     "jquery": "^2.1.4",
     "materialize-css": "^0.97.3",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-materialize": "1.0.1",
     "react-router-dom": "4.1.1",
-    "enigma.js": "^1.2.1",
-    "webpack": "^2.5.1",
-    "@qlik/picasso": "./picasso-0.22.1.tgz"
+    "webpack": "^2.5.1"
   },
   "devDependencies": {
     "babel": "^6.1.18",
