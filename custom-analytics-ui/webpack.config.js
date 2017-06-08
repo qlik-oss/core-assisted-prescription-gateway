@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 module.exports = {
   entry: [
-    './src/main.js'
+    './src/main.jsx'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
