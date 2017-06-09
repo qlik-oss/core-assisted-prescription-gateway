@@ -5,7 +5,7 @@ const config = {
   session: {
     suspendOnClose: true,
     secure: false,
-    route: '/doc/doc/drugccases',
+    route: '/doc/doc/drugcases',
   },
 };
 
