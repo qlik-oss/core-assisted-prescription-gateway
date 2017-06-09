@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Picasso from './picasso.jsx';
 import merge from 'deep-extend';
+import Picasso from './picasso';
 
 class Barchart extends Picasso {
   constructor(...args) {
@@ -9,7 +7,7 @@ class Barchart extends Picasso {
 
     this.state.definition = {
       qInfo: {
-        qType: 'picasso-barchart'
+        qType: 'picasso-barchart',
       },
       qHyperCubeDef: {
         qDimensions: [], // extended from consumer
@@ -20,18 +18,18 @@ class Barchart extends Picasso {
         qSuppressMissing: true,
       },
     };
-    
+
     this.state.settings = {
       scales: {
         x: {
           source: '/qHyperCube/qDimensionInfo/0',
-          padding: 0.2
+          padding: 0.2,
         },
         y: {
           source: '/qHyperCube/qMeasureInfo/0',
           expand: 0.05,
           invert: true,
-        }
+        },
       },
       components: [{
         type: 'box-marker',
@@ -41,45 +39,45 @@ class Barchart extends Picasso {
             end: {
               source: '/qHyperCube/qMeasureInfo/0',
             },
-            elemNo: { source: '/qHyperCube/qDimensionInfo/0', reducer: 'first', property: 'id' }
+            elemNo: { source: '/qHyperCube/qDimensionInfo/0', reducer: 'first', property: 'id' },
           },
           groupBy: {
             source: '/qHyperCube/qDimensionInfo/0',
-          }
+          },
         },
         settings: {
           major: {
-            scale: 'x'
+            scale: 'x',
           },
           minor: {
-            scale: 'y'
+            scale: 'y',
           },
           box: {
             stroke: '#fff',
             width: 1, // This is a multiplier for the width
-            fill: '#008080' // fill of the box
+            fill: '#008080', // fill of the box
           },
         },
         brush: {
           trigger: [{
             on: 'tap',
             contexts: ['highlight'],
-            data: ['elemNo']
+            data: ['elemNo'],
           }],
           consume: [{
             context: 'highlight',
             data: ['elemNo'],
             style: {
               inactive: {
-                opacity: 0.3
-              }
+                opacity: 0.3,
+              },
             },
-          }]
+          }],
         },
       }, {
         type: 'axis',
         scale: 'y',
-        dock: 'left'
+        dock: 'left',
       }, {
         type: 'axis',
         scale: 'x',
@@ -88,9 +86,9 @@ class Barchart extends Picasso {
           labels: {
             tilted: true,
             tiltAngle: -30,
-            fontSize: '12px'
-          }
-        }
+            fontSize: '12px',
+          },
+        },
       }, {
         type: 'text',
         dock: 'left',
@@ -98,8 +96,8 @@ class Barchart extends Picasso {
       }, {
         type: 'text',
         text: 'layout.qHyperCube.qDimensionInfo[0].qLabel',
-        dock: 'bottom'
-      }]
+        dock: 'bottom',
+      }],
     };
 
     merge(this.state.definition, this.props.overrides.definition);

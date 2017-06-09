@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-export default class Card extends React.Component {
-
-    render() {
-        return (
-            <div id={this.props.id} className='card-panel'>
-                <h5>{this.props.title}</h5>
-                {this.props.children}
-            </div>
-        );
-    }
+export default function Card(props) {
+  return (
+    <div id={props.id} className="card-panel">
+      <h5>{props.title}</h5>
+      {props.children}
+    </div>
+  );
 }
+
+Card.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+};
