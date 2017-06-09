@@ -38,21 +38,21 @@ class Filterbox extends Chart {
   }
 
   render() {
-    if (this.state.current === Chart.STATE.initializing) {
-      return (
-        <div className="card-panel filterbox">
-          <p>Initializing...</p>
-        </div>
-      );
-    }
-
-    if (this.state.current === Chart.STATE.error) {
+    if (this.state.error) {
       const msg = this.state.error instanceof Event ?
         'Failed to establish a connection to an Engine' :
         this.state.error.message;
       return (
         <div className="card-panel filterbox">
           <p>Failed to render filterbox: {msg}</p>
+        </div>
+      );
+    }
+
+    if (!this.state.layout) {
+      return (
+        <div className="card-panel filterbox">
+          <p>Initializing...</p>
         </div>
       );
     }

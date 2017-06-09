@@ -3,6 +3,7 @@ import enigma from 'enigma.js';
 import Filterbox from './charts/filterbox';
 import Barchart from './charts/barchart';
 import Card from './card';
+import SessionFailed from './sessionFailed';
 import config from '../enigma-config';
 
 const reactions = {
@@ -91,11 +92,35 @@ export default class App extends React.Component {
 
     enigma.getService('qix', config)
       .then(qix => qix.global.getActiveDoc())
-      .then(app => this.setState({ app }))
-      .catch(/*TODO: show error dialog*/);
+      .then((app) => {
+        this.setState({ app });
+        app.session.on('suspended', () => {
+          this.setState({ suspended: true });
+          app.session.resume().then(() => {
+            this.setState({ suspended: false });
+          }).catch(() => {
+            app.session.close();
+          });
+        });
+        app.session.on('closed', (evt) => {
+          this.setState({ error: evt });
+        });
+      })
+      .catch(error => this.setState({ error }));
   }
 
   render() {
+    if (this.state.error) {
+      return (
+        <div className="main blue lighten-3">
+          <div className="row">
+            <div className="section">
+              <SessionFailed />
+            </div>
+          </div>
+        </div>
+      );
+    }
     if (!this.state.app) {
       return null;
     }

@@ -4,14 +4,14 @@ import Chart from './chart';
 
 class Picasso extends Chart {
   renderPicasso() {
-    if (this.state.current === Chart.STATE.valid) {
-      const layout = this.state.layout;
+    const layout = this.state.layout;
 
-      const data = {
-        type: 'q',
-        data: layout,
-      };
+    const data = {
+      type: 'q',
+      data: layout,
+    };
 
+    if (!this.state.pic) {
       const pic = picasso.chart({
         element: this.container,
         data,
@@ -22,24 +22,28 @@ class Picasso extends Chart {
         const selections = picassoQ.qBrushHelper(pic.brush('highlight'));
         this.state.model[selections[0].method](...selections[0].params);
       });
+      this.setState({ pic });
+    } else {
+      this.state.pic.update({ data });
     }
   }
 
   render() {
-    if (this.state.current === Chart.STATE.initializing) {
-      return (
-        <div className="card-panel chart">
-          <p>Initializing...</p>
-        </div>
-      );
-    }
-    if (this.state.current === Chart.STATE.error) {
+    if (this.state.error) {
       const msg = this.state.error instanceof Event ?
         'Failed to establish a connection to an Engine' :
         this.state.error.message;
       return (
         <div className="card-panel chart">
           <p>Failed to render chart: {msg}</p>
+        </div>
+      );
+    }
+
+    if (!this.state.layout) {
+      return (
+        <div className="card-panel chart">
+          <p>Initializing...</p>
         </div>
       );
     }

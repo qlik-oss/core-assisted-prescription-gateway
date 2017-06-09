@@ -6,7 +6,6 @@ class Chart extends React.Component {
     super(...args);
 
     this.state = {
-      current: Chart.STATE.initializing,
       layout: null,
       error: null,
       model: null,
@@ -14,36 +13,38 @@ class Chart extends React.Component {
   }
 
   componentDidMount() {
-    const fail = (error) => {
-      this.setState({
-        current: Chart.STATE.error,
-        layout: null,
-        error,
-      });
-    };
+    this.createModel();
+  }
 
-    const update = () => {
-      this.state.model.getLayout().then((layout) => {
-        // TODO: this only works for listobjects:
-        if (layout.qListObject && layout.qListObject.qDimensionInfo.qError) {
-          // generalize error:
-          fail({ message: `Could not find field: ${this.props.field}` });
-        } else {
-          this.setState({
-            current: Chart.STATE.valid,
-            layout,
-            error: null,
-          });
-        }
-      }).catch(fail);
-    };
-
+  createModel() {
     this.props.app.createSessionObject(this.state.definition).then((model) => {
       this.setState({ model });
-      model.on('changed', update);
+      model.on('changed', () => this.update());
+      model.on('closed', () => this.createModel());
       model.emit('changed');
-    })
-    .catch(fail);
+    }).catch(err => this.fail(err));
+  }
+
+  fail(error) {
+    this.setState({
+      layout: null,
+      error,
+    });
+  }
+
+  update() {
+    this.state.model.getLayout().then((layout) => {
+      // TODO: this only works for listobjects:
+      if (layout.qListObject && layout.qListObject.qDimensionInfo.qError) {
+        // generalize error:
+        this.fail({ message: `Could not find field: ${this.props.field}` });
+      } else {
+        this.setState({
+          layout,
+          error: null,
+        });
+      }
+    }).catch(err => this.fail(err));
   }
 }
 
@@ -55,12 +56,6 @@ Chart.propTypes = {
 Chart.defaultProps = {
   field: '',
   app: null,
-};
-
-Chart.STATE = {
-  initializing: 0,
-  valid: 1,
-  error: 2,
 };
 
 export default Chart;
