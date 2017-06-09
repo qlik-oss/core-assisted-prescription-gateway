@@ -102,7 +102,7 @@ export default class App extends React.Component {
             app.session.close();
           });
         });
-        app.session.on('close', (evt) => {
+        app.session.on('closed', (evt) => {
           this.setState({ error: evt });
         });
       })
