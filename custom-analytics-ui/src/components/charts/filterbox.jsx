@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from './chart.jsx';
+import Chart from './chart';
 
 class Filterbox extends Chart {
   constructor(...args) {
@@ -8,7 +8,7 @@ class Filterbox extends Chart {
 
     this.state.definition = {
       qInfo: {
-        qType: "react-filterbox"
+        qType: 'react-filterbox',
       },
       qListObjectDef: {
         qDef: {
@@ -19,17 +19,17 @@ class Filterbox extends Chart {
             qSortByState: 1,
             qSortByAscii: 1,
             qSortByNumeric: 1,
-            qSortByLoadOrder: 1
-          }]
+            qSortByLoadOrder: 1,
+          }],
         },
         qShowAlternatives: true,
         qInitialDataFetch: [{
           qTop: 0,
           qLeft: 0,
           qWidth: 0,
-          qHeight: 10000
-        }]
-      }
+          qHeight: 10000,
+        }],
+      },
     };
   }
 
@@ -40,7 +40,7 @@ class Filterbox extends Chart {
   render() {
     if (this.state.current === Chart.STATE.initializing) {
       return (
-        <div className='card-panel filterbox'>
+        <div className="card-panel filterbox">
           <p>Initializing...</p>
         </div>
       );
@@ -51,7 +51,7 @@ class Filterbox extends Chart {
         'Failed to establish a connection to an Engine' :
         this.state.error.message;
       return (
-        <div className='card-panel filterbox'>
+        <div className="card-panel filterbox">
           <p>Failed to render filterbox: {msg}</p>
         </div>
       );
@@ -61,14 +61,16 @@ class Filterbox extends Chart {
       const item = matrixItem[0];
       const classes = `item state-${item.qState}`;
       return (
-        <li key={item.qElemNumber} className={classes} onClick={() => this.toggleValue(item)}>{item.qText}</li>
+        <li key={item.qElemNumber}>
+          <a className={classes} onClick={() => this.toggleValue(item)}>{item.qText}</a>
+        </li>
       );
     });
 
     return (
-      <div className='card-panel'>
+      <div className="card-panel">
         <h5>{this.props.field}</h5>
-        <ul className='filterbox'>
+        <ul className="filterbox">
           {items}
         </ul>
       </div>
@@ -77,7 +79,7 @@ class Filterbox extends Chart {
 }
 
 Filterbox.propTypes = {
-  field: PropTypes.string.isRequired
+  field: PropTypes.string.isRequired,
 };
 
 export default Filterbox;

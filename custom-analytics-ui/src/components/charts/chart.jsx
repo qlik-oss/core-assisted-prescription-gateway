@@ -9,7 +9,7 @@ class Chart extends React.Component {
       current: Chart.STATE.initializing,
       layout: null,
       error: null,
-      model: null
+      model: null,
     };
   }
 
@@ -18,22 +18,21 @@ class Chart extends React.Component {
       this.setState({
         current: Chart.STATE.error,
         layout: null,
-        error
+        error,
       });
     };
 
     const update = () => {
       this.state.model.getLayout().then((layout) => {
         // TODO: this only works for listobjects:
-        const error = layout.qListObject && layout.qListObject.qDimensionInfo.qError || null;
-        if (error) {
+        if (layout.qListObject && layout.qListObject.qDimensionInfo.qError) {
           // generalize error:
           fail({ message: `Could not find field: ${this.props.field}` });
         } else {
           this.setState({
             current: Chart.STATE.valid,
             layout,
-            error: null
+            error: null,
           });
         }
       }).catch(fail);
@@ -48,10 +47,20 @@ class Chart extends React.Component {
   }
 }
 
+Chart.propTypes = {
+  field: PropTypes.string,
+  app: PropTypes.object.isRequired,
+};
+
+Chart.defaultProps = {
+  field: '',
+  app: null,
+};
+
 Chart.STATE = {
   initializing: 0,
   valid: 1,
-  error: 2
+  error: 2,
 };
 
 export default Chart;
