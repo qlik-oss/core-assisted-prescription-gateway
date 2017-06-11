@@ -1,0 +1,18 @@
+.filterbox {
+  max-height: 15vh;
+  overflow: auto;
+}
+
+.filterbox .item {
+  display: block;
+  cursor: pointer;
+}
+
+.filterbox .item:hover {
+  background: lightgrey;
+}
+
+.filterbox .state-S {
+  color: white;
+  background: green;
+}

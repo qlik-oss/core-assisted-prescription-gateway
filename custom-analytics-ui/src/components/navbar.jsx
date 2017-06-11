@@ -1,11 +1,15 @@
 import React from 'react';
-import { Navbar, NavItem } from 'react-materialize';
+import './navbar.css';
 
 export default function TopNavbar() {
-  return (<Navbar brand="Qliktive - Assisted Prescription" className="blue z-depth-0" right >
-    <NavItem href="/">Home</NavItem>
-    <NavItem href="/#app">App</NavItem>
-    <NavItem href="http://www.qlik.com">About</NavItem>
-    <NavItem href="">Sign in</NavItem>
-  </Navbar>);
+  // add className="active" to <li> to highlight current page:
+  return (<nav className="blue z-depth-0">
+    <div className="nav-wrapper">
+      <a href="#/" className="brand-logo left">Qliktive - Assisted Prescription</a>
+      <ul className="right hide-on-med-and-down">
+        <li><a href="#/app">App</a></li>
+        <li><a href="#/sign-in">Sign in</a></li>
+      </ul>
+    </div>
+  </nav>);
 }

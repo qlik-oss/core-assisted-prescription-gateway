@@ -1,5 +1,6 @@
-/* global picasso, picassoQ */
 import React from 'react';
+import * as picasso from '@qlik/picasso/dist/picasso';
+import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 import Chart from './chart';
 
 class Picasso extends Chart {
@@ -51,7 +52,7 @@ class Picasso extends Chart {
     // we need to have the `this.container` reference available when rendering:
     setTimeout(() => this.renderPicasso());
 
-    return (<div className="picassochart" ref={(elem) => { this.container = elem; }} />);
+    return (<div className="picasso-chart" ref={(elem) => { this.container = elem; }} />);
   }
 }
 

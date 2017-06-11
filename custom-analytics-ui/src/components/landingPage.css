@@ -1,0 +1,15 @@
+.landing {
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  min-height: 55vw;
+  background-image: url(http://usersthink.com/wp-content/uploads/55-usersthink-stock-image.jpg);
+}
+
+.landing .content {
+  position: relative;
+  width: 45vw;
+  left: 50vw;
+  top: 15vw;
+  display: inline-block;
+}
