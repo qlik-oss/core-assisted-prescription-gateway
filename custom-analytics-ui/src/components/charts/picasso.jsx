@@ -2,6 +2,7 @@ import React from 'react';
 import * as picasso from '@qlik/picasso/dist/picasso';
 import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 import Chart from './chart';
+import './picasso.css';
 
 class Picasso extends Chart {
   renderPicasso() {
