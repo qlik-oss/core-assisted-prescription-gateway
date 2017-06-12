@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Chart from './chart';
+import './filterbox.css';
 
 class Filterbox extends Chart {
   constructor(...args) {

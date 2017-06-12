@@ -1,0 +1,10 @@
+.picasso-chart {
+  margin: 20px;
+  background: #fff;
+  position: relative;
+  flex: 1 0 auto;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(100, 100, 100, 0.1);
+  border-radius: 6px;
+  height: 500px;
+}
