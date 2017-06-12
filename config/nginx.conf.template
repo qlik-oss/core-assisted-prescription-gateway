@@ -52,6 +52,18 @@ http {
     listen 80;
     server_name _;
 
+    location / {
+      root html/custom-analytics-ui;
+      index index.html;
+      access_log off;
+    }
+
+    location /hellochart {
+      root html/hello-chart;
+      index index.html;
+      access_log off;
+    }
+
     location /login {
       include proxy_settings.conf;
       proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
@@ -68,12 +80,6 @@ http {
       access_by_lua_file auth/validate.lua;
       alias html/hellochart/;
       index index.html;
-    }
-
-    location /hellochart {
-      root html;
-      index index.html;
-      access_log off;
     }
 
     location /kibana/ {

@@ -20,6 +20,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ../qliktive-custom-analytics/secrets/cert-gateway.crt:/run/secrets/cert-gateway.crt
+      - ../qliktive-custom-analytics/secrets/cert-gateway.key:/run/secrets/cert-gateway.key
 
 networks:
   qliktivecustomanalytics_default:
