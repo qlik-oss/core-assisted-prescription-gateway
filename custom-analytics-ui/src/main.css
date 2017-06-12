@@ -1,0 +1,8 @@
+html,
+body {
+  height: 100%;
+}
+
+main,.main {
+  min-height: 100vh;
+}

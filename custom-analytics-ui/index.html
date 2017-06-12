@@ -4,84 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Assisted Prescription</title>
-  <link href="node_modules/materialize-css/bin/materialize.css" rel="stylesheet" type="text/css" media="screen" />
-  <style>
-    html,
-    body {
-      height: 100%;
-    }
-    
-    main,.main {
-      min-height: 100vh;
-    }
-    
-    .picassochart {
-      margin: 20px;
-      background: #fff;
-      position: relative;
-      flex: 1 0 auto;
-      overflow: hidden;
-      box-shadow: 0 12px 24px rgba(100, 100, 100, 0.1);
-      border-radius: 6px;
-      height: 500px;
-    }
-    
-    .nav-wrapper {
-      margin: 0 70px;
-    }
-
-    .landing {
-      width: 100%;
-      position: relative;
-      background-size: cover;
-      min-height: 55vw;
-      background-image: url(http://usersthink.com/wp-content/uploads/55-usersthink-stock-image.jpg);
-    }
-
-    .landing .content {
-      position: relative;
-      width: 45vw;
-      left: 50vw;
-      top: 15vw;
-      display: inline-block;
-    }
-
-    .filterbox {
-      max-height: 15vh;
-      overflow: auto;
-    }
-    
-    .filterbox .item {
-      display: block;
-      cursor: pointer;
-    }
-    
-    .filterbox .item:hover {
-      background: lightgrey;
-    }
-    
-    .filterbox .state-S {
-      color: white;
-      background: green;
-    }
-  </style>
+  <link href="vendor.css" rel="stylesheet" type="text/css" />
+  <link href="main.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <div id="root"></div>
-  <script src="node_modules/jquery/dist/jquery.js"></script>
-  <script src="node_modules/materialize-css/bin/materialize.js"></script>
-  <script src="bundle.js"></script>
-  <!-- import picasso and its dependencies-->
-  <script src="./node_modules/hammerjs/hammer.js"></script>
-  <script src="./node_modules/@qlik/picasso/dist/picasso.js"></script>
-  <script src="./node_modules/@qlik/picasso/plugins/q/dist/picasso-q.js"></script>
-  <script src="./node_modules/@qlik/picasso/plugins/hammer/dist/picasso-hammer.js"></script>
-
-  <script>
-    picasso.use(picassoHammer);
-    picasso.use(picassoQ);
-  </script>
+  <script src="vendor.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
