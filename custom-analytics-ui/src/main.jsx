@@ -7,11 +7,12 @@ import hammerjs from 'hammerjs'; /* eslint no-unused-vars:0 */
 import picassoHammer from '@qlik/picasso/plugins/hammer/dist/picasso-hammer';
 import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 
-import 'materialize-css/bin/materialize.css';
+//import 'materialize-css/bin/materialize.css';
 
 import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
 import App from './components/app';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './main.css';
 
@@ -37,8 +38,10 @@ const ThePage = () => (
 );
 
 ReactDOM.render(
-  <HashRouter>
-    <ThePage />
-  </HashRouter>,
-    document.getElementById('root'),
+  <MuiThemeProvider>
+    <HashRouter>
+      <ThePage />
+    </HashRouter>
+  </MuiThemeProvider>,
+  document.getElementById('root'),
 );

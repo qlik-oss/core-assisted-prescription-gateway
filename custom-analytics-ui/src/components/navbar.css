@@ -1,3 +1,56 @@
-.nav-wrapper {
-  margin: 0 70px;
+nav .nav-wrapper {
+  position: relative;
+  height: 100%;
+  margin: 0 5%;
+}
+
+nav {
+  color: #fff;
+  width: 100%;
+}
+
+nav .brand-logo {
+  position: absolute;
+  color: #fff;
+  display: inline-block;
+  font-size: 2.1rem;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.left {
+  float: left !important;
+}
+
+.right {
+  float: right !important;
+}
+nav ul {
+  margin: 0px;
+}
+
+nav ul li {
+  transition: background-color .3s;
+  float: left;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul a {
+  transition: background-color .3s;
+  font-size: 1rem;
+  color: #fff;
+  display: block;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+nav a {
+  text-decoration: none;
+  background-color: transparent;
+}
+.topnav {
+  background-color: #2196F3;
+  height: 64px;
+  line-height: 64px;
 }

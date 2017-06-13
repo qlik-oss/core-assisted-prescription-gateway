@@ -1,6 +1,10 @@
 html,
 body {
   height: 100%;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  margin: 0;
+  line-height: 1.5;
 }
 
 main,.main {
