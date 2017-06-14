@@ -28,32 +28,18 @@ http {
       end;
     }
   }
-
-  server {
-    listen 443 ssl;
-    server_name _;
-
-    ssl_certificate ${CERT_FILE};
-    ssl_certificate_key ${CERT_KEY};
-
-    ssl on;
-    ssl_session_cache builtin:1000 shared:SSL:10m;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
-    ssl_prefer_server_ciphers on;
-
-    location / {
-      include proxy_settings.conf;
-      proxy_pass http://localhost;
-    }
-  }
+  
+  ${SSL_INCLUDE}
 
   server {
     listen 80;
     server_name _;
 
+    ${DEV_INCLUDE}
+
     location / {
       root html/custom-analytics-ui;
+      try_files $uri $uri/ =404;
       index index.html;
       access_log off;
     }

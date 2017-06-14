@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack && cpy index.html dist/",
-    "start": "webpack-dev-server --progress --colors",
+    "start": "webpack-dev-server --progress --colors --watch-poll --host 0.0.0.0",
     "eslint": "eslint --ext .js,.jsx --fix ."
   },
   "author": "QLIK",
