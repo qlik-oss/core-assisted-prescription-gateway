@@ -16,6 +16,8 @@ class TopNavbar extends React.Component {
 
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleSignin = this.handleSignin.bind(this);
+    this.handleSignout = this.handleSignout.bind(this);
   }
 
   handleOpen() {
@@ -24,6 +26,19 @@ class TopNavbar extends React.Component {
 
   handleClose() {
     this.setState({ dialogIsOpen: false });
+  }
+
+  handleSignin() {
+    this.props.fakeAuth.authenticate(() => {
+      this.handleClose();
+      this.setState({ redirectToReferrer: true })
+    })
+  }
+
+  handleSignout() {
+    this.props.fakeAuth.signout(() => {
+      this.setState({ redirectToReferrer: false });
+    })
   }
 
   render() {
@@ -37,7 +52,7 @@ class TopNavbar extends React.Component {
       <FlatButton
         label="Sign in"
         primary={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleSignin}
         key={2}
       />,
     ];
@@ -47,7 +62,10 @@ class TopNavbar extends React.Component {
         <a href="#/" className="brand-logo left">Qliktive - Assisted Prescription</a>
         <ul className="right">
           <li><a href="#/app">App</a></li>
-          <li> <a href="#" onClick={this.handleOpen}>Sign in</a>
+         { (this.props.fakeAuth.isAuthenticated) ? 
+            (<li> <a href="#" onClick={this.handleSignout}>Sign out</a></li>)
+           : (<li> <a href="#" onClick={this.handleOpen}>Sign in</a></li>)
+          }
             <Dialog
               title="Sign in"
               modal={false}
@@ -64,10 +82,10 @@ class TopNavbar extends React.Component {
                 </div>
               </form>
             </Dialog>
-          </li>
         </ul>
       </div>
-    </nav>);
+    </nav>
+    );
   }
 }
 export default TopNavbar;
