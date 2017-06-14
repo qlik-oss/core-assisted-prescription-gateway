@@ -38,6 +38,8 @@ const ThePage = () => (
   </div>
 );
 
+// Code from https://reacttraining.com/react-router/web/example/auth-workflow
+// to use while waiting for the real auth service
 const fakeAuth = {
   isAuthenticated: false,
   authenticate(cb) {
