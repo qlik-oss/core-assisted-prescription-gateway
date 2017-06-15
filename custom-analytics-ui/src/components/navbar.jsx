@@ -1,11 +1,12 @@
 import React from 'react';
-import './navbar.css';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import PropTypes from 'prop-types';
+import './navbar.css';
 
 const customContentStyle = {
-  width: '25%'
+  width: '25%',
 };
 
 class TopNavbar extends React.Component {
@@ -31,27 +32,27 @@ class TopNavbar extends React.Component {
   handleSignin() {
     this.props.fakeAuth.authenticate(() => {
       this.handleClose();
-      this.setState({ redirectToReferrer: true })
-    })
+      this.setState({ redirectToReferrer: true });
+    });
   }
 
   handleSignout() {
     this.props.fakeAuth.signout(() => {
       this.setState({ redirectToReferrer: false });
-    })
+    });
   }
 
   render() {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        primary
         onTouchTap={this.handleClose}
         key={1}
       />,
       <FlatButton
         label="Sign in"
-        primary={true}
+        primary
         onTouchTap={this.handleSignin}
         key={2}
       />,
@@ -62,30 +63,41 @@ class TopNavbar extends React.Component {
         <a href="#/" className="brand-logo left">Qliktive - Assisted Prescription</a>
         <ul className="right">
           <li><a href="#/app">App</a></li>
-         { (this.props.fakeAuth.isAuthenticated) ? 
-            (<li> <a href="#" onClick={this.handleSignout}>Sign out</a></li>)
-           : (<li> <a href="#" onClick={this.handleOpen}>Sign in</a></li>)
+          { (this.props.fakeAuth.isAuthenticated) ?
+            (<li> <a href="/" onClick={this.handleSignout}>Sign out</a></li>)
+           : (<li> <a href="/" onClick={this.handleOpen}>Sign in</a></li>)
           }
-            <Dialog
-              title="Sign in"
-              modal={false}
-              open={this.state.dialogIsOpen}
-              onRequestClose={this.handleClose}
-              contentStyle={customContentStyle}
+          <Dialog
+            title="Sign in"
+            modal={false}
+            open={this.state.dialogIsOpen}
+            onRequestClose={this.handleClose}
+            contentStyle={customContentStyle}
+          >
+            <form
+              action="/"
+              method="POST"
+              onSubmit={(e) => {
+                e.preventDefault(); this.handleClose();
+              }}
             >
-              <form action="/" method="POST" onSubmit={(e) => { e.preventDefault(); alert('Submitted form!'); this.handleClose(); }}>
-                <TextField name="userid" hintText="User ID" />
-                <br />
-                <TextField name="pwd" type="password" hintText="Password" />
-                <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
-                  {actions}
-                </div>
-              </form>
-            </Dialog>
+              <TextField name="userid" hintText="User ID" />
+              <br />
+              <TextField name="pwd" type="password" hintText="Password" />
+              <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
+                {actions}
+              </div>
+            </form>
+          </Dialog>
         </ul>
       </div>
     </nav>
     );
   }
 }
+
+TopNavbar.propTypes = {
+  fakeAuth: PropTypes.object.isRequired,
+};
+
 export default TopNavbar;

@@ -1,13 +1,14 @@
 import React from 'react';
-import './landingPage.css';
 import { withRouter } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import './landingPage.css';
+
 injectTapEventPlugin();
 
-const RedirectButton = withRouter(({history}) => (
-  <RaisedButton primary={true} label="Get started" onTouchTap={() => { history.push('/app') }}/>
-))
+const RedirectButton = withRouter(({ history }) => (
+  <RaisedButton primary label="Get started" onTouchTap={() => { history.push('/app') }}/>
+));
 
 export default function LandingPage() {
   return (
