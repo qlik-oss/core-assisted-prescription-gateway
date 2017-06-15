@@ -4,7 +4,7 @@ const config = {
   schema: qixSchema,
   session: {
     suspendOnClose: true,
-    secure: false,
+    secure: location.protocol === 'https:',
     route: '/doc/doc/drugcases',
   },
 };

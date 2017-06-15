@@ -1,11 +1,11 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/qliktive-custom-analytics-openresty
     docker:
-      - image: byrnedo/alpine-curl
+      - image: node:7
     environment:
       DOCKER_REPO: qlikea/qliktive-custom-analytics-openresty
-    working_directory: ~/qliktive-custom-analytics-openresty
     steps:
       - checkout
       - run:
@@ -20,6 +20,13 @@ jobs:
             curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
+      - run:
+          name: Build Custom Analytics UI
+          command: |
+            cd custom-analytics-ui
+            npm install --quiet
+            npm run eslint
+            npm run build
       - run:
           name: Build Docker image
           command: docker build -t $DOCKER_REPO:$(cat ./version.txt) .

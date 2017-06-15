@@ -1,6 +1,24 @@
 #!/bin/sh
 
-# TODO: Default CERT_FILE/KEY to dummy path to allow non-https dev?
+export SSL_INCLUDE=
+export DEV_INCLUDE=
+
+if [ "$CERT_FILE" != "" ]; then
+  SSL_INCLUDE="include ssl.conf;"
+  envsubst '\
+  $CERT_FILE \
+  $CERT_KEY \
+  ' \
+  < ssl.conf.template
+  > ssl.conf
+else
+  echo "No CERT_* variables found, HTTPS disabled"
+fi
+
+if [ "$DEV" == "true" ]; then
+  echo "Including webpack-dev configuration"
+  DEV_INCLUDE="include dev.conf;"
+fi
 
 envsubst '\
 $KIBANA_HOST \
@@ -11,9 +29,10 @@ $QIX_SESSION_HOST \
 $QIX_SESSION_PORT \
 $AUTH_HOST \
 $AUTH_PORT \
-$CERT_FILE \
-$CERT_KEY \
+$SSL_INCLUDE \
+$DEV_INCLUDE \
 ' \
   < nginx.conf.template \
   > nginx.conf
+
 ../bin/openresty -g "daemon off;" -c nginx.conf
