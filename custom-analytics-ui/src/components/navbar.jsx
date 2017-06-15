@@ -64,8 +64,8 @@ class TopNavbar extends React.Component {
         <ul className="right">
           <li><a href="#/app">App</a></li>
           { (this.props.fakeAuth.isAuthenticated) ?
-            (<li> <a href="/" onClick={this.handleSignout}>Sign out</a></li>)
-           : (<li> <a href="/" onClick={this.handleOpen}>Sign in</a></li>)
+            (<li> <a href="#/" onClick={this.handleSignout}>Sign out</a></li>)
+           : (<li> <a href="#/" onClick={this.handleOpen}>Sign in</a></li>)
           }
           <Dialog
             title="Sign in"
