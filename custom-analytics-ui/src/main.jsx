@@ -102,8 +102,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 PrivateRoute.propTypes = {
-  location: PropTypes.object.isRequired,
-  component: PropTypes.Component,
+  location: PropTypes.object,
+  component: PropTypes.func,
+};
+
+PrivateRoute.defaultProps = {
+  location: null,
 };
 
 ReactDOM.render(
