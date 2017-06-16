@@ -9,7 +9,7 @@ if [ "$CERT_FILE" != "" ]; then
   $CERT_FILE \
   $CERT_KEY \
   ' \
-  < ssl.conf.template
+  < ssl.conf.template \
   > ssl.conf
 else
   echo "No CERT_* variables found, HTTPS disabled"
