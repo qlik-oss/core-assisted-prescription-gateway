@@ -1,18 +1,19 @@
 #!/bin/sh
 
-export SSL_INCLUDE=
 export DEV_INCLUDE=
 
-if [ "$CERT_FILE" != "" ]; then
-  SSL_INCLUDE="include ssl.conf;"
-  envsubst '\
-  $CERT_FILE \
-  $CERT_KEY \
-  ' \
-  < ssl.conf.template \
-  > ssl.conf
+if [ "$CERT_FILE" == "" ]; then
+  if [ "$CERT_HOST" == "" ]; then
+    CERT_HOST="localhost"
+  fi
+  SUBJECT="/O=Global Security/CN=$CERT_HOST"
+  export CERT_FILE=/usr/local/openresty/cert-gateway.crt
+  export CERT_KEY=/usr/local/openresty/cert-gateway.key
+  echo "Running openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $CERT_KEY -out $CERT_FILE -subj \"$SUBJECT\""
+  openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $CERT_KEY -out $CERT_FILE -subj "$SUBJECT"
+  echo "Using generated self-signed certificates"
 else
-  echo "No CERT_* variables found, HTTPS disabled"
+  echo "Using pre-defined certificates"
 fi
 
 if [ "$DEV" == "true" ]; then
@@ -29,8 +30,9 @@ $QIX_SESSION_HOST \
 $QIX_SESSION_PORT \
 $AUTH_HOST \
 $AUTH_PORT \
-$SSL_INCLUDE \
 $DEV_INCLUDE \
+$CERT_FILE \
+$CERT_KEY \
 ' \
   < nginx.conf.template \
   > nginx.conf
