@@ -85,6 +85,13 @@ http {
       index index.html;
     }
 
+    location /isAuthenticated {
+      add_header Cache-Control no-cache;
+      expires off;
+      access_by_lua_file auth/validate.lua;
+      content_by_lua 'ngx.exit(ngx.HTTP_NO_CONTENT)';
+    }
+
     location /kibana/ {
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
