@@ -12,92 +12,103 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
 import App from './components/app';
+import Login from './components/login';
 
 import './main.css';
 
 picasso.use(picassoHammer);
 picasso.use(picassoQ);
 
-// Code from https://reacttraining.com/react-router/web/example/auth-workflow
-// to use while waiting for the real auth service
-const fakeAuth = {
-  isAuthenticated: false,
+const auth = {
+
+  isAuthenticated:
+  fetch('/isAuthenticated/', {
+    credentials: 'same-origin'
+  }).then((response) => {
+    if (response.status == 204) { return true; }
+    return false;
+  }),
   authenticate(cb) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
+    window.location.href = 'http://localhost/login/github';
+    cb();
   },
   signout(cb) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  },
+    fetch('/logout').then((response) => {
+      cb();
+    });
+  }
+}
+
+function requireAuth(nextState, replace) {
+  auth.isAuthenticated().then((authenticated) => {
+    if (!authenticated) {
+      replace({
+        pathname: '#/'
+      })
+    }
+  });
+}
+
+// Main component responsible for rendering the routes when
+// the path matches the route.
+class Main extends React.Component {
+  render() {
+    return (
+      <main>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <PrivateRoute path="/app" component={App} isAuthenticated={this.props.isAuthenticated} />
+        </Switch>
+      </main>
+    );
+  }
+}
+
+Main.propTypes = {
+  isAuthenticated: PropTypes.bool,
 };
 
-class Login extends React.Component {
+class ThePage extends React.Component {
 
-  state = { redirectToReferrer: false }
+  constructor(...args) {
+    super(...args);
 
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState({ redirectToReferrer: true });
+    this.state = { isAuthenticated: null, dialogIsOpen: false };
+
+    auth.isAuthenticated.then((authenticated) => {
+      this.setState({ isAuthenticated: authenticated });
     });
+
   }
 
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    const { redirectToReferrer } = this.state;
-
-    if (redirectToReferrer) {
-      return (
-        <Redirect to={from} />
-      );
+    if (this.state.isAuthenticated === null) {
+      return null;
     }
-
     return (
       <div>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <button onClick={this.login}>Log in</button>
+        <Navbar isAuthenticated={this.state.isAuthenticated} signinClicked={(e) => this.setState({ dialogIsOpen: true })} signoutClicked={(e) => auth.signout(() => { this.setState({ isAuthenticated: false }) })} />
+        <Main isAuthenticated={this.state.isAuthenticated} />
+        <Login open={this.state.dialogIsOpen} auth={auth} onCancel={(e) => this.setState({ dialogIsOpen: false })} onLogin={(e) => auth.authenticate(() => { this.setState({ dialogIsOpen: false }) })} />
       </div>
     );
   }
 }
 
-Login.propTypes = {
-  location: PropTypes.object.isRequired,
-};
-
-// Main component responsible for rendering the routes when
-// the path matches the route.
-const Main = () => (
-  <main>
-    <Switch>
-      <Route exact path="/" component={LandingPage} />
-      <PrivateRoute path="/app" component={App} />
-      <Route path="/login" component={Login} />
-    </Switch>
-  </main>
-);
-
-const ThePage = () => (
-  <div>
-    <Navbar fakeAuth={fakeAuth} />
-    <Main />
-  </div>
-);
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest, isAuthenticated: isAuthenticated }) => (
   <Route
     {...rest}
     render={props => (
-    fakeAuth.isAuthenticated ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location },
-      }}
-      />
-      )
-  )}
+      isAuthenticated ? (
+        <Component {...props} />
+      ) : (
+          <Redirect to={{
+            pathname: '/',
+            state: { from: props.location },
+          }}
+          />
+        )
+    )}
   />
 );
 
