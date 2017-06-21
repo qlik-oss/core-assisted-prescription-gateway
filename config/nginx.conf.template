@@ -11,6 +11,7 @@ http {
     string = require("string");
     cjson = require("cjson");
     balancer = require "ngx.balancer";
+    require("auth.validate_apis");
   }
 
   resolver 127.0.0.11 ipv6=off valid=2s;
@@ -29,24 +30,41 @@ http {
     }
   }
   
-  ${SSL_INCLUDE}
+  server {
+    listen 443 ssl;
+    server_name _;
+
+    ssl_certificate ${CERT_FILE};
+    ssl_certificate_key ${CERT_KEY};
+
+    ssl on;
+    ssl_session_cache builtin:1000 shared:SSL:10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+      include proxy_settings.conf;
+      proxy_pass http://localhost;
+    }
+  }
 
   server {
     listen 80;
     server_name _;
+    index index.html;
 
     ${DEV_INCLUDE}
 
     location / {
-      root html/custom-analytics-ui;
+      alias html/custom-analytics-ui/;
       try_files $uri $uri/ =404;
-      index index.html;
       access_log off;
     }
 
-    location /hellochart {
-      root html/hello-chart;
-      index index.html;
+    location /hellochart/ {
+      alias html/hello-chart/;
+      try_files $uri $uri/ =404;
       access_log off;
     }
 
@@ -66,6 +84,20 @@ http {
       access_by_lua_file auth/validate.lua;
       alias html/hellochart/;
       index index.html;
+    }
+
+    location /is-authenticated {
+      add_header Cache-Control no-cache;
+      expires off;
+      content_by_lua '
+                      ngx.header["Content-Type"] = "text/json";
+                      local jwt = getJWTIfLoggedIn()
+                      if not jwt then
+                        ngx.say("false")
+                      else
+                        ngx.say("true")
+                      end
+                      ngx.exit(ngx.HTTP_OK)';
     }
 
     location /kibana/ {
