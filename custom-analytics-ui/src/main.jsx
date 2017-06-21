@@ -22,32 +22,21 @@ picasso.use(picassoQ);
 const auth = {
 
   isAuthenticated:
-  fetch('/isAuthenticated/', {
+  fetch('/isAuthenticated', {
     credentials: 'same-origin',
-  }).then((response) => {
-    if (response.status === 204) { return true; }
-    return false;
-  }),
+  }).then(response => response.ok),
   authenticate(cb) {
-    window.location.href = 'http://localhost/login/github';
+    window.location.href = '/login/github';
     cb();
   },
   signout(cb) {
-    fetch('/logout').then((response) => {
+    fetch('/logout', {
+      credentials: 'same-origin',
+    }).then((response) => {
       cb();
     });
   },
 };
-
-function requireAuth(nextState, replace) {
-  auth.isAuthenticated().then((authenticated) => {
-    if (!authenticated) {
-      replace({
-        pathname: '#/',
-      });
-    }
-  });
-}
 
 // Main component responsible for rendering the routes when
 // the path matches the route.
