@@ -11,6 +11,7 @@ http {
     string = require("string");
     cjson = require("cjson");
     balancer = require "ngx.balancer";
+    require("auth.validate_apis");
   }
 
   resolver 127.0.0.11 ipv6=off valid=2s;
@@ -88,10 +89,14 @@ http {
     location /is-authenticated {
       add_header Cache-Control no-cache;
       expires off;
-      access_by_lua_file auth/validate.lua;
       content_by_lua '
                       ngx.header["Content-Type"] = "text/json";
-                      ngx.say("true")
+                      local jwt = getJWTIfLoggedIn()
+                      if not jwt then
+                        ngx.say("false")
+                      else
+                        ngx.say("true")
+                      end
                       ngx.exit(ngx.HTTP_OK)';
     }
 
