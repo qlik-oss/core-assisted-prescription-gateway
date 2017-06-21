@@ -23,9 +23,9 @@ picasso.use(picassoQ);
 const auth = {
 
   isAuthenticated:
-  fetch('/isAuthenticated', {
+  fetch('/is-authenticated', {
     credentials: 'same-origin',
-  }).then(response => response.ok),
+  }).then(response => response.json()).then(result => result),
   authenticate(cb) {
     window.location.href = '/login/github';
     cb();
