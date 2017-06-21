@@ -61,9 +61,9 @@ else
 end
 
 if not jwt then
-  ngx.header["Content-Type"] = "text/html";
+  ngx.header["Content-Type"] = "text/json";
   ngx.status = ngx.HTTP_UNAUTHORIZED
-  ngx.say("You do not have permission to view this resource.")
+  ngx.say("false")
   ngx.exit(ngx.HTTP_UNAUTHORIZED)
 end
 

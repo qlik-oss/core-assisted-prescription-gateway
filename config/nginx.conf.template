@@ -85,11 +85,14 @@ http {
       index index.html;
     }
 
-    location /isAuthenticated {
+    location /is-authenticated {
       add_header Cache-Control no-cache;
       expires off;
       access_by_lua_file auth/validate.lua;
-      content_by_lua 'ngx.exit(ngx.HTTP_NO_CONTENT)';
+      content_by_lua '
+                      ngx.header["Content-Type"] = "text/json";
+                      ngx.say("true")
+                      ngx.exit(ngx.HTTP_OK)';
     }
 
     location /kibana/ {
