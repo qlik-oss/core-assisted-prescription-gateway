@@ -23,9 +23,9 @@ const auth = {
 
   isAuthenticated:
   fetch('/isAuthenticated/', {
-    credentials: 'same-origin'
+    credentials: 'same-origin',
   }).then((response) => {
-    if (response.status == 204) { return true; }
+    if (response.status === 204) { return true; }
     return false;
   }),
   authenticate(cb) {
@@ -36,36 +36,32 @@ const auth = {
     fetch('/logout').then((response) => {
       cb();
     });
-  }
-}
+  },
+};
 
 function requireAuth(nextState, replace) {
   auth.isAuthenticated().then((authenticated) => {
     if (!authenticated) {
       replace({
-        pathname: '#/'
-      })
+        pathname: '#/',
+      });
     }
   });
 }
 
 // Main component responsible for rendering the routes when
 // the path matches the route.
-class Main extends React.Component {
-  render() {
-    return (
-      <main>
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <PrivateRoute path="/app" component={App} isAuthenticated={this.props.isAuthenticated} />
-        </Switch>
-      </main>
-    );
-  }
-}
+const Main = ({ isAuthenticated }) => (
+  <main>
+    <Switch>
+      <Route exact path="/" component={LandingPage} />
+      <PrivateRoute path="/app" component={App} isAuthenticated={isAuthenticated} />
+    </Switch>
+  </main>
+);
 
 Main.propTypes = {
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 class ThePage extends React.Component {
@@ -78,7 +74,6 @@ class ThePage extends React.Component {
     auth.isAuthenticated.then((authenticated) => {
       this.setState({ isAuthenticated: authenticated });
     });
-
   }
 
   render() {
@@ -87,26 +82,36 @@ class ThePage extends React.Component {
     }
     return (
       <div>
-        <Navbar isAuthenticated={this.state.isAuthenticated} signinClicked={(e) => this.setState({ dialogIsOpen: true })} signoutClicked={(e) => auth.signout(() => { this.setState({ isAuthenticated: false }) })} />
-        <Main isAuthenticated={this.state.isAuthenticated} />
-        <Login open={this.state.dialogIsOpen} auth={auth} onCancel={(e) => this.setState({ dialogIsOpen: false })} onLogin={(e) => auth.authenticate(() => { this.setState({ dialogIsOpen: false }) })} />
+        <Navbar
+          isAuthenticated={this.state.isAuthenticated}
+          signinClicked={e => this.setState({ dialogIsOpen: true })}
+          signoutClicked={e => auth.signout(() => { this.setState({ isAuthenticated: false }); })}
+        />
+        <Main
+          isAuthenticated={this.state.isAuthenticated}
+        />
+        <Login
+          open={this.state.dialogIsOpen}
+          onCancel={e => this.setState({ dialogIsOpen: false })}
+          onLogin={e => auth.authenticate(() => { this.setState({ dialogIsOpen: false }); })}
+        />
       </div>
     );
   }
 }
 
-const PrivateRoute = ({ component: Component, ...rest, isAuthenticated: isAuthenticated }) => (
+const PrivateRoute = ({ component: Component, ...rest, isAuthenticated }) => (
   <Route
     {...rest}
     render={props => (
       isAuthenticated ? (
         <Component {...props} />
       ) : (
-          <Redirect to={{
-            pathname: '/',
-            state: { from: props.location },
-          }}
-          />
+        <Redirect to={{
+          pathname: '/',
+          state: { from: props.location },
+        }}
+        />
         )
     )}
   />
@@ -115,6 +120,7 @@ const PrivateRoute = ({ component: Component, ...rest, isAuthenticated: isAuthen
 PrivateRoute.propTypes = {
   location: PropTypes.object,
   component: PropTypes.func,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 PrivateRoute.defaultProps = {
