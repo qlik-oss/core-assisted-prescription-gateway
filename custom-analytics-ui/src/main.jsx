@@ -13,6 +13,7 @@ import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
 import App from './components/app';
 import Login from './components/login';
+import PrivateRoute from './components/privateRoute';
 
 import './main.css';
 
@@ -40,17 +41,22 @@ const auth = {
 
 // Main component responsible for rendering the routes when
 // the path matches the route.
-const Main = ({ isAuthenticated }) => (
+const Main = ({ isAuthenticated, notAuthorizedCallback }) => (
   <main>
     <Switch>
       <Route exact path="/" component={LandingPage} />
-      <PrivateRoute path="/app" component={App} isAuthenticated={isAuthenticated} />
+      <PrivateRoute path="/app" component={App} isAuthenticated={isAuthenticated} notAuthorizedCallback={notAuthorizedCallback} />
     </Switch>
   </main>
 );
 
 Main.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  notAuthorizedCallback: PropTypes.func,
+};
+
+Main.defaultProps = {
+  notAuthorizedCallback: () => {},
 };
 
 class ThePage extends React.Component {
@@ -78,6 +84,7 @@ class ThePage extends React.Component {
         />
         <Main
           isAuthenticated={this.state.isAuthenticated}
+          notAuthorizedCallback={() => { this.setState({ dialogIsOpen: true }); }}
         />
         <Login
           open={this.state.dialogIsOpen}
@@ -88,33 +95,6 @@ class ThePage extends React.Component {
     );
   }
 }
-
-const PrivateRoute = ({ component: Component, ...rest, isAuthenticated }) => (
-  <Route
-    {...rest}
-    render={props => (
-      isAuthenticated ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{
-          pathname: '/',
-          state: { from: props.location },
-        }}
-        />
-        )
-    )}
-  />
-);
-
-PrivateRoute.propTypes = {
-  location: PropTypes.object,
-  component: PropTypes.func,
-  isAuthenticated: PropTypes.bool.isRequired,
-};
-
-PrivateRoute.defaultProps = {
-  location: null,
-};
 
 ReactDOM.render(
   <MuiThemeProvider>
