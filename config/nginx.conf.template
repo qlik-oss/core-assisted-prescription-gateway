@@ -68,6 +68,11 @@ http {
       access_log off;
     }
 
+    location /idp {
+      include proxy_settings.conf;
+      proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
+    }
+
     location /login {
       include proxy_settings.conf;
       proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
