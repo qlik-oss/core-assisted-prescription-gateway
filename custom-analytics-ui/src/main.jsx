@@ -23,17 +23,19 @@ picasso.use(picassoQ);
 const auth = {
 
   isAuthenticated:
-  fetch('/is-authenticated', {
-    credentials: 'same-origin',
-  }).then(response => response.json())
-    .then(result => result),
+    fetch('/is-authenticated', {
+      credentials: 'same-origin',
+    }).then(response => response.json())
+      .then(result => result),
   idp:
-  fetch('/idp')
-   .then(response => response.text())
-    .then(result => result),
-  authenticate(cb) {
+    fetch('/idp')
+      .then(response => response.text())
+      .then(result => result),
+  authenticate() {
     window.location.href = '/login/github';
-    cb();
+  },
+  localAuthenticate(username, password) {
+    window.location.href = `/login/local/callback?username=${username}&password=${password}`;
   },
   signout(cb) {
     fetch('/logout', {
@@ -105,7 +107,7 @@ class ThePage extends React.Component {
   }
 
   loginClicked = (username, password) => {
-    // sth like auth.authenticate(username, password, ());
+    auth.localAuthenticate(username, password);
   }
 
   render() {
