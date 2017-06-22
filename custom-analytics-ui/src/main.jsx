@@ -104,8 +104,8 @@ class ThePage extends React.Component {
     this.setState({ dialogIsOpen: false });
   }
 
-  loginClicked = () => {
-    auth.authenticate();
+  loginClicked = (username, password) => {
+    // sth like auth.authenticate(username, password, ());
   }
 
   render() {
