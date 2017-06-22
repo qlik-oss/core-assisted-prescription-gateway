@@ -5,6 +5,7 @@ import Barchart from './charts/barchart';
 import Card from './card';
 import SessionFailed from './sessionFailed';
 import config from '../enigma-config';
+import './app.css';
 
 const reactions = {
   definition: {
