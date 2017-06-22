@@ -25,12 +25,10 @@ const auth = {
   isAuthenticated:
     fetch('/is-authenticated', {
       credentials: 'same-origin',
-    }).then(response => response.json())
-      .then(result => result),
+    }).then(response => response.json()),
   idp:
     fetch('/idp')
-      .then(response => response.text())
-      .then(result => result),
+      .then(response => response.text()),
   authenticate() {
     window.location.href = '/login/github';
   },
