@@ -25,7 +25,10 @@ const auth = {
   isAuthenticated:
   fetch('/is-authenticated', {
     credentials: 'same-origin',
-  }).then(response => response.json()).then(result => result),
+  }).then(response => response.json())
+    .then(result => result),
+  idp:
+  fetch('/idp').then(response => response),
   authenticate(cb) {
     window.location.href = '/login/github';
     cb();
@@ -64,7 +67,11 @@ class ThePage extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = { isAuthenticated: null, dialogIsOpen: false };
+    this.state = { authMode: null, isAuthenticated: null, dialogIsOpen: false };
+
+    auth.idp.then((authMode) => {
+      this.setState({ authMode });
+    });
 
     auth.isAuthenticated.then((authenticated) => {
       this.setState({ isAuthenticated: authenticated });
@@ -72,7 +79,7 @@ class ThePage extends React.Component {
   }
 
   signinClicked = () => {
-    if (this.props.authMode === 'local') {
+    if (this.state.authMode === 'local') {
       this.setState({ dialogIsOpen: true });
     } else {
       auth.authenticate();
@@ -84,7 +91,7 @@ class ThePage extends React.Component {
   }
 
   notAuthorizedCallback = () => {
-    if (this.props.authMode === 'local') {
+    if (this.state.authMode === 'local') {
       this.setState({ dialogIsOpen: true });
     } else {
       alert('Please sign in to access this page'); // eslint-disable-line no-alert
@@ -124,15 +131,10 @@ class ThePage extends React.Component {
   }
 }
 
-
-ThePage.propTypes = {
-  authMode: PropTypes.string.isRequired,
-};
-
 ReactDOM.render(
   <MuiThemeProvider>
     <HashRouter>
-      <ThePage authMode="github" />
+      <ThePage />
     </HashRouter>
   </MuiThemeProvider>,
   document.getElementById('root'),
