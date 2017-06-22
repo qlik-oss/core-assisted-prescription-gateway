@@ -24,7 +24,6 @@ export default class Login extends React.Component {
     this.setState({ password: e.target.value });
   }
 
-  // export default function Login({ open, onCancel, onLogin }) {
   render() {
     const actions = [
       <FlatButton
@@ -47,18 +46,12 @@ export default class Login extends React.Component {
         open={this.props.open}
         contentStyle={customContentStyle}
       >
-        <form
-          action="/"
-          method="POST"
-          onSubmit={this.props.onLogin}
-        >
-          <TextField name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
-          <br />
-          <TextField name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} />
-          <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
-            {actions}
-          </div>
-        </form>
+        <TextField name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
+        <br />
+        <TextField name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} />
+        <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
+          {actions}
+        </div>
       </Dialog>
     );
   }
