@@ -56,7 +56,7 @@ Main.propTypes = {
 };
 
 Main.defaultProps = {
-  notAuthorizedCallback: () => {},
+  notAuthorizedCallback: () => { },
 };
 
 class ThePage extends React.Component {
@@ -71,6 +71,34 @@ class ThePage extends React.Component {
     });
   }
 
+  signinClicked = () => {
+    if (this.props.authMode === 'local') {
+      this.setState({ dialogIsOpen: true });
+    } else {
+      auth.authenticate();
+    }
+  }
+
+  signoutClicked = () => {
+    auth.signout(() => { this.setState({ isAuthenticated: false }); });
+  }
+
+  notAuthorizedCallback = () => {
+    if (this.props.authMode === 'local') {
+      this.setState({ dialogIsOpen: true });
+    } else {
+      alert('Please sign in to access this page'); // eslint-disable-line no-alert
+    }
+  }
+
+  cancelLoginClicked = () => {
+    this.setState({ dialogIsOpen: false });
+  }
+
+  loginClicked = () => {
+    auth.authenticate();
+  }
+
   render() {
     if (this.state.isAuthenticated === null) {
       return null;
@@ -79,27 +107,32 @@ class ThePage extends React.Component {
       <div>
         <Navbar
           isAuthenticated={this.state.isAuthenticated}
-          signinClicked={e => this.setState({ dialogIsOpen: true })}
-          signoutClicked={e => auth.signout(() => { this.setState({ isAuthenticated: false }); })}
+          signinClicked={this.signinClicked}
+          signoutClicked={this.signoutClicked}
         />
         <Main
           isAuthenticated={this.state.isAuthenticated}
-          notAuthorizedCallback={() => { this.setState({ dialogIsOpen: true }); }}
+          notAuthorizedCallback={this.notAuthorizedCallback}
         />
         <Login
           open={this.state.dialogIsOpen}
-          onCancel={e => this.setState({ dialogIsOpen: false })}
-          onLogin={e => auth.authenticate(() => { this.setState({ dialogIsOpen: false }); })}
+          onCancel={this.cancelLoginClicked}
+          onLogin={this.loginClicked}
         />
       </div>
     );
   }
 }
 
+
+ThePage.propTypes = {
+  authMode: PropTypes.string.isRequired,
+};
+
 ReactDOM.render(
   <MuiThemeProvider>
     <HashRouter>
-      <ThePage />
+      <ThePage authMode="github" />
     </HashRouter>
   </MuiThemeProvider>,
   document.getElementById('root'),
