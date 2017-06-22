@@ -28,7 +28,9 @@ const auth = {
   }).then(response => response.json())
     .then(result => result),
   idp:
-  fetch('/idp').then(response => response),
+  fetch('/idp')
+   .then(response => response.text())
+    .then(result => result),
   authenticate(cb) {
     window.location.href = '/login/github';
     cb();
@@ -81,7 +83,7 @@ class ThePage extends React.Component {
   signinClicked = () => {
     if (this.state.authMode === 'local') {
       this.setState({ dialogIsOpen: true });
-    } else {
+    } else if (this.state.authMode === 'github') {
       auth.authenticate();
     }
   }
@@ -93,7 +95,7 @@ class ThePage extends React.Component {
   notAuthorizedCallback = () => {
     if (this.state.authMode === 'local') {
       this.setState({ dialogIsOpen: true });
-    } else {
+    } else if (this.state.authMode === 'github') {
       alert('Please sign in to access this page'); // eslint-disable-line no-alert
     }
   }
