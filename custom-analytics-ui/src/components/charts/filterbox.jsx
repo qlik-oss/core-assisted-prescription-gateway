@@ -70,7 +70,7 @@ class Filterbox extends Chart {
 
     return (
       <div className="card-panel">
-        <h5>{this.props.field}</h5>
+        <h5>{this.props.title}</h5>
         <ul className="filterbox">
           {items}
         </ul>
@@ -81,6 +81,7 @@ class Filterbox extends Chart {
 
 Filterbox.propTypes = {
   field: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default Filterbox;
