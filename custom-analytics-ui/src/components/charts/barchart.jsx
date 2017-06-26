@@ -1,4 +1,5 @@
 import merge from 'deep-extend';
+import PropTypes from 'prop-types';
 import Picasso from './picasso';
 
 class Barchart extends Picasso {
@@ -33,6 +34,7 @@ class Barchart extends Picasso {
       },
       components: [{
         type: 'box-marker',
+        displayOrder: '1',
         data: {
           mapTo: {
             start: 0,
@@ -53,9 +55,12 @@ class Barchart extends Picasso {
             scale: 'y',
           },
           box: {
-            stroke: '#fff',
-            width: 1, // This is a multiplier for the width
-            fill: '#008080', // fill of the box
+            fill: 'steelblue',
+            strokeWidth: 1,
+            stroke: 'rgba(255, 255, 255, 0.8)',
+            width: 1,
+            maxWidth: 10000,
+            minWidth: 1
           },
         },
         brush: {
@@ -86,7 +91,7 @@ class Barchart extends Picasso {
           labels: {
             tilted: true,
             tiltAngle: -30,
-            fontSize: '12px',
+            fontSize: '10px',
           },
         },
       }, {
@@ -97,6 +102,16 @@ class Barchart extends Picasso {
         type: 'text',
         text: 'layout.qHyperCube.qDimensionInfo[0].qLabel',
         dock: 'bottom',
+      },
+      {
+        type: 'text',
+        text: this.props.title,
+        dock: 'top',
+        anchor: 'left',
+      },
+      {
+        type: 'grid-line',
+        y: { scale: 'y' },
       }],
     };
 
@@ -104,5 +119,13 @@ class Barchart extends Picasso {
     merge(this.state.settings, this.props.overrides.settings);
   }
 }
+
+Barchart.propTypes = {
+  title: PropTypes.string,
+};
+
+Barchart.defaultProps = {
+  title: '',
+};
 
 export default Barchart;
