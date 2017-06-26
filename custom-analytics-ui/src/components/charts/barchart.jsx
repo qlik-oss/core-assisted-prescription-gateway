@@ -1,4 +1,5 @@
 import merge from 'deep-extend';
+import PropTypes from 'prop-types';
 import Picasso from './picasso';
 
 class Barchart extends Picasso {
@@ -103,6 +104,12 @@ class Barchart extends Picasso {
         dock: 'bottom',
       },
       {
+        type: 'text',
+        text: this.props.title,
+        dock: 'top',
+        anchor: 'left',
+      },
+      {
         type: 'grid-line',
         y: { scale: 'y' },
       }],
@@ -112,5 +119,13 @@ class Barchart extends Picasso {
     merge(this.state.settings, this.props.overrides.settings);
   }
 }
+
+Barchart.propTypes = {
+  title: PropTypes.string,
+};
+
+Barchart.defaultProps = {
+  title: '',
+};
 
 export default Barchart;
