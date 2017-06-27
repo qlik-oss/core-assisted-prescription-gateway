@@ -1,6 +1,10 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# Top-most EditorConfig file
 root = true
 
-[*.*]
+# Source files
+[*]
 charset = utf-8
 indent_style = space
 indent_size = 2
