@@ -2,5 +2,6 @@
 *   text eol=lf
 
 # Need to treat some files as binary.
-*.woff  binary
 *.otf   binary
+*.tgz   binary
+*.woff  binary
