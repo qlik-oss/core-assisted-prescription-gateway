@@ -31,6 +31,7 @@ const reactions = {
     },
   },
   settings: {},
+  title: 'Patient Medical Reactions',
 };
 
 const therapy = {
@@ -147,7 +148,7 @@ export default class App extends React.Component {
           <div className="col s8">
             <div id="charts" className="section scrollspy">
               <Card id="reactions" title="Reactions">
-                <Barchart app={this.state.app} overrides={reactions} />
+                <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
               </Card>
               <Card id="therapy" title="Therapy">
                 <Barchart app={this.state.app} overrides={therapy} />
