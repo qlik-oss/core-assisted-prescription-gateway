@@ -7,6 +7,8 @@ class Filterbox extends Chart {
   constructor(...args) {
     super(...args);
 
+    this.state.isOpen = false;
+
     this.state.definition = {
       qInfo: {
         qType: 'react-filterbox',
@@ -36,6 +38,16 @@ class Filterbox extends Chart {
 
   toggleValue(item) {
     this.state.model.selectListObjectValues('/qListObjectDef', [item.qElemNumber], true);
+  }
+
+  handleMouseDown = (event) => {
+    if (event.type === 'mousedown' && event.button !== 0) return;
+    event.stopPropagation();
+    event.preventDefault();
+
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
   }
 
   render() {
@@ -69,11 +81,17 @@ class Filterbox extends Chart {
     });
 
     return (
-      <div className="card-panel">
-        <h5>{this.props.title}</h5>
-        <ul className="filterbox">
-          {items}
-        </ul>
+      <div className="card-item">
+        <div className="filterbox-root">
+          <div className="filterbox-control" onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>
+            <div>
+              {this.props.title}
+            </div>
+            <span className="filterbox-arrow" />
+          </div>
+          {this.state.isOpen ? <ul className="filterbox filterbox-menu">{items}</ul> : null}
+        </div>
+        <div className="divider" />
       </div>
     );
   }
