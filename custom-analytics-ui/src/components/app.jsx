@@ -133,9 +133,15 @@ export default class App extends React.Component {
             <div className="section">
               <div className="card-panel">
                 <h5>Filters</h5>
-                <Filterbox app={this.state.app} field="Country" />
                 <div className="divider" />
                 <h6>Demographics</h6>
+                <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
+                <Filterbox app={this.state.app} field="Gender" title="Gender" />
+                <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
+                <Filterbox app={this.state.app} field="Country" title="Location" />
+                <div className="divider" />
+                <h6>Drugs</h6>
+                <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
               </div>
             </div>
           </div>
