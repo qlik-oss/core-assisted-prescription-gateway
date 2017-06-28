@@ -3,7 +3,19 @@ import enigma from 'enigma.js';
 import Filterbox from './charts/filterbox';
 import Barchart from './charts/barchart';
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import MenuItem from 'material-ui/MenuItem';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/more-vert';
+
+import FontIcon from 'material-ui/FontIcon';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import Drawer from 'material-ui/Drawer';
+import { List, ListItem } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Subheader from 'material-ui/Subheader';
+
 
 import SessionFailed from './sessionFailed';
 import config from '../enigma-config';
@@ -114,13 +126,15 @@ export default class App extends React.Component {
   }
 
   clearSelections = () => {
-    if (this.state.app){
+    if (this.state.app) {
       this.state.app.clearAll();
     }
   }
 
   render() {
     if (this.state.error) {
+      console.error(this.state.error);
+
       return (
         <div className="main blue lighten-3">
           <div className="row">
@@ -136,48 +150,59 @@ export default class App extends React.Component {
     }
 
     return (
+
       <div className="main blue lighten-3">
+
         <div className="row">
           <div className="col s3">
-            <div className="section">
-              <div className="card-panel">
-                <div className="card-header">
-                  <div>Filters</div>
-                  <i className="material-icons right" onClick={this.clearSelections}>cancel</i>
-                </div>
-                <div className="card-content">
-                  <h6>Demographics</h6>
-                  <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
-                  <Filterbox app={this.state.app} field="Gender" title="Gender" />
-                  <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
-                  <Filterbox app={this.state.app} field="Country" title="Location" />
-                <div className="divider black" />
-                  <h6>Drugs</h6>
-                  <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
-                </div>
-              </div>
-            </div>
+            <Card style={{ margin: '20px' }}>
+              <Toolbar>
+                <ToolbarGroup>
+                  <ToolbarTitle text="Filters" />
+                </ToolbarGroup>
+                <ToolbarGroup>
+                  <IconMenu
+                    iconButtonElement={
+                      <IconButton touch>
+                        <NavigationExpandMoreIcon />
+                      </IconButton>
+                    }
+                  >
+                    <MenuItem primaryText="Clear All Selections" onTouchTap={this.clearSelections} />
+                  </IconMenu>
+                </ToolbarGroup>
+              </Toolbar>
+              <List>
+                <Subheader>Demographics</Subheader>
+                <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
+                <Filterbox app={this.state.app} field="Gender" title="Gender" />
+                <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
+                <Filterbox app={this.state.app} field="Country" title="Location" />
+                <Divider />
+                <Subheader>Drugs</Subheader>
+                <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
+              </List>
+            </Card>
           </div>
           <div className="col s8">
 
 
-
             <div id="charts" className="section scrollspy">
-              <Card style={{marginBottom: '20px'}}>
+              <Card style={{ margin: '20px' }}>
                 <CardTitle title="Reactions" />
                 <CardMedia>
-                  <Barchart app={this.state.app} overrides={reactions}/>
+                  <Barchart app={this.state.app} overrides={reactions} />
                 </CardMedia>
               </Card>
 
-              <Card style={{marginBottom: '20px'}}>
+              <Card style={{ margin: '20px' }}>
                 <CardTitle title="Therapy" />
                 <CardMedia>
                   <Barchart app={this.state.app} overrides={therapy} />
                 </CardMedia>
               </Card>
 
-              <Card style={{marginBottom: '20px'}}>
+              <Card style={{ margin: '20px' }}>
                 <CardTitle title="Risk" />
                 <CardMedia>
                   <Barchart app={this.state.app} overrides={risk} />

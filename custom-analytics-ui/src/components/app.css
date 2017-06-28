@@ -28,13 +28,7 @@ main {
 .row .col {
     float: left;
     box-sizing: border-box;
-    padding: 0 0.75rem;
     min-height: 1px;
-}
-
-.section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .card-panel {

@@ -66,7 +66,7 @@ Main.defaultProps = {
   notAuthorizedCallback: () => { },
 };
 
-const AppBarButtonStyle={color: 'white'};
+const AppBarButtonStyle = { color: 'white' };
 
 class ThePage extends React.Component {
 
@@ -127,19 +127,20 @@ class ThePage extends React.Component {
     return (
       <div>
         <AppBar
-          title={<span className='pointer'>Qliktive - Assisted Prescription</span>}
-          onTitleTouchTap={ this.navigateToLandingPage }
+          title={<span className="pointer">Qliktive - Assisted Prescription</span>}
+          onTitleTouchTap={this.navigateToLandingPage}
           iconElementRight={
             <div style={
-              { marginTop: '8px',
-                marginRight: '0px',
-                marginLeft: 'auto'}}>
+            { marginTop: '8px',
+              marginRight: '0px',
+              marginLeft: 'auto' }}
+            >
               <FlatButton label="App" labelStyle={AppBarButtonStyle} onClick={this.navigateToAppPage} />
               {
                 this.state.isAuthenticated ?
                 (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
                 :
-                (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked}/>)
+                (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked} />)
               }
             </div>
           }

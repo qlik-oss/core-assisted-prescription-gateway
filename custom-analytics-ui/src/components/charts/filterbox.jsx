@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import Chart from './chart';
 import './filterbox.css';
 
+import DropDownMenu from 'material-ui/DropDownMenu';
+import { List, ListItem } from 'material-ui/List';
+
 class Filterbox extends Chart {
   constructor(...args) {
     super(...args);
@@ -70,29 +73,49 @@ class Filterbox extends Chart {
       );
     }
 
+    const sStyle = {
+      background: 'green',
+      color: 'white',
+    };
+
+    const xStyle = {
+      background: 'gray',
+      color: 'lightgray',
+    };
+
+    // Needed to be able to override default element styles that got higher importance than classes
+    function getStyle(item) {
+      let style = {};
+
+      if (item.qState === 'S') {
+        style = sStyle;
+      } else if (item.qState === 'X') {
+        style = xStyle;
+      }
+
+      return style;
+    }
+
+
     const items = this.state.layout.qListObject.qDataPages[0].qMatrix.map((matrixItem) => {
       const item = matrixItem[0];
       const classes = `item state-${item.qState}`;
       return (
-        <li key={item.qElemNumber}>
-          <a className={classes} onClick={() => this.toggleValue(item)}>{item.qText}</a>
-        </li>
+        <ListItem
+          key={item.qElemNumber}
+          className={classes}
+          style={getStyle(item)}
+          primaryText={item.qText}
+          onClick={() => this.toggleValue(item)}
+        />
       );
     });
 
     return (
-      <div className="card-item">
-        <div className="filterbox-root">
-          <div className="filterbox-control" onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>
-            <div>
-              {this.props.title}
-            </div>
-            <span className="filterbox-arrow" />
-          </div>
-          {this.state.isOpen ? <ul className="filterbox filterbox-menu">{items}</ul> : null}
-        </div>
-        <div className="divider" />
-      </div>
+      <ListItem
+        primaryText={this.props.title}
+        nestedItems={items}
+      />
     );
   }
 }
@@ -103,3 +126,15 @@ Filterbox.propTypes = {
 };
 
 export default Filterbox;
+
+
+{ /* <div className="filterbox-root">*/ }
+{ /* <div className="filterbox-control" onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>*/ }
+{ /* <div>*/ }
+{ /* {this.props.title}*/ }
+{ /* </div>*/ }
+{ /* <span className="filterbox-arrow" />*/ }
+{ /* </div>*/ }
+{ /* {this.state.isOpen ? <ul className="filterbox filterbox-menu">{items}</ul> : null}*/ }
+{ /* </div>*/ }
+{ /* <div className="divider" />*/ }

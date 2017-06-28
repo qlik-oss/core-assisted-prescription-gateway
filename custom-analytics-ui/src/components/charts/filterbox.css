@@ -15,10 +15,16 @@
   background: lightgrey;
 }
 
-.filterbox .state-S {
-  color: white;
-  background: green;
+span.state-S {
+   color: white;
+   background: green;
+ }
+
+span.state-X {
+  background: gray;
+  color: lightgray;
 }
+
 
 .filterbox-root {
   position: relative;
