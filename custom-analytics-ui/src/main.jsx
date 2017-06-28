@@ -66,6 +66,8 @@ Main.defaultProps = {
   notAuthorizedCallback: () => { },
 };
 
+const AppBarButtonStyle={color: 'white'};
+
 class ThePage extends React.Component {
 
   constructor(...args) {
@@ -118,8 +120,6 @@ class ThePage extends React.Component {
     window.location = '#/app';
   }
 
-
-
   render() {
     if (this.state.isAuthenticated === null) {
       return null;
@@ -131,12 +131,16 @@ class ThePage extends React.Component {
           onTitleTouchTap={ this.navigateToLandingPage }
           iconElementRight={
             <div style={
-              { 'marginTop': '8px',
-                'marginRight': '0px',
-                'marginLeft': 'auto'}}>
-              <FlatButton label="App" labelStyle={{'color': 'white'}} onClick={this.navigateToAppPage} />
-              {this.state.isAuthenticated ?
-                (<FlatButton label="Sign Out" labelStyle={{'color': 'white'}} onClick={this.signoutClicked} />) : (<FlatButton label="Sign In" labelStyle={{'color': 'white'}} onClick={this.signinClicked}/>)}
+              { marginTop: '8px',
+                marginRight: '0px',
+                marginLeft: 'auto'}}>
+              <FlatButton label="App" labelStyle={AppBarButtonStyle} onClick={this.navigateToAppPage} />
+              {
+                this.state.isAuthenticated ?
+                (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
+                :
+                (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked}/>)
+              }
             </div>
           }
 

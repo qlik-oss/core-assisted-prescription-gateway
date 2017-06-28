@@ -2,7 +2,9 @@ import React from 'react';
 import enigma from 'enigma.js';
 import Filterbox from './charts/filterbox';
 import Barchart from './charts/barchart';
-import Card from './card';
+
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+
 import SessionFailed from './sessionFailed';
 import config from '../enigma-config';
 import './app.css';
@@ -157,16 +159,31 @@ export default class App extends React.Component {
             </div>
           </div>
           <div className="col s8">
+
+
+
             <div id="charts" className="section scrollspy">
-              <Card id="reactions" title="Reactions">
-                <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
+              <Card style={{marginBottom: '20px'}}>
+                <CardTitle title="Reactions" />
+                <CardMedia>
+                  <Barchart app={this.state.app} overrides={reactions}/>
+                </CardMedia>
               </Card>
-              <Card id="therapy" title="Therapy">
-                <Barchart app={this.state.app} overrides={therapy} />
+
+              <Card style={{marginBottom: '20px'}}>
+                <CardTitle title="Therapy" />
+                <CardMedia>
+                  <Barchart app={this.state.app} overrides={therapy} />
+                </CardMedia>
               </Card>
-              <Card id="risk" title="Risk">
-                <Barchart app={this.state.app} overrides={risk} />
+
+              <Card style={{marginBottom: '20px'}}>
+                <CardTitle title="Risk" />
+                <CardMedia>
+                  <Barchart app={this.state.app} overrides={risk} />
+                </CardMedia>
               </Card>
+
             </div>
           </div>
         </div>
