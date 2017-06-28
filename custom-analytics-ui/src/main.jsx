@@ -113,7 +113,7 @@ class ThePage extends React.Component {
       return null;
     }
     return (
-      <div>
+      <div id="the-page">
         <Navbar
           isAuthenticated={this.state.isAuthenticated}
           signinClicked={this.signinClicked}
