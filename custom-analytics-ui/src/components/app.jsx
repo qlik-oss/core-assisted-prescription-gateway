@@ -260,7 +260,7 @@ export default class App extends React.Component {
             <div id="charts" className="section scrollspy">
               <Card id="reactions" title="Reactions">
                 <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
-                <Barchart app={this.state.app} overrides={outcome} title={outcome.title} />
+                <Barchart app={this.state.app} overrides={outcome} title={outcome.title} orientation={'horizontal'} />
               </Card>
               <Card id="therapy" title="Therapy">
                 <Barchart app={this.state.app} overrides={therapy} title={therapy.title} />

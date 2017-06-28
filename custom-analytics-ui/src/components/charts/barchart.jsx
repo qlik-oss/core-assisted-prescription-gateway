@@ -48,6 +48,7 @@ class Barchart extends Picasso {
           },
         },
         settings: {
+          orientation: this.props.orientation || 'vertical',
           major: {
             scale: 'x',
           },
