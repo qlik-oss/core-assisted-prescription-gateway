@@ -195,7 +195,7 @@ const deaths = {
   extraComponents: [{
     type: 'text',
     dock: 'left',
-    text: 'Deathy by primary suspect',
+    text: 'Death by primary suspect',
   }],
 };
 
