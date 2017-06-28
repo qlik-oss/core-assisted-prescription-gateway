@@ -60,7 +60,7 @@ class Barchart extends Picasso {
             stroke: 'rgba(255, 255, 255, 0.8)',
             width: 1,
             maxWidth: 10000,
-            minWidth: 1
+            minWidth: 1,
           },
         },
         brush: {

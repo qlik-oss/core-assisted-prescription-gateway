@@ -34,13 +34,13 @@ const reactions = {
   title: 'Patient Medical Reactions',
 };
 
-const therapy = {
+const outcome = {
   definition: {
     qHyperCubeDef: {
       qDimensions: [{
         qDef: {
-          qFieldDefs: ['Manufacturer Code Name'],
-          qLabel: 'Manufacturer Name',
+          qFieldDefs: ['Patient Event Outcome'],
+          qLabel: 'Patient Event Outcome',
           qSortCriterias: [{
             qSortByAscii: 1,
           }],
@@ -58,6 +58,61 @@ const therapy = {
     },
   },
   settings: {},
+  title: '# Patient Cases',
+};
+
+const therapy = {
+  definition: {
+    qHyperCubeDef: {
+      qDimensions: [{
+        qDef: {
+          qFieldDefs: ['Medical Description Drug Use'],
+          qLabel: 'Medical Description Drug Use',
+          qSortCriterias: [{
+            qSortByAscii: 1,
+          }],
+        },
+      }],
+      qMeasures: [{
+        qDef: {
+          qDef: 'Count(Demographic_Caseid)',
+          qLabel: '# Patient Cases',
+        },
+        qSortBy: {
+          qSortByNumeric: -1,
+        },
+      }],
+    },
+  },
+  settings: {},
+  title: 'Patient Illness',
+};
+
+const stop = {
+  definition: {
+    qHyperCubeDef: {
+      qDimensions: [{
+        qDef: {
+          qFieldDefs: ['Reaction Therapy Stop'],
+          qLabel: 'Reaction Therapy Stop',
+          qSortCriterias: [{
+            qSortByAscii: 1,
+          }],
+        },
+      }],
+      qMeasures: [{
+        qDef: {
+          qDef: 'Count(Demographic_Caseid)',
+          qLabel: '# Patient Cases',
+        },
+        qSortBy: {
+          qSortByNumeric: -1,
+        },
+      }],
+    },
+  },
+  settings: {},
+  title: 'Reactions Therapy Stop',
 };
 
 const risk = {
@@ -84,6 +139,34 @@ const risk = {
     },
   },
   settings: {},
+  title: '# Drug Cases by Manufacturer',
+};
+
+const deaths = {
+  definition: {
+    qHyperCubeDef: {
+      qDimensions: [{
+        qDef: {
+          qFieldDefs: ['Patient Age Group'],
+          qLabel: 'Patient Age Group',
+          qSortCriterias: [{
+            qSortByAscii: -1,
+          }],
+        },
+      }],
+      qMeasures: [{
+        qDef: {
+          qDef: 'Count({<[Drug Role Event] = {\'Primary Suspect Drug\'},[Medical Description Reaction] = {\'Death\'} >}Demographic_Caseid)',
+          qLabel: '# Death by primary suspect',
+        },
+        qSortBy: {
+          qSortByNumeric: -1,
+        },
+      }],
+    },
+  },
+  settings: {},
+  title: '# Deaths',
 };
 
 export default class App extends React.Component {
@@ -149,12 +232,15 @@ export default class App extends React.Component {
             <div id="charts" className="section scrollspy">
               <Card id="reactions" title="Reactions">
                 <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
+                <Barchart app={this.state.app} overrides={outcome} title={outcome.title} />
               </Card>
               <Card id="therapy" title="Therapy">
-                <Barchart app={this.state.app} overrides={therapy} />
+                <Barchart app={this.state.app} overrides={therapy} title={therapy.title} />
+                <Barchart app={this.state.app} overrides={stop} title={stop.title} />
               </Card>
               <Card id="risk" title="Risk">
-                <Barchart app={this.state.app} overrides={risk} />
+                <Barchart app={this.state.app} overrides={risk} title={risk.title} />
+                <Barchart app={this.state.app} overrides={deaths} title={deaths.title} />
               </Card>
             </div>
           </div>
