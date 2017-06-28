@@ -32,6 +32,12 @@ const reactions = {
   },
   settings: {},
   title: 'Patient Medical Reactions',
+  extraComponents: [],
+  /*extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: 'sidotex2222t2',
+  }],*/
 };
 
 const therapy = {
