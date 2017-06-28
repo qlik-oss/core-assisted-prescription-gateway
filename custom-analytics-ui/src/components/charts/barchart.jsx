@@ -94,14 +94,6 @@ class Barchart extends Picasso {
             fontSize: '10px',
           },
         },
-      }, {
-        type: 'text',
-        dock: 'left',
-        text: 'layout.qHyperCube.qMeasureInfo[0].qFallbackTitle',
-      }, {
-        type: 'text',
-        text: 'layout.qHyperCube.qDimensionInfo[0].qLabel',
-        dock: 'bottom',
       },
       {
         type: 'text',
@@ -115,6 +107,11 @@ class Barchart extends Picasso {
       }],
     };
 
+    // The merge function replaces and does not concatenate arrays.
+    // Therefore we add the components from the extraComponents array
+    // to the components array first before merging
+    this.state.settings.components =
+      this.state.settings.components.concat(this.props.overrides.extraComponents);
     merge(this.state.definition, this.props.overrides.definition);
     merge(this.state.settings, this.props.overrides.settings);
   }
