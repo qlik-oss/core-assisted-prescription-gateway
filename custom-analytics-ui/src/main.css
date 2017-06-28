@@ -5,4 +5,15 @@ body {
   font-size: 15px;
   margin: 0;
   line-height: 1.5;
+  overflow: hidden;
 }
+
+#root {
+  height: 100%;
+}
+
+#the-page {
+  height: 100%;
+}
+
+
