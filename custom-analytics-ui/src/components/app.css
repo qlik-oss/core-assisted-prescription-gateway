@@ -39,7 +39,6 @@ main {
 
 .card-panel {
   transition: box-shadow .25s;
-  padding: 20px;
   margin: 0.5rem 0 1rem 0;
   border-radius: 2px;
   background-color: #fff;
@@ -50,6 +49,32 @@ main {
   font-size: 1.64rem;
   margin: 0.82rem 0 0.656rem 0;
 }
+
+.card-header {
+  display: inline-block;
+  width: 100%;
+
+  border-bottom: 1px solid lightgray;
+}
+
+.card-header *{
+  font-size: 1.64rem;
+  display: block;
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.card-header i{
+  cursor: pointer;
+}
+
+.card-content {
+  padding: 0 20px 20px 20px;
+}
+
 
 .card-panel h6 {
   font-size: 1rem;

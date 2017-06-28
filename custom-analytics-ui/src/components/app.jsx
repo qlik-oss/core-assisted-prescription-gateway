@@ -111,6 +111,13 @@ export default class App extends React.Component {
       .catch(error => this.setState({ error }));
   }
 
+  clearSelections = () => {
+    if (this.state.app){
+      var appstate = this.state.app;
+      this.state.app.clearAll();
+    }
+  }
+
   render() {
     if (this.state.error) {
       return (
@@ -126,22 +133,29 @@ export default class App extends React.Component {
     if (!this.state.app) {
       return null;
     }
+
+    console.log(this.state);
+
     return (
       <div className="main blue lighten-3">
         <div className="row">
           <div className="col s3">
             <div className="section">
               <div className="card-panel">
-                <h5>Filters</h5>
-                <div className="divider" />
-                <h6>Demographics</h6>
-                <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
-                <Filterbox app={this.state.app} field="Gender" title="Gender" />
-                <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
-                <Filterbox app={this.state.app} field="Country" title="Location" />
-                <div className="divider" />
-                <h6>Drugs</h6>
-                <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
+                <div className="card-header">
+                  <div>Filters</div>
+                  <i className="material-icons right" onClick={this.clearSelections}>cancel</i>
+                </div>
+                <div className="card-content">
+                  <h6>Demographics</h6>
+                  <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
+                  <Filterbox app={this.state.app} field="Gender" title="Gender" />
+                  <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
+                  <Filterbox app={this.state.app} field="Country" title="Location" />
+                  <div className="divider" />
+                  <h6>Drugs</h6>
+                  <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
+                </div>
               </div>
             </div>
           </div>
