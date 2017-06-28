@@ -67,7 +67,7 @@ const outcome = {
   title: '# Patient Cases',
   extraComponents: [{
     type: 'text',
-    dock: 'left',
+    dock: 'bottom',
     text: '# Patient Cases',
   }],
 };
