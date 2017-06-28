@@ -113,7 +113,6 @@ export default class App extends React.Component {
 
   clearSelections = () => {
     if (this.state.app){
-      var appstate = this.state.app;
       this.state.app.clearAll();
     }
   }
@@ -134,8 +133,6 @@ export default class App extends React.Component {
       return null;
     }
 
-    console.log(this.state);
-
     return (
       <div className="main blue lighten-3">
         <div className="row">
@@ -152,7 +149,7 @@ export default class App extends React.Component {
                   <Filterbox app={this.state.app} field="Gender" title="Gender" />
                   <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
                   <Filterbox app={this.state.app} field="Country" title="Location" />
-                  <div className="divider" />
+                <div className="divider black" />
                   <h6>Drugs</h6>
                   <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
                 </div>
