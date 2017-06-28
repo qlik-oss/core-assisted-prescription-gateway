@@ -39,3 +39,12 @@ body {
   margin: 0;
   line-height: 1.5;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.white {
+  color: white;
+}
+
