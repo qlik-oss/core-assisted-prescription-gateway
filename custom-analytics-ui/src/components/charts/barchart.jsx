@@ -29,7 +29,7 @@ class Barchart extends Picasso {
         y: {
           source: '/qHyperCube/qMeasureInfo/0',
           expand: 0.05,
-          invert: !this.props.orientation,
+          invert: !(this.props.orientation === 'horizontal'),
         },
       },
       components: [{
@@ -83,12 +83,12 @@ class Barchart extends Picasso {
       }, {
         type: 'axis',
         scale: 'y',
-        dock: this.props.orientation ? 'bottom' : 'left',
+        dock: this.props.orientation === 'horizontal' ? 'bottom' : 'left',
       }, {
         type: 'axis',
         scale: 'x',
         settings: {
-          dock: this.props.orientation ? 'left' : 'bottom',
+          dock: this.props.orientation === 'horizontal' ? 'left' : 'bottom',
           labels: {
             tilted: true,
             tiltAngle: -30,
