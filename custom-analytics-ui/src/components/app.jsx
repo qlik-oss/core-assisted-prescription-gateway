@@ -32,12 +32,11 @@ const reactions = {
   },
   settings: {},
   title: 'Patient Medical Reactions',
-  extraComponents: [],
-  /*extraComponents: [{
+  extraComponents: [{
     type: 'text',
     dock: 'left',
-    text: 'sidotex2222t2',
-  }],*/
+    text: '# Patient Cases',
+  }],
 };
 
 const outcome = {
@@ -65,6 +64,11 @@ const outcome = {
   },
   settings: {},
   title: '# Patient Cases',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Patient Cases',
+  }],
 };
 
 const therapy = {
@@ -92,6 +96,11 @@ const therapy = {
   },
   settings: {},
   title: 'Patient Illness',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Patient Cases',
+  }],
 };
 
 const stop = {
@@ -119,6 +128,11 @@ const stop = {
   },
   settings: {},
   title: 'Reactions Therapy Stop',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Patient Cases',
+  }],
 };
 
 const risk = {
@@ -146,6 +160,11 @@ const risk = {
   },
   settings: {},
   title: '# Drug Cases by Manufacturer',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Drug Cases',
+  }],
 };
 
 const deaths = {
@@ -173,6 +192,11 @@ const deaths = {
   },
   settings: {},
   title: '# Deaths',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: 'Deathy by primary suspect',
+  }],
 };
 
 export default class App extends React.Component {
