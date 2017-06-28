@@ -58,7 +58,7 @@ main {
   border-bottom: 1px solid lightgray;
 }
 
-.card-header *{
+.card-header div, .card-header i{
   font-size: 1.64rem;
   display: block;
   float: left;
