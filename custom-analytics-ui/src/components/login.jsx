@@ -23,6 +23,12 @@ export default class Login extends React.Component {
     this.setState({ password: e.target.value });
   }
 
+  loginOnEnter(e) {
+    if(e.keyCode === 13){
+      this.props.onLogin(this.state.username, this.state.password);
+    }
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -47,7 +53,7 @@ export default class Login extends React.Component {
       >
         <TextField name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
         <br />
-        <TextField name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} />
+        <TextField name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
         <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
           {actions}
         </div>
