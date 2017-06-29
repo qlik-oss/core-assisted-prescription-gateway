@@ -15,9 +15,14 @@
   background: lightgrey;
 }
 
-.filterbox .state-S {
-  color: white;
-  background: green;
+span.state-S {
+  background: #52cc52;
+  color: #ffffff;
+ }
+
+span.state-X {
+  background: #a9a9a9;
+  color: #000000;
 }
 
 .filterbox-root {

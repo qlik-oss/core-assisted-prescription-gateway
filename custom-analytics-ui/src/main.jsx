@@ -8,6 +8,8 @@ import hammerjs from 'hammerjs'; /* eslint no-unused-vars:0 */
 import picassoHammer from '@qlik/picasso/plugins/hammer/dist/picasso-hammer';
 import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 
+import FlatButton from 'material-ui/FlatButton';
+import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
@@ -64,6 +66,8 @@ Main.defaultProps = {
   notAuthorizedCallback: () => { },
 };
 
+const AppBarButtonStyle = { color: 'white' };
+
 class ThePage extends React.Component {
 
   constructor(...args) {
@@ -108,16 +112,40 @@ class ThePage extends React.Component {
     auth.localAuthenticate(username, password);
   }
 
+  navigateToLandingPage = () => {
+    window.location.replace('#/');
+
+  }
+
+  navigateToAppPage = () => {
+    window.location.replace('#/app');
+  }
+
   render() {
     if (this.state.isAuthenticated === null) {
       return null;
     }
     return (
-      <div id="the-page">
-        <Navbar
-          isAuthenticated={this.state.isAuthenticated}
-          signinClicked={this.signinClicked}
-          signoutClicked={this.signoutClicked}
+      <div>
+        <AppBar
+          style={{ backgroundColor: '#0071bc' }}
+          title={<span className="pointer">Qliktive - Assisted Prescription</span>}
+          onTitleTouchTap={this.navigateToLandingPage}
+          iconElementRight={
+            <div style={
+            { marginTop: '8px',
+              marginRight: '0px',
+              marginLeft: 'auto' }}
+            >
+              <FlatButton label="App" labelStyle={AppBarButtonStyle} onClick={this.navigateToAppPage} />
+              {
+                this.state.isAuthenticated ?
+                (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
+                :
+                (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked} />)
+              }
+            </div>
+          }
         />
         <Main
           isAuthenticated={this.state.isAuthenticated}
