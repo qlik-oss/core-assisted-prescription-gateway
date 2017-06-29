@@ -38,6 +38,7 @@ body {
   font-size: 15px;
   margin: 0;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .pointer {
@@ -48,3 +49,8 @@ body {
   color: white;
 }
 
+#root {
+  height: 100%;
+}
+
+#root > [data-reactroot] { height: 100% }
