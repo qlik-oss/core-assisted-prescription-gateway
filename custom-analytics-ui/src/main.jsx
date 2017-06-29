@@ -11,7 +11,6 @@ import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Navbar from './components/navbar';
 import LandingPage from './components/landingPage';
 import App from './components/app';
 import Login from './components/login';
