@@ -127,7 +127,7 @@ class ThePage extends React.Component {
     return (
       <div>
         <AppBar
-          style={{backgroundColor: "#0071bc"}}
+          style={{ backgroundColor: '#0071bc' }}
           title={<span className="pointer">Qliktive - Assisted Prescription</span>}
           onTitleTouchTap={this.navigateToLandingPage}
           iconElementRight={

@@ -1,22 +1,18 @@
 import React from 'react';
 import enigma from 'enigma.js';
-import Filterbox from './charts/filterbox';
-import Barchart from './charts/barchart';
-
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import FontIcon from 'material-ui/FontIcon';
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import Drawer from 'material-ui/Drawer';
-import { List, ListItem } from 'material-ui/List';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
+import { Card, CardMedia, CardTitle } from 'material-ui/Card';
+import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 
-
+import Filterbox from './charts/filterbox';
+import Barchart from './charts/barchart';
 import SessionFailed from './sessionFailed';
 import config from '../enigma-config';
 import './app.css';
@@ -133,8 +129,6 @@ export default class App extends React.Component {
 
   render() {
     if (this.state.error) {
-      console.error(this.state.error);
-
       return (
         <div className="main app-background lighten-3">
           <div className="row">
@@ -156,17 +150,19 @@ export default class App extends React.Component {
         <div className="row">
           <div className="col s3">
             <Card style={{ margin: '20px' }}>
-              <Toolbar style={{backgroundColor: '#fafafa'}}>
+              <Toolbar style={{ backgroundColor: '#fafafa' }}>
                 <ToolbarGroup >
                   <ToolbarTitle text="Filters" />
                 </ToolbarGroup>
                 <ToolbarGroup>
-                  <IconMenu style={{marginRight: '-16px'}}
+                  <IconMenu
+                    style={{ marginRight: '-16px' }}
                     iconButtonElement={
                       <IconButton touch>
                         <NavigationExpandMoreIcon />
                       </IconButton>
-                    }>
+                    }
+                  >
                     <MenuItem primaryText="Clear All Selections" onTouchTap={this.clearSelections} />
                   </IconMenu>
                 </ToolbarGroup>

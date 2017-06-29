@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ListItem } from 'material-ui/List';
+
 import Chart from './chart';
 import './filterbox.css';
-
-import DropDownMenu from 'material-ui/DropDownMenu';
-import { List, ListItem } from 'material-ui/List';
 
 class Filterbox extends Chart {
   constructor(...args) {
@@ -126,15 +125,3 @@ Filterbox.propTypes = {
 };
 
 export default Filterbox;
-
-
-{ /* <div className="filterbox-root">*/ }
-{ /* <div className="filterbox-control" onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>*/ }
-{ /* <div>*/ }
-{ /* {this.props.title}*/ }
-{ /* </div>*/ }
-{ /* <span className="filterbox-arrow" />*/ }
-{ /* </div>*/ }
-{ /* {this.state.isOpen ? <ul className="filterbox filterbox-menu">{items}</ul> : null}*/ }
-{ /* </div>*/ }
-{ /* <div className="divider" />*/ }
