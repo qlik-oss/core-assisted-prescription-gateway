@@ -74,13 +74,13 @@ class Filterbox extends Chart {
     }
 
     const sStyle = {
-      background: 'green',
-      color: 'white',
+      background: '#52cc52',
+      color: '#ffffff',
     };
 
     const xStyle = {
-      background: 'gray',
-      color: 'lightgray',
+      background: '#a9a9a9',
+      color: '#000000',
     };
 
     // Needed to be able to override default element styles that got higher importance than classes

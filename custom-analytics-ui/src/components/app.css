@@ -7,9 +7,10 @@ main {
   overflow: hidden;
 }
 
-.blue.lighten-3 {
-  background-color: #90CAF9 !important;
+.app-background{
+  background-color: #eaeaea;
 }
+
 
 .row .col.s8 {
     width: 66.6666666667%;

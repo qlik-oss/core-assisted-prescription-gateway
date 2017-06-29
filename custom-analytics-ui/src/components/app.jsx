@@ -136,7 +136,7 @@ export default class App extends React.Component {
       console.error(this.state.error);
 
       return (
-        <div className="main blue lighten-3">
+        <div className="main app-background lighten-3">
           <div className="row">
             <div className="section">
               <SessionFailed />
@@ -151,23 +151,22 @@ export default class App extends React.Component {
 
     return (
 
-      <div className="main blue lighten-3">
+      <div className="main app-background lighten-3">
 
         <div className="row">
           <div className="col s3">
             <Card style={{ margin: '20px' }}>
-              <Toolbar>
-                <ToolbarGroup>
+              <Toolbar style={{backgroundColor: '#fafafa'}}>
+                <ToolbarGroup >
                   <ToolbarTitle text="Filters" />
                 </ToolbarGroup>
                 <ToolbarGroup>
-                  <IconMenu
+                  <IconMenu style={{marginRight: '-16px'}}
                     iconButtonElement={
                       <IconButton touch>
                         <NavigationExpandMoreIcon />
                       </IconButton>
-                    }
-                  >
+                    }>
                     <MenuItem primaryText="Clear All Selections" onTouchTap={this.clearSelections} />
                   </IconMenu>
                 </ToolbarGroup>

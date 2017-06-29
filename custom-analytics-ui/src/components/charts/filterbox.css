@@ -16,15 +16,14 @@
 }
 
 span.state-S {
-   color: white;
-   background: green;
+  background: #52cc52;
+  color: #ffffff;
  }
 
 span.state-X {
-  background: gray;
-  color: lightgray;
+  background: #a9a9a9;
+  color: #000000;
 }
-
 
 .filterbox-root {
   position: relative;
