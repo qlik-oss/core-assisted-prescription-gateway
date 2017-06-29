@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import './navbar.css';
 
 const customContentStyle = {
   width: '25%',
