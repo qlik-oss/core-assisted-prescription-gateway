@@ -241,7 +241,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.error) {
       return (
-        <div className="main app-background lighten-3">
+        <div className="main app-background">
           <div className="row">
             <div className="section">
               <SessionFailed />
@@ -256,7 +256,7 @@ export default class App extends React.Component {
 
     return (
 
-      <div className="main app-background lighten-3">
+      <div className="main app-background">
 
         <div className="row">
           <div className="col s3">
