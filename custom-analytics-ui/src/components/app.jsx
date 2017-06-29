@@ -43,6 +43,7 @@ const outcome = {
   definition: {
     qHyperCubeDef: {
       qDimensions: [{
+        qNullSuppression: true,
         qDef: {
           qFieldDefs: ['Patient Event Outcome'],
           qLabel: 'Patient Event Outcome',
@@ -66,7 +67,7 @@ const outcome = {
   title: '# Patient Cases',
   extraComponents: [{
     type: 'text',
-    dock: 'left',
+    dock: 'bottom',
     text: '# Patient Cases',
   }],
 };
@@ -106,7 +107,9 @@ const therapy = {
 const stop = {
   definition: {
     qHyperCubeDef: {
+      qInterColumnSortOrder: [0, 1],
       qDimensions: [{
+        qNullSuppression: true,
         qDef: {
           qFieldDefs: ['Reaction Therapy Stop'],
           qLabel: 'Reaction Therapy Stop',
@@ -119,9 +122,6 @@ const stop = {
         qDef: {
           qDef: 'Count(Demographic_Caseid)',
           qLabel: '# Patient Cases',
-        },
-        qSortBy: {
-          qSortByNumeric: -1,
         },
       }],
     },
@@ -149,8 +149,8 @@ const risk = {
       }],
       qMeasures: [{
         qDef: {
-          qDef: 'Count({<[Drug Role Event] = {\'Primary Suspect Drug\'},[Medical Description Reaction] = {\'Death\'} >}Demographic_Caseid)',
-          qLabel: '# Death by primary suspect',
+          qDef: 'Count(Drug_caseID)',
+          qLabel: '# Drug Cases',
         },
         qSortBy: {
           qSortByNumeric: -1,
@@ -170,12 +170,13 @@ const risk = {
 const deaths = {
   definition: {
     qHyperCubeDef: {
+      qInterColumnSortOrder: [0, 1],
       qDimensions: [{
         qDef: {
           qFieldDefs: ['Patient Age Group'],
           qLabel: 'Patient Age Group',
           qSortCriterias: [{
-            qSortByAscii: -1,
+            qSortByNumeric: 1,
           }],
         },
       }],
@@ -183,9 +184,6 @@ const deaths = {
         qDef: {
           qDef: 'Count({<[Drug Role Event] = {\'Primary Suspect Drug\'},[Medical Description Reaction] = {\'Death\'} >}Demographic_Caseid)',
           qLabel: '# Death by primary suspect',
-        },
-        qSortBy: {
-          qSortByNumeric: -1,
         },
       }],
     },
@@ -262,7 +260,7 @@ export default class App extends React.Component {
             <div id="charts" className="section scrollspy">
               <Card id="reactions" title="Reactions">
                 <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
-                <Barchart app={this.state.app} overrides={outcome} title={outcome.title} />
+                <Barchart app={this.state.app} overrides={outcome} title={outcome.title} orientation={'horizontal'} />
               </Card>
               <Card id="therapy" title="Therapy">
                 <Barchart app={this.state.app} overrides={therapy} title={therapy.title} />
