@@ -42,15 +42,21 @@ const reactions = {
   },
   settings: {},
   title: 'Patient Medical Reactions',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Patient Cases',
+  }],
 };
 
-const therapy = {
+const outcome = {
   definition: {
     qHyperCubeDef: {
       qDimensions: [{
+        qNullSuppression: true,
         qDef: {
-          qFieldDefs: ['Manufacturer Code Name'],
-          qLabel: 'Manufacturer Name',
+          qFieldDefs: ['Patient Event Outcome'],
+          qLabel: 'Patient Event Outcome',
           qSortCriterias: [{
             qSortByAscii: 1,
           }],
@@ -68,6 +74,75 @@ const therapy = {
     },
   },
   settings: {},
+  title: '# Patient Cases',
+  extraComponents: [{
+    type: 'text',
+    dock: 'bottom',
+    text: '# Patient Cases',
+  }],
+};
+
+const therapy = {
+  definition: {
+    qHyperCubeDef: {
+      qDimensions: [{
+        qDef: {
+          qFieldDefs: ['Medical Description Drug Use'],
+          qLabel: 'Medical Description Drug Use',
+          qSortCriterias: [{
+            qSortByAscii: 1,
+          }],
+        },
+      }],
+      qMeasures: [{
+        qDef: {
+          qDef: 'Count(Demographic_Caseid)',
+          qLabel: '# Patient Cases',
+        },
+        qSortBy: {
+          qSortByNumeric: -1,
+        },
+      }],
+    },
+  },
+  settings: {},
+  title: 'Patient Illness',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Patient Cases',
+  }],
+};
+
+const stop = {
+  definition: {
+    qHyperCubeDef: {
+      qInterColumnSortOrder: [0, 1],
+      qDimensions: [{
+        qNullSuppression: true,
+        qDef: {
+          qFieldDefs: ['Reaction Therapy Stop'],
+          qLabel: 'Reaction Therapy Stop',
+          qSortCriterias: [{
+            qSortByAscii: 1,
+          }],
+        },
+      }],
+      qMeasures: [{
+        qDef: {
+          qDef: 'Count(Demographic_Caseid)',
+          qLabel: '# Patient Cases',
+        },
+      }],
+    },
+  },
+  settings: {},
+  title: 'Reactions Therapy Stop',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Patient Cases',
+  }],
 };
 
 const risk = {
@@ -84,8 +159,8 @@ const risk = {
       }],
       qMeasures: [{
         qDef: {
-          qDef: 'Count({<[Drug Role Event] = {\'Primary Suspect Drug\'},[Medical Description Reaction] = {\'Death\'} >}Demographic_Caseid)',
-          qLabel: '# Death by primary suspect',
+          qDef: 'Count(Drug_caseID)',
+          qLabel: '# Drug Cases',
         },
         qSortBy: {
           qSortByNumeric: -1,
@@ -94,6 +169,42 @@ const risk = {
     },
   },
   settings: {},
+  title: '# Drug Cases by Manufacturer',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: '# Drug Cases',
+  }],
+};
+
+const deaths = {
+  definition: {
+    qHyperCubeDef: {
+      qInterColumnSortOrder: [0, 1],
+      qDimensions: [{
+        qDef: {
+          qFieldDefs: ['Patient Age Group'],
+          qLabel: 'Patient Age Group',
+          qSortCriterias: [{
+            qSortByNumeric: 1,
+          }],
+        },
+      }],
+      qMeasures: [{
+        qDef: {
+          qDef: 'Count({<[Drug Role Event] = {\'Primary Suspect Drug\'},[Medical Description Reaction] = {\'Death\'} >}Demographic_Caseid)',
+          qLabel: '# Death by primary suspect',
+        },
+      }],
+    },
+  },
+  settings: {},
+  title: '# Deaths',
+  extraComponents: [{
+    type: 'text',
+    dock: 'left',
+    text: 'Death by primary suspect',
+  }],
 };
 
 export default class App extends React.Component {
@@ -186,21 +297,24 @@ export default class App extends React.Component {
               <Card style={{ margin: '20px' }}>
                 <CardTitle title="Reactions" />
                 <CardMedia>
-                  <Barchart app={this.state.app} overrides={reactions} />
+                  <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
+                  <Barchart app={this.state.app} overrides={outcome} title={outcome.title} orientation={'horizontal'} />
                 </CardMedia>
               </Card>
 
               <Card style={{ margin: '20px' }}>
                 <CardTitle title="Therapy" />
                 <CardMedia>
-                  <Barchart app={this.state.app} overrides={therapy} />
+                  <Barchart app={this.state.app} overrides={therapy} title={therapy.title} />
+                  <Barchart app={this.state.app} overrides={stop} title={stop.title} />
                 </CardMedia>
               </Card>
 
               <Card style={{ margin: '20px' }}>
                 <CardTitle title="Risk" />
                 <CardMedia>
-                  <Barchart app={this.state.app} overrides={risk} />
+                  <Barchart app={this.state.app} overrides={risk} title={risk.title} />
+                  <Barchart app={this.state.app} overrides={deaths} title={deaths.title} />
                 </CardMedia>
               </Card>
 

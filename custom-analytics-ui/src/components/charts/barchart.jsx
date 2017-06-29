@@ -29,7 +29,7 @@ class Barchart extends Picasso {
         y: {
           source: '/qHyperCube/qMeasureInfo/0',
           expand: 0.05,
-          invert: true,
+          invert: !(this.props.orientation === 'horizontal'),
         },
       },
       components: [{
@@ -48,6 +48,7 @@ class Barchart extends Picasso {
           },
         },
         settings: {
+          orientation: this.props.orientation || 'vertical',
           major: {
             scale: 'x',
           },
@@ -82,26 +83,18 @@ class Barchart extends Picasso {
       }, {
         type: 'axis',
         scale: 'y',
-        dock: 'left',
+        dock: this.props.orientation === 'horizontal' ? 'bottom' : 'left',
       }, {
         type: 'axis',
         scale: 'x',
         settings: {
-          dock: 'bottom',
+          dock: this.props.orientation === 'horizontal' ? 'left' : 'bottom',
           labels: {
             tilted: true,
             tiltAngle: -30,
             fontSize: '10px',
           },
         },
-      }, {
-        type: 'text',
-        dock: 'left',
-        text: 'layout.qHyperCube.qMeasureInfo[0].qFallbackTitle',
-      }, {
-        type: 'text',
-        text: 'layout.qHyperCube.qDimensionInfo[0].qLabel',
-        dock: 'bottom',
       },
       {
         type: 'text',
@@ -115,6 +108,11 @@ class Barchart extends Picasso {
       }],
     };
 
+    // The merge function replaces and does not concatenate arrays.
+    // Therefore we add the components from the extraComponents array
+    // to the components array first before merging
+    this.state.settings.components =
+      this.state.settings.components.concat(this.props.overrides.extraComponents);
     merge(this.state.definition, this.props.overrides.definition);
     merge(this.state.settings, this.props.overrides.settings);
   }

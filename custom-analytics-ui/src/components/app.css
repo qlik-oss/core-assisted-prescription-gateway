@@ -1,10 +1,11 @@
 main {
   display: block;
-  overflow: hidden;
+  height: 100%;
 }
 
 .main {
-  overflow: hidden;
+  overflow: auto;
+  height: 100%;
 }
 
 .app-background{

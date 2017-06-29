@@ -145,7 +145,6 @@ class ThePage extends React.Component {
               }
             </div>
           }
-
         />
         <Main
           isAuthenticated={this.state.isAuthenticated}
