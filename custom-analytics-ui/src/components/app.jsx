@@ -260,7 +260,7 @@ export default class App extends React.Component {
 
         <div className="row">
           <div className="col s3">
-            <Card style={{ margin: '20px' }}>
+            <Card style={{ margin: '20px', width: '23vw', position: 'fixed' }}>
               <Toolbar style={{ backgroundColor: '#fafafa' }}>
                 <ToolbarGroup >
                   <ToolbarTitle text="Filters" />
