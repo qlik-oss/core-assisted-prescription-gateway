@@ -114,6 +114,7 @@ class Filterbox extends Chart {
       <ListItem
         primaryText={this.props.title}
         nestedItems={items}
+        primaryTogglesNestedList={true}
       />
     );
   }

@@ -278,7 +278,7 @@ export default class App extends React.Component {
                   </IconMenu>
                 </ToolbarGroup>
               </Toolbar>
-              <List>
+              <List style={{ maxHeight: '80vh', overflowY: 'auto'}}>
                 <Subheader>Demographics</Subheader>
                 <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
                 <Filterbox app={this.state.app} field="Gender" title="Gender" />
