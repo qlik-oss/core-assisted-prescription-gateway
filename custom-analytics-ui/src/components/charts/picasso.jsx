@@ -22,7 +22,10 @@ class Picasso extends Chart {
 
       pic.brush('highlight').on('update', () => {
         const selections = picassoQ.qBrushHelper(pic.brush('highlight'));
-        this.state.model[selections[0].method](...selections[0].params);
+
+        if (selections[0].method !== 'resetMadeSelections') {
+          this.state.model[selections[0].method](...selections[0].params);
+        }
       });
       this.setState({ pic });
     } else {
@@ -36,16 +39,16 @@ class Picasso extends Chart {
         'Failed to establish a connection to an Engine' :
         this.state.error.message;
       return (
-        <div className="card-panel chart">
-          <p>Failed to render chart: {msg}</p>
+        <div className="picasso-chart">
+          <div>Failed to render chart: {msg}</div>
         </div>
       );
     }
 
     if (!this.state.layout) {
       return (
-        <div className="card-panel chart">
-          <p>Initializing...</p>
+        <div className="picasso-chart">
+          <div>Initializing...</div>
         </div>
       );
     }

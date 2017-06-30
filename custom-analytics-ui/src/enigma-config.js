@@ -7,6 +7,17 @@ const config = {
     secure: location.protocol === 'https:',
     route: '/doc/doc/drugcases',
   },
+  responseInterceptors: [
+    {
+      onRejected(data, error) {
+        const api = data.handle ? this.apis.getApi(data.handle) : undefined;
+        if (api && error.code === 15) {
+          return this.send(data);
+        }
+        return Promise.reject(error);
+      },
+    },
+  ],
 };
 
 module.exports = config;
