@@ -161,7 +161,7 @@ app {
 
 .label {
 	text-anchor: end;
-	font-size: 14px !important;
+	font-size: 14px;
 }
 
 .footer {
