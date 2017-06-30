@@ -30,6 +30,7 @@ class Barchart extends Picasso {
           source: '/qHyperCube/qMeasureInfo/0',
           expand: 0.05,
           invert: !(this.props.orientation === 'horizontal'),
+          include: [0],
         },
       },
       components: [{
