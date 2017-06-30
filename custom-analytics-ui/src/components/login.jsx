@@ -24,7 +24,7 @@ export default class Login extends React.Component {
   }
 
   loginOnEnter(e) {
-    if(e.keyCode === 13){
+    if (e.keyCode === 13) {
       this.props.onLogin(this.state.username, this.state.password);
     }
   }
