@@ -293,7 +293,7 @@ export default class App extends React.Component {
           <div className="col s8">
 
 
-            <div id="charts" className="section scrollspy">
+            <div id="charts">
               <Card style={{ margin: '20px' }}>
                 <CardTitle title="Reactions" />
                 <CardMedia>

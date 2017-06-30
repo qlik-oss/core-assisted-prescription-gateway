@@ -28,8 +28,7 @@
   line-height: 54px;
   cursor: pointer;
   letter-spacing: .5px;
-  color: white !important;
-  background-color: #4CAF50 !important;
+  color: white;
   padding: 0 2rem;
   text-transform: uppercase;
   vertical-align: middle;
