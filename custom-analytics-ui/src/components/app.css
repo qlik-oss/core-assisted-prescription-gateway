@@ -1,9 +1,7 @@
 main {
   display: block;
   overflow: auto;
-  height: -o-calc(100% - 64px); /* opera */
-  height: -webkit-calc(100% - 64px); /* google, safari */
-  height: -moz-calc(100% - 64px); /* firefox */
+  height: calc(100% - 64px);
 }
 
 .main {
