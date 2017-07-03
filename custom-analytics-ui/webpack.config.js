@@ -1,6 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
+
+const isProd = process.env.NODE_ENV === 'production';
+const hashSuffix = isProd ? '.[chunkhash]' : '';
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -10,13 +14,17 @@ const plugins = [
   }),
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'vendor.js',
+    filename: `vendor${hashSuffix}.js`,
     minChunks(module) {
       const context = module.context;
       return context && context.indexOf('node_modules') >= 0;
     },
   }),
-  new ExtractTextPlugin('[name].css'),
+  new ExtractTextPlugin(`[name]${hashSuffix}.css`),
+  new HtmlPlugin({
+    filename: 'index.html',
+    template: 'src/index.template.html',
+  }),
 ];
 
 if (process.env.NODE_ENV !== 'production') {
@@ -40,7 +48,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: `[name]${hashSuffix}.js`,
   },
   devtool: 'cheap-module-source-map',
   module: {
