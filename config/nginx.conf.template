@@ -106,18 +106,21 @@ http {
     }
 
     location /kibana/ {
+      access_by_lua_file auth/validate.lua;
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
       access_log off;
     }
 
     location /grafana/ {
+      access_by_lua_file auth/validate.lua;
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
       access_log off;
     }
 
     location /viz/ {
+      access_by_lua_file auth/validate.lua;
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
       access_log off;
@@ -129,6 +132,7 @@ http {
     }
 
     location /doc {
+      access_by_lua_file auth/validate.lua;
       set $qix_session_host '';
       set $qix_session_port '';
 
