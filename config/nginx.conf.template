@@ -111,6 +111,12 @@ http {
       access_log off;
     }
 
+    location /grafana/ {
+      include proxy_settings.conf;
+      proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
+      access_log off;
+    }
+
     location /viz/ {
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
