@@ -13,6 +13,7 @@ Each change to this repo will publish an image to Docker hub, tagged
 To use this container you need to set these environment variables:
 
 `KIBANA_HOST`, `KIBANA_PORT`,
+`GRAFANA_HOST`, `GRAFANA_PORT`,
 `VISUALIZER_HOST`, `VISUALIZER_PORT`,
 `QIX_SESSION_HOST`, `QIX_SESSION_PORT`,
 `AUTH_HOST`, `AUTH_PORT`
