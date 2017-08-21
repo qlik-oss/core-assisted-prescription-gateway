@@ -114,8 +114,7 @@ http {
 
     location /grafana/ {
       access_by_lua_file auth/validate.lua;
-      set_by_lua 'ngx.req.clear_header("Authorization")';
-
+      proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
       access_log off;
