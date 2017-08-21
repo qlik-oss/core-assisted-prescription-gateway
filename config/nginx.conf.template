@@ -1,9 +1,10 @@
-worker_processes 1;
+worker_processes auto;
+
 error_log /dev/stdout warn;
 env SESSION_COOKIE_NAME;
 
 events {
-  worker_connections 1024;
+  worker_connections 4096;
 }
 
 http {
@@ -14,7 +15,7 @@ http {
     require("auth.validate_apis");
   }
 
-  resolver 127.0.0.11 ipv6=off valid=2s;
+  resolver 127.0.0.11 ipv6=off valid=5s;
   default_type application/octet-stream;
   sendfile on;
   keepalive_timeout 65;
@@ -114,6 +115,7 @@ http {
 
     location /grafana/ {
       access_by_lua_file auth/validate.lua;
+      proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
       access_log off;
