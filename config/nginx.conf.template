@@ -3,7 +3,7 @@ error_log /dev/stdout warn;
 env SESSION_COOKIE_NAME;
 
 events {
-  worker_connections "auto";
+  worker_connections 4096;
 }
 
 http {
