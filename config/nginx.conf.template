@@ -114,6 +114,8 @@ http {
 
     location /grafana/ {
       access_by_lua_file auth/validate.lua;
+      set_by_lua 'ngx.req.clear_header("Authorization")';
+
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
       access_log off;
