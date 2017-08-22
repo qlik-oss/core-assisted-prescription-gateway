@@ -154,6 +154,7 @@ http {
       }
 
       include proxy_settings.conf;
+      proxy_read_timeout 7d;
       proxy_pass http://engine_backend/;
     }
   }
