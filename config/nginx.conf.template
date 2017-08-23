@@ -97,7 +97,9 @@ http {
     location /auth-test {
       add_header Cache-Control no-cache;
       expires off;
-      access_by_lua_file auth/validate.lua;
+      access_by_lua_block {
+        validate_user();
+      }
       alias html/hellochart/;
       index index.html;
     }
@@ -117,14 +119,18 @@ http {
     }
 
     location /kibana/ {
-      access_by_lua_file auth/validate.lua;
+      access_by_lua_block {
+        validate_user();
+      }
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
       access_log off;
     }
 
     location /grafana/ {
-      access_by_lua_file auth/validate.lua;
+      access_by_lua_block {
+        validate_user();
+      }
       proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
@@ -132,7 +138,9 @@ http {
     }
 
     location /viz/ {
-      access_by_lua_file auth/validate.lua;
+      access_by_lua_block {
+        validate_user();
+      }
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
       access_log off;
@@ -144,11 +152,12 @@ http {
     }
 
     location /doc {
-      access_by_lua_file auth/validate.lua;
+
       set $qix_session_host '';
       set $qix_session_port '';
 
-      rewrite_by_lua_block {
+      access_by_lua_block {
+        validate_user();
         local uri = string.sub(ngx.var.request_uri, 5)
         local routeResponse = ngx.location.capture("/qix_session_service" ..  uri)
         if routeResponse.status == 200 then
