@@ -1,18 +1,14 @@
-import qixSchema from 'enigma.js/schemas/qix/3.2/schema.json';
+import qixSchema from 'enigma.js/schemas/12.20.0.json';
 
 const config = {
   schema: qixSchema,
-  session: {
-    suspendOnClose: true,
-    secure: location.protocol === 'https:',
-    route: '/doc/doc/drugcases',
-  },
-  responseInterceptors: [
+  url: `${location.origin.replace(/^http/, 'ws')}/doc/doc/drugcases`,
+  suspendOnClose: true,
+  interceptors: [
     {
-      onRejected(data, error) {
-        const api = data.handle ? this.apis.getApi(data.handle) : undefined;
-        if (api && error.code === 15) {
-          return this.send(data);
+      onRejected(session, request, error) {
+        if (error.code === 15) {
+          return request.retry();
         }
         return Promise.reject(error);
       },
