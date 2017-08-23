@@ -213,23 +213,17 @@ export default class App extends React.Component {
 
     this.state = { app: null };
 
-    enigma.getService('qix', config)
-      .then(qix => qix.global.getActiveDoc())
-      .then((app) => {
-        this.setState({ app });
-        app.session.on('suspended', () => {
-          this.setState({ suspended: true });
-          app.session.resume().then(() => {
-            this.setState({ suspended: false });
-          }).catch(() => {
-            app.session.close();
-          });
-        });
-        app.session.on('closed', (evt) => {
-          this.setState({ error: evt });
-        });
-      })
-      .catch(error => this.setState({ error }));
+    const session = enigma.create(config);
+    session.on('closed', evt => this.setState({ error: evt }));
+    session.on('suspended', () => {
+      this.setState({ suspended: true });
+      session.resume().then(() => {
+        this.setState({ suspended: false });
+      }).catch(() => session.close());
+    });
+    session.open().then(global => global.getActiveDoc()).then((app) => {
+      this.setState({ app });
+    }).catch(error => this.setState({ error }));
   }
 
   clearSelections = () => {
@@ -278,7 +272,7 @@ export default class App extends React.Component {
                   </IconMenu>
                 </ToolbarGroup>
               </Toolbar>
-              <List style={{ maxHeight: '80vh', overflowY: 'auto'}}>
+              <List style={{ maxHeight: '80vh', overflowY: 'auto' }}>
                 <Subheader>Demographics</Subheader>
                 <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
                 <Filterbox app={this.state.app} field="Gender" title="Gender" />
