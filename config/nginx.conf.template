@@ -1,6 +1,5 @@
 worker_processes auto;
 
-error_log /dev/stdout warn;
 env SESSION_COOKIE_NAME;
 
 events {
@@ -26,7 +25,15 @@ http {
     '' close;
   }
 
-  # Logging
+    ##
+    # Logging Settings
+    ##
+    map $request $loggable {
+        ~/viz  0;
+        ~/grafana  0;
+        ~/kibana  0;
+        default 1;
+    }
   log_format logstash_json '{ "@timestamp": "$time_iso8601", '
                          '"remote_addr": "$remote_addr", '
                          '"remote_user": "$remote_user", '
@@ -36,9 +43,9 @@ http {
                          '"request": "$request", '
                          '"request_method": "$request_method", '
                          '"http_referrer": "$http_referer", '
-                         '"http_user_agent": "$http_user_agent" } }';
+                         '"http_user_agent": "$http_user_agent" }';
 
-	access_log /usr/local/openresty/nginx/logs/access.log logstash_json;
+	access_log /usr/local/openresty/nginx/logs/access.log logstash_json if=$loggable;
 	error_log /usr/local/openresty/nginx/logs/error.log;
 
   upstream engine_backend {
@@ -139,7 +146,6 @@ http {
       }
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
-      access_log off;
     }
 
     location /grafana/ {
@@ -149,7 +155,6 @@ http {
       proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
-      access_log off;
     }
 
     location /viz/ {
@@ -158,7 +163,6 @@ http {
       }
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
-      access_log off;
     }
 
     location /qix_session_service {
