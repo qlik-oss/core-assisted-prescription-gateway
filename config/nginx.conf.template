@@ -3,7 +3,7 @@ worker_processes auto;
 env SESSION_COOKIE_NAME;
 
 events {
-  worker_connections 4096;
+  worker_connections 65000;
 }
 
 http {
@@ -72,20 +72,6 @@ http {
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
     ssl_prefer_server_ciphers on;
 
-    location / {
-      include proxy_settings.conf;
-      proxy_pass http://127.0.0.1;
-    }
-    
-    location /doc {
-      include websocket_proxy_settings.conf;
-      proxy_pass http://127.0.0.1;
-    }
-  }
-
-  server {
-    listen 80;
-    server_name _;
     index index.html;
 
     ${DEV_INCLUDE}
