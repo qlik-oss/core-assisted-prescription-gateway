@@ -29,10 +29,10 @@ http {
   # Logging Settings
   ##
   map $request $loggable {
-        ~/viz  0;
-        ~/grafana  0;
-        ~/kibana  0;
-        default 1;
+    ~/viz  0;
+    ~/grafana  0;
+    ~/kibana  0;
+    default 1;
   }
   log_format logstash_json '{ "@timestamp": "$time_iso8601", '
                          '"remote_addr": "$remote_addr", '
