@@ -6,8 +6,6 @@ env SESSION_COOKIE_NAME;
 # And worker_connections setting from https://serverfault.com/questions/787919/optimal-value-for-nginx-worker-connections/791055#791055
 events {
   worker_connections {{.Env.WORKER_CONNECTIONS}};
-  use epoll;
-  multi_accept on;
 }
 
 http {
