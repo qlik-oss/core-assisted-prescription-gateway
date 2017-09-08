@@ -2,8 +2,6 @@ worker_processes auto;
 
 env SESSION_COOKIE_NAME;
 
-# Using recommended settings from https://www.linode.com/docs/web-servers/nginx/configure-nginx-for-optimized-performance#worker-connections
-# And worker_connections setting from https://serverfault.com/questions/787919/optimal-value-for-nginx-worker-connections/791055#791055
 events {
   worker_connections {{.Env.WORKER_CONNECTIONS}};
 }
