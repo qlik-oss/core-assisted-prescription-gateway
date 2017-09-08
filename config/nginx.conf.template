@@ -1,10 +1,9 @@
 worker_processes auto;
 
-error_log /dev/stdout warn;
 env SESSION_COOKIE_NAME;
 
 events {
-  worker_connections 4096;
+  worker_connections {{.Env.WORKER_CONNECTIONS}};
 }
 
 http {
@@ -25,6 +24,33 @@ http {
     default upgrade;
     '' close;
   }
+
+  ##
+  # Logging Settings
+  ##
+  map $request $loggable {
+    ~/viz  0;
+    ~/grafana  0;
+    ~/kibana  0;
+    default 1;
+  }
+  log_format logstash_json '{ "@timestamp": "$time_iso8601", '
+                         '"remote_addr": "$remote_addr", '
+                         '"remote_user": "$remote_user", '
+                         '"body_bytes_sent": "$body_bytes_sent", '
+                         '"request_time": "$request_time", '
+                         '"status": "$status", '
+                         '"request": "$request", '
+                         '"request_method": "$request_method", '
+                         '"http_referrer": "$http_referer", '
+                         '"uri": "$uri", '
+		                     '"server_protocol": "$server_protocol", '
+		                     '"host": "$host", '
+                         '"http_user_agent": "$http_user_agent" }';
+
+	access_log /usr/local/openresty/nginx/logs/access.log logstash_json if=$loggable;
+  error_log /dev/stdout info;
+
 
   upstream engine_backend {
     server 0.0.0.1; # just an invalid address as a place holder
@@ -49,20 +75,6 @@ http {
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
     ssl_prefer_server_ciphers on;
 
-    location / {
-      include proxy_settings.conf;
-      proxy_pass http://127.0.0.1;
-    }
-    
-    location /doc {
-      include websocket_proxy_settings.conf;
-      proxy_pass http://127.0.0.1;
-    }
-  }
-
-  server {
-    listen 80;
-    server_name _;
     index index.html;
 
     ${DEV_INCLUDE}
@@ -124,7 +136,6 @@ http {
       }
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
-      access_log off;
     }
 
     location /grafana/ {
@@ -134,7 +145,6 @@ http {
       proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
       proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
-      access_log off;
     }
 
     location /viz/ {
@@ -143,7 +153,6 @@ http {
       }
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
-      access_log off;
     }
 
     location /qix_session_service {
