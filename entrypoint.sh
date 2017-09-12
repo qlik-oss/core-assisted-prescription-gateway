@@ -22,6 +22,7 @@ if [ "$DEV" == "true" ]; then
 fi
 
 envsubst '\
+$WORKER_CONNECTIONS \
 $KIBANA_HOST \
 $KIBANA_PORT \
 $GRAFANA_HOST \
