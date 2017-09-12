@@ -3,7 +3,7 @@ worker_processes auto;
 env SESSION_COOKIE_NAME;
 
 events {
-  worker_connections ${WORKER_CONNECTIONS};
+  worker_connections ${WORKER_CONNECTIONS}
 }
 
 http {
