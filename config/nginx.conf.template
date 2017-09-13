@@ -49,7 +49,7 @@ http {
                          '"http_user_agent": "$http_user_agent" }';
 
 	access_log /usr/local/openresty/nginx/logs/access.log logstash_json if=$loggable;
-  error_log /dev/stdout info;
+  error_log /dev/stdout ${ERROR_LEVEL};
 
 
   upstream engine_backend {

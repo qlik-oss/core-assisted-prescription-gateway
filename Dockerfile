@@ -11,6 +11,7 @@ COPY ./custom-analytics-ui/dist/ ./html/custom-analytics-ui
 RUN chmod -R 0755 ./html
 
 ENV WORKER_CONNECTIONS 10000
+ENV ERROR_LEVEL info
 
 COPY ./entrypoint.sh .
 RUN chmod +x ./entrypoint.sh

@@ -22,6 +22,7 @@ if [ "$DEV" == "true" ]; then
 fi
 
 envsubst '\
+$ERROR_LEVEL \
 $WORKER_CONNECTIONS \
 $KIBANA_HOST \
 $KIBANA_PORT \
