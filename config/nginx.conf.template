@@ -171,7 +171,7 @@ http {
         local routeResponse = ngx.location.capture("/qix_session_service" ..  uri)
         if routeResponse.status == 200 then
           local qix_session_route_data = cjson.decode(routeResponse.body);
-          ngx.var.qix_session_host = qix_session_route_data.ipAddress;
+          ngx.var.qix_session_host = qix_session_route_data.ip;
           ngx.var.qix_session_port = qix_session_route_data.port;
           ngx.req.set_header("X-Qlik-Session", qix_session_route_data.sessionId)
           ngx.req.set_uri("/app/engineData")
