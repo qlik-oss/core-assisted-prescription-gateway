@@ -1,5 +1,5 @@
 /**
- * @qlik/picasso v0.33.0
+ * @qlik/picasso v0.34.0
  * Copyright (c) 2017 QlikTech International AB
  */
 
@@ -8997,8 +8997,12 @@ function setUpEmitter(ctx, emitter, settings) {
     ctx.eventListeners.push({ event: event, listener: listener });
     emitter.on(event, listener);
   });
-  ctx.emit = function (name, event) {
-    return emitter.emit(name, event);
+  ctx.emit = function (name) {
+    for (var _len = arguments.length, event = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      event[_key - 1] = arguments[_key];
+    }
+
+    return emitter.emit.apply(emitter, [name].concat(event));
   };
 }
 
@@ -9055,8 +9059,8 @@ function componentFactory(definition) {
     var defaultMethod = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
 
     return function cb() {
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
       }
 
       var inDefinition = typeof definition[method] === 'function';
@@ -10781,7 +10785,7 @@ function chart(definition, context) {
 
   /**
    * Get all nodes matching the provided selector
-   * @param {string} selector CSS selector [type, attribute or universal]
+   * @param {string} selector CSS selector [type, attribute, universal, class]
    * @returns {Object[]} Array of objects containing matching nodes
    *
    * @example
@@ -18260,21 +18264,14 @@ function labels(picasso) {
   picasso.component('labels', labelsComponent);
 }
 
-/**
- * Get the minimum viable number out of multiple ones
- *
- * @param {...number} numberList - Multiple numbers i.e. 12, 15, NaN, 22
- * @return {number} - Returns the smallest viable number, i.e. 12
- */
-function getMinimumViableNumber() {
-  for (var _len = arguments.length, numberList = Array(_len), _key = 0; _key < _len; _key++) {
-    numberList[_key] = arguments[_key];
-  }
+function getWiggle(coord, innerSize, outerSize) {
+  var m = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-  numberList = numberList.filter(function (obj) {
-    return typeof obj === 'number' && !isNaN(obj);
-  });
-  return Math.min.apply(Math, toConsumableArray(numberList));
+  var wiggle = 0;
+  wiggle = outerSize - innerSize;
+  wiggle *= Math.min(1, Math.max(m, 0));
+
+  return wiggle;
 }
 
 /**
@@ -18325,119 +18322,102 @@ function resolveMargin(margin) {
   };
 }
 
-/**
- * Create a label
- *
- * @param {number} x - X coordinate
- * @param {number} y - Y coordinate
- * @param {number} maxWidth - Maximum width of the label
- * @param {number} maxHeight - Maximum height of the label
- * @param {string} color - Color of the shape
- * @param {number} fontSize - Font size of the text
- * @param {string} fontFamily - Font family of the text
- * @param {string} labelText - The text to be used for the label
- * @param {Renderer} renderer - A renderer such as SVG, DOM, Canvas or Mock with measureText
- * @param {string} align - Alignment property, 'left' or 'right'.
- * @param {object} renderingArea - The area in an object to be rendered in.
- * @param {number} margin - Margin around the corners of the label
- * @param {object} shape - Shape properties
- * @return {Container} - Returns container with objects as children
- */
-
 function labelItem(_ref) {
   var x = _ref.x,
       y = _ref.y,
-      maxWidth = _ref.maxWidth,
-      maxHeight = _ref.maxHeight,
+      fixedInnerWidth = _ref.fixedInnerWidth,
+      fixedInnerHeight = _ref.fixedInnerHeight,
       color = _ref.color,
-      fill = _ref.fill,
-      fontSize = _ref.fontSize,
-      fontFamily = _ref.fontFamily,
-      labelText = _ref.labelText,
-      renderer = _ref.renderer,
-      align = _ref.align,
-      renderingArea = _ref.renderingArea,
+      label = _ref.label,
+      labelBounds = _ref.labelBounds,
+      labelMeasure = _ref.labelMeasure,
+      _ref$anchor = _ref.anchor,
+      anchor = _ref$anchor === undefined ? 'left' : _ref$anchor,
+      _ref$renderingArea = _ref.renderingArea,
+      renderingArea = _ref$renderingArea === undefined ? { x: 0, y: 0, width: 0, height: 0 } : _ref$renderingArea,
       margin = _ref.margin,
-      symbolPadding = _ref.symbolPadding,
+      _ref$symbolPadding = _ref.symbolPadding,
+      symbolPadding = _ref$symbolPadding === undefined ? 0 : _ref$symbolPadding,
       shape = _ref.shape,
-      data = _ref.data;
+      _ref$shapeSize = _ref.shapeSize,
+      shapeSize = _ref$shapeSize === undefined ? 0 : _ref$shapeSize,
+      _ref$maxShapeSize = _ref.maxShapeSize,
+      maxShapeSize = _ref$maxShapeSize === undefined ? shapeSize : _ref$maxShapeSize,
+      data = _ref.data,
+      _ref$justify = _ref.justify,
+      justify = _ref$justify === undefined ? 0 : _ref$justify,
+      _ref$align = _ref.align,
+      align = _ref$align === undefined ? 0 : _ref$align;
 
-  maxWidth = typeof maxWidth === 'undefined' ? NaN : maxWidth;
-  maxHeight = typeof maxHeight === 'undefined' ? NaN : maxHeight;
-  align = typeof align === 'undefined' ? 'left' : align;
-  fill = typeof fill === 'undefined' ? 'black' : fill;
-  renderingArea = typeof renderingArea === 'undefined' ? { x: 0, y: 0, width: 0, height: 0 } : renderingArea;
   margin = resolveMargin(margin);
-  symbolPadding = typeof symbolPadding === 'undefined' ? margin.right : symbolPadding;
-
-  var labelMeasures = renderer.measureText({
-    text: labelText,
-    fontFamily: fontFamily,
-    fontSize: fontSize
+  var isAnchorLeft = anchor === 'left';
+  // Fallback, usersettings, base-definition
+  var labelDef = index({}, label, { // This should not contain any properties that may alter the size of the label node, ex. maxWidth
+    type: 'text',
+    data: data,
+    collider: { type: null }
   });
 
-  var innerHeight = getMinimumViableNumber(maxHeight - margin.height, labelMeasures.height);
-
-  var fontSizeDiff = parseFloat(fontSize) / labelMeasures.height;
-  var fontSizeMod = innerHeight * fontSizeDiff;
-
-  var wantedWidth = labelMeasures.width + innerHeight + margin.width + symbolPadding;
-
-  if (renderingArea.width > 0) {
-    if (isNaN(maxWidth)) {
-      maxWidth = renderingArea.width - x;
-    } else {
-      maxWidth = Math.min(maxWidth, renderingArea.width - x);
-    }
-  }
-
-  var containerWidth = !isNaN(maxWidth) ? Math.min(maxWidth, wantedWidth) : wantedWidth;
+  var innerWidth = fixedInnerWidth || labelBounds.width + shapeSize + symbolPadding;
+  var innerHeight = fixedInnerHeight || Math.max(labelBounds.height, shapeSize);
+  var outerWidth = innerWidth + margin.left + margin.right;
+  var outerHeight = innerHeight + margin.top + margin.bottom;
 
   var container = {
     type: 'container',
-    x: align === 'left' ? x : renderingArea.width - x - containerWidth,
+    x: isAnchorLeft ? x : renderingArea.width - x - outerWidth,
     y: y,
-    width: containerWidth,
-    height: innerHeight + margin.height,
-    data: data
+    width: outerWidth,
+    height: outerHeight,
+    innerWidth: innerWidth,
+    innerHeight: innerHeight,
+    data: data,
+    children: []
   };
 
   container.collider = {
     type: 'rect',
-    x: align === 'left' ? x : renderingArea.width - x - containerWidth,
-    y: y,
-    width: containerWidth,
-    height: innerHeight + margin.height
+    x: container.x,
+    y: container.y,
+    width: container.width,
+    height: container.height
   };
 
-  var r = innerHeight / 2;
-  var symDef = index({}, {
-    type: (typeof shape === 'undefined' ? 'undefined' : _typeof(shape)) === 'object' && shape.type ? shape.type : shape,
-    x: (align === 'left' ? container.x + margin.left : container.x + container.width - innerHeight - margin.right) + r,
-    y: container.y + margin.top + r,
-    size: innerHeight,
-    fill: (typeof shape === 'undefined' ? 'undefined' : _typeof(shape)) === 'object' && shape.fill ? shape.fill : color,
-    stroke: (typeof shape === 'undefined' ? 'undefined' : _typeof(shape)) === 'object' && shape.stroke ? shape.stroke : color,
-    data: data
-  }, shape);
-  var symbol = create$3(symDef);
+  if (shape) {
+    var r = shapeSize / 2;
+    var symX = isAnchorLeft ? container.x + margin.left + r : container.x + outerWidth - margin.right - r;
+    var symY = container.y + r + margin.top;
+    var wiggleX = getWiggle(symX, shapeSize, maxShapeSize, isAnchorLeft ? align : 1 - align);
+    symX += isAnchorLeft ? wiggleX : -wiggleX;
+    symY += getWiggle(symY, shapeSize, innerHeight, justify);
 
-  var label = {
-    type: 'text',
-    anchor: align === 'left' ? 'start' : 'end',
-    x: align === 'left' ? symDef.x + r + symbolPadding : symDef.x - symbolPadding - r,
-    y: symDef.y + r + -1,
-    maxWidth: container.width - innerHeight - (margin.width + symbolPadding) + 1,
-    text: labelText,
-    fill: fill,
-    fontSize: fontSizeMod + 'px',
-    fontFamily: fontFamily,
-    data: data
-  };
+    var def = void 0;
+    if ((typeof shape === 'undefined' ? 'undefined' : _typeof(shape)) !== 'object') {
+      def = { type: shape };
+    } else {
+      def = shape;
+    }
 
-  container.children = [symbol, label].filter(function (c) {
-    return !!c;
-  });
+    var symDef = index({ // Default props
+      size: shapeSize,
+      fill: color,
+      stroke: color
+    }, def, // User defined
+    { // Base props, not overridable
+      x: symX,
+      y: symY,
+      data: data,
+      collider: { type: null }
+    });
+    var symbol = create$3(symDef);
+    container.children.push(symbol);
+  }
+
+  labelDef.x = isAnchorLeft ? container.x + margin.left + maxShapeSize + symbolPadding : container.x + outerWidth - margin.right - maxShapeSize - symbolPadding;
+  labelDef.y = container.y + margin.top + labelMeasure.height;
+  labelDef.y += getWiggle(labelDef.y, labelBounds.height, innerHeight, justify);
+
+  container.children.push(labelDef);
 
   return container;
 }
@@ -18461,7 +18441,7 @@ function createButton(_ref) {
       width = _ref.width,
       height = _ref.height,
       direction = _ref.direction,
-      data = _ref.data,
+      action = _ref.action,
       rect = _ref.rect,
       symbol = _ref.symbol;
 
@@ -18496,270 +18476,380 @@ function createButton(_ref) {
 
   container.collider = index({}, container, { type: 'rect' });
   container.children = [buttonRect, buttonSymbol];
-  container.data = data;
+  container.desc = { action: action };
+  container.tag = 'scroll-button';
 
   return container;
 }
 
-var defaultSettings = {
-  align: 'left',
-  item: {
-    show: true,
-    fontSize: '12px',
-    fontFamily: 'Arial',
-    fill: '#595959',
-    maxWidthPx: 150,
-    margin: {
-      top: 5,
-      right: 5,
-      bottom: 0
+var BUTTON_WIDTH = 26;
+var BUTTON_HEIGHT = 18;
+var BUTTON_PADDING = 8;
+var BUTTON_MARGIN = 4;
+
+var DEFAULT_SETTINGS = {
+  settings: {
+    direction: null,
+    anchor: 'left',
+    layout: {
+      mode: 'stack'
     },
-    shape: {
-      type: 'square',
-      strokeWidth: 0
-    }
-  },
-  title: {
-    show: true,
-    fontSize: '18px',
-    fontFamily: 'Arial',
-    fill: '#595959',
-    maxWidthPx: 200,
-    margin: {
-      top: 0,
-      right: 5,
-      bottom: 5
-    }
-  },
-  buttons: {
-    show: false,
-    rect: {
-      fill: 'transparent',
-      stroke: 'transparent',
-      strokeWidth: 0
+    item: {
+      show: true,
+      justify: 0.5,
+      align: 0.5,
+      symbolPadding: 8,
+      label: {
+        fontSize: '12px',
+        fontFamily: 'Arial',
+        fill: '#595959',
+        wordBreak: 'none',
+        hyphens: 'auto',
+        maxLines: 2,
+        maxWidth: 136,
+        lineHeight: 1.2
+      },
+      shape: {
+        type: 'square',
+        strokeWidth: 0,
+        size: 8
+      },
+      margin: {
+        top: 0,
+        bottom: 8,
+        left: 8,
+        right: 8
+      }
     },
-    symbol: {
-      fill: 'grey',
-      stroke: 'grey',
-      strokeWidth: 2
+    title: {
+      show: true,
+      fontSize: '16px',
+      fontFamily: 'Arial',
+      fill: '#595959',
+      wordBreak: 'none',
+      hyphens: 'auto',
+      maxLines: 2,
+      maxWidth: 156,
+      lineHeight: 1.25,
+      margin: {
+        top: 4,
+        bottom: 8,
+        left: 8,
+        right: 4
+      }
     },
-    'rect:disabled': {
-      fill: 'transparent',
-      stroke: 'transparent',
-      strokeWidth: 0
-    },
-    'symbol:disabled': {
-      fill: 'lightgrey',
-      stroke: 'lightgrey',
-      strokeWidth: 2
+    buttons: {
+      show: false,
+      rect: {
+        fill: 'transparent',
+        stroke: 'transparent',
+        strokeWidth: 0
+      },
+      symbol: {
+        fill: 'grey',
+        stroke: 'grey',
+        strokeWidth: 0
+      },
+      'rect:disabled': {
+        fill: 'transparent',
+        stroke: 'transparent',
+        strokeWidth: 0
+      },
+      'symbol:disabled': {
+        fill: 'lightgrey',
+        stroke: 'lightgrey',
+        strokeWidth: 0
+      }
     }
   }
 };
 
-/**
- * Create scrolling buttons
- *
- * @param {boolean} HORIZONTAL - If the rendering is horizontal, this is true
- * @param {object} rect - Rendering area
- * @param {object} buttonRect - The button rect styling
- * @param {object} buttonSymbol - Button line styling
- * @param {number} min - Minimum value (often 0, as arrays are 0-indexed)
- * @param {number} max - Maximum value, often the total length of values minus the available slots
- * @param {number} pagingValue - How much to page with every action
- * @return {object[]} - Nodes to render
- */
 function createButtons(_ref) {
   var HORIZONTAL = _ref.HORIZONTAL,
       rect = _ref.rect,
+      state = _ref.state,
       buttonRectMinus = _ref.buttonRectMinus,
       buttonRectPlus = _ref.buttonRectPlus,
       buttonSymbolMinus = _ref.buttonSymbolMinus,
       buttonSymbolPlus = _ref.buttonSymbolPlus,
-      min = _ref.min,
-      max = _ref.max,
-      pagingValue = _ref.pagingValue;
+      anchor = _ref.anchor;
 
   var buttons = [];
-  var dataPlus = { action: '+', min: min, max: max, value: pagingValue };
-  var dataMinus = { action: '-', min: min, max: max, value: pagingValue };
+  var width = BUTTON_WIDTH;
+  var height = BUTTON_HEIGHT;
+  var isLeft = anchor === 'left';
 
   if (HORIZONTAL) {
+    var middle = (state.maxOuterHeight || rect.height) / 2;
+    var x = isLeft ? rect.width - BUTTON_MARGIN - BUTTON_WIDTH : BUTTON_MARGIN;
     buttons.push(createButton({
-      x: rect.width - 45,
-      y: rect.height * 0.125,
-      width: 20,
-      height: rect.height * 0.75,
-      data: dataMinus,
-      direction: 'left',
+      x: x,
+      y: middle + BUTTON_PADDING,
+      width: width,
+      height: height,
+      action: '-',
+      direction: isLeft ? 'left' : 'right',
       rect: buttonRectMinus,
       symbol: buttonSymbolMinus
     }));
 
     buttons.push(createButton({
-      x: rect.width - 25,
-      y: rect.height * 0.125,
-      width: 20,
-      height: rect.height * 0.75,
-      data: dataPlus,
-      direction: 'right',
+      x: x,
+      y: middle - BUTTON_HEIGHT - BUTTON_PADDING,
+      width: width,
+      height: height,
+      action: '+',
+      direction: isLeft ? 'right' : 'left',
       rect: buttonRectPlus,
       symbol: buttonSymbolPlus
     }));
   } else {
+    var _middle = (state.maxOuterWidth || rect.width) / 2;
+    var y = rect.height - BUTTON_MARGIN - BUTTON_HEIGHT;
     buttons.push(createButton({
-      x: rect.width * 0.5,
-      y: rect.height - 15,
-      width: rect.width * 0.25,
-      height: 15,
-      data: dataMinus,
-      direction: 'up',
-      rect: buttonRectMinus,
-      symbol: buttonSymbolMinus
+      x: isLeft ? _middle + BUTTON_PADDING : rect.width - _middle - BUTTON_PADDING - BUTTON_WIDTH,
+      y: y,
+      width: width,
+      height: height,
+      action: isLeft ? '-' : '+',
+      direction: isLeft ? 'up' : 'down',
+      rect: isLeft ? buttonRectMinus : buttonRectPlus,
+      symbol: isLeft ? buttonSymbolMinus : buttonSymbolPlus
     }));
 
     buttons.push(createButton({
-      x: rect.width * 0.25,
-      y: rect.height - 15,
-      width: rect.width * 0.25,
-      height: 15,
-      data: dataPlus,
-      direction: 'down',
-      rect: buttonRectPlus,
-      symbol: buttonSymbolPlus
+      x: isLeft ? _middle - BUTTON_PADDING - BUTTON_WIDTH : rect.width - _middle + BUTTON_PADDING,
+      y: y,
+      width: width,
+      height: height,
+      action: isLeft ? '+' : '-',
+      direction: isLeft ? 'down' : 'up',
+      rect: isLeft ? buttonRectPlus : buttonRectMinus,
+      symbol: isLeft ? buttonSymbolPlus : buttonSymbolMinus
     }));
   }
 
   return buttons;
 }
 
-/**
- * Process label items from scale & domain to calculate prefSize or render items
- *
- * @param  {object} settings - Settings from the component
- * @param  {Scale} scale - Scale from the component
- * @param  {boolean} HORIZONTAL - True if the labels are going to be rendered horizontally
- * @param  {string} ALIGN - Alignment of the labels, 'left' or 'right'
- * @param  {Renderer} renderer - Current SVG/Canvas renderer for measuring text
- * @param  {object} rect - Rendering area rect, X, Y, Width and Height
- * @return {object} - returns labels, maxX and maxY for computing renderable area
- */
-function processLabelItems(_ref2) {
+function resolveSizes(state, local) {
+  var defs = state.defs;
+  var titleDef = state.titleDef;
+  var maxOuterWidth = 0;
+  var maxOuterHeight = 0;
+  var maxInnerWidth = 0;
+  var maxInnerHeight = 0;
+  var maxShapeSize = 0;
+  var titleWidth = 0;
+  var titleHeight = 0;
+  var buttonWidth = 0;
+  var buttonHeight = 0;
+
+  if (titleDef.show) {
+    titleWidth = titleDef.margin.left + titleDef.margin.right + titleDef.labelBounds.width;
+    titleHeight = titleDef.margin.top + titleDef.margin.bottom + titleDef.labelBounds.height;
+    maxOuterWidth = titleWidth;
+    maxOuterHeight = titleHeight;
+  }
+
+  if (state.buttonDefs.show) {
+    buttonWidth = BUTTON_MARGIN + BUTTON_PADDING * 2 + 2 * BUTTON_WIDTH;
+    buttonHeight = BUTTON_MARGIN + BUTTON_PADDING * 2 + 2 * BUTTON_HEIGHT;
+    maxOuterWidth = local.isHorizontal ? maxOuterWidth : Math.max(maxOuterWidth, buttonWidth); // Presume width is not relevant if horizontal
+    maxOuterHeight = local.isHorizontal ? Math.max(maxOuterHeight, buttonHeight) : maxOuterHeight;
+  }
+
+  defs.forEach(function (def) {
+    maxShapeSize = Math.max(maxShapeSize, def.shapeSize || 0);
+  });
+
+  for (var i = 0, len = defs.length; i < len; i++) {
+    var def = defs[i];
+    if (!def.show) {
+      continue;
+    }
+    var innerWidth = def.labelBounds.width + maxShapeSize + def.symbolPadding; // Use max size because text is adjusted to align along y-axis based on the largest shape size
+    var innerHeight = Math.max(def.labelBounds.height, maxShapeSize);
+    maxInnerWidth = Math.max(maxInnerWidth, innerWidth);
+    maxInnerHeight = Math.max(maxInnerHeight, innerHeight);
+    maxOuterWidth = Math.max(maxOuterWidth, def.margin.left + def.margin.right + innerWidth + (local.isHorizontal ? titleWidth + buttonWidth : 0));
+    maxOuterHeight = Math.max(maxOuterHeight, def.margin.top + def.margin.bottom + innerHeight + (local.isHorizontal ? 0 : titleHeight + buttonHeight));
+  }
+
+  return {
+    maxOuterWidth: maxOuterWidth,
+    maxOuterHeight: maxOuterHeight,
+    maxInnerWidth: maxInnerWidth,
+    maxInnerHeight: maxInnerHeight,
+    maxShapeSize: maxShapeSize
+  };
+}
+
+function resolveButtonDefs(settings) {
+  var buttonRect = resolveForDataObject(settings.buttons.rect, {}, 0, []);
+  var buttonSymbol = resolveForDataObject(settings.buttons.symbol, {}, 0, []);
+  var buttonRectDisabled = resolveForDataObject(settings.buttons['rect:disabled'], {}, 0, []);
+  var buttonSymbolDisabled = resolveForDataObject(settings.buttons['symbol:disabled'], {}, 0, []);
+  return {
+    show: settings.buttons.show,
+    buttonRect: buttonRect,
+    buttonSymbol: buttonSymbol,
+    buttonRectDisabled: buttonRectDisabled,
+    buttonSymbolDisabled: buttonSymbolDisabled
+  };
+}
+
+function resolveTitleDef(_ref2) {
   var settings = _ref2.settings,
-      chart = _ref2.chart,
-      scale = _ref2.scale,
-      HORIZONTAL = _ref2.HORIZONTAL,
-      ALIGN = _ref2.ALIGN,
-      renderer = _ref2.renderer,
-      rect = _ref2.rect,
-      index = _ref2.index;
+      local = _ref2.local,
+      renderer = _ref2.renderer;
 
   var title = void 0;
-  var domain = scale.domain();
-
-  var THRESHOLD = scale.type === 'threshold-color';
-  var sourceField = (scale.data().fields || [])[0];
-  var formatter = void 0;
-  if (sourceField) {
-    formatter = sourceField.formatter();
-  }
-
-  if (typeof settings.title.text !== 'undefined') {
+  if (settings.title.text) {
     title = settings.title.text;
-  } else if (scale) {
-    var field = (scale.data().fields || [])[0];
-    title = field ? field.title() : '';
+  } else {
+    title = local.sourceTitle;
   }
 
-  var titleMargin = resolveMargin(settings.title.margin);
-
-  var labels = [];
-  var prevContainer = {};
-  var nextXitem = 0;
-  var nextYitem = 0;
-  var maxX = 0;
-  var maxY = 0;
-
-  if (settings.title.show) {
-    // Title
-    prevContainer = labelItem({
-      x: HORIZONTAL ? nextXitem : 0,
-      y: !HORIZONTAL ? nextYitem : 0,
-      maxWidth: rect ? Math.min(rect.width, settings.title.maxWidthPx) : settings.title.maxWidthPx,
-      color: 'transparent',
-      fill: settings.title.fill,
+  var def = {
+    show: settings.title.show,
+    margin: resolveMargin(settings.title.margin),
+    label: {
+      text: title,
       fontSize: settings.title.fontSize,
       fontFamily: settings.title.fontFamily,
-      labelText: title,
-      renderer: renderer,
-      align: ALIGN,
-      renderingArea: rect,
-      margin: titleMargin,
-      symbolPadding: -parseFloat(settings.title.fontSize) // This is too hacky. FIXME
-    });
+      fill: settings.title.fill,
+      wordBreak: settings.title.wordBreak,
+      hyphens: settings.title.hyphens,
+      maxLines: settings.title.maxLines,
+      lineHeight: settings.title.lineHeight,
+      maxWidth: settings.title.maxWidth,
+      anchor: local.anchor === 'left' ? 'start' : 'end'
+    }
+  };
 
-    labels.push(prevContainer);
-    maxX = prevContainer.x + prevContainer.width;
-    maxY = prevContainer.y + prevContainer.height;
-  }
+  def.labelMeasure = renderer.measureText(def.label);
+  def.labelBounds = renderer.textBounds(def.label);
 
-  var availableSlots = Infinity;
-  var createScrollButtons = false;
-  // Items
-  for (var i = index; i < Math.min(index + availableSlots, domain.length); i++) {
+  return def;
+}
+
+function resolveLabelItemDefs(_ref3) {
+  var scale = _ref3.scale,
+      settings = _ref3.settings,
+      renderer = _ref3.renderer,
+      local = _ref3.local;
+
+  var defs = [];
+  var DEFS_TO_RESOLVE = 1500;
+  var domain = scale.domain();
+  var dataset = scale.data();
+
+  for (var i = 0; i < Math.min(DEFS_TO_RESOLVE, domain.length); i++) {
     var cat = domain[i];
     var text = scale.label ? scale.label(cat) : '';
-
-    nextXitem += prevContainer.width || 0;
-    nextYitem += prevContainer.height || 0;
-
     var data = scale.datum ? scale.datum(cat) : {};
 
-    if (THRESHOLD) {
+    if (local.isThreshold) {
       data = {
         value: [cat, domain[i + 1]],
         source: {
-          field: sourceField.id()
+          field: local.sourceField.id()
         }
       };
-      if (!scale.label && formatter) {
-        text = formatter(cat);
+      if (!scale.label && local.formatter) {
+        text = local.formatter(cat);
       }
     }
 
-    var labelItemDef = resolveForDataObject(settings.item, data, i, domain, {
-      formatter: formatter
-    });
+    var labelItemDef = resolveForDataObject(settings.item, data, i, dataset, { formatter: local.formatter });
     if (labelItemDef.show === false) {
       continue;
     }
+
     if (_typeof(settings.item.shape) === 'object') {
-      labelItemDef.shape = resolveForDataObject(settings.item.shape, data, i, domain); // TODO resolveForDataObject for probably handle deep structures...
+      labelItemDef.shape = resolveForDataObject(settings.item.shape, data, i, dataset);
+      labelItemDef.shapeSize = labelItemDef.shape.size;
     }
 
-    labelItemDef.x = HORIZONTAL ? nextXitem : 0;
-    labelItemDef.y = !HORIZONTAL ? nextYitem : 0;
-    labelItemDef.maxWidth = rect ? Math.min(rect.width, labelItemDef.maxWidthPx) : labelItemDef.maxWidthPx;
-    labelItemDef.color = scale(cat);
-    labelItemDef.labelText = labelItemDef.label || text || cat;
-    labelItemDef.renderer = renderer;
-    labelItemDef.align = ALIGN;
-    labelItemDef.renderingArea = rect;
     labelItemDef.margin = resolveMargin(labelItemDef.margin);
+
+    labelItemDef.label = index({}, labelItemDef.label);
+    labelItemDef.label.anchor = local.anchor === 'left' ? 'start' : 'end';
+    labelItemDef.label.text = text || cat;
+
+    labelItemDef.labelMeasure = renderer.measureText(labelItemDef.label);
+    labelItemDef.shapeSize = labelItemDef.shapeSize || labelItemDef.labelMeasure.height; // Fallback to label height as the shape definition is not guaranteed to contain a size
+    labelItemDef.labelBounds = renderer.textBounds(labelItemDef.label);
+
+    labelItemDef.color = scale(cat);
     labelItemDef.data = data;
 
-    prevContainer = labelItem(labelItemDef);
+    defs.push(labelItemDef);
+  }
 
-    labels.push(prevContainer);
-    maxX = Math.max(maxX, prevContainer.x + prevContainer.width);
-    maxY = Math.max(maxY, prevContainer.y + prevContainer.height);
+  return defs;
+}
 
-    if (rect) {
-      availableSlots = Math.min(availableSlots, (HORIZONTAL ? Math.floor((rect.width - maxX) / prevContainer.width) : Math.floor((rect.height - maxY) / prevContainer.height)) + (i - index));
+function buildNodes(_ref4) {
+  var settings = _ref4.settings,
+      chart = _ref4.chart,
+      rect = _ref4.rect,
+      local = _ref4.local,
+      state = _ref4.state;
+
+  var nodes = [];
+  var prevContainer = {};
+  var nextXitem = 0;
+  var nextYitem = 0;
+  var availableSpace = local.isHorizontal ? rect.width - BUTTON_WIDTH - BUTTON_MARGIN : rect.height - BUTTON_HEIGHT - BUTTON_MARGIN;
+
+  if (state.titleDef.show) {
+    prevContainer = labelItem(index(state.titleDef, {
+      x: prevContainer.width || nextXitem,
+      y: prevContainer.height || nextYitem,
+      anchor: local.anchor,
+      renderingArea: rect
+    }));
+
+    nodes.push(prevContainer);
+    availableSpace -= local.isHorizontal ? prevContainer.width : prevContainer.height;
+  }
+
+  var createScrollButtons = false;
+  state.pageSize = 0;
+
+  // Items
+  for (var i = state.index; i < state.defs.length; i++) {
+    var labelItemDef = state.defs[i];
+    nextXitem += prevContainer.width || 0;
+    nextYitem += prevContainer.height || 0;
+
+    labelItemDef.x = local.isHorizontal ? nextXitem : 0;
+    labelItemDef.y = !local.isHorizontal ? nextYitem : 0;
+    if (!local.isStacked) {
+      labelItemDef.fixedInnerWidth = state.fixedInnerWidth;
+      labelItemDef.fixedInnerHeight = state.fixedInnerHeight;
     }
 
-    if (availableSlots < domain.length && !createScrollButtons) {
+    prevContainer = labelItem(index(labelItemDef, {
+      anchor: local.anchor,
+      renderingArea: rect,
+      maxShapeSize: state.maxShapeSize
+    }));
+
+    availableSpace -= local.isHorizontal ? prevContainer.width : prevContainer.height;
+    if (availableSpace < 0) {
       createScrollButtons = true;
-      // availableSlots--;
+      break;
+    }
+
+    nodes.push(prevContainer);
+    state.pageSize++;
+
+    if (state.index + state.pageSize >= state.defs.length && state.pageSize < state.defs.length) {
+      // If last item and have scrolled
+      createScrollButtons = true;
     }
   }
 
@@ -18767,122 +18857,179 @@ function processLabelItems(_ref2) {
     chart.logger().warn('legend-cat requires a key for the index to be preserved when paging. Disable buttons or add a key to the item.');
   }
 
+  state.pageMax = Math.max(0, state.defs.length - state.pageSize);
+  state.pageMin = 0;
+
   if (createScrollButtons && settings.buttons.show) {
-    var buttonRect = resolveForDataObject(settings.buttons.rect, {}, 0, []);
-    var buttonSymbol = resolveForDataObject(settings.buttons.symbol, {}, 0, []);
-    var buttonRectDisabled = resolveForDataObject(settings.buttons['rect:disabled'], {}, 0, []);
-    var buttonSymbolDisabled = resolveForDataObject(settings.buttons['symbol:disabled'], {}, 0, []);
-
-    var max = domain.length - availableSlots;
-
-    labels.push.apply(labels, toConsumableArray(createButtons({
-      HORIZONTAL: HORIZONTAL,
+    nodes.push.apply(nodes, toConsumableArray(createButtons({
+      HORIZONTAL: local.isHorizontal,
       rect: rect,
-      buttonRectMinus: index <= 0 ? buttonRectDisabled : buttonRect,
-      buttonRectPlus: index >= max ? buttonRectDisabled : buttonRect,
-      buttonSymbolMinus: index <= 0 ? buttonSymbolDisabled : buttonSymbol,
-      buttonSymbolPlus: index >= max ? buttonSymbolDisabled : buttonSymbol,
-      min: 0,
-      max: max,
-      pagingValue: availableSlots
+      state: state,
+      buttonRectMinus: state.index <= 0 ? state.buttonDefs.buttonRectDisabled : state.buttonDefs.buttonRect,
+      buttonRectPlus: state.index >= state.pageMax ? state.buttonDefs.buttonRectDisabled : state.buttonDefs.buttonRect,
+      buttonSymbolMinus: state.index <= 0 ? state.buttonDefs.buttonSymbolDisabled : state.buttonDefs.buttonSymbol,
+      buttonSymbolPlus: state.index >= state.pageMax ? state.buttonDefs.buttonSymbolDisabled : state.buttonDefs.buttonSymbol,
+      anchor: local.anchor
     })));
   }
 
-  return {
-    labels: labels,
-    maxX: maxX,
-    maxY: maxY
-  };
+  return nodes;
 }
 
-/**
- * Render the legend
- *
- * @param  {object} context Context of categorical legend to render in, pass it usualy ass { context: this }
- * @param  {integer} [index=0] Current index
- * @return {object[]} Array of objects to be rendered
- */
-function renderLegend(_ref3) {
-  var context = _ref3.context,
-      _ref3$index = _ref3.index,
-      index = _ref3$index === undefined ? 0 : _ref3$index;
+function doScroll(context) {
+  var scrollLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
 
-  var scale = context.chart.scale(context.settings.scale);
-  var DOCK = context.settings.dock || 'center';
-  var ALIGN = context.settings.align;
-  var DIRECTION = context.settings.direction || (DOCK === 'top' || DOCK === 'bottom' ? 'horizontal' : 'vertical');
-  var HORIZONTAL = DIRECTION === 'horizontal';
+  var state = context.state;
+  var len = isNaN(scrollLength) ? 3 : scrollLength;
+  state.index = Math.max(state.pageMin, Math.min(state.pageMax, state.index + len));
 
-  var settings = context.settings,
-      renderer = context.renderer,
-      rect = context.rect;
+  var nodes = buildNodes({
+    chart: context.chart,
+    settings: context.settings.settings,
+    scale: context.scale,
+    rect: context.rect,
+    local: context.local,
+    state: context.state
+  });
 
-  var _processLabelItems = processLabelItems({ settings: settings, chart: context.chart, scale: scale, HORIZONTAL: HORIZONTAL, ALIGN: ALIGN, renderer: renderer, rect: rect, index: index }),
-      labels = _processLabelItems.labels;
-
-  return labels;
+  context.update(nodes);
 }
 
-/**
- * Categorical Color Legend Component
- * @type {Object}
- * @ignore
- */
 var categoricalLegend$1 = {
-  require: ['chart', 'settings', 'renderer'],
-  defaultSettings: defaultSettings,
+  require: ['chart', 'settings', 'renderer', 'update'],
+  defaultSettings: DEFAULT_SETTINGS,
   on: {
     tap: function tap(e) {
-      var shapes = this.chart.shapesAt({
-        x: e.center.x - this.chart.element.getBoundingClientRect().left,
-        y: e.center.y - this.chart.element.getBoundingClientRect().top
-      }, {});
+      var scrollLength = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
 
-      if (shapes[0] && shapes[0].data && shapes[0].data.action) {
-        var action = shapes[0].data.action;
-        var min = shapes[0].data.min || 0;
-        var max = shapes[0].data.max || Infinity;
-        var value = shapes[0].data.value || 1;
+      var boundingRect = this.renderer.element().getBoundingClientRect();
+      var buttons = this.renderer.findShapes('.scroll-button');
 
-        if (action === '+') {
-          this.index = (this.index || 0) + value;
-        } else {
-          this.index = (this.index || 0) - value;
+      for (var i = 0; i < buttons.length; i++) {
+        var node = buttons[i];
+        var hit = NarrowPhaseCollision.testRectPoint(node.bounds, {
+          x: e.center.x - boundingRect.left,
+          y: e.center.y - boundingRect.top
+        });
+
+        if (hit) {
+          var action = node.desc.action;
+          var len = action === '+' ? scrollLength : -scrollLength;
+
+          doScroll(this, len);
+          break;
         }
-
-        this.index = Math.max(min, Math.min(max, this.index));
-
-        this.renderer.render(renderLegend({ context: this, index: this.index }));
       }
     },
+    scroll: function scroll() {
+      var scrollLength = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 3;
+
+      doScroll(this, scrollLength);
+    },
     resetindex: function resetindex() {
-      this.index = 0;
+      this.initState();
     }
   },
-  preferredSize: function preferredSize() {
-    var context = this;
-    var scale = context.chart.scale(context.settings.scale);
-    var DOCK = context.settings.dock || 'center';
-    var DIRECTION = context.settings.direction || (DOCK === 'top' || DOCK === 'bottom' ? 'horizontal' : 'vertical');
+  createLocal: function createLocal() {
+    var SETTINGS = this.settings.settings;
+    var DOCK = this.settings.dock || 'center';
+    var DIRECTION = SETTINGS.direction || (DOCK === 'top' || DOCK === 'bottom' ? 'horizontal' : 'vertical');
     var HORIZONTAL = DIRECTION === 'horizontal';
+    var ANCHOR = SETTINGS.anchor;
+    var THRESHOLD = this.scale.type === 'threshold-color';
+    var STACKED_LAYOUT = _typeof(SETTINGS.layout) === 'object' && SETTINGS.layout.mode === 'stack';
 
-    var settings = this.settings,
-        renderer = this.renderer;
+    var sourceField = void 0;
+    if (this.scale) {
+      sourceField = (this.scale.data().fields || [])[0];
+    }
 
-    var _processLabelItems2 = processLabelItems({ settings: settings, chart: context.chart, scale: scale, HORIZONTAL: HORIZONTAL, renderer: renderer }),
-        maxX = _processLabelItems2.maxX,
-        maxY = _processLabelItems2.maxY;
+    this.local = {
+      direction: DIRECTION,
+      anchor: ANCHOR,
+      isHorizontal: HORIZONTAL,
+      isThreshold: THRESHOLD,
+      isStacked: STACKED_LAYOUT,
+      sourceTitle: sourceField ? sourceField.title() : '',
+      sourceField: sourceField,
+      formatter: sourceField ? sourceField.formatter() : this.formatter
+    };
+  },
+  initState: function initState() {
+    this.state = {
+      index: 0,
+      pageSize: 0,
+      fixedInnerWidth: 0,
+      fixedInnerHeight: 0,
+      maxShapeSize: 0,
+      preferredSize: 0,
+      pageMax: Infinity,
+      pageMin: 0
+    };
+  },
+  preferredSize: function preferredSize(opts) {
+    var context = this;
 
-    return DOCK === 'left' || DOCK === 'right' ? maxX : maxY;
+    var settings = context.settings,
+        renderer = context.renderer,
+        local = context.local,
+        state = context.state,
+        scale = context.scale;
+
+
+    state.defs = resolveLabelItemDefs({
+      scale: scale,
+      settings: settings.settings,
+      renderer: renderer,
+      local: local
+    });
+    state.titleDef = resolveTitleDef({ settings: settings.settings, local: local, renderer: renderer });
+    state.buttonDefs = resolveButtonDefs(settings.settings);
+
+    var _resolveSizes = resolveSizes(state, local),
+        maxOuterWidth = _resolveSizes.maxOuterWidth,
+        maxOuterHeight = _resolveSizes.maxOuterHeight,
+        maxInnerWidth = _resolveSizes.maxInnerWidth,
+        maxInnerHeight = _resolveSizes.maxInnerHeight,
+        maxShapeSize = _resolveSizes.maxShapeSize;
+
+    this.state.fixedInnerWidth = maxInnerWidth;
+    this.state.fixedInnerHeight = maxInnerHeight;
+    this.state.maxOuterWidth = maxOuterWidth;
+    this.state.maxOuterHeight = maxOuterHeight;
+    this.state.maxShapeSize = maxShapeSize;
+
+    this.state.preferredSize = this.settings.dock === 'left' || this.settings.dock === 'right' ? maxOuterWidth : maxOuterHeight; // Store for later use to align buttons
+
+    if (this.local.isHorizontal && maxOuterWidth > opts.inner.width) {
+      return Math.max(opts.inner.width, opts.inner.height);
+    } else if (!this.local.isHorizontal && maxOuterHeight > opts.inner.height) {
+      return Math.max(opts.inner.width, opts.inner.height);
+    }
+
+    return this.state.preferredSize;
+  },
+  beforeUpdate: function beforeUpdate() {
+    this.createLocal();
+    this.initState();
   },
   created: function created() {
+    this.createLocal();
+    this.initState();
     this.rect = { x: 0, y: 0, width: 0, height: 0 };
   },
   beforeRender: function beforeRender(opts) {
     this.rect = opts.size;
   },
   render: function render() {
-    return renderLegend({ context: this, index: this.index });
+    return buildNodes({
+      chart: this.chart,
+      settings: this.settings.settings,
+      scale: this.scale,
+      rect: this.rect,
+      local: this.local,
+      state: this.state
+    });
   }
 };
 
@@ -18897,55 +19044,65 @@ function categoricalLegend(picasso) {
  * @property {scale} type='legend-cat' - Required
  * @property {scale} scale='A_scale' - A scale. Required
  * @property {string} [dock='center'] - Docking of the component, top, right, bottom or left
- * @property {string} [align='left'] - Alignment of items in the component, left or right
- * @property {string} [direction='vertical'] - Direction of rendering, 'horizontal' or 'vertical'.
- * @property {object} [item] - Items settings
- * @property {function} [item.label=undefined] - Replace the default label with a custom one using a function
- * @property {string} [item.maxWidthPx=150] - Maximum width of each item in px
- * @property {string} [item.fontSize='12px'] - Font size of label items
- * @property {string} [item.fontFamily='Arial'] - Font family of label items
- * @property {string} [item.fill='#595959'] - Font color of label items
- * @property {object} [item.margin] - Margin settings
- * @property {number} [item.margin.top=0] - Top margin
- * @property {number} [item.margin.right=5] - Right margin
- * @property {number} [item.margin.bottom=5] - Bottom margin
- * @property {number} [item.margin.left=5] - Left margin
- * @property {object|string} [item.shape] - Shape definition or shape type. Each shape may have their own unique properties that can also be set as part of the shape object.
- * @property {string} [item.shape.type='square'] Shape type
- * @property {string} [item.shape.fill] Fill of shape. Defaults to scale color if avaiable.
- * @property {string} [item.shape.stroke] Stroke of shape. Defaults to scale color if avaiable.
- * @property {string} [item.shape.strokeWidth=1] Stroke width of shape.
- * @property {function|boolean} [item.show=true] - Set to 'false' to hide the current item
- * @property {object} [title] - Title settings
- * @property {boolean} [title.show=true] - Show the title
- * @property {string} [title.maxWidthPx=200] - Maximum width of the title item
- * @property {string} [title.fontSize='12px'] - Font size of title
- * @property {string} [title.fontFamily='Arial'] - Font family of title
- * @property {string} [title.fill='#595959'] - Font color of title
- * @property {string} [title.text=undefined] - Override title text. Defaults to the title of the data field
- * @property {object} [title.margin] - Margin settings
- * @property {number} [title.margin.top=0] - Top margin
- * @property {number} [title.margin.right=5] - Right margin
- * @property {number} [title.margin.bottom=5] - Bottom margin
- * @property {number} [title.margin.left=5] - Left margin
- * @property {object} [buttons] - Button settings
- * @property {boolean} [buttons.show=true] - Show the scroll/paging buttons (will still auto hide when not needed)
- * @property {object} [buttons.rect] - Settings for the rect of the buttons
- * @property {string} [buttons.rect.fill='transparent'] - Fill color
- * @property {string} [buttons.rect.stroke='grey'] - Stroke color
- * @property {number} [buttons.rect.strokeWidth=0] - Stroke width in pixels
- * @property {object} [buttons.symbol] - Settings for the symbol of the buttons
- * @property {string} [buttons.symbol.fill='grey'] - Symbol fill color
- * @property {string} [buttons.symbol.stroke='grey'] - Stroke color
- * @property {number} [buttons.symbol.strokeWidth=2] - Stroke width in pixels
- * @property {object} [buttons.'rect:disabled'] - Settings for the disabled rect of the buttons
- * @property {string} [buttons.'rect:disabled'.fill='transparent'] - Fill color
- * @property {string} [buttons.'rect:disabled'.stroke='lightgrey'] - Stroke color
- * @property {number} [buttons.'rect:disabled'.strokeWidth=0] - Stroke width in pixels
- * @property {object} [buttons.'symbol:disabled'] - Settings for the disabled symbol of the buttons
- * @property {string} [buttons.'symbol:disabled'.fill='lightgrey'] - Symbol fill color
- * @property {string} [buttons.'symbol:disabled'.stroke='grey'] - Stroke color
- * @property {number} [buttons.'symbol:disabled'.strokeWidth=2] - Stroke width in pixels
+ * @property {object} [settings]
+ * @property {string} [settings.anchor='left'] - Is used to align items in the component, left or right
+ * @property {string} [settings.direction='vertical'] - Direction of rendering, 'horizontal' or 'vertical'.
+ * @property {object} [settings.layout] - Layout setting for the items
+ * @property {object} [settings.layout.mode='stack'] - Use `stack` to let each item only take as much space a required or else each item will take a fixed amount of space to give each item equal distance between each other
+ * @property {object} [settings.item] - Items settings
+ * @property {object} [settings.item.label] - Label settings, the value is derived from the scale
+ * @property {string} [settings.item.label.maxWidth=136] - Maximum width of each label in px
+ * @property {string} [settings.item.label.fontSize='12px'] - Font size of label items
+ * @property {string} [settings.item.label.fontFamily='Arial'] - Font family of label items
+ * @property {string} [settings.item.label.fill='#595959'] - Font color of label items
+ * @property {string} [settings.item.label.breakWord='none'] - Word break rule, how to apply line break if label text overflow it's maxWidth prop. Either `break-word` or `break-all`
+ * @property {number} [settings.item.label.maxLines=2] - Max number of lines allowed if label is broken into multiple lines (only applicable with wordBreak)
+ * @property {string} [settings.item.label.hyphens='auto'] - How words should be hyphenated when text wraps across multiple lines (only applicable with wordBreak)
+ * @property {number} [settings.item.label.lineHeight=1.2] - A multiplier defining the distance between lines (only applicable with wordBreak)
+ * @property {object} [settings.item.margin] - Margin settings
+ * @property {number} [settings.item.margin.top=0] - Top margin
+ * @property {number} [settings.item.margin.right=5] - Right margin
+ * @property {number} [settings.item.margin.bottom=5] - Bottom margin
+ * @property {number} [settings.item.margin.left=5] - Left margin
+ * @property {object|string} [settings.item.shape] - Shape definition or shape type. Each shape may have their own unique properties that can also be set as part of the shape object.
+ * @property {string} [settings.item.shape.type='square'] Shape type
+ * @property {string} [settings.item.shape.fill] Fill of shape. Defaults to scale color if avaiable.
+ * @property {string} [settings.item.shape.stroke] Stroke of shape. Defaults to scale color if avaiable.
+ * @property {string} [settings.item.shape.strokeWidth=1] Stroke width of shape.
+ * @property {function|boolean} [settings.item.show=true] - Set to 'false' to hide the current item
+ * @property {object} [settings.title] - Title settings
+ * @property {string} [settings.title.maxWidth=156] - Maximum width of each label in px
+ * @property {string} [settings.title.fontSize='12px'] - Font size of label items
+ * @property {string} [settings.title.fontFamily='Arial'] - Font family of label items
+ * @property {string} [settings.title.fill='#595959'] - Font color of label items
+ * @property {string} [settings.title.breakWord='none'] - Word break rule, how to apply line break if label text overflow it's maxWidth prop. Either `break-word` or `break-all`
+ * @property {number} [settings.title.maxLines=2] - Max number of lines allowed if label is broken into multiple lines (only applicable with wordBreak)
+ * @property {string} [settings.title.hyphens='auto'] - How words should be hyphenated when text wraps across multiple lines (only applicable with wordBreak)
+ * @property {number} [settings.title.lineHeight=1.2] - A multiplier defining the distance between lines (only applicable with wordBreak)
+ * @property {string} [settings.title.text=undefined] - Override title text. Defaults to the title of the data field
+ * @property {object} [settings.title.margin] - Margin settings
+ * @property {number} [settings.title.margin.top=0] - Top margin
+ * @property {number} [settings.title.margin.right=5] - Right margin
+ * @property {number} [settings.title.margin.bottom=5] - Bottom margin
+ * @property {number} [settings.title.margin.left=5] - Left margin
+ * @property {object} [settings.buttons] - Button settings
+ * @property {boolean} [settings.buttons.show=true] - Show the scroll/paging buttons (will still auto hide when not needed)
+ * @property {object} [settings.buttons.rect] - Settings for the rect of the buttons
+ * @property {string} [settings.buttons.rect.fill='transparent'] - Fill color
+ * @property {string} [settings.buttons.rect.stroke='grey'] - Stroke color
+ * @property {number} [settings.buttons.rect.strokeWidth=0] - Stroke width in pixels
+ * @property {object} [settings.buttons.symbol] - Settings for the symbol of the buttons
+ * @property {string} [settings.buttons.symbol.fill='grey'] - Symbol fill color
+ * @property {string} [settings.buttons.symbol.stroke='grey'] - Stroke color
+ * @property {number} [settings.buttons.symbol.strokeWidth=2] - Stroke width in pixels
+ * @property {object} [settings.buttons.'rect:disabled'] - Settings for the disabled rect of the buttons
+ * @property {string} [settings.buttons.'rect:disabled'.fill='transparent'] - Fill color
+ * @property {string} [settings.buttons.'rect:disabled'.stroke='lightgrey'] - Stroke color
+ * @property {number} [settings.buttons.'rect:disabled'.strokeWidth=0] - Stroke width in pixels
+ * @property {object} [settings.buttons.'symbol:disabled'] - Settings for the disabled symbol of the buttons
+ * @property {string} [settings.buttons.'symbol:disabled'.fill='lightgrey'] - Symbol fill color
+ * @property {string} [settings.buttons.'symbol:disabled'.stroke='grey'] - Stroke color
+ * @property {number} [settings.buttons.'symbol:disabled'.strokeWidth=2] - Stroke width in pixels
  */
 
 function applyAlignJustify(ctx, node) {
@@ -20750,7 +20907,8 @@ function resolveTransform(t, matrix) {
 var SELECTOR_MAPS = {
   type: /^\w[\w-]+/,
   attr: /^\[\w(?:[\w\._-]+)?(?:[!]?=['\"][\w\s*#_-]*['\"])?\]/,
-  universal: /^(\*)/
+  universal: /^(\*)/,
+  tag: /^\.(\w+)/
 };
 
 var FILTERS = {
@@ -20791,6 +20949,17 @@ var FILTERS = {
 
   universal: function universal(objects) {
     return objects;
+  },
+
+  tag: function tag(c, objects) {
+    // eslint-disable-line arrow-body-style
+    return objects.filter(function (o) {
+      var tag = o.tag;
+      if (tag) {
+        return tag.indexOf(c.replace('.', '')) !== -1;
+      }
+      return false;
+    });
   }
 };
 
@@ -20819,6 +20988,8 @@ function filter(token, objects) {
       return FILTERS[token.type](token.attribute, token.operator, token.attributeValue, objects);
     case 'universal':
       return FILTERS[token.type](objects);
+    case 'tag':
+      return FILTERS[token.type](token.value, objects);
     default:
       return [];
   }
@@ -21024,6 +21195,8 @@ var SceneObject = function () {
     this._collider = function () {
       return colliderToShape(node, _this._dpi);
     };
+    this._desc = node.desc;
+    this._tag = node.tag;
   }
 
   /**
@@ -21140,6 +21313,28 @@ var SceneObject = function () {
     key: 'collider',
     get: function get$$1() {
       return this._collider();
+    }
+
+    /**
+     * Get the node desc
+     * @return {object} - Node desc
+     */
+
+  }, {
+    key: 'desc',
+    get: function get$$1() {
+      return this._desc;
+    }
+
+    /**
+     * Get the node tag
+     * @return {string} - Node tag
+     */
+
+  }, {
+    key: 'tag',
+    get: function get$$1() {
+      return this._tag;
     }
   }]);
   return SceneObject;
@@ -21440,13 +21635,23 @@ var DisplayObject = function (_Node) {
 
       this.node = v;
 
-      var data = v.data;
+      var data = v.data,
+          desc = v.desc,
+          tag = v.tag;
 
 
       assignMappedAttribute(this.attrs, v);
 
       if (typeof data !== 'undefined') {
         this.data = data;
+      }
+
+      if ((typeof desc === 'undefined' ? 'undefined' : _typeof(desc)) === 'object') {
+        this.desc = index(true, {}, desc);
+      }
+
+      if (typeof tag === 'string') {
+        this.tag = tag;
       }
     }
   }, {
@@ -22633,7 +22838,10 @@ var MANDATORY = 1;
 var BREAK_ALLOWED = 2;
 
 function includesLineBreak(c) {
-  return c.search(LINEBREAK_REGEX) !== -1;
+  if (typeof c === 'string') {
+    return c.search(LINEBREAK_REGEX) !== -1;
+  }
+  return String(c).search(LINEBREAK_REGEX) !== -1;
 }
 
 function includesWhiteSpace(c) {
@@ -23012,7 +23220,7 @@ function ellipsText(_ref, measureText) {
       fontFamily = _ref['font-family'],
       maxWidth = _ref.maxWidth;
   // eslint-disable-line import/prefer-default-export
-  text = typeof text === 'string' ? text : text.toString();
+  text = typeof text === 'string' ? text : '' + text;
   if (maxWidth === undefined) {
     return text;
   }
@@ -23166,12 +23374,25 @@ function textBounds(node) {
 
   var lineBreakFn = resolveLineBreakAlgorithm(node);
   if (lineBreakFn) {
-    var bounds = calcTextBounds(node, measureFn);
     var fontSize = node['font-size'] || node.fontSize;
     var fontFamily = node['font-family'] || node.fontFamily;
     var resolvedLineBreaks = lineBreakFn(node, function (text) {
       return measureFn({ text: text, fontFamily: fontFamily, fontSize: fontSize });
     });
+    var nodeCopy = index({}, node);
+    var maxWidth = 0;
+    var widestLine = '';
+    for (var i = 0, len = resolvedLineBreaks.lines.length; i < len; i++) {
+      var line = resolvedLineBreaks.lines[i];
+      line += i === len - 1 && resolvedLineBreaks.reduced ? ELLIPSIS_CHAR : '';
+      var width = measureTextWidth({ text: line, fontSize: fontSize, fontFamily: fontFamily });
+      if (width >= maxWidth) {
+        maxWidth = width;
+        widestLine = line;
+      }
+    }
+    nodeCopy.text = widestLine;
+    var bounds = calcTextBounds(nodeCopy, measureFn);
     var lineHeight = node.lineHeight || DEFAULT_LINE_HEIGHT;
     bounds.height = bounds.height * resolvedLineBreaks.lines.length * lineHeight;
 
