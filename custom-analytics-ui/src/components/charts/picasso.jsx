@@ -8,10 +8,11 @@ class Picasso extends Chart {
   renderPicasso() {
     const layout = this.state.layout;
 
-    const data = {
+    const data = [{
       type: 'q',
-      data: layout,
-    };
+      key: 'qHyperCube',
+      data: layout.qHyperCube,
+    }];
 
     if (!this.state.pic) {
       const pic = picasso.chart({
