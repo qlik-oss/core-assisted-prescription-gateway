@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-  <title>PicassoJS Sandbox</title>
+  <title>picasso.js sandbox</title>
 
   <!-- import picasso and its dependencies-->
-  <script src="picasso.js"></script>
+  <script src="picasso/picasso.js"></script>
+  <script src="picasso/picasso-q.js"></script>
+  <script src="picasso/picasso-hammer.js"></script>
   <script src="examples.js"></script>
 
   <link rel="stylesheet" href="examples.css"></link>
@@ -32,7 +34,7 @@
 <div id="wrapper">
   <div class="part menu">
     <header>
-      <img src="../img/picasso-logo.svg" />
+      <img src="picasso-logo.svg" />
     </header>
 
     <select class="hide" name="picassoversion" id="picassoversion"></select>
@@ -152,12 +154,7 @@
 
         <div class="content">
           <div id="description">
-            If you're still seeing this message, a fatal crash has occured. It is possible that one of the required dependencies could not be loaded. If this is a hosted instance, please contact the hoster. If this is a local instance, do the following checks:
-            <ul>
-              <li>Make sure you've run "npm install" and "npm update" recently.</li>
-              <li>Is PicassoJS linked? Try to run the "npm link @qlik/picasso" command again in the examples folder</li>
-              <li>Is PicassoJS built in debug mode? The PicassoJS Sandbox/Examples requires a "picasso.js"-file in the /dist-folder, rather than "picasso.min.js". Use "npn run build:watch" or "npm run build:debug" to build PicassoJS in debug mode.</li>
-            </ul>
+            If you're still seeing this message, a fatal crash has occured. It is possible that one of the required dependencies could not be loaded. If this is a hosted instance, please contact the hoster. If this is a local instance, please check the developer console.
           </div>
         </div>
       </div>
@@ -171,6 +168,7 @@
 
         <div class="content" id="containerparent">
           <div id="container"></div>
+          <div id="status"></div>
         </div>
       </div>
 
@@ -182,9 +180,9 @@
           <div id="docarea">
             <a href="#" onclick="dociframe.history.back(); event.preventDefault();">&laquo; Back</a> -
             <a href="#" onclick="dociframe.history.forward(); event.preventDefault();">Forward &raquo;</a> -
-            <a class="docnavbutton" href="../picasso/master/docs/" target="dociframe">Reset</a> -
-            <a class="docnavbutton" href="../picasso/master/docs/" target="_blank">Open Documentation in a New Window</a>
-            <iframe id="dociframe" name="dociframe" src="../picasso/master/docs/"></iframe>
+            <a class="docnavbutton" href="docs/" target="dociframe">Reset</a> -
+            <a class="docnavbutton" href="docs/" target="_blank">Open Documentation in a New Window</a>
+            <iframe id="dociframe" name="dociframe" src="docs/"></iframe>
           </div>
         </div>
       </div>
@@ -199,9 +197,9 @@
 
 </div>
 <div id="splashscreen">
-  <img src="../img/picasso-logo.svg" />
+  <img src="picasso-logo.svg" />
   <p> &nbsp; Consume any data, create any chart.</p>
-  <p id="splashscreen-error">Please enable JavaScript or run "node server.js"</p>
+  <p id="splashscreen-error">Please enable JavaScript in your browser</p>
 </div>
 <script type="text/javascript">
   document.getElementById('splashscreen-error').innerHTML = "";

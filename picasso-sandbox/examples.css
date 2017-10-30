@@ -57,6 +57,38 @@ img {
   width: 100%;
   height: calc(100vh - 80px);
 }
+#container,
+#container > .instance {
+  height: calc(100vh - 120px);
+}
+#containerparent #status {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 40px;
+  height: 40px;
+  overflow: hidden;
+  background: #dcdcdc;
+  color: #333;
+  font-size: 14px;
+  padding: 10px;
+}
+#containerparent #status.error h1 {
+  color: red;
+}
+#containerparent #status:hover {
+  height: auto;
+  overflow: auto;
+}
+#containerparent #status h1 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+#containerparent #status code {
+  display: block;
+  margin-bottom: 15px;
+}
 .maximized {
   z-index: 999;
   background: #fff;
@@ -402,7 +434,6 @@ body.vertical .tabs.default {
 .part.menu {
   font-size: 12px;
   max-height: calc(100vh - 40px);
-  overflow-y: auto;
 }
 .part.menu header {
   display: block;

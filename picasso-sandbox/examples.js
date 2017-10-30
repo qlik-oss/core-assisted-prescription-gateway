@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -207,7 +207,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.onWindowEvent = onWindowEvent;
 exports.onEvent = onEvent;
 
-var _queryselect = __webpack_require__(/*! ./queryselect */ 4);
+var _queryselect = __webpack_require__(/*! ./queryselect */ 3);
 
 function onWindowEvent(event, fn) {
   window.addEventListener(event, fn);
@@ -231,6 +231,31 @@ function onEvent(selector, event, fn, attach) {
 
 /***/ }),
 /* 3 */
+/*!*************************************!*\
+  !*** ./src/core/dom/queryselect.js ***!
+  \*************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.qs = qs;
+exports.qsAll = qsAll;
+function qs(selector) {
+  return document.querySelector(selector);
+}
+
+function qsAll(selector) {
+  return document.querySelectorAll(selector);
+}
+
+/***/ }),
+/* 4 */
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -260,31 +285,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-/* 4 */
-/*!*************************************!*\
-  !*** ./src/core/dom/queryselect.js ***!
-  \*************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.qs = qs;
-exports.qsAll = qsAll;
-function qs(selector) {
-  return document.querySelector(selector);
-}
-
-function qsAll(selector) {
-  return document.querySelectorAll(selector);
-}
 
 /***/ }),
 /* 5 */
@@ -450,9 +450,9 @@ _lifecycle2.default.on('srv-config', function (srvConfig) {
   var hostname = window.location.href.split('/')[2];
 
   // Fix the hostname according to the server config
-  if (srvConfig.hostname) {
-    hostname = srvConfig.hostname + (srvConfig.port === 80 ? '' : ':' + srvConfig.port);
-  }
+  /* if (srvConfig.hostname) {
+    hostname = srvConfig.hostname + (srvConfig.port === 80 ? '' : `:${srvConfig.port}`);
+  } */
 
   // Fetch the server config from this server
   (0, _http2.default)('http://' + hostname + '/versions', function (result) {
@@ -525,7 +525,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = loadScript;
 var head = document.getElementsByTagName('head')[0];
 
-function loadScript(url, callback) {
+function loadScript(url, callback, error) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = url;
@@ -534,6 +534,7 @@ function loadScript(url, callback) {
   // There are several events for cross browser compatibility.
   script.onreadystatechange = callback;
   script.onload = callback;
+  script.onerror = error;
 
   // Fire the loading
   head.appendChild(script);
@@ -1362,7 +1363,7 @@ exports.default = storage;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3), __webpack_require__(/*! ./../node-libs-browser/node_modules/process/browser.js */ 13)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 4), __webpack_require__(/*! ./../node-libs-browser/node_modules/process/browser.js */ 13)))
 
 /***/ }),
 /* 13 */
@@ -1582,7 +1583,7 @@ if (typeof window !== "undefined") {
 
 module.exports = win;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/global.js */ 4)))
 
 /***/ }),
 /* 15 */
@@ -1781,9 +1782,9 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /* eslint no-confusing-arrow: 0 */
 /* eslint no-mixed-operators: 0 */
 
-var cities = ['Copenhagen', 'Malmo', 'Lund', 'Helsingborg', 'Barcelona', 'Berlin', 'Amsterdam', 'Prag', 'Paris', 'New York', 'Oslo', 'Stockholm', 'Delhi', 'London', 'Taipei', 'Moscow', 'Shanghai', 'Tokyo', 'Jakarta', 'Seoul', 'Ho Chi Minh', 'Bangkok', 'Hong Kong', 'Rio de Janeiro', 'Singapore', 'Alexandria', 'Los Angeles', 'Madrid', 'Buenos Aires'];
+var cities = ['Abu Dhabi', 'Abuja', 'Accra', 'Adamstown', 'Addis Ababa', 'Algiers', 'Alofi', 'Amman', 'Amsterdam', 'Andorra la Vella', 'Ankara', 'Antananarivo', 'Apia', 'Ashgabat', 'Asmara', 'Astana', 'Asunción', 'Athens', 'Avarua', 'Baghdad', 'Baku', 'Bamako', 'Bandar Seri Begawan', 'Bangkok', 'Bangui', 'Banjul', 'Basse-Terre', 'Basseterre', 'Beijing', 'Beirut', 'Belgrade', 'Belmopan', 'Berlin', 'Bern', 'Bishkek', 'Bissau', 'Bogotá', 'Brasília', 'Bratislava', 'Brazzaville', 'Bridgetown', 'Brussels', 'Bucharest', 'Budapest', 'Buenos Aires', 'Bujumbura', 'Cairo', 'Canberra', 'Caracas', 'Castries', 'Cayenne', 'Charlotte Amalie', 'Chișinău', 'Cockburn Town', 'Conakry', 'Copenhagen', 'Dakar', 'Damascus', 'Dhaka', 'Dili', 'Djibouti', 'Dodoma', 'Doha', 'Douglas', 'Dublin', 'Dushanbe', 'Edinburgh of the Seven Seas', 'El Aioun', 'Episkopi Cantonment', 'Flying Fish Cove', 'Fort-de-France', 'Freetown', 'Funafuti', 'Gaborone', 'George Town', 'Georgetown', 'Georgetown', 'Gibraltar', 'Grozny', 'Guatemala City', 'Gustavia', 'Hagåtña', 'Hamilton', 'Hanga Roa', 'Hanoi', 'Harare', 'Hargeisa', 'Havana', 'Helsinki', 'Hong Kong', 'Honiara', 'Islamabad', 'Jakarta', 'Jamestown', 'Jerusalem', 'Juba', 'Kabul', 'Kampala', 'Kathmandu', 'Kiev', 'Kigali', 'King Edward Point', 'Kingston', 'Kingston', 'Kingstown', 'Kinshasa', 'Kuala Lumpur', 'Kuwait City', 'Libreville', 'Lilongwe', 'Lima', 'Lisbon', 'Ljubljana', 'Lomé', 'London', 'Luanda', 'Lusaka', 'Luxembourg', 'Madrid', 'Majuro', 'Malabo', 'Malé', 'Mamoudzou', 'Managua', 'Manama', 'Manila', 'Maputo', 'Marigot', 'Maseru', 'Mata-Utu', 'Mbabane', 'Mexico City', 'Minsk', 'Mogadishu', 'Monaco', 'Monrovia', 'Montevideo', 'Moroni', 'Moscow', 'Muscat', 'Nairobi', 'Nassau', 'Naypyidaw', 'N\'Djamena', 'New Delhi', 'Ngerulmud', 'Niamey', 'Nicosia', 'Nicosia', 'Nouakchott', 'Nouméa', 'Nukuʻalofa', 'Nuuk', 'Oranjestad', 'Oslo', 'Ottawa', 'Ouagadougou', 'Pago Pago', 'Palikir', 'Panama City', 'Papeete', 'Paramaribo', 'Paris', 'Philipsburg', 'Phnom Penh', 'Plymouth', 'Podgorica', 'Port Louis', 'Port Moresby', 'Port Vila', 'Port-au-Prince', 'Port of Spain', 'Porto-Novo', 'Prague', 'Praia', 'Pretoria', 'Pristina', 'Pyongyang', 'Quito', 'Rabat', 'Ramallah', 'Reykjavík', 'Riga', 'Riyadh', 'Road Town', 'Rome', 'Roseau', 'Saint-Denis', 'Saipan', 'San José', 'San Juan', 'San Marino', 'San Salvador', 'Sana\'a', 'Santiago', 'Santo Domingo', 'São Tomé', 'Sarajevo', 'Singapore', 'Skopje', 'Sofia', 'Sri Jayawardenepura Kotte', 'St. George\'s', 'St. Helier', 'St. John\'s', 'St. Peter Port', 'St. Pierre', 'Stanley', 'Stepanakert', 'Stockholm', 'Sucre', 'Sukhumi', 'Suva', 'Taipei', 'Tallinn', 'Tarawa', 'Tashkent', 'Tbilisi', 'Tegucigalpa', 'Tehran', 'Thimphu', 'Tirana', 'Tiraspol', 'Tokyo', 'Tórshavn', 'Tripoli', 'Tskhinvali', 'Tunis', 'Ulaanbaatar', 'Vaduz', 'Valletta', 'The Valley', 'Vatican City', 'Victoria', 'Vienna', 'Vientiane', 'Vilnius', 'Warsaw', 'Washington, D.C.', 'Wellington', 'West Island', 'Willemstad', 'Windhoek', 'Yamoussoukro', 'Yaoundé', 'Yaren', 'Yerevan', 'Zagreb'];
 
-var teamNames = ['City', 'United', 'Bears', 'Cowboys', 'Rookies', 'Tigers', 'Lions', 'Bunnies', 'Leafs', 'Hawks', 'Lazors', "Sharks with frickin' laser beams", 'Bulldogs', 'Sharks', 'Eagles', 'Redskins', 'Ranges', 'Owls', 'Spikes', 'Quakers', 'Saints', 'Seals', 'Shrimps', 'Vikings', 'Wolves', 'Seagulls', 'Glassboys', 'Daggers', 'Addicks', 'Beavers', 'Swans', 'Meat Commission', 'and the Gang', 'Chefs', 'Pigs'];
+var teamNames = ['City', 'United', 'Bears', 'Cowboys', 'Rookies', 'Tigers', 'Lions', 'Bunnies', 'Leafs', 'Hawks', 'Lazors', "Sharks with frickin' laser beams", 'Bulldogs', 'Sharks', 'Eagles', 'Redskins', 'Rangers', 'Owls', 'Spikes', 'Quakers', 'Saints', 'Seals', 'Shrimps', 'Vikings', 'Wolves', 'Seagulls', 'Glassboys', 'Daggers', 'Addicks', 'Beavers', 'Swans', 'Meat Commission', 'and the Gang', 'Chefs', 'Pigs', 'Titans', 'Buccaneers', 'Broncos', 'Chargers', 'Packers', '49ers', 'Lakers', 'Patriots', 'Jets', 'Red Sox', 'Texans', 'Ravens', 'Golden Knights'];
 
 var sportsAbbreviations = ['FC', 'Club', 'FCB', 'BC', 'Soccer Club', 'SC', 'Football Club', 'Ball Club', 'HC', 'Hockey Club', 'AC', 'Athletic Club'];
 
@@ -1822,6 +1823,19 @@ function sortTableAlphabetically(table) {
   });
 
   return defs.concat(data);
+}
+
+function generateRandomSubset(subsetRange, set) {
+  if (!isNaN(subsetRange) && subsetRange < set.length && subsetRange > 0) {
+    var setCopy = set.slice();
+    var subset = [];
+    for (var i = 0; i < subsetRange; i++) {
+      var n = Math.round(Math.random() * (setCopy.length - 1));
+      subset.push(setCopy.splice(n, 1)[0]);
+    }
+    return subset;
+  }
+  return set;
 }
 
 /**
@@ -1925,9 +1939,19 @@ function generateTeamNameData(_ref) {
       _ref$sortAlphabetical = _ref.sortAlphabetically,
       sortAlphabetically = _ref$sortAlphabetical === undefined ? true : _ref$sortAlphabetical,
       _ref$dataRange = _ref.dataRange,
-      dataRange = _ref$dataRange === undefined ? [0, 1000] : _ref$dataRange;
+      dataRange = _ref$dataRange === undefined ? [0, 1000] : _ref$dataRange,
+      _ref$uniqueCities = _ref.uniqueCities,
+      uniqueCities = _ref$uniqueCities === undefined ? cities.length : _ref$uniqueCities,
+      _ref$uniqueTeamNames = _ref.uniqueTeamNames,
+      uniqueTeamNames = _ref$uniqueTeamNames === undefined ? teamNames.length : _ref$uniqueTeamNames,
+      _ref$uniqueAbbr = _ref.uniqueAbbr,
+      uniqueAbbr = _ref$uniqueAbbr === undefined ? sportsAbbreviations.length : _ref$uniqueAbbr;
 
-  var names = stringssGenerator.apply(undefined, [dimensions, rows + 1, ' '].concat([cities, teamNames, sportsAbbreviations]));
+  var subsetCities = generateRandomSubset(uniqueCities, cities);
+  var subsetNames = generateRandomSubset(uniqueTeamNames, teamNames);
+  var subsetAbbr = generateRandomSubset(uniqueAbbr, sportsAbbreviations);
+
+  var names = stringssGenerator.apply(undefined, [dimensions, rows + 1, ' '].concat([subsetCities, subsetNames, subsetAbbr]));
 
   var table = _hypercubeGenerator2.default.generateCustomData(dimensions, measures, rows, stringsRowCallback(dimensions, sorted), dataRangePointCallback(names, dimensions, dataRange));
 
@@ -2206,22 +2230,16 @@ exports.default = loadPlugins;
 
 __webpack_require__(/*! hammerjs */ 23);
 
-var _hammer = __webpack_require__(/*! @qlik/picasso/plugins/hammer */ 24);
-
-var _hammer2 = _interopRequireDefault(_hammer);
-
-var _q = __webpack_require__(/*! @qlik/picasso/plugins/q */ 25);
-
-var _q2 = _interopRequireDefault(_q);
-
 var _dynver = __webpack_require__(/*! ./dynver */ 6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function loadPlugins(picasso, version, callback) {
   if (!version) {
-    picasso.use(_hammer2.default);
-    picasso.use(_q2.default);
+    if (window && window.picassoHammer) {
+      picasso.use(window.picassoHammer);
+    }
+    if (window && window.picassoQ) {
+      picasso.use(window.picassoQ);
+    }
   } else {
     (0, _dynver.loadPlugin)(version, 'picassoQ', 'q/dist/picasso-q.js', function (picassoQ) {
       picasso.use(picassoQ);
@@ -4894,2995 +4912,6 @@ if (true) {
 
 /***/ }),
 /* 24 */
-/*!**************************************************************************!*\
-  !*** ./node_modules/@qlik/picasso/plugins/hammer/dist/picasso-hammer.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * @qlik/picasso-hammer v0.33.0
- * Copyright (c) 2017 QlikTech International AB
- */
-
-(function (global, factory) {
-	 true ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.picassoHammer = factory());
-}(this, (function () { 'use strict';
-
-var translateKnownTypes = {
-  click: 'Tap',
-  Click: 'Tap',
-  tap: 'Tap',
-  pan: 'Pan',
-  swipe: 'Swipe',
-  rotate: 'Rotate',
-  press: 'Press',
-  pinch: 'Pinch'
-};
-
-/**
- * Helper function for translating typical non-hammer gesture to a hammer gesture. Currently only supporting 'click'
- * @param {String} type Gesture type
- * @private
- */
-function getGestureType(type) {
-  return translateKnownTypes[type] || type;
-}
-
-/**
- * Manages event handlers for HammerJS. Assumes Hammer is loaded and added to the global namespace
- */
-function hammer(chart, mediator, element) {
-  var settings = void 0;
-  var instance = void 0;
-  var mc = void 0;
-  var key = void 0;
-  var hammerGestures = [];
-  var isOn = true;
-  /**
-   * Set default settings
-   * @private
-   */
-  function setDefaultSettings(newSettings) {
-    key = newSettings.key;
-    settings = newSettings;
-    instance = { chart: chart, mediator: mediator, settings: settings };
-    settings.gestures = settings.gestures || [];
-    if (settings.enable === undefined) {
-      settings.enable = true;
-    }
-  }
-
-  /**
-   * @private
-   * add hammer recognizers based on settings
-   */
-  function addRecognizers() {
-    if (typeof settings.enable === 'function') {
-      settings.enable = settings.enable.bind(instance)();
-    }
-    if (!settings.enable) {
-      return; // interaction is disabled
-    }
-    settings.gestures.forEach(function (gesture) {
-      gesture.options = gesture.options || {};
-      // handle action enable
-      if (gesture.options.enable === undefined) {
-        gesture.options.enable = true;
-      }
-      if (typeof gesture.options.enable === 'function') {
-        gesture.options.enable = gesture.options.enable.bind(instance);
-      }
-      // setup hammer gestures
-      var type = getGestureType(gesture.type);
-      if (Hammer && Hammer[type]) {
-        gesture.options.event = gesture.options.event || gesture.type.toLowerCase();
-        mc = mc || new Hammer.Manager(element);
-        mc.add(new Hammer[type](gesture.options));
-        Object.keys(gesture.events).forEach(function (eventName) {
-          gesture.events[eventName] = gesture.events[eventName].bind(instance);
-          mc.on(eventName, gesture.events[eventName]);
-        });
-        hammerGestures.push(gesture);
-      }
-    });
-
-    // setup mixing hammer gestures
-    settings.gestures.forEach(function (gesture) {
-      var type = getGestureType(gesture.type);
-      if (Hammer && Hammer[type]) {
-        if (gesture.recognizeWith) {
-          mc.get(gesture.options.event).recognizeWith(gesture.recognizeWith.split(' ').filter(function (e) {
-            return e !== '';
-          }));
-        }
-        if (gesture.requireFailure) {
-          mc.get(gesture.options.event).requireFailure(gesture.requireFailure.split(' ').filter(function (e) {
-            return e !== '';
-          }));
-        }
-      }
-    });
-  }
-  /**
-   * @private
-   * removes all added hammer recognizers and native events
-   */
-  function removeAddedEvents() {
-    // remove hammer recognizers and registered events
-    hammerGestures.forEach(function (gesture) {
-      Object.keys(gesture.events).forEach(function (eventName) {
-        mc.off(eventName, gesture.events[eventName]);
-      });
-      mc.remove(gesture.options.event);
-    });
-    hammerGestures = [];
-  }
-
-  return {
-    /**
-     * Getter for the key.
-     */
-    get key() {
-      return key;
-    },
-    /**
-     * Updates this with new settings
-     * @typedef settings
-     * @type {object}
-     * @property {string} [type] - The interaction type. Is 'hammer' for this component
-     * @property {boolean|function} [enable] - Should the interaction be enabled or not.
-     * This is only run when adding event handlers. In effect at startup, update or during on/off.
-     * It does not run during every event loop.
-     * @property {object} [events] - The keys in this object is the names of native events
-     * that should be added to the chart element and they should all point to function which
-     * will be the corresponding event handler.
-     */
-    set: function set(newSettings) {
-      setDefaultSettings(newSettings);
-      removeAddedEvents();
-      if (isOn) {
-        addRecognizers();
-      }
-    },
-
-    /**
-     * Turns off interactions
-     */
-    off: function off() {
-      isOn = false;
-      removeAddedEvents();
-    },
-
-    /**
-     * Turns off interactions
-     */
-    on: function on() {
-      isOn = true;
-      if (hammerGestures.length === 0) {
-        addRecognizers();
-      }
-    },
-
-    /**
-     * Destroys and unbinds all event handlers
-     */
-    destroy: function destroy() {
-      removeAddedEvents();
-      if (mc) {
-        mc.destroy();
-      }
-      mc = null;
-      instance = null;
-      settings = null;
-    }
-  };
-}
-
-function initialize(picasso) {
-  picasso.interaction('hammer', hammer);
-}
-
-return initialize;
-
-})));
-//# sourceMappingURL=picasso-hammer.js.map
-
-
-/***/ }),
-/* 25 */
-/*!****************************************************************!*\
-  !*** ./node_modules/@qlik/picasso/plugins/q/dist/picasso-q.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/**
- * @qlik/picasso-q v0.33.0
- * Copyright (c) 2017 QlikTech International AB
- */
-
-(function (global, factory) {
-	 true ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.picassoQ = factory());
-}(this, (function () { 'use strict';
-
-function count(node) {
-  var sum = 0,
-      children = node.children,
-      i = children && children.length;
-  if (!i) sum = 1;
-  else while (--i >= 0) sum += children[i].value;
-  node.value = sum;
-}
-
-var node_count = function() {
-  return this.eachAfter(count);
-};
-
-var node_each = function(callback) {
-  var node = this, current, next = [node], children, i, n;
-  do {
-    current = next.reverse(), next = [];
-    while (node = current.pop()) {
-      callback(node), children = node.children;
-      if (children) for (i = 0, n = children.length; i < n; ++i) {
-        next.push(children[i]);
-      }
-    }
-  } while (next.length);
-  return this;
-};
-
-var node_eachBefore = function(callback) {
-  var node = this, nodes = [node], children, i;
-  while (node = nodes.pop()) {
-    callback(node), children = node.children;
-    if (children) for (i = children.length - 1; i >= 0; --i) {
-      nodes.push(children[i]);
-    }
-  }
-  return this;
-};
-
-var node_eachAfter = function(callback) {
-  var node = this, nodes = [node], next = [], children, i, n;
-  while (node = nodes.pop()) {
-    next.push(node), children = node.children;
-    if (children) for (i = 0, n = children.length; i < n; ++i) {
-      nodes.push(children[i]);
-    }
-  }
-  while (node = next.pop()) {
-    callback(node);
-  }
-  return this;
-};
-
-var node_sum = function(value) {
-  return this.eachAfter(function(node) {
-    var sum = +value(node.data) || 0,
-        children = node.children,
-        i = children && children.length;
-    while (--i >= 0) sum += children[i].value;
-    node.value = sum;
-  });
-};
-
-var node_sort = function(compare) {
-  return this.eachBefore(function(node) {
-    if (node.children) {
-      node.children.sort(compare);
-    }
-  });
-};
-
-var node_path = function(end) {
-  var start = this,
-      ancestor = leastCommonAncestor(start, end),
-      nodes = [start];
-  while (start !== ancestor) {
-    start = start.parent;
-    nodes.push(start);
-  }
-  var k = nodes.length;
-  while (end !== ancestor) {
-    nodes.splice(k, 0, end);
-    end = end.parent;
-  }
-  return nodes;
-};
-
-function leastCommonAncestor(a, b) {
-  if (a === b) return a;
-  var aNodes = a.ancestors(),
-      bNodes = b.ancestors(),
-      c = null;
-  a = aNodes.pop();
-  b = bNodes.pop();
-  while (a === b) {
-    c = a;
-    a = aNodes.pop();
-    b = bNodes.pop();
-  }
-  return c;
-}
-
-var node_ancestors = function() {
-  var node = this, nodes = [node];
-  while (node = node.parent) {
-    nodes.push(node);
-  }
-  return nodes;
-};
-
-var node_descendants = function() {
-  var nodes = [];
-  this.each(function(node) {
-    nodes.push(node);
-  });
-  return nodes;
-};
-
-var node_leaves = function() {
-  var leaves = [];
-  this.eachBefore(function(node) {
-    if (!node.children) {
-      leaves.push(node);
-    }
-  });
-  return leaves;
-};
-
-var node_links = function() {
-  var root = this, links = [];
-  root.each(function(node) {
-    if (node !== root) { // Don’t include the root’s parent, if any.
-      links.push({source: node.parent, target: node});
-    }
-  });
-  return links;
-};
-
-function hierarchy(data, children) {
-  var root = new Node(data),
-      valued = +data.value && (root.value = data.value),
-      node,
-      nodes = [root],
-      child,
-      childs,
-      i,
-      n;
-
-  if (children == null) children = defaultChildren;
-
-  while (node = nodes.pop()) {
-    if (valued) node.value = +node.data.value;
-    if ((childs = children(node.data)) && (n = childs.length)) {
-      node.children = new Array(n);
-      for (i = n - 1; i >= 0; --i) {
-        nodes.push(child = node.children[i] = new Node(childs[i]));
-        child.parent = node;
-        child.depth = node.depth + 1;
-      }
-    }
-  }
-
-  return root.eachBefore(computeHeight);
-}
-
-function node_copy() {
-  return hierarchy(this).eachBefore(copyData);
-}
-
-function defaultChildren(d) {
-  return d.children;
-}
-
-function copyData(node) {
-  node.data = node.data.data;
-}
-
-function computeHeight(node) {
-  var height = 0;
-  do node.height = height;
-  while ((node = node.parent) && (node.height < ++height));
-}
-
-function Node(data) {
-  this.data = data;
-  this.depth =
-  this.height = 0;
-  this.parent = null;
-}
-
-Node.prototype = hierarchy.prototype = {
-  constructor: Node,
-  count: node_count,
-  each: node_each,
-  eachAfter: node_eachAfter,
-  eachBefore: node_eachBefore,
-  sum: node_sum,
-  sort: node_sort,
-  path: node_path,
-  ancestors: node_ancestors,
-  descendants: node_descendants,
-  leaves: node_leaves,
-  links: node_links,
-  copy: node_copy
-};
-
-function enclosesNot(a, b) {
-  var dr = a.r - b.r, dx = b.x - a.x, dy = b.y - a.y;
-  return dr < 0 || dr * dr < dx * dx + dy * dy;
-}
-
-function enclosesWeak(a, b) {
-  var dr = a.r - b.r + 1e-6, dx = b.x - a.x, dy = b.y - a.y;
-  return dr > 0 && dr * dr > dx * dx + dy * dy;
-}
-
-function enclosesWeakAll(a, B) {
-  for (var i = 0; i < B.length; ++i) {
-    if (!enclosesWeak(a, B[i])) {
-      return false;
-    }
-  }
-  return true;
-}
-
-function encloseBasis2(a, b) {
-  var x1 = a.x, y1 = a.y, r1 = a.r,
-      x2 = b.x, y2 = b.y, r2 = b.r,
-      x21 = x2 - x1, y21 = y2 - y1, r21 = r2 - r1,
-      l = Math.sqrt(x21 * x21 + y21 * y21);
-  return {
-    x: (x1 + x2 + x21 / l * r21) / 2,
-    y: (y1 + y2 + y21 / l * r21) / 2,
-    r: (l + r1 + r2) / 2
-  };
-}
-
-function encloseBasis3(a, b, c) {
-  var x1 = a.x, y1 = a.y, r1 = a.r,
-      x2 = b.x, y2 = b.y, r2 = b.r,
-      x3 = c.x, y3 = c.y, r3 = c.r,
-      a2 = x1 - x2,
-      a3 = x1 - x3,
-      b2 = y1 - y2,
-      b3 = y1 - y3,
-      c2 = r2 - r1,
-      c3 = r3 - r1,
-      d1 = x1 * x1 + y1 * y1 - r1 * r1,
-      d2 = d1 - x2 * x2 - y2 * y2 + r2 * r2,
-      d3 = d1 - x3 * x3 - y3 * y3 + r3 * r3,
-      ab = a3 * b2 - a2 * b3,
-      xa = (b2 * d3 - b3 * d2) / (ab * 2) - x1,
-      xb = (b3 * c2 - b2 * c3) / ab,
-      ya = (a3 * d2 - a2 * d3) / (ab * 2) - y1,
-      yb = (a2 * c3 - a3 * c2) / ab,
-      A = xb * xb + yb * yb - 1,
-      B = 2 * (r1 + xa * xb + ya * yb),
-      C = xa * xa + ya * ya - r1 * r1,
-      r = -(A ? (B + Math.sqrt(B * B - 4 * A * C)) / (2 * A) : C / B);
-  return {
-    x: x1 + xa + xb * r,
-    y: y1 + ya + yb * r,
-    r: r
-  };
-}
-
-var treemapDice = function(parent, x0, y0, x1, y1) {
-  var nodes = parent.children,
-      node,
-      i = -1,
-      n = nodes.length,
-      k = parent.value && (x1 - x0) / parent.value;
-
-  while (++i < n) {
-    node = nodes[i], node.y0 = y0, node.y1 = y1;
-    node.x0 = x0, node.x1 = x0 += node.value * k;
-  }
-};
-
-function TreeNode(node, i) {
-  this._ = node;
-  this.parent = null;
-  this.children = null;
-  this.A = null; // default ancestor
-  this.a = this; // ancestor
-  this.z = 0; // prelim
-  this.m = 0; // mod
-  this.c = 0; // change
-  this.s = 0; // shift
-  this.t = null; // thread
-  this.i = i; // number
-}
-
-TreeNode.prototype = Object.create(Node.prototype);
-
-var treemapSlice = function(parent, x0, y0, x1, y1) {
-  var nodes = parent.children,
-      node,
-      i = -1,
-      n = nodes.length,
-      k = parent.value && (y1 - y0) / parent.value;
-
-  while (++i < n) {
-    node = nodes[i], node.x0 = x0, node.x1 = x1;
-    node.y0 = y0, node.y1 = y0 += node.value * k;
-  }
-};
-
-function squarifyRatio(ratio, parent, x0, y0, x1, y1) {
-  var rows = [],
-      nodes = parent.children,
-      row,
-      nodeValue,
-      i0 = 0,
-      i1 = 0,
-      n = nodes.length,
-      dx, dy,
-      value = parent.value,
-      sumValue,
-      minValue,
-      maxValue,
-      newRatio,
-      minRatio,
-      alpha,
-      beta;
-
-  while (i0 < n) {
-    dx = x1 - x0, dy = y1 - y0;
-
-    // Find the next non-empty node.
-    do sumValue = nodes[i1++].value; while (!sumValue && i1 < n);
-    minValue = maxValue = sumValue;
-    alpha = Math.max(dy / dx, dx / dy) / (value * ratio);
-    beta = sumValue * sumValue * alpha;
-    minRatio = Math.max(maxValue / beta, beta / minValue);
-
-    // Keep adding nodes while the aspect ratio maintains or improves.
-    for (; i1 < n; ++i1) {
-      sumValue += nodeValue = nodes[i1].value;
-      if (nodeValue < minValue) minValue = nodeValue;
-      if (nodeValue > maxValue) maxValue = nodeValue;
-      beta = sumValue * sumValue * alpha;
-      newRatio = Math.max(maxValue / beta, beta / minValue);
-      if (newRatio > minRatio) { sumValue -= nodeValue; break; }
-      minRatio = newRatio;
-    }
-
-    // Position and record the row orientation.
-    rows.push(row = {value: sumValue, dice: dx < dy, children: nodes.slice(i0, i1)});
-    if (row.dice) treemapDice(row, x0, y0, x1, value ? y0 += dy * sumValue / value : y1);
-    else treemapSlice(row, x0, y0, value ? x0 += dx * sumValue / value : x1, y1);
-    value -= sumValue, i0 = i1;
-  }
-
-  return rows;
-}
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-  return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-};
-
-
-
-
-
-
-
-
-
-
-
-var classCallCheck = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-var createClass = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
-
-
-
-
-
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var slicedToArray = function () {
-  function sliceIterator(arr, i) {
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"]) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  return function (arr, i) {
-    if (Array.isArray(arr)) {
-      return arr;
-    } else if (Symbol.iterator in Object(arr)) {
-      return sliceIterator(arr, i);
-    } else {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-    }
-  };
-}();
-
-
-
-
-
-
-
-
-
-
-
-
-
-var toConsumableArray = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  } else {
-    return Array.from(arr);
-  }
-};
-
-/**
- * Resolves the value at the given JSON path
- * @private
- * @param  {String} path [description]
- * @param  {Object} obj  [description]
- * @return {Object}      [description]
- *
- * @example
- * let path = "/path/to/paradise";
- * let obj = {
- *   path: {
- *     to: { paradise: "heaven"},
- *     from: {...}
- *   }
- * };
- * resolve( path, obj ); // "heaven"
- */
-function resolve(path, obj) {
-  if (path.charAt(0) === '/') {
-    path = path.substring(1);
-  }
-  var arr = path.split('/');
-  var subpath = void 0;
-  var container = obj;
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i] === '*' && Array.isArray(container)) {
-      var carr = [];
-      subpath = arr.slice(i + 1).join('/');
-      for (var c = 0; c < container.length; c++) {
-        var v = resolve(subpath, container[c]);
-        // v.forEach(_ => _._parent = container[c]);
-        if (Array.isArray(v)) {
-          carr.push.apply(carr, toConsumableArray(v));
-        } else {
-          carr.push(v);
-        }
-      }
-      return carr;
-      // return container.map(v => resolve(arr.slice(i + 1).join('/'), v));
-    } else if (!arr[i] && Array.isArray(container)) {
-      var _carr = new Array(container.length);
-      subpath = arr.slice(i + 1).join('/');
-      for (var _c = 0; _c < container.length; _c++) {
-        _carr[_c] = resolve(subpath, container[_c]);
-      }
-      return _carr;
-      // return container.map(v => resolve(arr.slice(i + 1).join('/'), v));
-    } else if (arr[i] in container) {
-      container = container[arr[i]];
-    }
-  }
-
-  return container;
-}
-
-function getKPath(fieldIdx, cube) {
-  var idx = fieldIdx;
-  var numDimz = cube.qDimensionInfo.length;
-  var numMeas = cube.qMeasureInfo.length;
-  var order = cube.qEffectiveInterColumnSortOrder;
-  if (idx < numDimz && order) {
-    idx = order.indexOf(idx);
-  } else if (idx >= numDimz && order && numMeas > 1 && order.indexOf(-1) !== -1) {
-    idx = order.indexOf(-1);
-  }
-  var s = '/qData/*/qSubNodes';
-  var depth = Math.max(0, Math.min(idx, numDimz));
-  var i = 0;
-  for (; i < depth; i++) {
-    // traverse down to specified depth
-    s += '/*/qSubNodes';
-  }
-  if (fieldIdx >= numDimz) {
-    // if the depth is a pseudo level, pick the given pseudo dimension, and then traverse down to leaf level (value nodes)
-    if (numMeas > 1) {
-      s += '/' + (fieldIdx - numDimz) + '/qSubNodes'; // pick pseudo dimension (measure)
-      ++i;
-      // traverse to value nodes
-      for (; i <= numDimz; i++) {
-        s += '/*/qSubNodes';
-      }
-    } else {
-      s += '/' + (fieldIdx - numDimz);
-    }
-  }
-  return s;
-}
-
-function getAttrPath(s, attrIdx, attrDimIdx) {
-  if (typeof attrIdx === 'number') {
-    return s + '/*/qAttrExps/qValues/' + attrIdx;
-  }
-  if (typeof attrDimIdx === 'number') {
-    return s + '/*/qAttrDims/qValues/' + attrDimIdx;
-  }
-  return s;
-}
-
-function getPathToFieldItems(field, _ref) {
-  var cache = _ref.cache,
-      cube = _ref.cube;
-
-  if (!field) {
-    return '';
-  }
-  var fieldIdx = cache.fields.indexOf(field);
-  var attrIdx = void 0;
-  var attrDimIdx = void 0;
-  if (fieldIdx === -1) {
-    for (var i = 0; i < cache.attributeDimensionFields.length; i++) {
-      attrDimIdx = cache.attributeDimensionFields[i] ? cache.attributeDimensionFields[i].indexOf(field) : -1;
-      if (attrDimIdx !== -1) {
-        fieldIdx = i;
-        break;
-      }
-    }
-  }
-  if (fieldIdx === -1) {
-    for (var _i = 0; _i < cache.attributeExpressionFields.length; _i++) {
-      attrIdx = cache.attributeExpressionFields[_i] ? cache.attributeExpressionFields[_i].indexOf(field) : -1;
-      if (attrIdx !== -1) {
-        fieldIdx = _i;
-        break;
-      }
-    }
-  }
-  return getAttrPath(getKPath(fieldIdx, cube), attrIdx >= 0 ? attrIdx : undefined, attrDimIdx >= 0 ? attrDimIdx : undefined);
-}
-
-function getTreePath(field, _ref2) {
-  var cache = _ref2.cache,
-      cube = _ref2.cube;
-
-  var s1 = getPathToFieldItems(field, { cache: cache, cube: cube });
-  var s2 = s1.replace(/qSubNodes/g, 'children');
-  var s3 = s2.replace(/children$/g, 'children/*');
-  return s3.replace(/qData\/\*/, '');
-}
-
-function augment(config, dataset, cache, deps) {
-  var rootPath = '/qStackedDataPages/*/qData';
-  var cube = dataset.raw();
-
-  var root = resolve(rootPath, cube);
-  if (!root || !root[0]) {
-    return null;
-  }
-
-  var h = hierarchy(root[0], config.children || function (node) {
-    return node.qSubNodes;
-  });
-
-  var height = h.height;
-  var propDefs = [];
-
-  var _loop = function _loop(i) {
-    var _deps$normalizeConfig = deps.normalizeConfig(config, dataset),
-        props = _deps$normalizeConfig.props,
-        main = _deps$normalizeConfig.main;
-
-    var propsArr = Object.keys(props);
-    propDefs[i] = { propsArr: propsArr, props: props, main: main };
-    var currentField = null;
-    var isRoot = i === 0;
-    if (i > 0) {
-      var idx = cube.qEffectiveInterColumnSortOrder[i - 1];
-      // if (idx === -1) { // pseudo
-      //   let childIdx = node.parent.children.indexOf(node);
-      //   idx = cube.qDimensionInfo.length + childIdx; // measure field
-      // }
-      if (i > cube.qEffectiveInterColumnSortOrder.length) {
-        idx = cube.qDimensionInfo.length;
-      }
-
-      currentField = cache.fields[idx];
-    }
-    var currentItemsPath = currentField ? getTreePath(currentField, { cube: cube, cache: cache }) : rootPath;
-
-    propsArr.forEach(function (prop) {
-      var p = props[prop];
-
-      if (p.field) {
-        var fieldPath = getTreePath(p.field, { cube: cube, cache: cache });
-        if (fieldPath === currentItemsPath) {
-          p.isSame = true;
-        } else if (isRoot) {
-          p.isDescendant = true;
-          p.path = fieldPath + '/data';
-        } else {
-          var isDescendant = fieldPath.match(/\//g).length > currentItemsPath.match(/\//g).length;
-          var pathToNode = '';
-          if (isDescendant) {
-            pathToNode = fieldPath.replace(currentItemsPath, '').replace(/^\/\*/, '') + '/data';
-          } else {
-            pathToNode = Math.ceil((currentItemsPath.match(/\//g).length - fieldPath.match(/\//g).length) / 2);
-          }
-          p.isDescendant = isDescendant;
-          p.path = pathToNode;
-        }
-      }
-    });
-  };
-
-  for (var i = 0; i <= height; i++) {
-    _loop(i);
-  }
-
-  var originalData = [];
-  var expando = 0;
-  h.each(function (node) {
-    var currentOriginal = originalData[expando++] = node.data;
-    var propsArr = propDefs[node.depth].propsArr;
-    var props = propDefs[node.depth].props;
-    var main = propDefs[node.depth].main;
-
-    node.data = {
-      value: typeof main.value === 'function' ? main.value(currentOriginal) : currentOriginal
-    };
-    propsArr.forEach(function (prop) {
-      var p = props[prop];
-      var fn = function fn(v) {
-        return v;
-      };
-      var value = void 0;
-      if (p.type === 'primitive') {
-        value = p.value;
-      } else {
-        if (typeof p.value === 'function') {
-          fn = function fn(v) {
-            return p.value(v);
-          };
-        }
-        if (!p.field) {
-          value = currentOriginal;
-        } else if (p.isSame) {
-          value = currentOriginal;
-        } else if (p.isDescendant) {
-          value = resolve(p.path, node);
-          if (Array.isArray(value)) {
-            value = value.map(fn);
-            fn = p.reduce || function (v) {
-              return v.join(', ');
-            };
-          }
-        } else if (p.path) {
-          // ancestor
-          var num = p.path || 0;
-          var it = node;
-          for (var i = 0; i < num; i++) {
-            it = it.parent;
-          }
-          value = it.data.value;
-        }
-      }
-      node.data[prop] = {
-        value: fn(value)
-      };
-      if (p.source) {
-        node.data[prop].source = { field: p.source };
-      }
-    });
-  });
-
-  return h;
-}
-
-function flattenTree(children, steps, prop, arrIndexAtTargetDepth) {
-  var arr = [];
-  if (steps <= 0) {
-    var nodes = arrIndexAtTargetDepth >= 0 ? [children[arrIndexAtTargetDepth]] : children;
-    if (prop) {
-      arr.push.apply(arr, toConsumableArray(nodes.map(function (v) {
-        return v[prop];
-      })));
-    } else {
-      arr.push.apply(arr, toConsumableArray(nodes));
-    }
-  } else {
-    for (var i = 0; i < children.length; i++) {
-      if (children[i].children && children[i].children.length) {
-        arr.push.apply(arr, toConsumableArray(flattenTree(children[i].children, steps - 1, prop, arrIndexAtTargetDepth)));
-      }
-    }
-  }
-  return arr;
-}
-
-function treeAccessor(sourceDepth, targetDepth, prop, arrIndexAtTargetDepth) {
-  if (sourceDepth === targetDepth) {
-    return function (d) {
-      return d;
-    };
-  }
-  if (sourceDepth > targetDepth) {
-    // traverse upwards
-    var steps = Math.max(0, Math.min(100, sourceDepth - targetDepth));
-    var path = [].concat(toConsumableArray(Array(steps))).map(String.prototype.valueOf, 'parent').join('.');
-    var fn = void 0;
-    if (prop) {
-      fn = Function('node', 'return node.' + path + '.' + prop + ';'); // eslint-disable-line no-new-func
-    } else {
-      fn = Function('node', 'return node.' + path + ';'); // eslint-disable-line no-new-func
-    }
-    return fn;
-  }
-  if (targetDepth > sourceDepth) {
-    // flatten descendants
-    var _steps = Math.max(0, Math.min(100, targetDepth - sourceDepth));
-    var _fn = function _fn(node) {
-      return flattenTree(node.children, _steps - 1, prop, arrIndexAtTargetDepth);
-    };
-    return _fn;
-  }
-  return false;
-}
-
-function findField(query, _ref) {
-  var cache = _ref.cache;
-
-  // if (ATTR_DIM_RX.test(id) && query) { // true if this table is an attribute dimension table
-  //   const idx = +/\/(\d+)/.exec(query)[1];
-  //   return fields[idx];
-  // }
-
-  if (typeof query === 'number') {
-    return cache.fields[query];
-  }
-
-  var allFields = cache.fields.slice();
-  (cache.attributeDimensionFields || []).forEach(function (fields) {
-    return allFields.push.apply(allFields, toConsumableArray(fields));
-  });
-  (cache.attributeExpressionFields || []).forEach(function (fields) {
-    return allFields.push.apply(allFields, toConsumableArray(fields));
-  });
-  if (typeof query === 'string') {
-    for (var i = 0; i < allFields.length; i++) {
-      // console.log(allFields[i].key());
-      if (allFields[i].key() === query || allFields[i].title() === query) {
-        return allFields[i];
-      }
-    }
-  } else if (query && allFields.indexOf(query) !== -1) {
-    // assume 'query' is a field instance
-    return query;
-  }
-
-  throw Error('Field not found: ' + query);
-}
-
-var DIM_RX = /^qDimensionInfo(?:\/(\d+))?/;
-var M_RX = /^qMeasureInfo\/(\d+)/;
-var ATTR_EXPR_RX = /\/qAttrExprInfo\/(\d+)/;
-var ATTR_DIM_RX = /\/qAttrDimInfo\/(\d+)/;
-
-function getFieldDepth(field, _ref) {
-  var cube = _ref.cube;
-
-  if (!field) {
-    return -1;
-  }
-  var key = field.key();
-  var isFieldDimension = false;
-  var fieldIdx = -1; // cache.fields.indexOf(field);
-  var attrIdx = -1;
-  var attrDimIdx = -1;
-  var fieldDepth = -1;
-  var pseudoMeasureIndex = -1;
-  var remainder = void 0;
-
-  if (DIM_RX.test(key)) {
-    isFieldDimension = true;
-    fieldIdx = +DIM_RX.exec(key)[1];
-    remainder = key.replace(DIM_RX, '');
-  } else if (M_RX.test(key)) {
-    pseudoMeasureIndex = +M_RX.exec(key)[1];
-    remainder = key.replace(M_RX, '');
-  }
-
-  if (remainder) {
-    if (ATTR_DIM_RX.exec(remainder)) {
-      attrDimIdx = +ATTR_DIM_RX.exec(remainder)[1];
-    } else if (ATTR_EXPR_RX.exec(remainder)) {
-      attrIdx = +ATTR_EXPR_RX.exec(remainder)[1];
-    }
-  }
-
-  var treeOrder = cube.qEffectiveInterColumnSortOrder;
-
-  if (isFieldDimension) {
-    fieldDepth = treeOrder ? treeOrder.indexOf(fieldIdx) : fieldIdx;
-  } else if (treeOrder && treeOrder.indexOf(-1) !== -1) {
-    // if pseudo dimension exists in sort order
-    fieldDepth = treeOrder.indexOf(-1); // depth of pesudodimension
-  } else {
-    // assume measure is at the bottom of the tree
-    fieldDepth = cube.qDimensionInfo.length;
-  }
-
-  return {
-    fieldDepth: fieldDepth + 1, // +1 due to root node
-    pseudoMeasureIndex: pseudoMeasureIndex,
-    attrDimIdx: attrDimIdx,
-    attrIdx: attrIdx
-  };
-}
-
-function getFieldAccessor(sourceDepthObject, targetDepthObject, prop) {
-  var nodeFn = treeAccessor(sourceDepthObject.fieldDepth, targetDepthObject.fieldDepth, prop, targetDepthObject.pseudoMeasureIndex);
-  var attrFn = void 0;
-
-  if (targetDepthObject.attrDimIdx >= 0) {
-    attrFn = function attrFn(data) {
-      return data.qAttrDims.qValues[targetDepthObject.attrDimIdx];
-    };
-  } else if (targetDepthObject.attrIdx >= 0) {
-    attrFn = function attrFn(data) {
-      return data.qAttrExps.qValues[targetDepthObject.attrIdx];
-    };
-  }
-
-  return {
-    nodeFn: nodeFn,
-    attrFn: attrFn
-  };
-}
-
-function extract(config, dataset, cache, deps) {
-  var cfgs = Array.isArray(config) ? config : [config];
-  var dataItems = [];
-  cfgs.forEach(function (cfg) {
-    if (cfg.field) {
-      var cube = dataset.raw();
-      var f = _typeof(cfg.field) === 'object' ? cfg.field : dataset.field(cfg.field);
-
-      var _deps$normalizeConfig = deps.normalizeConfig(cfg, dataset),
-          props = _deps$normalizeConfig.props,
-          main = _deps$normalizeConfig.main;
-
-      var propsArr = Object.keys(props);
-      var rootPath = '/qStackedDataPages/*/qData';
-      if (!cache.tree) {
-        var root = resolve(rootPath, cube);
-        cache.tree = hierarchy(root[0], function (node) {
-          return node.qSubNodes;
-        });
-      }
-      var itemDepthObject = getFieldDepth(f, { cube: cube, cache: cache });
-
-      var _getFieldAccessor = getFieldAccessor({ fieldDepth: 0 }, itemDepthObject),
-          nodeFn = _getFieldAccessor.nodeFn,
-          attrFn = _getFieldAccessor.attrFn;
-
-      var items = nodeFn(cache.tree);
-      propsArr.forEach(function (prop) {
-        var p = props[prop];
-        if (p.field) {
-          if (p.field === f) {
-            p.isSame = true;
-          } else {
-            var depthObject = getFieldDepth(p.field, { cube: cube, cache: cache });
-            var accessors = getFieldAccessor(itemDepthObject, depthObject, 'data');
-            p.accessor = accessors.nodeFn;
-            p.attrAccessor = accessors.attrFn;
-          }
-        }
-      });
-      var mapped = items.map(function (item) {
-        var itemData = attrFn ? attrFn(item.data) : item.data;
-        var ret = {
-          value: typeof main.value === 'function' ? main.value(itemData) : typeof main.value !== 'undefined' ? main.value : itemData, // eslint-disable-line no-nested-ternary
-          source: {
-            field: main.field.key()
-          }
-        };
-        propsArr.forEach(function (prop) {
-          var p = props[prop];
-          var fn = void 0;
-          var value = void 0;
-          if (p.type === 'primitive') {
-            value = p.value;
-          } else {
-            if (typeof p.value === 'function') {
-              // accessor function
-              fn = p.value;
-            }
-            if (p.accessor) {
-              value = p.accessor(item);
-              if (Array.isArray(value)) {
-                if (p.attrAccessor) {
-                  value = value.map(p.attrAccessor);
-                }
-                if (fn) {
-                  value = value.map(fn);
-                  fn = null;
-                }
-                value = p.reduce ? p.reduce(value) : value;
-              } else {
-                value = p.attrAccessor ? p.attrAccessor(value) : value;
-              }
-            } else {
-              value = itemData;
-            }
-          }
-          ret[prop] = {
-            value: fn ? fn(value) : value
-          };
-          if (p.field) {
-            ret[prop].source = { field: p.field.key() };
-          }
-        });
-        return ret;
-      });
-      dataItems.push.apply(dataItems, toConsumableArray(mapped));
-    }
-  });
-  return dataItems;
-}
-
-var hasOwn = Object.prototype.hasOwnProperty;
-var toStr = Object.prototype.toString;
-
-var isArray = function isArray(arr) {
-	if (typeof Array.isArray === 'function') {
-		return Array.isArray(arr);
-	}
-
-	return toStr.call(arr) === '[object Array]';
-};
-
-var isPlainObject = function isPlainObject(obj) {
-	if (!obj || toStr.call(obj) !== '[object Object]') {
-		return false;
-	}
-
-	var hasOwnConstructor = hasOwn.call(obj, 'constructor');
-	var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
-	// Not own constructor property must be Object
-	if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
-		return false;
-	}
-
-	// Own properties are enumerated firstly, so to speed up,
-	// if last one is own, then all properties are own.
-	var key;
-	for (key in obj) { /**/ }
-
-	return typeof key === 'undefined' || hasOwn.call(obj, key);
-};
-
-var index$2 = function extend() {
-	var options, name, src, copy, copyIsArray, clone;
-	var target = arguments[0];
-	var i = 1;
-	var length = arguments.length;
-	var deep = false;
-
-	// Handle a deep copy situation
-	if (typeof target === 'boolean') {
-		deep = target;
-		target = arguments[1] || {};
-		// skip the boolean and the target
-		i = 2;
-	}
-	if (target == null || (typeof target !== 'object' && typeof target !== 'function')) {
-		target = {};
-	}
-
-	for (; i < length; ++i) {
-		options = arguments[i];
-		// Only deal with non-null/undefined values
-		if (options != null) {
-			// Extend the base object
-			for (name in options) {
-				src = target[name];
-				copy = options[name];
-
-				// Prevent never-ending loop
-				if (target !== copy) {
-					// Recurse if we're merging plain objects or arrays
-					if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
-						if (copyIsArray) {
-							copyIsArray = false;
-							clone = src && isArray(src) ? src : [];
-						} else {
-							clone = src && isPlainObject(src) ? src : {};
-						}
-
-						// Never move original objects, clone them
-						target[name] = extend(deep, clone, copy);
-
-					// Don't bring in undefined values
-					} else if (typeof copy !== 'undefined') {
-						target[name] = copy;
-					}
-				}
-			}
-		}
-	}
-
-	// Return the modified object
-	return target;
-};
-
-function getFieldAccessor$1(field, page, _ref) {
-  var cache = _ref.cache;
-
-  if (!field) {
-    return -1;
-  }
-  var fieldIdx = cache.fields.indexOf(field);
-  var attrIdx = -1;
-  var attrDimIdx = -1;
-  if (fieldIdx === -1) {
-    for (var i = 0; i < cache.attributeDimensionFields.length; i++) {
-      attrDimIdx = cache.attributeDimensionFields[i] ? cache.attributeDimensionFields[i].indexOf(field) : -1;
-      if (attrDimIdx !== -1) {
-        fieldIdx = i;
-        break;
-      }
-    }
-  }
-  if (fieldIdx === -1) {
-    for (var _i = 0; _i < cache.attributeExpressionFields.length; _i++) {
-      attrIdx = cache.attributeExpressionFields[_i] ? cache.attributeExpressionFields[_i].indexOf(field) : -1;
-      if (attrIdx !== -1) {
-        fieldIdx = _i;
-        break;
-      }
-    }
-  }
-
-  fieldIdx -= page.qArea.qLeft;
-  if (fieldIdx < 0 || fieldIdx >= page.qArea.qWidth) {
-    // throw new Error('Field out of range');
-    return -1;
-  }
-
-  var path = 'row[' + fieldIdx + ']';
-
-  if (attrDimIdx >= 0) {
-    return Function('row', 'return ' + path + '.qAttrDims.qValues[' + attrDimIdx + '];'); // eslint-disable-line no-new-func
-  } else if (attrIdx >= 0) {
-    return Function('row', 'return ' + path + '.qAttrExps.qValues[' + attrIdx + '];'); // eslint-disable-line no-new-func
-  }
-
-  return Function('row', 'return ' + path + ';'); // eslint-disable-line no-new-func
-}
-
-// TODO - handle 'other' value
-// const specialTextValues = {
-//   '-3': (meta) => {
-//     if ('othersLabel' in meta) {
-//       return meta.othersLabel;
-//     }
-//     return '';
-//   }
-// };
-
-function datumExtract(propCfg, cell, _ref2) {
-  var key = _ref2.key;
-
-  var datum = {
-    value: typeof propCfg.value === 'function' ? propCfg.value(cell) : typeof propCfg.value !== 'undefined' ? propCfg.value : cell // eslint-disable-line no-nested-ternary
-  };
-
-  if (propCfg.field) {
-    datum.source = {
-      key: key,
-      field: propCfg.field.key()
-    };
-  }
-
-  return datum;
-}
-
-function extract$1(config, dataset, cache, _ref3) {
-  var normalizeConfig = _ref3.normalizeConfig;
-
-  var cfgs = Array.isArray(config) ? config : [config];
-  var dataItems = [];
-  cfgs.forEach(function (cfg) {
-    if (cfg.field) {
-      var cube = dataset.raw();
-      var sourceKey = dataset.key();
-      var f = _typeof(cfg.field) === 'object' ? cfg.field : dataset.field(cfg.field);
-
-      var _normalizeConfig = normalizeConfig(cfg, dataset),
-          props = _normalizeConfig.props,
-          main = _normalizeConfig.main;
-
-      var propsArr = Object.keys(props);
-
-      var track = !!cfg.trackBy;
-      var trackType = _typeof(cfg.trackBy);
-      var tracker = {};
-      var trackedItems = [];
-      var items = [];
-      var trackId = void 0;
-
-      cube.qDataPages.forEach(function (page) {
-        var fn = getFieldAccessor$1(f, page, { cache: cache });
-        if (fn === -1) {
-          return;
-        }
-        page.qMatrix.forEach(function (row, i) {
-          var rowIdx = page.qArea.qTop + i;
-          var mainCell = index$2({ qRow: rowIdx }, fn(row));
-          var ret = datumExtract(main, mainCell, { key: sourceKey });
-
-          // loop through all props that need to be mapped and
-          // assign 'value' and 'source' to each property
-          propsArr.forEach(function (prop) {
-            var p = props[prop];
-            var propCell = mainCell;
-            if (p.field && p.field !== f) {
-              var propCellFn = getFieldAccessor$1(p.field, page, { cache: cache });
-              if (propCellFn === -1) {
-                return;
-              }
-              propCell = index$2({ qRow: rowIdx }, propCellFn(row));
-            }
-            ret[prop] = datumExtract(p, propCell, { key: sourceKey }, prop);
-          });
-
-          // collect items based on the trackBy value
-          // items with the same trackBy value are placed in an array and reduced later
-          if (track) {
-            trackId = trackType === 'function' ? cfg.trackBy(mainCell) : mainCell[cfg.trackBy];
-            var trackedItem = tracker[trackId];
-            if (!trackedItem) {
-              trackedItem = tracker[trackId] = {
-                items: [],
-                id: trackId
-              };
-              trackedItems.push(trackedItem);
-            }
-            trackedItem.items.push(ret);
-          }
-
-          items.push(ret);
-        });
-      });
-
-      // reduce if items have been grouped
-      if (track) {
-        dataItems.push.apply(dataItems, toConsumableArray(trackedItems.map(function (t) {
-          var mainValues = t.items.map(function (item) {
-            return item.value;
-          });
-          var mainReduce = main.reduce;
-          var ret = {
-            value: mainReduce ? mainReduce(mainValues) : mainValues,
-            source: t.items[0].source
-          };
-          propsArr.forEach(function (prop) {
-            var values = t.items.map(function (item) {
-              return item[prop].value;
-            });
-            var reduce = props[prop].reduce;
-            ret[prop] = {
-              value: reduce ? reduce(values) : values
-            };
-            if (t.items[0][prop].source) {
-              ret[prop].source = t.items[0][prop].source;
-            }
-          });
-          return ret;
-        })));
-      } else {
-        dataItems.push.apply(dataItems, items);
-      }
-    }
-  });
-  return dataItems;
-}
-
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-
-
-
-
-
-function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-var format_min = createCommonjsModule(function (module) {
-/*! javascript-number-formatter - v1.1.11 - http://mottie.github.com/javascript-number-formatter/ * © ecava */
-!function(a,b){ false?undefined([],b):module.exports=b();}(commonjsGlobal,function(){return function(a,b){"use strict";if(!a||isNaN(+b))return b;var c,d,e,f,g,h,i,j,k,l,m=a.length,n=a.search(/[0-9\-\+#]/),o=n>0?a.substring(0,n):"",p=a.split("").reverse().join(""),q=p.search(/[0-9\-\+#]/),r=m-q,s=a.substring(r,r+1),t=r+("."===s||","===s?1:0),u=q>0?a.substring(t,m):"";if(a=a.substring(n,t),b="-"===a.charAt(0)?-b:+b,c=b<0?b=-b:0,d=a.match(/[^\d\-\+#]/g),e=d&&d[d.length-1]||".",f=d&&d[1]&&d[0]||",",a=a.split(e),b=b.toFixed(a[1]&&a[1].length),b=+b+"",h=a[1]&&a[1].lastIndexOf("0"),j=b.split("."),(!j[1]||j[1]&&j[1].length<=h)&&(b=(+b).toFixed(h+1)),k=a[0].split(f),a[0]=k.join(""),g=a[0]&&a[0].indexOf("0"),g>-1)for(;j[0].length<a[0].length-g;)j[0]="0"+j[0];else 0===+j[0]&&(j[0]="");if(b=b.split("."),b[0]=j[0],i=k[1]&&k[k.length-1].length){for(l=b[0],p="",r=l.length%i,m=l.length,t=0;t<m;t++)p+=l.charAt(t),!((t-r+1)%i)&&t<m-i&&(p+=f);b[0]=p;}return b[1]=a[1]&&b[1]?e+b[1]:"",d=b.join(""),"0"!==d&&""!==d||(c=!1),o+((c?"-":"")+d)+u}});
-});
-
-function escapeRegExp(str) {
-  return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
-}
-
-/*
-* Created by Miralem Drek (mek)
-* Re-formatted and fitted into picasso by Hannes Lindquist (bge)
-*/
-var SIprefixes = {
-  3: 'k',
-  6: 'M',
-  9: 'G',
-  12: 'T',
-  15: 'P',
-  18: 'E',
-  21: 'Z',
-  24: 'Y',
-  '-3': 'm',
-  '-6': 'μ',
-  '-9': 'n',
-  '-12': 'p',
-  '-15': 'f',
-  '-18': 'a',
-  '-21': 'z',
-  '-24': 'y'
-};
-var percentage = /%$/;
-var radix = /^\(r(0[2-9]|[12]\d|3[0-6])\)/i;
-var oct = /^\(oct\)/i;
-var dec = /^\(dec\)/i;
-var hex = /^\(hex\)/i;
-var bin = /^\(bin\)/i;
-var rom = /^\(rom\)/i;
-var functional = /^(\(rom\)|\(bin\)|\(hex\)|\(dec\)|\(oct\)|\(r(0[2-9]|[12]\d|3[0-6])\))/i;
-
-function formatRadix(value, fradix, pattern, decimal) {
-  value = value.toString(fradix);
-  if (pattern[1] === pattern[1].toUpperCase()) {
-    value = value.toUpperCase();
-  }
-  if (value.length - value.indexOf('.') > 10) {
-    // limit to 10 decimal places
-    value = value.slice(0, value.indexOf('.') + 11);
-  }
-
-  return value.replace('.', decimal || '.');
-}
-
-// value must be an integer
-// value must not be in scientific notation
-function formatRoman(value, pattern) {
-  var i = void 0,
-      s = '',
-      v = Number(String(value).slice(-3)),
-      nThousands = (value - v) / 1000,
-      decimal = [0, 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900].reverse(),
-      numeral = ['0', 'I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM'].reverse();
-
-  while (v > 0) {
-    for (i = 0; i < decimal.length; i++) {
-      if (decimal[i] <= v) {
-        s += numeral[i];
-        v -= decimal[i];
-        break;
-      }
-    }
-  }
-
-  for (i = 0; i < nThousands; i++) {
-    s = 'M' + s;
-  }
-
-  if (pattern[1] !== pattern[1].toUpperCase()) {
-    s = s.toLowerCase();
-  }
-  return s;
-}
-
-function formatFunctional(value, pattern, d) {
-  var temp = void 0;
-  if (radix.test(pattern)) {
-    value = formatRadix(value, Number(/\d{2}/.exec(pattern)[0]), pattern, d);
-  } else if (oct.test(pattern)) {
-    value = formatRadix(value, 8, pattern, d);
-  } else if (dec.test(pattern)) {
-    value = formatRadix(value, 10, pattern, d);
-  } else if (hex.test(pattern)) {
-    value = formatRadix(value, 16, pattern, d);
-  } else if (bin.test(pattern)) {
-    value = formatRadix(value, 2, pattern, d);
-  } else if (rom.test(pattern)) {
-    temp = '';
-    if (value < 0) {
-      temp = '-';
-      value = -value;
-    }
-    value = Math.floor(value);
-    if (value === 0) {
-      value = '0';
-    } else if (value <= 500000) {
-      // limit in engine
-      value = formatRoman(value, pattern);
-      value = temp + value;
-    } else {
-      value = pattern + temp + value.toExponential(0); // to return same result as engine
-    }
-  }
-
-  return value;
-}
-
-function escape(value, flags, justStr) {
-  var str = escapeRegExp(value);
-  if (justStr) {
-    return str;
-  }
-  return new RegExp(str || '', flags);
-}
-
-function createRegExp(thousand, decimal) {
-  if (decimal) {
-    decimal = escapeRegExp(decimal);
-  }
-  if (thousand) {
-    thousand = escapeRegExp(thousand);
-  }
-  return new RegExp('(?:[#0]+' + thousand + ')?[#0]+(?:' + decimal + '[#0]+)?');
-}
-
-function preparePattern(o, t, d) {
-  var parts = void 0,
-      lastPart = void 0,
-      pattern = o.pattern,
-      numericPattern = void 0,
-      prefix = void 0,
-      postfix = void 0,
-      groupTemp = void 0,
-      decTemp = void 0,
-      temp = void 0,
-      regex = void 0;
-
-  if (pattern.indexOf('A') >= 0) {
-    // abbreviate SI
-    pattern = pattern.replace('A', '');
-    o.abbreviate = true;
-  }
-
-  // extract the numeric part from the pattern
-  regex = createRegExp(t, d);
-  numericPattern = pattern.match(regex);
-  numericPattern = numericPattern ? numericPattern[0] : '';
-  prefix = numericPattern ? pattern.substr(0, pattern.indexOf(numericPattern)) : pattern;
-  postfix = numericPattern ? pattern.substring(pattern.indexOf(numericPattern) + numericPattern.length) : '';
-
-  if (!numericPattern) {
-    numericPattern = pattern ? '#' : '##########';
-  }
-
-  if (t && t === d) {
-    // ignore grouping if grouping separator is same as decimal separator
-    // extract decimal part
-    parts = numericPattern.split(d);
-    lastPart = parts.pop();
-    numericPattern = parts.join('') + d + lastPart;
-    t = '';
-  }
-
-  // formatting library does not support multiple characters as separator (nor +-).
-  // do a temporary replacement
-  groupTemp = t;
-  t = /,/.test(d) ? '¤' : ',';
-  if (groupTemp) {
-    numericPattern = numericPattern.replace(escape(groupTemp, 'g'), t);
-  }
-
-  decTemp = d;
-  d = '.';
-  if (decTemp) {
-    numericPattern = numericPattern.replace(escape(decTemp, 'g'), d);
-  }
-
-  temp = numericPattern.match(/#/g);
-  temp = temp ? temp.length : 0;
-
-  o.prefix = prefix || '';
-  o.postfix = postfix || '';
-  o.pattern = pattern;
-  o.percentage = percentage.test(pattern);
-  o.numericPattern = numericPattern || '';
-  o.numericRegex = new RegExp(escape(t, null, true) + '|' + escape(d, null, true), 'g');
-  o.groupTemp = groupTemp;
-  o.decTemp = decTemp;
-  o.t = t;
-  o.d = d;
-  o.temp = temp;
-}
-
-var NumberFormatter = function () {
-  /**
-   * @name NumberFormatter
-   * @constructs
-   * @param {Object} localeInfo
-   * @param {String} pattern
-   * @param {String} [thousand]
-   * @param {String} [decimal]
-   * @param {String} [type]
-   */
-  function NumberFormatter(localeInfo, pattern, thousand, decimal, type) {
-    classCallCheck(this, NumberFormatter);
-
-    this.localeInfo = localeInfo;
-    this.pattern = pattern;
-    this.thousandDelimiter = thousand || ',';
-    this.decimalDelimiter = decimal || '.';
-    this.type = type || 'numeric';
-
-    this.prepare();
-  }
-
-  createClass(NumberFormatter, [{
-    key: 'clone',
-    value: function clone() {
-      var n = new NumberFormatter(this.localeInfo, this.pattern, this.thousandDelimiter, this.decimalDelimiter, this.type);
-      n.subtype = this.subtype;
-      return n;
-    }
-
-    /**
-     * Formats a number according to a specific pattern.
-     * Use # for optional numbers and 0 for padding.
-     * @param {Number} value Number to format.
-     * @param {String} [pattern] The pattern to apply.
-     * @param {String} [t] Grouping separator.
-     * @param {String} [d] Decimal delimiter.
-     * @example
-     * format(10, "0") // 10;
-     * format(10, "#") // 10;
-     * format(10, "##.#") // 10;
-     * format(10, "##.0") // 10.0;
-     * format(10, "000") // 010;
-     * format(10.123, "0.0") // 10.1;
-     * format(10.123, "0.00##") // 10.123; // at least 2 decimals, never more than 4
-     * format(123456789, "#,###") // 123,456,789;
-     * format(123456789, "####-####", "-") // 1-2345-6789;
-     * format(10000, "#A") // 10k,  A -> SI abbreviation
-     * format(1234567, "#.###A") // 1.235M;
-     * format(0.0001, "#.#A") // 0.1m;
-     *
-     * format(0.257, "0.0%") // 25.7%; // will multiply by 100
-     * format(9876, "$#,###") // $9,876;
-     * format(-9876, "$#,###;$(#,###)") // $(9,876); // use ; for alternative formatting for negative values
-     * format(10, "(r16)") // a; // radix 16
-     * format(15, "(hex)") // f; // same as (r16)
-     * format(15, "(HEX)") // F;
-     * format(10, "(bin)") // 1010; // same as (r02)
-     * format(10, "(oct)") // 12; // same as (r08)
-     */
-
-  }, {
-    key: 'format',
-    value: function format(value, pattern, t, d) {
-      this.prepare(pattern, t, d);
-      return this.formatValue(value);
-    }
-  }, {
-    key: 'prepare',
-    value: function prepare(pattern, t, d) {
-      var prep = void 0;
-
-      if (typeof pattern === 'undefined') {
-        pattern = this.pattern;
-      }
-      if (typeof t === 'undefined') {
-        t = this.thousandDelimiter;
-      }
-      if (typeof d === 'undefined') {
-        d = this.decimalDelimiter;
-      }
-
-      if (!pattern) {
-        this._prepared = { pattern: false };
-        return;
-      }
-
-      this._prepared = {
-        positive: {
-          d: d,
-          t: t,
-          abbreviate: false,
-          isFunctional: false,
-          prefix: '',
-          postfix: ''
-        },
-        negative: {
-          d: d,
-          t: t,
-          abbreviate: false,
-          isFunctional: false,
-          prefix: '',
-          postfix: ''
-        },
-        zero: {
-          d: d,
-          t: t,
-          abbreviate: false,
-          isFunctional: false,
-          prefix: '',
-          postfix: ''
-        }
-      };
-      prep = this._prepared;
-
-      // TODO FIXME qListSep?
-      // const patternSeparator = this.localeInfo && this.localeInfo.qListSep ? this.localeInfo.qListSep : ';';
-      var patternSeparator = ';';
-
-      pattern = pattern.split(patternSeparator);
-      prep.positive.pattern = pattern[0];
-      prep.negative.pattern = pattern[1];
-      prep.zero.pattern = pattern[2];
-      if (functional.test(pattern[0])) {
-        prep.positive.isFunctional = true;
-      }
-      if (!pattern[1]) {
-        prep.negative = false;
-      } else if (functional.test(pattern[1])) {
-        prep.negative.isFunctional = true;
-      }
-      if (!pattern[2]) {
-        prep.zero = false;
-      } else if (functional.test(pattern[2])) {
-        prep.zero.isFunctional = true;
-      }
-
-      if (!prep.positive.isFunctional) {
-        preparePattern(prep.positive, t, d);
-      }
-      if (prep.negative && !prep.negative.isFunctional) {
-        preparePattern(prep.negative, t, d);
-      }
-      if (prep.zero && !prep.zero.isFunctional) {
-        preparePattern(prep.zero, t, d);
-      }
-    }
-  }, {
-    key: 'formatValue',
-    value: function formatValue(value) {
-      var prep = this._prepared,
-          temp = void 0,
-          exponent = void 0,
-          abbr = '',
-          absValue = void 0,
-          num = void 0,
-          sciValue = '',
-          d = void 0,
-          t = void 0,
-          i = void 0,
-          numericPattern = void 0,
-          decimalPartPattern = void 0,
-          original = value;
-
-      if (isNaN(value)) {
-        return '' + original;
-      }
-
-      value = +value;
-
-      if (prep.pattern === false) {
-        return value.toString();
-      }
-
-      if (value === 0 && prep.zero) {
-        prep = prep.zero;
-        return prep.pattern;
-      } else if (value < 0 && prep.negative) {
-        prep = prep.negative;
-        value = -value;
-      } else {
-        prep = prep.positive;
-      }
-      d = prep.d;
-      t = prep.t;
-
-      if (prep.isFunctional) {
-        value = formatFunctional(value, prep.pattern, d);
-      } else {
-        if (prep.percentage) {
-          value *= 100;
-        }
-
-        if (prep.abbreviate) {
-          exponent = Number(Number(value).toExponential().split('e')[1]);
-          exponent -= exponent % 3;
-          if (exponent in SIprefixes) {
-            abbr = SIprefixes[exponent];
-            value /= Math.pow(10, exponent);
-          }
-        }
-
-        absValue = Math.abs(value);
-        temp = prep.temp;
-        numericPattern = prep.numericPattern;
-        decimalPartPattern = numericPattern.split(d)[1];
-
-        if (this.type === 'I') {
-          value = Math.round(value);
-        }
-        num = value;
-
-        if (!decimalPartPattern && numericPattern.slice(-1)[0] === '#') {
-          if (absValue >= Math.pow(10, temp) || absValue < 1 || absValue < 1e-4) {
-            if (value === 0) {
-              value = '0';
-            } else if (absValue < 1e-4 || absValue >= 1e20) {
-              // engine always formats values < 1e-4 in scientific form, values >= 1e20 can only be represented in scientific form
-              value = num.toExponential(Math.max(1, Math.min(14, temp)) - 1);
-              value = value.replace(/\.?0+(?=e)/, '');
-              sciValue = '';
-            } else {
-              value = value.toPrecision(Math.max(1, Math.min(14, temp)));
-              if (value.indexOf('.') >= 0) {
-                value = value.replace(value.indexOf('e') < 0 ? /0+$/ : /\.?0+(?=e)/, '');
-                value = value.replace('.', d);
-              }
-            }
-          } else {
-            numericPattern += d;
-            temp = Math.max(0, Math.min(20, temp - Math.ceil(Math.log(absValue) / Math.log(10))));
-            for (i = 0; i < temp; i++) {
-              numericPattern += '#';
-            }
-
-            value = format_min(numericPattern, value);
-          }
-        } else if (absValue >= 1e15 || absValue > 0 && absValue <= 1e-14) {
-          value = absValue ? absValue.toExponential(15).replace(/\.?0+(?=e)/, '') : '0';
-        } else {
-          var wholePart = Number(value.toFixed(Math.min(20, decimalPartPattern ? decimalPartPattern.length : 0)).split('.')[0]);
-          var wholePartPattern = numericPattern.split(d)[0];
-          wholePartPattern += d;
-
-          value = format_min(wholePartPattern, wholePart) || '0';
-
-          if (decimalPartPattern) {
-            var nDecimals = Math.max(0, Math.min(14, decimalPartPattern.length)); // the length of e.g. 0000#####
-            var nZeroes = decimalPartPattern.replace(/#+$/, '').length;
-            var decimalPart = (this.type === 'I' ? 0 : absValue % 1).toFixed(nDecimals).slice(2).replace(/0+$/, ''); // remove trailing zeroes
-
-            for (i = decimalPart.length; i < nZeroes; i++) {
-              decimalPart += '0';
-            }
-
-            if (decimalPart) {
-              value += d + decimalPart;
-            }
-          } else if (wholePart === 0) {
-            // to avoid "-" being prefixed to value
-            num = 0;
-          }
-        }
-
-        value = value.replace(prep.numericRegex, function (m) {
-          if (m === t) {
-            return prep.groupTemp;
-          } else if (m === d) {
-            return prep.decTemp;
-          }
-          return '';
-        });
-        if (num < 0 && !/^-/.test(value)) {
-          value = '-' + value;
-        }
-      }
-
-      return prep.prefix + value + sciValue + abbr + prep.postfix;
-    }
-  }], [{
-    key: 'getStaticFormatter',
-    value: function getStaticFormatter() {
-      return {
-        prepare: function prepare() {},
-        formatValue: function formatValue(v) {
-          return '' + v;
-        }
-      };
-    }
-  }]);
-  return NumberFormatter;
-}();
-
-function numberFormatFactory() {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return new (Function.prototype.bind.apply(NumberFormatter, [null].concat(args)))();
-}
-
-function formatter(pattern, thousand, decimal, qType, localeInfo) {
-  var qformat = numberFormatFactory(localeInfo, pattern, thousand, decimal, qType);
-
-  /**
-   * Format a value according to the specified pattern created at construct
-   *
-   * @param  {Number} value   The number to be formatted
-   * @return {String}         [description]
-   */
-  function format(value) {
-    return qformat.formatValue(value);
-  }
-
-  /**
-   * Format a value according to a specific pattern
-   * that is not the one specified in the constructor
-   *
-   * @param  {String} p   Pattern
-   * @param  {Number} v   Value
-   * @param  {String} t   Thousand
-   * @param  {String} d   Decimal
-   * @return {String}     Formatted value
-   */
-  format.format = function formatFn(p, v, t, d) {
-    return qformat.format(v, p, t, d);
-  };
-
-  /**
-   * Change the pattern on existing formatter
-   *
-   * @param  {String} p     Pattern (optional)
-   * @return {String}       Returns the pattern
-   */
-  format.pattern = function patternFn(p) {
-    if (p) {
-      qformat.pattern = p;
-      qformat.prepare();
-    }
-    return qformat.pattern;
-  };
-
-  /**
-   * Set the locale for the formatter
-   *
-   * @param  {Object} args   Locale object for formatting
-   * @return {Undefined}      Returns nothing
-   */
-  /* format.locale = function( ...args ) {
-    locale = formatLocale( ...args );
-    d3format = locale.format( pattern );
-     return this;
-  };*/
-
-  return format;
-}
-
-var DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-var DAYS_ABBR = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-var MONTHS_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-function pad(s, n) {
-  for (var i = s.length; i < n; i++) {
-    s = '0' + s;
-  }
-  return s;
-}
-
-function parseDate(d, twelveFormat) {
-  var h = d.getHours();
-  var day = d.getDay() - 1;
-  if (twelveFormat) {
-    h %= 12;
-    if (!h) {
-      // h == 0 -> 12
-      h = 12;
-    }
-  }
-
-  if (day < 0) {
-    day = 6;
-  }
-
-  return {
-    year: d.getFullYear(),
-    month: d.getMonth(),
-    day: day,
-    date: d.getDate(),
-    h: h,
-    m: d.getMinutes(),
-    s: d.getSeconds(),
-    f: d.getMilliseconds(),
-    t: d.getHours() >= 12 ? 'pm' : 'am'
-  };
-}
-
-function getRemainder(value) {
-  var s = value.toString().split('.');
-  if (s[1]) {
-    s = Number('0.' + s[1]);
-  } else {
-    return 0;
-  }
-  return s;
-}
-
-function parseIntervalDays(days) {
-  var d = days;
-  var h = 24 * getRemainder(d);
-  var m = 60 * getRemainder(h);
-  var s = 60 * getRemainder(m);
-  var ms = 1000 * getRemainder(s);
-
-  return {
-    d: Math.floor(d),
-    h: Math.floor(h),
-    m: Math.floor(m),
-    s: Math.floor(s),
-    f: Math.round(ms)
-  };
-}
-
-function parseInterval(days, pattern) {
-  var units = parseIntervalDays(days),
-      d = units.d,
-      h = units.h,
-      m = units.m,
-      s = units.s,
-      f = units.f,
-      w = 0,
-      date = void 0;
-
-  if (/w+|t+/gi.test(pattern)) {
-    date = new Date(1899, 11, 30 + Math.floor(days), 0, 0, 24 * 60 * 60 * (days - Math.floor(days)));
-    if (isNaN(date.getTime())) {
-      date = null;
-    }
-  }
-
-  if (!/D+/gi.test(pattern)) {
-    h += d * 24;
-  }
-  if (!/h+/gi.test(pattern)) {
-    m += h * 60;
-  }
-  if (!/m+/gi.test(pattern)) {
-    s += m * 60;
-  }
-  if (/w+/gi.test(pattern)) {
-    w = date ? date.getDay() - 1 : 0;
-    if (w < 0) {
-      w = 6;
-    }
-  }
-
-  var someT = '';
-  if (date) {
-    someT = date.getHours() >= 12 ? 'pm' : 'am';
-  }
-
-  return {
-    year: 0,
-    month: 0,
-    day: w,
-    date: d,
-    h: h,
-    m: m,
-    s: s,
-    f: f,
-    t: someT
-  };
-}
-
-function getMasks(inst, d) {
-  return {
-    'Y+|y+': {
-      Y: '' + Number(('' + d.year).slice(-2)),
-      YY: pad(('' + d.year).slice(-2), 2),
-      YYY: pad(('' + d.year).slice(-3), 3),
-      def: function def(m) {
-        // default
-        return pad('' + d.year, m.length);
-      }
-    },
-    'M+': {
-      M: d.month + 1,
-      MM: pad('' + (d.month + 1), 2),
-      MMM: inst.locale_months_abbr[d.month],
-      def: inst.locale_months[d.month]
-    },
-    'W+|w+': {
-      W: d.day,
-      WW: pad('' + d.day, 2),
-      WWW: inst.locale_days_abbr[d.day],
-      def: inst.locale_days[d.day]
-    },
-    'D+|d+': {
-      D: d.date,
-      def: function def(m) {
-        return pad('' + d.date, m.length);
-      }
-    },
-    'h+|H+': {
-      h: d.h,
-      def: function def(m) {
-        return pad('' + d.h, m.length);
-      }
-    },
-    'm+': {
-      m: d.m,
-      def: function def(m) {
-        return pad('' + d.m, m.length);
-      }
-    },
-    's+|S+': {
-      s: d.s,
-      def: function def(m) {
-        return pad('' + d.s, m.length);
-      }
-    },
-    'f+|F+': {
-      def: function def(m) {
-        var f = '' + d.f,
-            n = m.length - f.length;
-        if (n > 0) {
-          for (var i = 0; i < n; i++) {
-            f += '0';
-          }
-        } else if (n < 0) {
-          f = f.slice(0, m.length);
-        }
-        return f;
-      }
-    },
-    't{1,2}|T{1,2}': {
-      def: function def(m) {
-        var t = d.t;
-        if (m[0].toUpperCase() === m[0]) {
-          t = t.toUpperCase();
-        }
-        t = t.slice(0, m.length);
-        return t;
-      }
-    }
-  };
-}
-
-var DateFormatter = function () {
-  /**
-   * @name DateFormatter
-   * @constructs
-   * @param {Object} localeInfo
-   * @param {String} pattern
-   */
-  function DateFormatter(localeInfo, pattern, qtype) {
-    classCallCheck(this, DateFormatter);
-
-    var info = localeInfo || {};
-
-    if (!info.qCalendarStrings) {
-      info.qCalendarStrings = {
-        qLongDayNames: DAYS,
-        qDayNames: DAYS_ABBR,
-        qLongMonthNames: MONTHS,
-        qMonthNames: MONTHS_ABBR
-      };
-    }
-
-    this.localeInfo = info;
-    this.locale_days = info.qCalendarStrings.qLongDayNames.slice();
-    this.locale_days_abbr = info.qCalendarStrings.qDayNames.slice();
-    this.locale_months = info.qCalendarStrings.qLongMonthNames.slice();
-    this.locale_months_abbr = info.qCalendarStrings.qMonthNames.slice();
-
-    if (!pattern) {
-      var _patternMap;
-
-      var patternMap = (_patternMap = {}, defineProperty(_patternMap, TYPES.TIME, info.qTimeFmt || 'hh:mm:ss'), defineProperty(_patternMap, TYPES.DATE, info.qDateFmt || 'YYYY-MM-DD'), defineProperty(_patternMap, TYPES.DATE_TIME, info.qTimestampFmt || 'YYYY-MM-DD hh:mm:ss'), _patternMap);
-
-      pattern = patternMap[qtype];
-    }
-
-    this.pattern = pattern;
-  }
-
-  createClass(DateFormatter, [{
-    key: 'clone',
-    value: function clone() {
-      var n = new DateFormatter(this.localeInfo, this.pattern);
-      n.subtype = this.subtype;
-      return n;
-    }
-
-    /**
-     * Formats a date according to given pattern
-     * @param {Date} date The date to format.
-     * @param {String} pattern The desired format of the date
-     * var d = new Date(2013, 8, 15, 13, 55, 40, 987);
-     * var n = new DateFormatter();
-     * @example
-     * m.format( d, 'YYYY-MM-DD hh:mm:ss.ffff') // 2013-08-15 13:55:40.9870
-     * m.format( d, 'h:m:s tt') // 1:55:40 pm
-     * m.format( d, 'h:m:s TT') // 1:55:40 PM
-     * m.format( d, 'M/D/YYYY') // 8/15/2013
-     * m.format( d, 'WWWW DD MMM') // Thursday 15 Aug
-     * m.format( d, 'WWW DD MMMM @ hh:mm:ss') // Thu 15 August @ 13:55:40
-     */
-
-  }, {
-    key: 'format',
-    value: function format(date, pattern) {
-      // Fallback pattern is set in constructor
-      if (!pattern) {
-        pattern = this.pattern ? this.pattern : 'YYYY-MM-DD hh:mm:ss';
-      }
-
-      pattern = pattern.replace(/\[.+]|\[|]/g, '');
-      var hasTwelveFlag = /t+/ig.test(pattern);
-      var parsedDate = void 0;
-
-      if (date instanceof Date) {
-        parsedDate = parseDate(date, hasTwelveFlag);
-      } else {
-        parsedDate = parseInterval(date, pattern);
-      }
-      // remove [] and everything inside it
-
-      var masks = getMasks(this, parsedDate);
-
-      var masksArr = [];
-      for (var mask in masks) {
-        if (Object.prototype.hasOwnProperty.call(masks, mask)) {
-          masksArr.push(mask);
-        }
-      }
-      var dateTimeRegex = new RegExp(masksArr.join('|'), 'g');
-
-      var result = pattern.replace(dateTimeRegex, function (m) {
-        var r = void 0;
-        var mask = void 0;
-        for (mask in masks) {
-          if (Object.prototype.hasOwnProperty.call(masks, mask)) {
-            r = new RegExp(mask);
-            if (r.test(m)) {
-              break;
-            }
-          }
-        }
-        if (!r) {
-          return '';
-        }
-        var value = void 0;
-        for (var submask in masks[mask]) {
-          if (submask === m || submask.toLowerCase() === m) {
-            value = masks[mask][submask];
-            if (typeof value === 'undefined') {
-              value = masks[mask][submask.toLowerCase()];
-            }
-            break;
-          }
-        }
-        if (typeof value === 'undefined') {
-          value = masks[mask].def;
-        }
-
-        if (typeof value === 'function') {
-          value = value(m);
-        }
-        return value;
-      });
-      return result;
-    }
-  }]);
-  return DateFormatter;
-}();
-
-function dateFormatFactory() {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return new (Function.prototype.bind.apply(DateFormatter, [null].concat(args)))();
-}
-
-function QlikTimeToDate(value) {
-  return new Date(1899, 11, 30 + Math.floor(value), 0, 0, 0, 1000 * 24 * 60 * 60 * (value - Math.floor(value)));
-}
-
-var TYPES = {
-  AUTO: 'U',
-  INTEGER: 'I',
-  NUMBER: 'R',
-  FIXED_TO: 'F',
-  MONEY: 'M',
-  DATE: 'D',
-  TIME: 'T',
-  DATE_TIME: 'TS',
-  INTERVAL: 'IV'
-};
-
-function formatter$2(pattern) {
-  var qtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'TS';
-  var localeInfo = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-  var qformat = dateFormatFactory(localeInfo, pattern, qtype);
-
-  /**
-   * Prepare a value according to the specified qtype
-   *
-   * @param  {Number} value The value to be formatted
-   * @return {Number}       The converted value (if applied)
-   */
-  function prepare(value) {
-    if (qtype !== TYPES.INTERVAL) {
-      return QlikTimeToDate(value);
-    }
-    return value;
-  }
-
-  /**
-   * Format a value according to the specified pattern created at construct
-   *
-   * @param  {Date} value   The number to be formatted
-   * @return {String}         [description]
-   */
-  function format(value) {
-    value = prepare(value);
-    return qformat.format(value);
-  }
-
-  /**
-   * Format a value according to a specific pattern
-   * that is not the one specified in the constructor
-   *
-   * @param  {String} p   Pattern
-   * @param  {Date} v   Value
-   * @return {String}     Formatted value
-   */
-  format.format = function formatFn(p, v) {
-    v = prepare(v);
-    return qformat.format(v, p);
-  };
-
-  /**
-   * Set the locale for the formatter
-   *
-   * @param  {Object} args   Locale object for formatting
-   * @return {Undefined}      Returns nothing
-   */
-  format.locale = function locale(li) {
-    qformat = dateFormatFactory(li, pattern, qtype);
-
-    return this;
-  };
-
-  /**
-   * Get or set the QType
-   *
-   * @param  {String} nqt New qType (optional)
-   * @return {String}     Current qtype
-   */
-  format.qtype = function qtypeFn(nqt) {
-    if (nqt !== undefined) {
-      qtype = nqt;
-    }
-    return qtype;
-  };
-
-  return format;
-}
-
-function createFromMetaInfo(meta, localeInfo) {
-  if (meta && meta.qNumFormat && ['D', 'T', 'TS', 'IV'].indexOf(meta.qNumFormat.qType) !== -1) {
-    return formatter$2(meta.qNumFormat.qFmt, meta.qNumFormat.qType, localeInfo);
-  }
-  var pattern = '#';
-  var thousand = localeInfo && typeof localeInfo.qThousandSep !== 'undefined' ? localeInfo.qThousandSep : ',';
-  var decimal = localeInfo && typeof localeInfo.qDecimalSep !== 'undefined' ? localeInfo.qDecimalSep : '.';
-  var type = 'U';
-  var isAuto = meta && !!meta.qIsAutoFormat;
-  if (meta && meta.qNumFormat) {
-    pattern = meta.qNumFormat.qFmt || pattern;
-    thousand = meta.qNumFormat.qThou || thousand;
-    decimal = meta.qNumFormat.qDec || decimal;
-    type = meta.qNumFormat.qType || type;
-    isAuto = isAuto && ['M'].indexOf(meta.qNumFormat.qType) === -1;
-  }
-
-  if (isAuto) {
-    pattern = '#' + decimal + '##A';
-  }
-  return formatter(pattern, thousand, decimal, type, localeInfo);
-}
-
-// const tagsFn = d => d.qTags;
-var elemNoFn = function elemNoFn(cube) {
-  return cube.qMode === 'S' ? function (d) {
-    return d.qElemNumber;
-  } : function (d) {
-    return d.qElemNo;
-  };
-};
-var measureValue = function measureValue(cube) {
-  return cube.qMode === 'S' ? function (d) {
-    return d.qNum;
-  } : function (d) {
-    return d.qValue;
-  };
-};
-
-function qField() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      meta = _ref.meta,
-      _id = _ref.id,
-      _key = _ref.key,
-      cube = _ref.cube,
-      localeInfo = _ref.localeInfo,
-      fieldExtractor = _ref.fieldExtractor;
-
-  var values = void 0;
-
-  var _type = 'qStateCounts' in meta || 'qSize' in meta ? 'dimension' : 'measure';
-  var valueFn = _type === 'dimension' ? elemNoFn(cube) : measureValue(cube);
-  var labelFn = function labelFn(d) {
-    return d.qText;
-  };
-  var reduce = _type === 'dimension' ? 'first' : 'avg';
-  var _formatter = createFromMetaInfo(meta, localeInfo);
-
-  var f = {
-    id: function id() {
-      return _id;
-    },
-    key: function key() {
-      return _key;
-    },
-    title: function title() {
-      return meta.qFallbackTitle || meta.label;
-    },
-    type: function type() {
-      return _type;
-    },
-    items: function items() {
-      if (!values) {
-        values = fieldExtractor(f);
-      }
-      return values;
-    },
-    min: function min() {
-      return meta.qMin;
-    },
-    max: function max() {
-      return meta.qMax;
-    },
-    value: valueFn,
-    label: labelFn,
-    reduce: reduce,
-    formatter: function formatter() {
-      return _formatter;
-    },
-    tags: function tags() {
-      return meta.qTags;
-    }
-  };
-
-  return f;
-}
-
-function _hierarchy() {
-  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var dataset = arguments[1];
-  var cache = arguments[2];
-  var deps = arguments[3];
-
-  var cube = dataset.raw();
-  if (!cube.qMode === 'K') {
-    return null;
-  }
-  return augment(config, dataset, cache, deps);
-}
-
-function extractData(cfg, dataset, cache, deps) {
-  var cube = dataset.raw();
-  if (cube.qMode === 'K') {
-    return extract(cfg, dataset, cache, deps);
-  } else if (cube.qMode === 'S') {
-    return extract$1(cfg, dataset, cache, deps);
-  }
-  return [];
-}
-
-function createAttrFields(idx, d, _ref) {
-  var cache = _ref.cache,
-      cube = _ref.cube,
-      pages = _ref.pages,
-      fieldExtractor = _ref.fieldExtractor,
-      key = _ref.key,
-      fieldKey = _ref.fieldKey;
-
-  if (d.qAttrDimInfo) {
-    cache.attributeDimensionFields[idx] = d.qAttrDimInfo.map(function (attrDim, i) {
-      return attrDim ? qField({
-        meta: attrDim,
-        id: key + '/' + fieldKey + '/qAttrDimInfo/' + i,
-        key: fieldKey + '/qAttrDimInfo/' + i,
-        cube: cube,
-        pages: pages,
-        fieldExtractor: fieldExtractor
-      }) : undefined;
-    });
-  }
-  if (d.qAttrExprInfo) {
-    cache.attributeExpressionFields[idx] = d.qAttrExprInfo.map(function (attrExpr, i) {
-      return attrExpr ? qField({
-        meta: attrExpr,
-        id: key + '/' + fieldKey + '/qAttrExprInfo/' + i,
-        key: fieldKey + '/qAttrExprInfo/' + i,
-        cube: cube,
-        pages: pages,
-        fieldExtractor: fieldExtractor
-      }) : undefined;
-    });
-  }
-}
-
-function q() {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _key = _ref2.key,
-      data = _ref2.data;
-
-  var cache = {
-    attributeDimensionFields: [],
-    attributeExpressionFields: [],
-    fields: []
-  };
-
-  var cube = data;
-
-  if (!cube.qDimensionInfo) {
-    // assume old data format
-    throw new Error('The data input is not recognized as a hypercube');
-  }
-
-  var pages = cube.qMode === 'K' ? cube.qStackedDataPages : cube.qDataPages;
-
-  var deps = {
-    normalizeConfig: q.normalizeProperties
-  };
-
-  var dataset = {
-    key: function key() {
-      return _key;
-    },
-    raw: function raw() {
-      return cube;
-    },
-    field: function field(query) {
-      return findField(query, {
-        cache: cache,
-        cube: cube,
-        pages: pages
-      });
-    },
-    fields: function fields() {
-      return cache.fields.slice();
-    },
-    extract: function extract$$1(extractionConfig) {
-      return extractData(extractionConfig, dataset, cache, deps);
-    },
-    hierarchy: function hierarchy(hierarchyConfig) {
-      return _hierarchy(hierarchyConfig, dataset, cache, deps);
-    }
-  };
-
-  var fieldExtractor = void 0;
-
-  if (cube.qMode === 'K') {
-    fieldExtractor = function fieldExtractor(f) {
-      return extract({ field: f }, dataset, cache, deps);
-    };
-  } else if (cube.qMode === 'S') {
-    fieldExtractor = function fieldExtractor(f) {
-      return extract$1({ field: f }, dataset, cache, deps);
-    };
-  } else {
-    fieldExtractor = function fieldExtractor() {
-      return [];
-    }; // TODO - throw unsupported error?
-  }
-
-  var dimensions = cube.qDimensionInfo;
-  dimensions.forEach(function (d, i) {
-    var fieldKey = 'qDimensionInfo/' + i;
-    cache.fields.push(qField({
-      meta: d,
-      id: _key + '/' + fieldKey,
-      key: fieldKey,
-      cube: cube,
-      pages: pages,
-      fieldExtractor: fieldExtractor
-    }));
-    createAttrFields(i, d, { cache: cache, cube: cube, pages: pages, fieldExtractor: fieldExtractor, key: _key, fieldKey: fieldKey });
-  });
-
-  cube.qMeasureInfo.forEach(function (d, i) {
-    var fieldKey = 'qMeasureInfo/' + i;
-    cache.fields.push(qField({
-      meta: d,
-      id: _key + '/' + fieldKey,
-      key: fieldKey,
-      cube: cube,
-      pages: pages,
-      fieldExtractor: fieldExtractor
-    }));
-    createAttrFields(dimensions.length + i, d, { cache: cache, cube: cube, pages: pages, fieldExtractor: fieldExtractor, key: _key, fieldKey: fieldKey });
-  });
-
-  return dataset;
-}
-
-var LAYOUT_TO_PROP = [['qHyperCube', 'qHyperCubeDef'], ['qDimensionInfo', 'qDimensions'], ['qMeasureInfo', 'qMeasures'], ['qAttrDimInfo', 'qAttributeDimensions'], ['qAttrExprInfo', 'qAttributeExpressions']];
-
-var DIM_RX$1 = /\/qDimensionInfo(?:\/(\d+))?/;
-var M_RX$1 = /\/qMeasureInfo\/(\d+)/;
-var ATTR_DIM_RX$1 = /\/qAttrDimInfo\/(\d+)(?:\/(\d+))?/;
-var ATTR_EXPR_RX$1 = /\/qAttrExprInfo\/(\d+)/;
-
-function extractFieldFromId(id, layout) {
-  var isDimension = false;
-  var index = 0;
-  var path = id;
-  var pathToHC = '' + path.substr(0, path.indexOf('qHyperCube') + 10); // 10 = length of 'qHyperCube'
-
-  var shortenPath = true;
-
-  if (DIM_RX$1.test(id)) {
-    index = +DIM_RX$1.exec(id)[1];
-    var attr = id.replace(DIM_RX$1, '');
-    isDimension = true;
-    if (ATTR_DIM_RX$1.test(attr)) {
-      index = 0; // default to 0
-      var attrDimColIdx = +ATTR_DIM_RX$1.exec(path)[2];
-      if (!isNaN(attrDimColIdx)) {
-        // use column index if specified
-        index = attrDimColIdx;
-        path = path.replace(/\/\d+$/, '');
-      }
-      shortenPath = false;
-    } else if (ATTR_EXPR_RX$1.test(attr)) {
-      // attrIdx depends on number of measures + number of attr expressions
-      // in dimensions before this one
-      var attrIdx = 0;
-      if (layout) {
-        var hc = resolve(pathToHC, layout);
-
-        // offset by number of measures
-        attrIdx += hc.qMeasureInfo.length;
-
-        // offset by total number of attr expr in dimensions
-        // (assuming attr expr in dimensions are ordered first)
-        attrIdx = hc.qDimensionInfo.slice(0, index).reduce(function (v, dim) {
-          return v + dim.qAttrExprInfo.length;
-        }, attrIdx);
-
-        // offset by the actual column value for the attribute expression itself
-        attrIdx += +ATTR_EXPR_RX$1.exec(path)[1];
-
-        index = attrIdx;
-        isDimension = false;
-      }
-    }
-  } else if (M_RX$1.test(id)) {
-    index = +M_RX$1.exec(id)[1];
-    isDimension = false;
-    var _attr = id.replace(M_RX$1, '');
-    if (ATTR_DIM_RX$1.test(_attr)) {
-      index = 0; // default to 0
-      var _attrDimColIdx = +ATTR_DIM_RX$1.exec(path)[2];
-      if (!isNaN(_attrDimColIdx)) {
-        // use column index if specified
-        index = _attrDimColIdx;
-        path = path.replace(/\/\d+$/, '');
-      }
-      shortenPath = false;
-      isDimension = true;
-    } else if (ATTR_EXPR_RX$1.test(_attr)) {
-      // depends on number of measures + number of attr expressions
-      // in dimensions and measures before this one
-      var _attrIdx = 0;
-      if (layout) {
-        var _hc = resolve(pathToHC, layout);
-
-        // offset by number of measures
-        _attrIdx += _hc.qMeasureInfo.length;
-
-        // offset by total number of attr expr in dimensions
-        // (assuming attr expr in dimensions are ordered first)
-        _attrIdx = _hc.qDimensionInfo.reduce(function (v, dim) {
-          return v + dim.qAttrExprInfo.length;
-        }, _attrIdx);
-
-        // offset by total number of attr expr in measures before 'index'
-        _attrIdx = _hc.qMeasureInfo.slice(0, index).reduce(function (v, meas) {
-          return v + meas.qAttrExprInfo.length;
-        }, _attrIdx);
-
-        // offset by the actual column value for the attribute expression itself
-        _attrIdx += +ATTR_EXPR_RX$1.exec(path)[1];
-
-        index = _attrIdx;
-      }
-    }
-  }
-
-  LAYOUT_TO_PROP.forEach(function (_ref) {
-    var _ref2 = slicedToArray(_ref, 2),
-        v = _ref2[0],
-        prop = _ref2[1];
-
-    path = path.replace(v, prop);
-  });
-
-  if (shortenPath) {
-    path = '' + path.substr(0, path.indexOf('/qHyperCubeDef') + 14); // 14 = length of '/qHyperCubeDef'
-  }
-
-  if (path && path[0] !== '/') {
-    path = '/' + path;
-  }
-
-  return {
-    index: index,
-    path: path,
-    type: isDimension ? 'dimension' : 'measure'
-  };
-}
-
-/**
- * Helper method to generate suitable QIX selection methods and parameters based on a brush instance.
- * @alias brush
- * @memberof picasso.q
- * @param {brush} brush A brush instance
- * @param {object} [opts]
- * @param {boolean} [opts.byCells=false] Whether to prefer selection by row index.
- * @param {string} [opts.primarySource] Field source to extract row indices from. If not specified, indices from first source are used.
- * @param {object} [layout] QIX data layout. Needed only when brushing on attribute expressions, to be able to calculate the measure index.
- * @return {object[]} An array of relevant selections
- */
-function qBrush(brush) {
-  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var layout = arguments[2];
-
-  var byCells = opts.byCells;
-  var primarySource = opts.primarySource;
-  var selections = [];
-  var methods = {};
-  var isActive = brush.isActive();
-  var hasValues = false;
-  brush.brushes().forEach(function (b) {
-    var info = extractFieldFromId(b.id, layout);
-    if (b.type === 'range' && info.type === 'measure') {
-      var ranges = b.brush.ranges();
-      if (ranges.length) {
-        hasValues = true;
-        if (!methods.rangeSelectHyperCubeValues) {
-          methods.rangeSelectHyperCubeValues = {
-            path: info.path,
-            ranges: []
-          };
-        }
-        ranges.forEach(function (range) {
-          return methods.rangeSelectHyperCubeValues.ranges.push({
-            qMeasureIx: info.index,
-            qRange: {
-              qMin: range.min,
-              qMax: range.max,
-              qMinInclEq: true,
-              qMaxInclEq: true
-            }
-          });
-        });
-      }
-    }
-    if (b.type === 'range' && info.type === 'dimension') {
-      var _ranges = b.brush.ranges();
-      if (_ranges.length) {
-        hasValues = true;
-        if (!methods.selectHyperCubeContinuousRange) {
-          methods.selectHyperCubeContinuousRange = {
-            path: info.path,
-            ranges: []
-          };
-        }
-        _ranges.forEach(function (range) {
-          return methods.selectHyperCubeContinuousRange.ranges.push({
-            qDimIx: info.index,
-            qRange: {
-              qMin: range.min,
-              qMax: range.max,
-              qMinInclEq: true,
-              qMaxInclEq: false
-            }
-          });
-        });
-      }
-    }
-    if (b.type === 'value' && info.type === 'dimension') {
-      if (byCells) {
-        if (!methods.selectHyperCubeCells) {
-          methods.selectHyperCubeCells = {
-            path: info.path,
-            cols: []
-          };
-        }
-
-        methods.selectHyperCubeCells.cols.push(info.index);
-        if (b.id === primarySource || !primarySource && !methods.selectHyperCubeCells.values) {
-          methods.selectHyperCubeCells.values = b.brush.values().map(function (s) {
-            return +s;
-          }).filter(function (v) {
-            return !isNaN(v);
-          });
-          hasValues = !!methods.selectHyperCubeCells.values.length;
-        }
-      } else {
-        var values = b.brush.values().map(function (s) {
-          return +s;
-        }).filter(function (v) {
-          return !isNaN(v);
-        });
-        hasValues = !!values.length;
-        selections.push({
-          params: [info.path, info.index, values, false],
-          method: 'selectHyperCubeValues'
-        });
-      }
-    }
-  });
-
-  if (!hasValues && isActive) {
-    return [{
-      method: 'resetMadeSelections',
-      params: []
-    }];
-  }
-
-  if (methods.rangeSelectHyperCubeValues) {
-    selections.push({
-      method: 'rangeSelectHyperCubeValues',
-      params: [methods.rangeSelectHyperCubeValues.path, methods.rangeSelectHyperCubeValues.ranges, [], true]
-    });
-  }
-
-  if (methods.selectHyperCubeContinuousRange) {
-    selections.push({
-      method: 'selectHyperCubeContinuousRange',
-      params: [methods.selectHyperCubeContinuousRange.path, methods.selectHyperCubeContinuousRange.ranges]
-    });
-  }
-
-  if (methods.selectHyperCubeCells) {
-    selections.push({
-      method: 'selectHyperCubeCells',
-      params: [methods.selectHyperCubeCells.path, methods.selectHyperCubeCells.values, methods.selectHyperCubeCells.cols]
-    });
-  }
-
-  return selections;
-}
-
-function initialize(picasso) {
-  q.normalizeProperties = picasso.data('default').normalizeProperties;
-  picasso.data('q', q);
-}
-
-initialize.qBrushHelper = qBrush;
-
-return initialize;
-
-})));
-//# sourceMappingURL=picasso-q.js.map
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
-
-/***/ }),
-/* 26 */
 /*!***************************************!*\
   !*** (webpack)/buildin/amd-define.js ***!
   \***************************************/
@@ -7896,7 +4925,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 27 */
+/* 25 */
 /*!**********************************!*\
   !*** ./src/core/loader/index.js ***!
   \**********************************/
@@ -7923,7 +4952,7 @@ exports.picasso = picasso;
 exports.marked = _marked2.default; /* globals ace, picasso */
 
 /***/ }),
-/* 28 */
+/* 26 */
 /*!*************************!*\
   !*** ./src/examples.js ***!
   \*************************/
@@ -7946,19 +4975,27 @@ __webpack_require__(/*! promise-polyfill */ 11);
 
 __webpack_require__(/*! array.prototype.fill */ 15);
 
-__webpack_require__(/*! ace-builds/src-noconflict/ace */ 29);
+__webpack_require__(/*! ace-builds/src-noconflict/ace */ 27);
 
-__webpack_require__(/*! ace-builds/src-noconflict/mode-javascript */ 30);
+__webpack_require__(/*! ace-builds/src-noconflict/mode-javascript */ 28);
 
 var _runScript = __webpack_require__(/*! run-script */ 16);
 
 var _runScript2 = _interopRequireDefault(_runScript);
 
+var _package = __webpack_require__(/*! @qlik/picasso/package.json */ 29);
+
+var _package2 = _interopRequireDefault(_package);
+
+var _package3 = __webpack_require__(/*! ../package.json */ 30);
+
+var _package4 = _interopRequireDefault(_package3);
+
 __webpack_require__(/*! ./style.less */ 31);
 
 __webpack_require__(/*! ./settings */ 32);
 
-var _loader = __webpack_require__(/*! ./core/loader */ 27);
+var _loader = __webpack_require__(/*! ./core/loader */ 25);
 
 __webpack_require__(/*! ./dynver */ 6);
 
@@ -7974,7 +5011,7 @@ var _customGenerator = __webpack_require__(/*! ./core/generators/custom-generato
 
 var _customGenerator2 = _interopRequireDefault(_customGenerator);
 
-var _queryselect = __webpack_require__(/*! ./core/dom/queryselect */ 4);
+var _queryselect = __webpack_require__(/*! ./core/dom/queryselect */ 3);
 
 var _events = __webpack_require__(/*! ./core/dom/events */ 2);
 
@@ -7984,17 +5021,13 @@ var _editor2 = _interopRequireDefault(_editor);
 
 var _pages = __webpack_require__(/*! ./core/pages */ 36);
 
-__webpack_require__(/*! ./sense */ 184);
+__webpack_require__(/*! ./sense */ 172);
 
-__webpack_require__(/*! ./sync */ 193);
+__webpack_require__(/*! ./sync */ 181);
 
 var _lifecycle = __webpack_require__(/*! ./core/lifecycle */ 1);
 
 var _lifecycle2 = _interopRequireDefault(_lifecycle);
-
-var _package = __webpack_require__(/*! ../package.json */ 196);
-
-var _package2 = _interopRequireDefault(_package);
 
 var _plugins = __webpack_require__(/*! ./plugins */ 22);
 
@@ -8004,6 +5037,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var data = void 0;
 var element = void 0;
+var status = void 0;
 var codeEditor = void 0;
 var dataEditor = void 0;
 var latestError = void 0;
@@ -8017,28 +5051,39 @@ _loader.marked.setOptions({
   gfm: true
 });
 
+function setSimpleStatus(message, details) {
+  var error = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  status.className = error ? 'error' : '';
+
+  status.innerHTML = '<h1>' + message + '</h1> <p>' + (details || 'No details available') + '</p>';
+}
+
 /**
  * Set a fatal error
  */
 function setFatalError(message, stack, error) {
-  var msg = '<h3 style=\'padding: 15px 0 0 15px;\'>Fatal error</h3><h1 style=\'color: red; padding: 5px 15px 0\'>' + message + '</h1>';
+  var msg = '<h1>' + message + '</h1>';
 
   if (stack) {
-    msg += '<code style=\'padding: 15px;display: block\'>' + stack.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code>';
+    msg += '<code class="stack">' + stack.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code>';
   }
 
   if (error) {
-    msg += '<a style="padding: 15px" href="" id="throw-error-to-console">Show error in console</a>';
+    msg += '<a href="" id="throw-error-to-console">Show error in console</a>';
   }
   latestError = error || false;
 
-  element.innerHTML = msg;
+  if (!window.preventError) {
+    status.innerHTML = msg;
+    status.className = 'error';
+  }
 }
 
 function setVersion(sbxVersion, picassoVersion) {
   (0, _queryselect.qs)('#version').innerHTML = 'Sandbox ' + sbxVersion + ' Picasso ' + picassoVersion;
 
-  var href = '../picasso/' + picassoVersion + '/docs/';
+  var href = 'picasso/' + picassoVersion + '/docs/';
   var docNavButtons = (0, _queryselect.qsAll)('.docnavbutton');
 
   for (var i = 0; i < docNavButtons.length; i++) {
@@ -8046,6 +5091,23 @@ function setVersion(sbxVersion, picassoVersion) {
   }
 
   (0, _queryselect.qs)('#dociframe').setAttribute('src', href);
+}
+
+function updateChart(props) {
+  try {
+    currentChart.update(props);
+  } catch (err) {
+    setFatalError('Error during update: ' + err.message, err.stack, err);
+  }
+}
+
+function destroyChart() {
+  try {
+    destroyChart();
+    currentChart = null;
+  } catch (err) {
+    setFatalError('Error during chart destroy: ' + err.message, err.stack, err);
+  }
 }
 
 /**
@@ -8057,30 +5119,50 @@ function setVersion(sbxVersion, picassoVersion) {
 function refreshCode(content) {
   var event = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { type: 'none' };
 
-  if (event.type !== 'kill') {
-    // Trigger code lifecycle event
-    _lifecycle2.default.trigger('code', { content: content, event: event });
+  if (event.type === 'kill') {
+    return;
+  }
 
-    if (currentChart && currentChart.destroy) {
-      currentChart.destroy();
-      currentChart = null;
-    }
+  // Trigger code lifecycle event
+  _lifecycle2.default.trigger('code', { content: content, event: event });
 
-    var result = (0, _runScript2.default)(content, { picasso: picasso, data: data, element: element, generator: _hypercubeGenerator2.default, customGenerator: _customGenerator2.default });
-    codeEditor.refreshAnnotations();
+  var result = (0, _runScript2.default)(content, { picasso: picasso, data: data, element: element, generator: _hypercubeGenerator2.default, customGenerator: _customGenerator2.default });
+  codeEditor.refreshAnnotations();
 
-    if (result && result.error) {
-      setFatalError('Error in code: ' + result.error.message, result.error.stack, result.error);
-    } else if (result) {
-      currentChart = result;
+  if (result && result.error) {
+    setFatalError('Error in code: ' + result.error.message, result.error.stack, result.error);
+  } else if (result && !result.destroy) {
+    if (!currentChart) {
+      currentChart = picasso.chart(result);
+      updateChart({ settings: result.settings });
+      setSimpleStatus('Status OK', 'Created new chart');
     } else {
-      codeEditor.addAnnotation({
-        row: 0,
-        column: 0,
-        text: 'No PicassoJS instance has been returned.\nPlease use return picasso.chart(), otherwise event listeners will \nremain between switching examples.',
-        type: 'warning' // also warning and information
-      });
+      updateChart({ settings: result.settings });
+      setSimpleStatus('Status OK', 'Updated existing chart');
     }
+  } else if (result && result.destroy) {
+    if (currentChart && currentChart.destroy) {
+      destroyChart();
+    }
+
+    currentChart = result;
+    setSimpleStatus('Status OK', 'Replaced old chart');
+  } else {
+    if (currentChart && currentChart.destroy) {
+      destroyChart();
+    }
+
+    var title = 'No picasso.js instance returned';
+    var desc = 'Please use return picasso.chart(), otherwise event listeners will \nremain between switching examples and resizing will not be smooth.';
+
+    codeEditor.addAnnotation({
+      row: 0,
+      column: 0,
+      text: title + '\n' + desc,
+      type: 'warning' // also warning and information
+    });
+
+    setSimpleStatus(title, desc);
   }
 }
 
@@ -8094,7 +5176,11 @@ _lifecycle2.default.on('resize', function () {
 
 _lifecycle2.default.on('data', function (obj) {
   data = obj.data;
-  refreshCode(codeEditor(), obj.event);
+  if (currentChart && obj.event && obj.event.type !== 'loadPage') {
+    updateChart({ data: data });
+  } else {
+    refreshCode(codeEditor(), obj.event);
+  }
 });
 
 _lifecycle2.default.on('rendererprio', function (obj) {
@@ -8107,7 +5193,7 @@ _lifecycle2.default.on('picassoload', function (newPicasso, version) {
   (0, _plugins2.default)(picasso, version, function () {
     refreshCode(codeEditor(), { type: 'picassoLoad' });
   });
-  setVersion('v' + _package2.default.version, version);
+  setVersion('v' + _package4.default.version, version);
 });
 
 _lifecycle2.default.on('server-shutdown', function () {
@@ -8128,17 +5214,19 @@ _lifecycle2.default.on('storage-failure', function () {
 function refreshData(content) {
   var event = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { type: 'none' };
 
-  var tmpData = void 0;
-  if (event.type !== 'kill') {
-    tmpData = (0, _runScript2.default)(content, { generator: _hypercubeGenerator2.default, customGenerator: _customGenerator2.default });
-    if (!tmpData || (typeof tmpData === 'undefined' ? 'undefined' : _typeof(tmpData)) !== 'object') {
-      setFatalError('Data from the data loader should be an object with contents, not ' + JSON.stringify(tmpData));
-    } else if (tmpData.error) {
-      setFatalError('Error in data: ' + tmpData.error.message, tmpData.error.stack);
-    } else {
-      // Trigger data lifecycle event
-      _lifecycle2.default.trigger('data', { data: tmpData, event: event });
-    }
+  if (event.type === 'kill') {
+    return;
+  }
+
+  var tmpData = (0, _runScript2.default)(content, { generator: _hypercubeGenerator2.default, customGenerator: _customGenerator2.default });
+
+  if (!tmpData || (typeof tmpData === 'undefined' ? 'undefined' : _typeof(tmpData)) !== 'object') {
+    setFatalError('Data from the data loader should be an object with contents, not ' + JSON.stringify(tmpData));
+  } else if (tmpData.error) {
+    setFatalError('Error in data: ' + tmpData.error.message, tmpData.error.stack, tmpData.error);
+  } else {
+    // Trigger data lifecycle event
+    _lifecycle2.default.trigger('data', { data: tmpData, event: event });
   }
 }
 
@@ -8168,6 +5256,8 @@ function redrawPagesList() {
  */
 function loadPage() {
   var pageName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : location.hash;
+
+  destroyChart();
 
   pageName = pageName.replace('#', '') || (0, _pages.getIndexPageKey)();
   location.hash = pageName;
@@ -8211,6 +5301,7 @@ function loadPage() {
  */
 function init() {
   element = (0, _queryselect.qs)('#container');
+  status = (0, _queryselect.qs)('#status');
 
   // Allow to get multiple instances of the element
   element.getInstances = function elemGetInstances(num) {
@@ -8219,7 +5310,8 @@ function init() {
   };
 
   // Show the version
-  setVersion('v' + _package2.default.version, 'master');
+  // setVersion(`v${pkg.version}`, 'master');
+  (0, _queryselect.qs)('#version').innerHTML = 'Sandbox v' + _package4.default.version + ' Picasso v' + _package2.default.version;
 
   // Initalize the editors
   codeEditor = (0, _editor2.default)('codeeditor');
@@ -8290,7 +5382,7 @@ function init() {
 (0, _events.onWindowEvent)('resize', function () {
   window.requestAnimationFrame(function () {
     if (currentChart && currentChart.update) {
-      currentChart.update();
+      updateChart();
     } else {
       refreshCode(codeEditor(), { type: 'resize' });
     }
@@ -8305,7 +5397,7 @@ _lifecycle2.default.on('init', loadPage);
 });
 
 /***/ }),
-/* 29 */
+/* 27 */
 /*!*******************************************************!*\
   !*** ./node_modules/ace-builds/src-noconflict/ace.js ***!
   \*******************************************************/
@@ -12465,7 +9557,7 @@ init(true);function init(packaged) {
     if (!global || !global.document)
         return;
     
-    options.packaged = packaged || require.packaged || module.packaged || (global.define && __webpack_require__(/*! !webpack amd define */ 26).packaged);
+    options.packaged = packaged || require.packaged || module.packaged || (global.define && __webpack_require__(/*! !webpack amd define */ 24).packaged);
 
     var scriptOptions = {};
     var scriptUrl = "";
@@ -27809,7 +24901,7 @@ exports.config = require("./config");
 exports.require = require;
 
 if (true)
-    exports.define = __webpack_require__(/*! !webpack amd define */ 26);
+    exports.define = __webpack_require__(/*! !webpack amd define */ 24);
 exports.edit = function(el) {
     if (typeof el == "string") {
         var _id = el;
@@ -27875,7 +24967,7 @@ exports.version = "1.2.8";
         
 
 /***/ }),
-/* 30 */
+/* 28 */
 /*!*******************************************************************!*\
   !*** ./node_modules/ace-builds/src-noconflict/mode-javascript.js ***!
   \*******************************************************************/
@@ -28675,6 +25767,28 @@ exports.Mode = Mode;
 
 
 /***/ }),
+/* 29 */
+/*!**********************************!*\
+  !*** ../picasso.js/package.json ***!
+  \**********************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = {"name":"@qlik/picasso","version":"0.34.0","description":"A charting library streamlined for building visualizations for the Qlik Sense Analytics platform.","license":"ISC","private":true,"publishConfig":{"registry":"https://qliktech.artifactoryonline.com/qliktech/api/npm/npm-local/"},"repository":{"type":"git","url":"ssh://git@github.com:qlik-trial/picasso.js.git"},"scripts":{"build":"rollup -c --environment BUILD:production","build:dev":"rollup -c","build:watch":"rollup -c -w","docs":"cd docs && npm run docs","lint":"eslint *.js src test docs/*.js plugins/q/src plugins/hammer/src tools/generate-html-docs/lib","lint:fix":"npm run lint -- --fix","lint:recommended":"npm run lint -- --config .eslintrc-recommended.json","test":"npm run test:unit && npm run test:plugins && npm run test:component","test:coverage":"npm run test:unit:coverage && npm run test:component:coverage","test:unit":"aw-test-runner \"./test/unit/**/*.spec.js\"","test:unit:debug":"aw-test-runner \"./test/unit/**/*.spec.js\" --debug","test:plugins":"aw-test-runner \"./plugins/**/*.spec.js\"","test:unit:watch":"aw-test-runner \"./test/unit/**/*.spec.js\" -w","test:unit:coverage":"aw-test-coverage \"./test/unit/**/*.spec.js\" --dir test/unit/coverage","test:unit:coverage:publish":"codeclimate-test-reporter < test/unit/coverage/lcov.info","test:component":"aw-test-runner \"./test/component/**/*.comp.js\"","test:component:coverage":"aw-test-coverage \"./test/component/**/*.comp.js\"  --dir test/component/coverage","test:integration:local":"node node_modules/protractor/bin/webdriver-manager update --standalone false && aw-webdriver-test-runner ./test/config/aw-config.js --specs \"./test/integration/**/*.int.js\" --aw-artifacts-path ./test/integration/artifacts","test:integration:remote":"aw-webdriver-test-runner ./test/config/aw-config-remote.js --specs \"test/integration/**/*.int.js\" --aw-artifacts-path ./test/integration/artifacts","fixture:server":"aw-web-server -c ./test/config/aw-webserver-config.json"},"files":["/dist","/plugins/q/dist","/plugins/hammer/dist"],"main":"dist/picasso.min.js","devDependencies":{"after-work.js":"^1.0.0","babel-plugin-external-helpers":"^6.22.0","babel-preset-es2015":"^6.14.0","codeclimate-test-reporter":"^0.5.0","d3-format":"^1.0.2","d3-interpolate":"^1.1.3","d3-scale":"^1.0.0","d3-time-format":"^2.0.2","d3-shape":"^1.0.6","eslint":"^3.8.0","eslint-config-airbnb":"^13.0.0","eslint-plugin-import":"^2.2.0","eslint-plugin-mocha":"^4.7.0","extend":"^3.0.0","hammerjs":"^2.0.8","jsdoc":"^3.4.0","node-event-emitter":"0.0.1","rimraf":"^2.5.2","rollup":"^0.43.0","rollup-plugin-babel":"^2.7.1","rollup-plugin-commonjs":"^8.0.2","rollup-plugin-filesize":"^1.4.2","rollup-plugin-license":"^0.4.0","rollup-plugin-multi-dest":"^1.0.2","rollup-plugin-node-resolve":"^3.0.0","rollup-plugin-uglify":"^2.0.1","rollup-watch":"^4.0.0","snabbdom":"^0.5.4"},"dependencies":{}}
+
+/***/ }),
+/* 30 */
+/*!**********************!*\
+  !*** ./package.json ***!
+  \**********************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = {"name":"picasso-sandbox","version":"0.3.0","description":"","author":"","license":"ISC","private":true,"scripts":{"build":"npm run build:debug","build:debug":"webpack --debug --devtool source-map --output-pathinfo","build:watch":"npm run build:debug -- --watch","docs":"rimraf ./docs/api && jsdoc -r ./src -d ./docs/api","lint":"eslint . --quiet","lint:fix":"npm run lint -- --fix","test":"aw-test-runner ./src/**/*.spec.js","test:watch":"aw-test-runner ./src/**/*.spec.js -w","start":"node server","start-daemon":"node server -d"},"repository":{"type":"git"},"files":["/dist"],"main":"index.js","devDependencies":{"@qlik/after-work":"^0.10.7","@qlik/picasso":"^0.33.0","array.prototype.fill":"^1.0.1","babel-core":"^6.25.0","babel-loader":"^7.1.1","babel-plugin-syntax-jsx":"^6.18.0","babel-plugin-transform-object-rest-spread":"^6.23.0","babel-preset-es2015":"^6.24.1","babel-snabbdom-jsx":"^0.4.0","clean-webpack-plugin":"^0.1.17","copy-dir":"^0.3.0","copy-webpack-plugin":"^4.2.0","css-loader":"^0.23.1","enigma.js":"^1.0.0","eslint":"^3.8.0","eslint-config-airbnb":"^13.0.0","eslint-plugin-import":"^2.2.0","eslint-plugin-mocha":"^4.7.0","eslint-plugin-react":"^6.8.0","express":"^4.14.0","express-markdown":"0.0.6","express-ws":"^2.0.0","extend":"^3.0.0","extract-text-webpack-plugin":"^3.0.0","fs-extra":"^2.0.0","jsdoc":"^3.4.0","json-loader":"^0.5.4","less":"^2.6.1","less-loader":"^2.2.2","marked":"^0.3.6","on-build-webpack":"^0.1.0","qrious":"^2.2.0","raw-loader":"^0.5.1","request":"^2.79.0","rimraf":"^2.5.4","run-script":"^0.1.0","serve-index":"^1.8.0","style-loader":"^0.13.0","watch":"^0.18.0","webpack":"^3.3.0","webpack-livereload-plugin":"^0.8.2","yargs":"^4.7.1"},"dependencies":{"ace-builds":"^1.2.5","body-parser":"^1.17.1","hammerjs":"^2.0.8","promise-polyfill":"6.0.2"}}
+
+/***/ }),
 /* 31 */
 /*!************************!*\
   !*** ./src/style.less ***!
@@ -28705,7 +25819,7 @@ var _storage = __webpack_require__(/*! ../core/storage */ 10);
 
 var _storage2 = _interopRequireDefault(_storage);
 
-var _queryselect = __webpack_require__(/*! ../core/dom/queryselect */ 4);
+var _queryselect = __webpack_require__(/*! ../core/dom/queryselect */ 3);
 
 var _events = __webpack_require__(/*! ../core/dom/events */ 2);
 
@@ -30032,7 +27146,7 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../webpack/buildin/global.js */ 4)))
 
 /***/ }),
 /* 34 */
@@ -30051,7 +27165,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = createEditor;
 
-var _loader = __webpack_require__(/*! ./loader */ 27);
+var _loader = __webpack_require__(/*! ./loader */ 25);
 
 var _events = __webpack_require__(/*! ./dom/events */ 2);
 
@@ -30424,31 +27538,28 @@ var map = {
 	"./brush-sense-selections/index.js": 77,
 	"./csv-data-box-legend/index.js": 81,
 	"./custom-components/index.js": 85,
-	"./custom-generator/index.js": 89,
-	"./debugging-colliders/index.js": 93,
-	"./distribution-chart/index.js": 97,
-	"./dock-layout-example/index.js": 101,
-	"./formatters-example/index.js": 105,
-	"./gradient-example/index.js": 109,
-	"./grid-line/index.js": 113,
-	"./histogram/index.js": 117,
-	"./interaction/index.js": 121,
-	"./legend-cat/index.js": 125,
-	"./multiple-instances/index.js": 129,
-	"./null-handling/index.js": 133,
-	"./picasso-logo/index.js": 137,
-	"./point-example-1/index.js": 141,
-	"./reference-lines/index.js": 144,
-	"./scale-color/index.js": 148,
-	"./scale-settings/index.js": 152,
-	"./scroll-component/index.js": 156,
-	"./text-example-1/index.js": 160,
-	"./text-example-2/index.js": 164,
-	"./tooltips/index.js": 168,
-	"./update-chart/index.js": 172,
-	"./waterfall/index.js": 176,
-	"./z-not-found/index.js": 180,
-	"./z-sandbox/index.js": 181
+	"./debugging-colliders/index.js": 89,
+	"./distribution-chart/index.js": 93,
+	"./dock-layout-example/index.js": 97,
+	"./formatters-example/index.js": 101,
+	"./gradient-example/index.js": 105,
+	"./grid-line/index.js": 109,
+	"./histogram/index.js": 113,
+	"./interaction/index.js": 117,
+	"./legend-cat/index.js": 121,
+	"./null-handling/index.js": 125,
+	"./picasso-logo/index.js": 129,
+	"./point-example-1/index.js": 133,
+	"./reference-lines/index.js": 136,
+	"./scale-color/index.js": 140,
+	"./scale-settings/index.js": 144,
+	"./scroll-component/index.js": 148,
+	"./text-example-1/index.js": 152,
+	"./tooltips/index.js": 156,
+	"./update-chart/index.js": 160,
+	"./waterfall/index.js": 164,
+	"./z-not-found/index.js": 168,
+	"./z-sandbox/index.js": 169
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -30526,7 +27637,7 @@ _registry2.default.register('get-to-know-the-editor', page());
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Get to know the editor\nThis is the example library for PicassoJS. It's pretty straightforward,\nbut we're going to explain it a little bit anyway.\n\nThe leftmost part of the screen is the list of examples.\nPress any item in the list to go to it.\n\nThe \"center\" part is the picasso code editor and data loader editor.\nThese are separated by tabs.\nIt works like this:\n\n1. The data loader code is executed with the \"generator\" global. The data is stored as the \"data\" variable.\n2. The picasso code editor is executed with picasso, element and data globals.\n\nEverything is executed on-the-fly when you edit it,\njust click the \"renderer area\" tab area above to view the results.\n"
+module.exports = "# Get to know the editor\nThis is the example library for PicassoJS. It's pretty straightforward,\nbut we're going to explain it a little bit anyway.\n\nThe leftmost part of the screen is the list of examples.\nPress any item in the list to go to it.\n\nThe \"center\" part is the picasso code editor and data loader editor.\nThese are separated by tabs.\nIt works like this:\n\n1. The data loader code is executed with the \"generator\" global. The data is stored as the \"data\" variable.\n2. The picasso code editor is executed with picasso, element and data globals.\n\nEverything is executed on-the-fly when you edit it,\njust click the \"renderer area\" tab area above to view the results.\n\n# Examples\nIn the bar to the left, you'll have a list of examples. \nYou can use these and edit them, but if you refresh your page, they'll return to the state they came in.\n\nIf you want to save your own examples, you can scroll in the left sidebar, and at the bottom, you'll see\n`+ Add new sandbox`. This button will allow you to create your own sandboxes.\n\nCopy existing Code from the `picasso code` tab and `data loader` tab in to your new sandbox when you've created it,\nand play around with it. The code from `picasso code` tab and `data loader` tab will be stored in your browser's\nlocalStorage, so you can use it over sessions.\n"
 
 /***/ }),
 /* 41 */
@@ -30608,7 +27719,7 @@ function page() {
   };
 }
 
-_registry2.default.register('get-to-know-picasso', page());
+// registry.register('get-to-know-picasso', page());
 
 /***/ }),
 /* 44 */
@@ -30828,7 +27939,7 @@ _registry2.default.register('barchart', page());
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "/* globals picasso, element, data */\n\n'use strict';\n\nvar d0 = 'qDimensionInfo/0';\nvar d1 = 'qDimensionInfo/1';\nvar m0 = 'qMeasureInfo/0';\nvar m1 = 'qMeasureInfo/1';\n\nvar measures = data[0].data.qMeasureInfo;\n\nvar colorSettings = function () {\n  var scale = {};\n  var ref = '';\n  if (measures.length > 1) {\n    scale.data = measures.map(function (m, i) {\n      return i;\n    });\n    scale.label = function (i) {\n      return measures[i.value].qFallbackTitle;\n    };\n    scale.type = 'categorical-color';\n    ref = 'measureIdx';\n  } else {\n    scale.data = {\n      extract: { field: d0, value: function value(v) {\n          return v;\n        } }\n    };\n    scale.value = function (v) {\n      return v.value.qElemNumber;\n    };\n    scale.label = function (v) {\n      return v.value.qText;\n    };\n    scale.type = 'categorical-color';\n    ref = 'elemNo';\n  }\n\n  return {\n    scale: scale,\n    ref: ref\n  };\n}();\n\nvar bars = function bars(i) {\n  var ratio = 0.8;\n  var groupBW = ratio * (1 / measures.length);\n  var barBW = 0.9 * groupBW;\n  var offset = 0.5 / measures.length;\n  var multi = (1 + (1 - ratio) * (measures.length - 1)) * offset;\n  return {\n    type: 'box-marker',\n    data: {\n      extract: {\n        field: d0,\n        props: {\n          measureIdx: i,\n          elemNo: {},\n          start: 0,\n          end: { field: 'qMeasureInfo/' + i }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'dim',\n        fn: function fn() {\n          return this.scale(this.data.value) + multi * this.scale.bandwidth() + i * this.scale.bandwidth() * groupBW;\n        }\n      },\n      minor: { scale: 'metric' },\n      orientation: 'horizontal',\n      box: {\n        opacity: 0.8,\n        fill: {\n          scale: 'color',\n          ref: colorSettings.ref\n        },\n        strokeWidth: 0,\n        width: barBW,\n        maxWidthPx: 1000\n      }\n    }\n  };\n};\n\nvar settings = {\n  logger: {\n    level: 4\n  },\n  scales: {\n    dim: {\n      data: { extract: { field: d0, value: function value(v) {\n            return v;\n          } } },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      }\n    },\n    color: colorSettings.scale,\n    metric: {\n      data: { extract: { field: m0 } },\n      expand: 0.1,\n      include: [0]\n    }\n  },\n  components: [{\n    type: 'grid-line',\n    x: 'metric'\n  }, {\n    type: 'axis',\n    scale: 'dim',\n    dock: 'left'\n  }, {\n    type: 'axis',\n    scale: 'metric',\n    dock: 'bottom'\n  }, {\n    type: 'legend-cat',\n    scale: 'color',\n    title: {\n      show: false,\n      text: function text() {\n        return '';\n      }\n    },\n    dock: 'right',\n    align: 'left',\n    preferredSize: function preferredSize() {\n      return 200;\n    }\n  }]\n};\n\nmeasures.forEach(function (measure, i) {\n  settings.components.push(bars(i));\n});\n\npicasso({\n  palettes: [{\n    key: 'categorical',\n    colors: [['#a54343', '#65d3da'], ['#a54343', '#cbe989', '#65d3da'], ['#a54343', '#f9ec86', '#79d69f', '#578b60'], ['#a54343', '#ec983d', '#f9ec86', '#70ba6e', '#79d69f', '#138185', '#65d3da'], ['#a54343', '#d76c6c', '#ec983d', '#ecc43d', '#f9ec86', '#cbe989', '#70ba6e', '#578b60', '#79d69f', '#26a0a7', '#138185', '#65d3da'] // breeze colors\n    ]\n  }]\n}).chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "/* globals picasso, element, data */\n\n'use strict';\n\nvar d0 = 'qDimensionInfo/0';\nvar d1 = 'qDimensionInfo/1';\nvar m0 = 'qMeasureInfo/0';\nvar m1 = 'qMeasureInfo/1';\n\nvar measures = data[0].data.qMeasureInfo;\n\nvar colorSettings = function () {\n  var scale = {};\n  var ref = '';\n  if (measures.length > 1) {\n    scale.data = measures.map(function (m, i) {\n      return i;\n    });\n    scale.label = function (i) {\n      return measures[i.value].qFallbackTitle;\n    };\n    scale.type = 'categorical-color';\n    ref = 'measureIdx';\n  } else {\n    scale.data = {\n      extract: { field: d0, value: function value(v) {\n          return v;\n        } }\n    };\n    scale.value = function (v) {\n      return v.value.qElemNumber;\n    };\n    scale.label = function (v) {\n      return v.value.qText;\n    };\n    scale.type = 'categorical-color';\n    ref = 'elemNo';\n  }\n\n  return {\n    scale: scale,\n    ref: ref\n  };\n}();\n\nvar bars = function bars(i) {\n  var ratio = 0.8;\n  var groupBW = ratio * (1 / measures.length);\n  var barBW = 0.9 * groupBW;\n  var offset = 0.5 / measures.length;\n  var multi = (1 + (1 - ratio) * (measures.length - 1)) * offset;\n  return {\n    type: 'box-marker',\n    data: {\n      extract: {\n        field: d0,\n        props: {\n          measureIdx: i,\n          elemNo: {},\n          start: 0,\n          end: { field: 'qMeasureInfo/' + i }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'dim',\n        fn: function fn() {\n          return this.scale(this.data.value) + multi * this.scale.bandwidth() + i * this.scale.bandwidth() * groupBW;\n        }\n      },\n      minor: { scale: 'metric' },\n      orientation: 'horizontal',\n      box: {\n        opacity: 0.8,\n        fill: {\n          scale: 'color',\n          ref: colorSettings.ref\n        },\n        strokeWidth: 0,\n        width: barBW,\n        maxWidthPx: 1000\n      }\n    }\n  };\n};\n\nvar settings = {\n  logger: {\n    level: 4\n  },\n  scales: {\n    dim: {\n      data: { extract: { field: d0, value: function value(v) {\n            return v;\n          } } },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      }\n    },\n    color: colorSettings.scale,\n    metric: {\n      data: { extract: { field: m0 } },\n      expand: 0.1,\n      include: [0]\n    }\n  },\n  components: [{\n    type: 'grid-line',\n    x: 'metric'\n  }, {\n    type: 'axis',\n    scale: 'dim',\n    dock: 'left'\n  }, {\n    type: 'axis',\n    scale: 'metric',\n    dock: 'bottom'\n  }, {\n    type: 'legend-cat',\n    scale: 'color',\n    dock: 'right',\n    settings: {\n      item: {\n        margin: {\n          top: 8\n        }\n      },\n      title: {\n        show: false\n      }\n    }\n  }]\n};\n\nmeasures.forEach(function (measure, i) {\n  settings.components.push(bars(i));\n});\n\npicasso({\n  palettes: [{\n    key: 'categorical',\n    colors: [['#a54343', '#65d3da'], ['#a54343', '#cbe989', '#65d3da'], ['#a54343', '#f9ec86', '#79d69f', '#578b60'], ['#a54343', '#ec983d', '#f9ec86', '#70ba6e', '#79d69f', '#138185', '#65d3da'], ['#a54343', '#d76c6c', '#ec983d', '#ecc43d', '#f9ec86', '#cbe989', '#70ba6e', '#578b60', '#79d69f', '#26a0a7', '#138185', '#65d3da'] // breeze colors\n    ]\n  }]\n}).chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 56 */
@@ -30954,11 +28065,11 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Boxplot styling 2'
+    name: 'Boxplot styling'
   };
 }
 
-_registry2.default.register('boxplot-styling-2', page());
+_registry2.default.register('boxplot-styling', page());
 
 /***/ }),
 /* 62 */
@@ -31030,11 +28141,11 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Boxplot styling'
+    name: 'Boxplot styling example'
   };
 }
 
-_registry2.default.register('boxplot-styling', page());
+// registry.register('boxplot-styling-ex', page());
 
 /***/ }),
 /* 66 */
@@ -31132,7 +28243,7 @@ module.exports = "# Hover me\n\nThis example demonstrates the brushing capabilit
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "/* eslint no-mixed-operators: 0 */\n\n'use strict';\n\n/* globals picasso, element, data */\n\nelement.innerHTML = '';\n\nvar propModes = [[''], ['x'], ['y'], ['x', 'y'], ['name']];\n\nvar mode = propModes[3];\n\nvar settings = {\n  scales: {\n    d0: { data: { extract: { field: 'qDimensionInfo/0', value: function value(v) {\n            return v;\n          } } }, value: function value(v) {\n        return v.value.qElemNumber;\n      }, label: function label(v) {\n        return v.value.qText;\n      } },\n    d1: { data: { extract: { field: 'qDimensionInfo/1', value: function value(v) {\n            return v;\n          } } }, value: function value(v) {\n        return v.value.qElemNumber;\n      }, label: function label(v) {\n        return v.value.qText;\n      } },\n    d2: { data: { extract: { field: 'qDimensionInfo/2', value: function value(v) {\n            return v;\n          } } }, value: function value(v) {\n        return v.value.qElemNumber;\n      }, label: function label(v) {\n        return v.value.qText;\n      } }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'd2',\n    dock: 'left',\n    settings: {\n      ticks: {\n        show: false\n      },\n      line: {\n        show: false\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'd0',\n    dock: 'bottom',\n    settings: {\n      ticks: {\n        show: false\n      },\n      line: {\n        show: false\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/1',\n        props: {\n          color: { field: 'qMeasureInfo/0' },\n          x: { field: 'qDimensionInfo/0' },\n          y: { source: 'qDimensionInfo/2' },\n          name: { source: 'qDimensionInfo/1' }\n        }\n      }\n    },\n    brush: {\n      trigger: [{\n        on: 'over',\n        contexts: ['highlight'],\n        data: mode\n      }],\n      consume: [{\n        context: 'highlight',\n        data: mode,\n        style: {\n          inactive: {\n            opacity: 0.8,\n            stroke: '#aaa',\n            strokeWidth: 1,\n            fill: '#fff'\n          }\n        }\n      }]\n    },\n    settings: {\n      x: {\n        scale: 'd0',\n        ref: 'x',\n        fn: function fn(d) {\n          return this.scale(d.value) + this.scale.bandwidth() * 0.5 + 0.01 - Math.random() * 0.02;\n        }\n      },\n      y: {\n        scale: 'd2',\n        ref: 'y',\n        fn: function fn(d) {\n          return this.scale(d.value) + this.scale.bandwidth() * 0.5 + 0.005 - Math.random() * 0.01;\n        }\n      },\n      size: 0.8,\n      opacity: 0.95,\n      stroke: 'rgba(255, 255, 255, 0.8)',\n      strokeWidth: 1.0,\n      fill: { ref: 'color', scale: { data: { field: 'qMeasureInfo/0' }, type: 'color' } }\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "/* eslint no-mixed-operators: 0 */\n\n'use strict';\n\n/* globals picasso, element, data */\n\nelement.innerHTML = '';\n\nvar propModes = [[''], ['x'], ['y'], ['x', 'y'], ['name']];\n\nvar mode = propModes[3];\n\nvar settings = {\n  scales: {\n    d0: { data: { extract: { field: 'qDimensionInfo/0', value: function value(v) {\n            return v;\n          } } }, value: function value(v) {\n        return v.value.qElemNumber;\n      }, label: function label(v) {\n        return v.value.qText;\n      } },\n    d1: { data: { extract: { field: 'qDimensionInfo/1', value: function value(v) {\n            return v;\n          } } }, value: function value(v) {\n        return v.value.qElemNumber;\n      }, label: function label(v) {\n        return v.value.qText;\n      } },\n    d2: { data: { extract: { field: 'qDimensionInfo/2', value: function value(v) {\n            return v;\n          } } }, value: function value(v) {\n        return v.value.qElemNumber;\n      }, label: function label(v) {\n        return v.value.qText;\n      } }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'd2',\n    dock: 'left',\n    settings: {\n      ticks: {\n        show: false\n      },\n      line: {\n        show: false\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'd0',\n    dock: 'bottom',\n    settings: {\n      ticks: {\n        show: false\n      },\n      line: {\n        show: false\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/3',\n        props: {\n          color: { field: 'qMeasureInfo/0' },\n          x: { field: 'qDimensionInfo/0' },\n          y: { field: 'qDimensionInfo/2' },\n          name: { field: 'qDimensionInfo/1' }\n        }\n      }\n    },\n    brush: {\n      trigger: [{\n        on: 'over',\n        contexts: ['highlight'],\n        data: mode\n      }],\n      consume: [{\n        context: 'highlight',\n        data: mode,\n        style: {\n          inactive: {\n            opacity: 0.8,\n            stroke: '#aaa',\n            strokeWidth: 1,\n            fill: '#fff'\n          }\n        }\n      }]\n    },\n    settings: {\n      x: {\n        scale: 'd0',\n        ref: 'x',\n        fn: function fn(d) {\n          return this.scale(d.value) + this.scale.bandwidth() * 0.5 + 0.01 - Math.random() * 0.02;\n        }\n      },\n      y: {\n        scale: 'd2',\n        ref: 'y',\n        fn: function fn(d) {\n          return this.scale(d.value) + this.scale.bandwidth() * 0.5 + 0.005 - Math.random() * 0.01;\n        }\n      },\n      size: 0.8,\n      opacity: 0.95,\n      stroke: 'rgba(255, 255, 255, 0.8)',\n      strokeWidth: 1.0,\n      fill: { ref: 'color', scale: { data: { field: 'qMeasureInfo/0' }, type: 'color' } }\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 72 */
@@ -31143,7 +28254,7 @@ module.exports = "/* eslint no-mixed-operators: 0 */\n\n'use strict';\n\n/* glob
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 1000,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 150,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false,\n  uniqueCities: 20,\n  uniqueTeamNames: 5,\n  uniqueAbbr: 10\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
 
 /***/ }),
 /* 73 */
@@ -31219,7 +28330,7 @@ module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\neleme
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false,\n  uniqueCities: 20\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
 
 /***/ }),
 /* 77 */
@@ -31295,7 +28406,7 @@ module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nfunct
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 2,\n  measures: 1,\n  rows: 100,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 2,\n  measures: 1,\n  rows: 100,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false,\n  uniqueCities: 20\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
 
 /***/ }),
 /* 81 */
@@ -31406,16 +28517,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
+  var code = _code2.default + '\n\nreturn chart;';
 
   return {
     description: _description2.default,
-    code: _code2.default,
+    code: code,
     data: data,
     name: 'Custom components'
   };
 }
 
-_registry2.default.register('custom-components', page());
+// Outdated, please replace with new
+// registry.register('custom-components', page());
 
 /***/ }),
 /* 86 */
@@ -31437,7 +28550,7 @@ module.exports = "# Custom components\n\n> By @rsv\n\nThis example shows how the
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar chart = void 0;\n\npicasso.component('background', {\n  // renderer: 'svg',\n  on: {\n    click: function click(e) {\n      console.log('click', e);\n\n      this.fill = 'red';\n\n      chart.update();\n    }\n  },\n  created: function created() {\n    this.rect = {\n      x: 0,\n      y: 0,\n      width: 0,\n      height: 0\n    };\n    this.opacity = this.settings.opacity;\n    this.fill = this.settings.fill;\n  },\n  preferredSize: function preferredSize(dockOpts) {\n    var inner = dockOpts.inner;\n\n    var dock = this.settings.dock;\n    return dock === '' || dock === 'center' ? 0 : 50;\n  },\n  resize: function resize(opts) {\n    var inner = opts.inner;\n\n    Object.assign(this.rect, inner);\n    return inner;\n  },\n  render: function render() {\n    var _rect = this.rect,\n        x = _rect.x,\n        y = _rect.y,\n        width = _rect.width,\n        height = _rect.height;\n\n    var nodes = [{\n      type: 'rect',\n      x: 0,\n      y: 0,\n      width: width,\n      height: height,\n      opacity: this.opacity,\n      fill: this.fill,\n      style: 'cursor: pointer;'\n    }];\n    return nodes;\n  }\n});\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0'\n    },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4'],\n      expand: 0.1,\n      invert: true\n    }\n  },\n  components: [{\n    key: 1,\n    type: 'background',\n    dock: 'top',\n    fill: 'darkblue',\n    opacity: 0.5\n  }, {\n    key: 2,\n    type: 'background',\n    dock: 'center',\n    fill: 'darkgreen',\n    opacity: 0.5\n  }, {\n    key: 3,\n    type: 'background',\n    dock: 'bottom',\n    fill: 'darkblue',\n    opacity: 0.5\n  }, {\n    key: 4,\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        start: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        },\n        med: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        },\n        end: {\n          source: '/qHyperCube/qMeasureInfo/3'\n        },\n        max: {\n          source: '/qHyperCube/qMeasureInfo/4'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x'\n      },\n      y: {\n        scale: 'y'\n      },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      }\n    }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\nchart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar chart = void 0;\n\npicasso.component('background', {\n  // renderer: 'svg',\n  on: {\n    click: function click(e) {\n      console.log('click', e);\n\n      this.fill = 'red';\n\n      chart.update();\n    }\n  },\n  created: function created() {\n    this.rect = {\n      x: 0,\n      y: 0,\n      width: 0,\n      height: 0\n    };\n    this.opacity = this.settings.opacity;\n    this.fill = this.settings.fill;\n  },\n  preferredSize: function preferredSize(dockOpts) {\n    var inner = dockOpts.inner;\n\n    var dock = this.settings.dock;\n    return dock === '' || dock === 'center' ? 0 : 50;\n  },\n  resize: function resize(opts) {\n    var inner = opts.inner;\n\n    Object.assign(this.rect, inner);\n    return inner;\n  },\n  render: function render() {\n    var _rect = this.rect,\n        x = _rect.x,\n        y = _rect.y,\n        width = _rect.width,\n        height = _rect.height;\n\n    var nodes = [{\n      type: 'rect',\n      x: 0,\n      y: 0,\n      width: width,\n      height: height,\n      opacity: this.opacity,\n      fill: this.fill,\n      style: 'cursor: pointer;'\n    }];\n    return nodes;\n  }\n});\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\nvar settings = {\n  scales: {\n    x: {\n      source: 'qDimensionInfo/0'\n    },\n    y: {\n      source: ['qMeasureInfo/0', 'qMeasureInfo/1', 'qMeasureInfo/2', 'qMeasureInfo/3', 'qMeasureInfo/4'],\n      expand: 0.1,\n      invert: true\n    }\n  },\n  components: [{\n    key: 1,\n    type: 'background',\n    dock: 'top',\n    fill: 'darkblue',\n    opacity: 0.5\n  }, {\n    key: 2,\n    type: 'background',\n    dock: 'center',\n    fill: 'darkgreen',\n    opacity: 0.5\n  }, {\n    key: 3,\n    type: 'background',\n    dock: 'bottom',\n    fill: 'darkblue',\n    opacity: 0.5\n  }, {\n    key: 4,\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: {\n          source: 'qMeasureInfo/0'\n        },\n        start: {\n          source: 'qMeasureInfo/1'\n        },\n        med: {\n          source: 'qMeasureInfo/2'\n        },\n        end: {\n          source: 'qMeasureInfo/3'\n        },\n        max: {\n          source: 'qMeasureInfo/4'\n        }\n      },\n      groupBy: {\n        source: 'qDimensionInfo/0'\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x'\n      },\n      y: {\n        scale: 'y'\n      },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      }\n    }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\nchart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 88 */
@@ -31448,13 +28561,13 @@ module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar c
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\nvar input = {\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n};\n\nvar randomStringsData = customGenerator.generateRandomStringData(input);\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nwindow.nextData = {\n  type: 'q',\n  data: generator.generateDataFromArray(customGenerator.generateRandomStringData(input))\n};\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\nvar input = {\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n};\n\nvar randomStringsData = customGenerator.generateRandomStringData(input);\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nwindow.nextData = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: generator.generateDataFromArray(customGenerator.generateRandomStringData(input)).qHyperCube\n};\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 89 */
-/*!*****************************************!*\
-  !*** ./pages/custom-generator/index.js ***!
-  \*****************************************/
+/*!********************************************!*\
+  !*** ./pages/debugging-colliders/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31487,50 +28600,50 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Custom data generator'
+    name: 'Debugging colliders'
   };
 }
 
-_registry2.default.register('custom-generator', page());
+_registry2.default.register('debugging-colliders', page());
 
 /***/ }),
 /* 90 */
-/*!*************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/custom-generator/description.md ***!
-  \*************************************************************************/
+/*!****************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/debugging-colliders/description.md ***!
+  \****************************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "Simple example of how to use a custom data generator in a Box plot\r\n"
+module.exports = "# Debugging colliders\nThis shows how to render colliders for debugging purpose.\n"
 
 /***/ }),
 /* 91 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/custom-generator/code.js ***!
-  \******************************************************************/
+/*!*********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/debugging-colliders/code.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.2\n    },\n    y: {\n      invert: true,\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4']\n    }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'y'\n  }, {\n    type: 'axis',\n    scale: 'x'\n  }, {\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        start: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        },\n        med: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        },\n        end: {\n          source: '/qHyperCube/qMeasureInfo/3'\n        },\n        max: {\n          source: '/qHyperCube/qMeasureInfo/4'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      },\n      vertical: true\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: {\n      data: {\n        extract: {\n          key: 'qHyperCube',\n          field: 'qDimensionInfo/0'\n        }\n      },\n      padding: 0.1\n    },\n    y: {\n      data: {\n        key: 'qHyperCube',\n        fields: ['qMeasureInfo/0', 'qMeasureInfo/1', 'qMeasureInfo/2', 'qMeasureInfo/3', 'qMeasureInfo/4']\n      }\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      extract: {\n        key: 'qHyperCube',\n        field: 'qDimensionInfo/0',\n        props: {\n          min: {\n            field: 'qMeasureInfo/0'\n          },\n          start: {\n            field: 'qMeasureInfo/1'\n          },\n          med: {\n            field: 'qMeasureInfo/2'\n          },\n          end: {\n            field: 'qMeasureInfo/3'\n          },\n          max: {\n            field: 'qMeasureInfo/4'\n          }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      vertical: true\n    }\n  }, {\n    type: 'axis',\n    scale: 'x'\n  }]\n\n};\n\nvar instance = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});\n\nvar elmBounds = element.getBoundingClientRect();\nvar shapes = instance.findShapes('*'); // Find all shapes\n\n// Render colliders\nvar colliders = shapes.filter(function (s) {\n  return s.collider;\n}).map(function (s) {\n  var sceneBounds = s.element.getBoundingClientRect();\n  var dx = sceneBounds.left - elmBounds.left;\n  var dy = sceneBounds.top - elmBounds.top;\n  var col = s.collider;\n  col.transform = 'translate(' + dx + ',' + dy + ')';\n  return col;\n});\n\ncolliders.forEach(function (c) {\n  c.fill = 'green';\n  c.stroke = 'black';\n  c.opacity = 0.2;\n});\n\nvar colliderRenderer = picasso.renderer('svg')();\ncolliderRenderer.appendTo(element);\ncolliderRenderer.size({ width: elmBounds.width, height: elmBounds.height });\n\ncolliderRenderer.render(colliders);"
 
 /***/ }),
 /* 92 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/custom-generator/data.js ***!
-  \******************************************************************/
+/*!*********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/debugging-colliders/data.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\n// To generate random data:\n\nvar randomData = generator.generateRandomData(1, // Number of dimensions\n5, // Number of measures\n10, // Number of rows\ntrue // If the data is supported to be sorted or not (should be for box plot)\n);\n\nvar qLayout = generator.generateDataFromArray(randomData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 93 */
-/*!********************************************!*\
-  !*** ./pages/debugging-colliders/index.js ***!
-  \********************************************/
+/*!*******************************************!*\
+  !*** ./pages/distribution-chart/index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31563,50 +28676,50 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Debugging colliders'
+    name: 'Distribution chart'
   };
 }
 
-_registry2.default.register('debugging-colliders', page());
+_registry2.default.register('distribution-chart', page());
 
 /***/ }),
 /* 94 */
-/*!****************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/debugging-colliders/description.md ***!
-  \****************************************************************************/
+/*!***************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/distribution-chart/description.md ***!
+  \***************************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Debugging colliders\nThis shows how to render colliders for debugging purpose.\n"
+module.exports = "# Distribution chart\n\nThis example shows how to create a distribution chart.\n\nThe data input contains two dimensions and two measures. The outer dimension are cities and are used as data for the y scale. The data points represent sports clubs from various cities around the world. The first measure is used along the x axis, while the second is used to color the dots.\n\nThe chart consists of a _backdrop_ layer which shows the span of the distribution per city. The span is calculated locally by extracting the min and max value of the data points in each city. A box layer is then used to show the span.\n\nThe point layer shows all points in the data set positioned along x according to the first measure value, and along y based on the city the points' belong to.\n"
 
 /***/ }),
 /* 95 */
-/*!*********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/debugging-colliders/code.js ***!
-  \*********************************************************************/
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/distribution-chart/code.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.1\n    },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4']\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        start: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        },\n        med: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        },\n        end: {\n          source: '/qHyperCube/qMeasureInfo/3'\n        },\n        max: {\n          source: '/qHyperCube/qMeasureInfo/4'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      vertical: true\n    }\n  }, {\n    type: 'axis',\n    scale: 'x'\n  }]\n\n};\n\nvar instance = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});\n\nvar elmBounds = element.getBoundingClientRect();\nvar shapes = instance.findShapes('*'); // Find all shapes\n\n// Render colliders\nvar colliders = shapes.filter(function (s) {\n  return s.collider;\n}).map(function (s) {\n  var sceneBounds = s.element.getBoundingClientRect();\n  var dx = sceneBounds.left - elmBounds.left;\n  var dy = sceneBounds.top - elmBounds.top;\n  var col = s.collider;\n  col.transform = 'translate(' + dx + ',' + dy + ')';\n  return col;\n});\n\ncolliders.forEach(function (c) {\n  c.fill = 'green';\n  c.stroke = 'black';\n  c.opacity = 0.2;\n});\n\nvar colliderRenderer = picasso.renderer('svg');\ncolliderRenderer.appendTo(element);\ncolliderRenderer.size({ width: elmBounds.width, height: elmBounds.height });\n\ncolliderRenderer.render(colliders);"
+module.exports = "/* globals picasso, element, data */\n\n'use strict';\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    y: {\n      data: {\n        extract: {\n          field: 'qDimensionInfo/0',\n          value: function value(v) {\n            return v;\n          }\n        }\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      }\n    },\n    x: {\n      data: { fields: ['qMeasureInfo/0'] },\n      expand: 0.2\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        trackBy: function trackBy(cell) {\n          return cell.qElemNumber;\n        },\n        reduce: 'first',\n        props: {\n          start: { field: 'qMeasureInfo/0', reduce: 'min' },\n          end: { field: 'qMeasureInfo/0', reduce: 'max' }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'y'\n      },\n      minor: {\n        scale: 'x'\n      },\n      box: {\n        fill: 'rgba(100, 100, 100, 0.15)',\n        stroke: 'red',\n        strokeWidth: 0,\n        width: 0.55\n      },\n      orientation: 'horizontal'\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/1',\n        props: {\n          x: { field: 'qMeasureInfo/0' },\n          m1: { field: 'qMeasureInfo/1' },\n          y: { field: 'qDimensionInfo/0', reduce: function reduce(values) {\n              return values[0];\n            } }\n        }\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x',\n        ref: 'x'\n      },\n      y: {\n        scale: 'y',\n        ref: 'y'\n      },\n      fill: {\n        ref: 'm1',\n        scale: {\n          data: { field: 'qMeasureInfo/1' },\n          type: 'color'\n        }\n      },\n      opacity: 0.8,\n      size: 0.5,\n      stroke: '#fff',\n      strokeWidth: 1\n    }\n  }, {\n    type: 'axis',\n    dock: 'bottom',\n    scale: 'x',\n    settings: {\n      ticks: {\n        tight: false\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'y',\n    dock: 'left'\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 96 */
-/*!*********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/debugging-colliders/data.js ***!
-  \*********************************************************************/
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/distribution-chart/data.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\n// To generate random data:\n\nvar randomData = generator.generateRandomData(1, // Number of dimensions\n5, // Number of measures\n10, // Number of rows\ntrue // If the data is supported to be sorted or not (should be for box plot)\n);\n\nvar qLayout = generator.generateDataFromArray(randomData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 2,\n  measures: 2,\n  rows: 300,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false,\n  uniqueCities: 20\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 97 */
-/*!*******************************************!*\
-  !*** ./pages/distribution-chart/index.js ***!
-  \*******************************************/
+/*!********************************************!*\
+  !*** ./pages/dock-layout-example/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31639,50 +28752,50 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Distribution chart'
+    name: 'Dock layout settings'
   };
 }
 
-_registry2.default.register('distribution-chart', page());
+_registry2.default.register('dock-layout', page());
 
 /***/ }),
 /* 98 */
-/*!***************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/distribution-chart/description.md ***!
-  \***************************************************************************/
+/*!****************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/dock-layout-example/description.md ***!
+  \****************************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Distribution chart\n\nThis example shows how to create a distribution chart.\n\nThe data input contains two dimensions and two measures. The outer dimension are cities and are used as data for the y scale. The data points represent sports clubs from various cities around the world. The first measure is used along the x axis, while the second is used to color the dots.\n\nThe chart consists of a _backdrop_ layer which shows the span of the distribution per city. The span is calculated locally by extracting the min and max value of the data points in each city. A box layer is then used to show the span.\n\nThe point layer shows all points in the data set positioned along x according to the first measure value, and along y based on the city the points' belong to.\n"
+module.exports = "Dock layout settings and how to use them\r\n"
 
 /***/ }),
 /* 99 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/distribution-chart/code.js ***!
-  \********************************************************************/
+/*!*********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/dock-layout-example/code.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "/* globals picasso, element, data */\n\n'use strict';\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    y: {\n      data: {\n        extract: {\n          field: 'qDimensionInfo/0',\n          value: function value(v) {\n            return v;\n          }\n        }\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      }\n    },\n    x: {\n      data: { fields: ['qMeasureInfo/0'] },\n      expand: 0.2\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        trackBy: function trackBy(cell) {\n          return cell.qElemNumber;\n        },\n        reduce: 'first',\n        props: {\n          start: { field: 'qMeasureInfo/0', reduce: 'min' },\n          end: { field: 'qMeasureInfo/0', reduce: 'max' }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'y'\n      },\n      minor: {\n        scale: 'x'\n      },\n      box: {\n        fill: 'rgba(100, 100, 100, 0.15)',\n        stroke: 'red',\n        strokeWidth: 0,\n        width: 0.55\n      },\n      orientation: 'horizontal'\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/1',\n        props: {\n          x: { field: 'qMeasureInfo/0' },\n          m1: { field: 'qMeasureInfo/1' },\n          y: { field: 'qDimensionInfo/0', reduce: function reduce(values) {\n              return values[0];\n            } }\n        }\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x',\n        ref: 'x'\n      },\n      y: {\n        scale: 'y',\n        ref: 'y'\n      },\n      fill: {\n        ref: 'm1',\n        scale: {\n          data: { field: 'qMeasureInfo/1' },\n          type: 'color'\n        }\n      },\n      opacity: 0.8,\n      size: 0.5,\n      stroke: '#fff',\n      strokeWidth: 1\n    }\n  }, {\n    type: 'axis',\n    dock: 'bottom',\n    scale: 'x',\n    settings: {\n      ticks: {\n        tight: false\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'y',\n    dock: 'left'\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  dockLayout: {\n    /*\n      Logical size represent the size given to the dock layout to work with.\n      If the logical size is different then the phyiscal size (size of the container or the size property),\n      then scaling is applied to the components to fit into the physical size.\n     */\n    logicalSize: {\n      width: 100,\n      height: 500,\n      preserveAspectRatio: false // takes the smallest ratio of width/height between logical and physical size ( phyiscal / logical ).\n    },\n    size: { // Default is the size of the container\n      width: 500,\n      height: 500\n    }\n  },\n  components: [{\n    type: 'axis',\n    scale: { invert: true }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 100 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/distribution-chart/data.js ***!
-  \********************************************************************/
+/*!*********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/dock-layout-example/data.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 2,\n  measures: 2,\n  rows: 300,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 101 */
-/*!********************************************!*\
-  !*** ./pages/dock-layout-example/index.js ***!
-  \********************************************/
+/*!*******************************************!*\
+  !*** ./pages/formatters-example/index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31715,50 +28828,50 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Dock layout settings'
+    name: 'Formatters'
   };
 }
 
-_registry2.default.register('dock-layout', page());
+_registry2.default.register('formatters-example', page());
 
 /***/ }),
 /* 102 */
-/*!****************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/dock-layout-example/description.md ***!
-  \****************************************************************************/
+/*!***************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/formatters-example/description.md ***!
+  \***************************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "Dock layout settings and how to use them\r\n"
+module.exports = "Example of how to setup a formatter\r\n"
 
 /***/ }),
 /* 103 */
-/*!*********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/dock-layout-example/code.js ***!
-  \*********************************************************************/
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/formatters-example/code.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  dockLayout: {\n    /*\n      Logical size represent the size given to the dock layout to work with.\n      If the logical size is different then the phyiscal size (size of the container or the size property),\n      then scaling is applied to the components to fit into the physical size.\n     */\n    logicalSize: {\n      width: 100,\n      height: 500,\n      preserveAspectRatio: false // takes the smallest ratio of width/height between logical and physical size ( phyiscal / logical ).\n    },\n    size: {// Default is the size of the container\n      // width: 500,\n      // height: 500,\n    }\n  },\n  components: [{\n    type: 'point-marker',\n    data: {\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  formatters: {\n    customFormatter: {\n      formatter: 'd3', // The type of formatter to use\n      type: 'number', // The type of data to format\n      format: '-1.0%' // Format pattern\n    }\n  },\n  scales: {\n    y: {\n      invert: true,\n      data: { fields: ['qMeasureInfo/0'] }\n    },\n    yy: {\n      invert: false,\n      data: { fields: ['qMeasureInfo/0'] }\n    }\n  },\n  components: [\n  // Default formatter\n  {\n    type: 'axis',\n    scale: 'y'\n  }, {\n    type: 'text',\n    dock: 'left',\n    text: 'Default formatter'\n  },\n  // Custom formatter\n  {\n    type: 'axis',\n    scale: 'y',\n    formatter: 'customFormatter'\n  }, {\n    type: 'text',\n    dock: 'left',\n    text: 'Custom formatter'\n  },\n  // Field formatter\n  {\n    type: 'axis',\n    scale: 'yy',\n    formatter: {\n      data: { fields: ['qMeasureInfo/0'] }\n    }\n  }, {\n    type: 'text',\n    dock: 'left',\n    text: 'Field formatter'\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 104 */
-/*!*********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/dock-layout-example/data.js ***!
-  \*********************************************************************/
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/formatters-example/data.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 105 */
-/*!*******************************************!*\
-  !*** ./pages/formatters-example/index.js ***!
-  \*******************************************/
+/*!*****************************************!*\
+  !*** ./pages/gradient-example/index.js ***!
+  \*****************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31785,56 +28898,57 @@ var _registry2 = _interopRequireDefault(_registry);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function page() {
+  var code = _code2.default + '\n\nreturn chart;';
   var data = _data2.default + '\n\nreturn data;';
 
   return {
     description: _description2.default,
-    code: _code2.default,
+    code: code,
     data: data,
-    name: 'Formatters'
+    name: 'Gradient example'
   };
 }
 
-_registry2.default.register('formatters-example', page());
+_registry2.default.register('gradient-example', page());
 
 /***/ }),
 /* 106 */
-/*!***************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/formatters-example/description.md ***!
-  \***************************************************************************/
+/*!*************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/gradient-example/description.md ***!
+  \*************************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "Example of how to setup a formatter\r\n"
+module.exports = "# Gradient example\n\nThis is a demonstration of how gradient's can be applied to the fill property in the point marker.\nWould work the same for strokes.\n"
 
 /***/ }),
 /* 107 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/formatters-example/code.js ***!
-  \********************************************************************/
+/*!******************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/gradient-example/code.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  formatters: {\n    customFormatter: {\n      formatter: 'd3', // The type of formatter to use\n      type: 'number', // The type of data to format\n      format: '-1.0%' // Format pattern\n    }\n  },\n  scales: {\n    y: {\n      invert: true,\n      source: '/qHyperCube/qMeasureInfo/0'\n    },\n    yy: {\n      invert: false,\n      source: '/qHyperCube/qMeasureInfo/0'\n    }\n  },\n  components: [\n  // Default formatter\n  {\n    type: 'axis',\n    scale: 'y'\n  },\n  // Custom formatter\n  {\n    type: 'axis',\n    scale: 'y',\n    formatter: 'customFormatter'\n  },\n  // Field formatter\n  {\n    type: 'axis',\n    scale: 'yy',\n    formatter: {\n      source: '/qHyperCube/qMeasureInfo/0'\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: { data: { field: 'qMeasureInfo/0' }, expand: [0.1] },\n    y: { data: { field: 'qMeasureInfo/1' }, expand: [0.1], invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left'\n  }, {\n    key: 'xaxis',\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        key: 'qHyperCube',\n        field: 'qDimensionInfo/3',\n        props: {\n          dim: { field: 'qDimensionInfo/2', reducer: 'first', type: 'qual' },\n          x: { field: 'qMeasureInfo/0' },\n          y: { field: 'qMeasureInfo/1' },\n          size: { field: 'qMeasureInfo/2' }\n        }\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      sizeLimits: {\n        maxRel: 0.1,\n        minRel: 0.001\n      },\n      opacity: 0.9,\n      size: { scale: { data: { field: 'qMeasureInfo/2' } } },\n      fill: function fill() {\n        return {\n          type: 'gradient',\n          degree: 0,\n          orientation: ['linear', 'radial'][Math.random() > 0.5 ? 1 : 0],\n          stops: [{\n            offset: 0,\n            color: 'blue'\n          }, {\n            offset: Math.random(),\n            color: 'green'\n          }]\n        };\n      }\n    }\n  }]\n};\n\nvar chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 108 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/formatters-example/data.js ***!
-  \********************************************************************/
+/*!******************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/gradient-example/data.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 109 */
-/*!*****************************************!*\
-  !*** ./pages/gradient-example/index.js ***!
-  \*****************************************/
+/*!**********************************!*\
+  !*** ./pages/grid-line/index.js ***!
+  \**********************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -31861,46 +28975,45 @@ var _registry2 = _interopRequireDefault(_registry);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function page() {
-  var code = _code2.default + '\n\nreturn chart;';
   var data = _data2.default + '\n\nreturn data;';
 
   return {
     description: _description2.default,
-    code: code,
+    code: _code2.default,
     data: data,
-    name: 'Gradient example'
+    name: 'Grid lines'
   };
 }
 
-_registry2.default.register('gradient-example', page());
+_registry2.default.register('grid-line', page());
 
 /***/ }),
 /* 110 */
-/*!*************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/gradient-example/description.md ***!
-  \*************************************************************************/
+/*!******************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/grid-line/description.md ***!
+  \******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Gradient example\n\nThis is a demonstration of how gradient's can be applied to the fill property in the point marker.\nWould work the same for strokes.\n"
+module.exports = "# Get your freak on with some nice grid lines\n\n\n## Simple\n```js\n{\n  type: 'grid-line',\n  x: { scale: 'x' },\n  y: { scale: 'y' }\n}\n```  \n\n\n## Advanced\n```js\n{\n  type: 'grid-line',\n  x: {\n    scale: 'x'\n  },\n  y: {\n    scale: 'y'\n  },\n  styles: {\n    ticks: {\n      show: true,\n      stroke: 'red',\n      strokeWidth: 5,\n    },\n    minorTicks: {\n      show: false,\n      stroke: 'blue',\n      strokeWidth: 1\n    }\n  }\n}\n```\n"
 
 /***/ }),
 /* 111 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/gradient-example/code.js ***!
-  \******************************************************************/
+/*!***********************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/grid-line/code.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: { data: { field: 'qMeasureInfo/0' }, expand: [0.1] },\n    y: { data: { field: 'qMeasureInfo/1' }, expand: [0.1], invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left'\n  }, {\n    key: 'xaxis',\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        key: 'qHyperCube',\n        field: 'qDimensionInfo/3',\n        props: {\n          dim: { field: 'qDimensionInfo/2', reducer: 'first', type: 'qual' },\n          x: { field: 'qMeasureInfo/0' },\n          y: { field: 'qMeasureInfo/1' },\n          size: { field: 'qMeasureInfo/2' }\n        }\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      sizeLimits: {\n        maxRel: 0.1,\n        minRel: 0.001\n      },\n      opacity: 0.9,\n      size: { scale: { data: { field: 'qMeasureInfo/2' } } },\n      fill: function fill() {\n        return {\n          type: 'gradient',\n          degree: 0,\n          orientation: ['linear', 'radial'][Math.random() > 0.5 ? 1 : 0],\n          stops: [{\n            offset: 0,\n            color: 'blue'\n          }, {\n            offset: Math.random(),\n            color: 'green'\n          }]\n        };\n      }\n    }\n  }]\n};\n\nvar chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar scatterSettings = {\n  scales: {\n    x: { data: { field: 'qMeasureInfo/0' }, expand: [0.05] },\n    y: { data: { field: 'qMeasureInfo/1' }, expand: [0.05], invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left'\n  }, {\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'grid-line',\n    x: { scale: 'x' },\n    y: { scale: 'y' },\n    minorTicks: {\n      show: true\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        key: 'qHyperCube',\n        field: 'qDimensionInfo/3',\n        props: {\n          color: { field: 'qMeasureInfo/0' },\n          dim: { field: 'qDimensionInfo/2', reducer: 'first', type: 'qual' },\n          x: { field: 'qMeasureInfo/0' },\n          y: { field: 'qMeasureInfo/1' },\n          size: { field: 'qMeasureInfo/2' }\n        }\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      opacity: 0.95,\n      size: { scale: { data: { field: 'qMeasureInfo/2' } } },\n      fill: { ref: 'color', scale: { data: { field: 'qMeasureInfo/0' }, type: 'color' } }\n    }\n  }]\n};\n\npicasso.chart({ element: element, data: data, settings: scatterSettings });"
 
 /***/ }),
 /* 112 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/gradient-example/data.js ***!
-  \******************************************************************/
+/*!***********************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/grid-line/data.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
@@ -31910,7 +29023,7 @@ module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nva
 /***/ }),
 /* 113 */
 /*!**********************************!*\
-  !*** ./pages/grid-line/index.js ***!
+  !*** ./pages/histogram/index.js ***!
   \**********************************/
 /*! no static exports found */
 /*! all exports used */
@@ -31944,50 +29057,50 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Grid lines'
+    name: 'Histogram'
   };
 }
 
-_registry2.default.register('grid-line', page());
+_registry2.default.register('histogram', page());
 
 /***/ }),
 /* 114 */
 /*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/grid-line/description.md ***!
+  !*** ./node_modules/raw-loader!./pages/histogram/description.md ***!
   \******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Get your freak on with some nice grid lines\n\n\n## Simple\n```js\n{\n  type: 'grid-line',\n  x: { scale: 'x' },\n  y: { scale: 'y' }\n}\n```  \n\n\n## Advanced\n```js\n{\n  type: 'grid-line',\n  x: {\n    scale: 'x'\n  },\n  y: {\n    scale: 'y'\n  },\n  styles: {\n    ticks: {\n      show: true,\n      stroke: 'red',\n      strokeWidth: 5,\n    },\n    minorTicks: {\n      show: false,\n      stroke: 'blue',\n      strokeWidth: 1\n    }\n  }\n}\n```\n"
+module.exports = "# Histogram\n\nThis example shows how to create a histogram.\n\nThe keys to making this work is:\n1. Define a linear scale from the dimension:\n\n    ```js\n    scales: {\n      x: {\n        type: 'linear',\n        source: '/qHyperCube/qDimensionInfo/0',\n        max: layout.qHyperCube.qDimensionInfo[0].qMax + binSize\n      }\n    }\n    ```\n\n2. Define the start and end value of each bin:\n\n    ```js\n    data: {\n      mapTo: {\n        binStart: { source: '/qHyperCube/qDimensionInfo/0', type: 'quant' },\n        binEnd: { source: '/qHyperCube/qDimensionInfo/0', reducer: (v) => v[0] + binSize, type: 'quant' }\n        // adding 'quant' as type will result in the 'qNum' property being used, instead of 'qText'\n    }\n    ```\n\n3. Reference the bin start and end data property to be used by the major scale:\n    ```js\n    settings: {\n      major: {\n        scale: 'x',\n        ref: { start: 'binStart', end: 'binEnd' }\n      }\n    }\n    ```\n"
 
 /***/ }),
 /* 115 */
 /*!***********************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/grid-line/code.js ***!
+  !*** ./node_modules/raw-loader!./pages/histogram/code.js ***!
   \***********************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar scatterSettings = {\n  scales: {\n    x: { data: { field: 'qMeasureInfo/0' }, expand: [0.05] },\n    y: { data: { field: 'qMeasureInfo/1' }, expand: [0.05], invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left'\n  }, {\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'grid-line',\n    x: { scale: 'x' },\n    y: { scale: 'y' },\n    minorTicks: {\n      show: true\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        key: 'qHyperCube',\n        field: 'qDimensionInfo/3',\n        props: {\n          color: { field: 'qMeasureInfo/0' },\n          dim: { field: 'qDimensionInfo/2', reducer: 'first', type: 'qual' },\n          x: { field: 'qMeasureInfo/0' },\n          y: { field: 'qMeasureInfo/1' },\n          size: { field: 'qMeasureInfo/2' }\n        }\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      opacity: 0.95,\n      size: { scale: { data: { field: 'qMeasureInfo/2' } } },\n      fill: { ref: 'color', scale: { data: { field: 'qMeasureInfo/0' }, type: 'color' } }\n    }\n  }]\n};\n\npicasso.chart({ element: element, data: data, settings: scatterSettings });"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar cube = data[0].data;\nvar bin = cube.qDataPages[0].qMatrix[0][0].qText.split(' <= x < ');\nvar binSize = Math.abs(+bin[1] - +bin[0]);\nvar settings = {\n  scales: {\n    x: {\n      data: { extract: { field: 'qDimensionInfo/0' } },\n      type: 'linear',\n      max: cube.qDimensionInfo[0].qMax + binSize\n    },\n    y: {\n      data: { extract: { field: 'qMeasureInfo/0' } },\n      include: [0],\n      invert: true\n    }\n  },\n  components: [{\n    type: 'grid-line',\n    y: { scale: 'y' }\n  }, {\n    type: 'box-marker',\n    key: 'bars',\n    displayOrder: 1,\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        props: {\n          start: 0,\n          end: { field: 'qMeasureInfo/0' },\n          endLabel: { field: 'qMeasureInfo/0', value: function value(v) {\n              return v.qText;\n            } },\n          binStart: { value: function value(v) {\n              return v.qNum;\n            } },\n          binEnd: { value: function value(v) {\n              return v.qNum + binSize;\n            } }\n        }\n      }\n    },\n    settings: {\n      major: { scale: 'x', ref: { start: 'binStart', end: 'binEnd' } },\n      minor: { scale: 'y' },\n      box: {\n        fill: 'steelblue',\n        strokeWidth: 1,\n        stroke: 'rgba(255, 255, 255, 0.8)',\n        width: 1,\n        maxWidth: 10000,\n        minWidth: 1\n      }\n    }\n  }, {\n    type: 'labels',\n    displayOrder: 2,\n    settings: {\n      sources: [{\n        component: 'bars',\n        selector: 'rect',\n        strategy: {\n          type: 'bar',\n          settings: {\n            direction: function direction(data) {\n              return data && data.end.value > data.start.value ? 'up' : 'down';\n            },\n\n            fontFamily: 'Helvetica Neue',\n            fontSize: 12,\n            align: 0.5,\n            labels: [{\n              placements: [{\n                position: 'outside',\n                fill: '#666',\n                justify: 0\n              }, {\n                position: 'inside',\n                fill: '#fff',\n                justify: 1\n              }],\n              label: function label(data) {\n                return data ? data.endLabel.value : '';\n              }\n            }]\n          }\n        }\n      }]\n    }\n  }, {\n    type: 'axis',\n    scale: 'y',\n    dock: 'left'\n  }, {\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 116 */
 /*!***********************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/grid-line/data.js ***!
+  !*** ./node_modules/raw-loader!./pages/histogram/data.js ***!
   \***********************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
+module.exports = "'use strict';\n\nvar layout = {\n  qInfo: {\n    qId: 'Auj',\n    qType: 'barchart'\n  },\n  qSelectionInfo: {},\n  qHyperCube: {\n    qSize: {\n      qcx: 2,\n      qcy: 9\n    },\n    qDimensionInfo: [{\n      qFallbackTitle: 'sdf',\n      qApprMaxGlyphCount: 14,\n      qCardinal: 9,\n      qSortIndicator: 'A',\n      qGroupFallbackTitles: ['sdf'],\n      qGroupPos: 0,\n      qStateCounts: {\n        qLocked: 0,\n        qSelected: 0,\n        qOption: 9,\n        qDeselected: 0,\n        qAlternative: 0,\n        qExcluded: 0,\n        qSelectedExcluded: 0,\n        qLockedExcluded: 0\n      },\n      qTags: ['$numeric', '$integer'],\n      qDimensionType: 'N',\n      qGrouping: 'N',\n      qNumFormat: {\n        qType: 'U',\n        qnDec: 0,\n        qUseThou: 0\n      },\n      qIsAutoFormat: true,\n      qGroupFieldDefs: ['=class(CostPrice, 50)'],\n      qMin: 0,\n      qMax: 400,\n      qContinuousAxes: true,\n      qAttrExprInfo: [],\n      qAttrDimInfo: [],\n      autoSort: false,\n      cId: 'emEgPd',\n      othersLabel: 'Others'\n    }],\n    qMeasureInfo: [{\n      qFallbackTitle: 'Count(CostPrice)',\n      qApprMaxGlyphCount: 3,\n      qCardinal: 0,\n      qSortIndicator: 'D',\n      qNumFormat: {\n        qType: 'I',\n        qnDec: 0,\n        qUseThou: 1,\n        qFmt: '###0',\n        qDec: '.'\n      },\n      qMin: 1,\n      qMax: 658,\n      qIsAutoFormat: true,\n      qAttrExprInfo: [],\n      qAttrDimInfo: [],\n      autoSort: true,\n      cId: 'GnERNT',\n      numFormatFromTemplate: true\n    }],\n    qEffectiveInterColumnSortOrder: [0, 1],\n    qGrandTotalRow: [{\n      qText: '824',\n      qNum: 824,\n      qElemNumber: -1,\n      qState: 'X',\n      qIsTotalCell: true\n    }],\n    qDataPages: [{\n      qMatrix: [[{\n        qText: '0 <= x < 50',\n        qNum: 0,\n        qElemNumber: 1,\n        qState: 'O'\n      }, {\n        qText: '658',\n        qNum: 658,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '50 <= x < 100',\n        qNum: 50,\n        qElemNumber: 0,\n        qState: 'O'\n      }, {\n        qText: '98',\n        qNum: 98,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '100 <= x < 150',\n        qNum: 100,\n        qElemNumber: 2,\n        qState: 'O'\n      }, {\n        qText: '38',\n        qNum: 38,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '150 <= x < 200',\n        qNum: 150,\n        qElemNumber: 5,\n        qState: 'O'\n      }, {\n        qText: '6',\n        qNum: 6,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '200 <= x < 250',\n        qNum: 200,\n        qElemNumber: 6,\n        qState: 'O'\n      }, {\n        qText: '9',\n        qNum: 9,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '250 <= x < 300',\n        qNum: 250,\n        qElemNumber: 3,\n        qState: 'O'\n      }, {\n        qText: '8',\n        qNum: 8,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '300 <= x < 350',\n        qNum: 300,\n        qElemNumber: 4,\n        qState: 'O'\n      }, {\n        qText: '3',\n        qNum: 3,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '350 <= x < 400',\n        qNum: 350,\n        qElemNumber: 7,\n        qState: 'O'\n      }, {\n        qText: '3',\n        qNum: 3,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '400 <= x < 450',\n        qNum: 400,\n        qElemNumber: 8,\n        qState: 'O'\n      }, {\n        qText: '1',\n        qNum: 1,\n        qElemNumber: 0,\n        qState: 'L'\n      }]],\n      qTails: [{\n        qUp: 0,\n        qDown: 0\n      }],\n      qArea: {\n        qLeft: 0,\n        qTop: 0,\n        qWidth: 2,\n        qHeight: 9\n      }\n    }],\n    qPivotDataPages: [],\n    qStackedDataPages: [],\n    qMode: 'S',\n    qNoOfLeftDims: -1,\n    customErrorMessage: {\n      calcCond: ''\n    }\n  },\n  refLine: {\n    refLines: []\n  },\n  showTitles: true,\n  title: '',\n  subtitle: '',\n  footnote: '',\n  showDetails: false,\n  barGrouping: {\n    grouping: 'grouped'\n  },\n  orientation: 'vertical',\n  scrollStartPos: 0,\n  gridLine: {\n    auto: true,\n    spacing: 2\n  },\n  dataPoint: {\n    showLabels: false\n  },\n  color: {\n    auto: true,\n    mode: 'primary',\n    useBaseColors: 'off',\n    singleColor: 3,\n    paletteColor: {\n      index: 6\n    },\n    persistent: false,\n    expressionIsColor: true,\n    expressionLabel: '',\n    measureScheme: 'sg',\n    reverseScheme: false,\n    dimensionScheme: '12',\n    autoMinMax: true,\n    measureMin: 0,\n    measureMax: 10\n  },\n  legend: {\n    show: true,\n    dock: 'auto',\n    showTitle: true\n  },\n  dimensionAxis: {\n    continuousAuto: true,\n    show: 'all',\n    label: 'auto',\n    dock: 'near'\n  },\n  preferContinuousAxis: true,\n  measureAxis: {\n    show: 'all',\n    dock: 'near',\n    spacing: 1,\n    autoMinMax: true,\n    minMax: 'min',\n    min: 0,\n    max: 10\n  },\n  visualization: 'barchart'\n};\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: layout.qHyperCube\n}];"
 
 /***/ }),
 /* 117 */
-/*!**********************************!*\
-  !*** ./pages/histogram/index.js ***!
-  \**********************************/
+/*!************************************!*\
+  !*** ./pages/interaction/index.js ***!
+  \************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32015,55 +29128,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
+  var code = _code2.default + '\n\nreturn chart;';
 
   return {
     description: _description2.default,
-    code: _code2.default,
+    code: code,
     data: data,
-    name: 'Histogram'
+    name: 'Interaction'
   };
 }
 
-_registry2.default.register('histogram', page());
+_registry2.default.register('interaction', page());
 
 /***/ }),
 /* 118 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/histogram/description.md ***!
-  \******************************************************************/
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/interaction/description.md ***!
+  \********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Histogram\n\nThis example shows how to create a histogram.\n\nThe keys to making this work is:\n1. Define a linear scale from the dimension:\n\n    ```js\n    scales: {\n      x: {\n        type: 'linear',\n        source: '/qHyperCube/qDimensionInfo/0',\n        max: layout.qHyperCube.qDimensionInfo[0].qMax + binSize\n      }\n    }\n    ```\n\n2. Define the start and end value of each bin:\n\n    ```js\n    data: {\n      mapTo: {\n        binStart: { source: '/qHyperCube/qDimensionInfo/0', type: 'quant' },\n        binEnd: { source: '/qHyperCube/qDimensionInfo/0', reducer: (v) => v[0] + binSize, type: 'quant' }\n        // adding 'quant' as type will result in the 'qNum' property being used, instead of 'qText'\n    }\n    ```\n\n3. Reference the bin start and end data property to be used by the major scale:\n    ```js\n    settings: {\n      major: {\n        scale: 'x',\n        ref: { start: 'binStart', end: 'binEnd' }\n      }\n    }\n    ```\n"
+module.exports = "# Scroll component\n\n> By @ann\n\nThis example adds an interaction component which set up event listeners using HammerJS.\n\nKeep in mind that HammerJS has to be included by the consumer of picasso.js.\n"
 
 /***/ }),
 /* 119 */
-/*!***********************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/histogram/code.js ***!
-  \***********************************************************/
+/*!*************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/interaction/code.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar cube = data[0].data;\nvar bin = cube.qDataPages[0].qMatrix[0][0].qText.split(' <= x < ');\nvar binSize = Math.abs(+bin[1] - +bin[0]);\nvar settings = {\n  scales: {\n    x: {\n      data: { extract: { field: 'qDimensionInfo/0' } },\n      type: 'linear',\n      max: cube.qDimensionInfo[0].qMax + binSize\n    },\n    y: {\n      data: { extract: { field: 'qMeasureInfo/0' } },\n      include: [0],\n      invert: true\n    }\n  },\n  components: [{\n    type: 'grid-line',\n    y: { scale: 'y' }\n  }, {\n    type: 'box-marker',\n    key: 'bars',\n    displayOrder: 1,\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        props: {\n          start: 0,\n          end: { field: 'qMeasureInfo/0' },\n          endLabel: { field: 'qMeasureInfo/0', value: function value(v) {\n              return v.qText;\n            } },\n          binStart: { value: function value(v) {\n              return v.qNum;\n            } },\n          binEnd: { value: function value(v) {\n              return v.qNum + binSize;\n            } }\n        }\n      }\n    },\n    settings: {\n      major: { scale: 'x', ref: { start: 'binStart', end: 'binEnd' } },\n      minor: { scale: 'y' },\n      box: {\n        fill: 'steelblue',\n        strokeWidth: 1,\n        stroke: 'rgba(255, 255, 255, 0.8)',\n        width: 1,\n        maxWidth: 10000,\n        minWidth: 1\n      }\n    }\n  }, {\n    type: 'labels',\n    displayOrder: 2,\n    settings: {\n      sources: [{\n        component: 'bars',\n        selector: 'rect',\n        strategy: {\n          type: 'bar',\n          settings: {\n            direction: function direction(data) {\n              return data && data.end.value > data.start.value ? 'up' : 'down';\n            },\n\n            fontFamily: 'Helvetica Neue',\n            fontSize: 12,\n            align: 0.5,\n            labels: [{\n              placements: [{\n                position: 'outside',\n                fill: '#666',\n                justify: 0\n              }, {\n                position: 'inside',\n                fill: '#fff',\n                justify: 1\n              }],\n              label: function label(data) {\n                return data ? data.endLabel.value : '';\n              }\n            }]\n          }\n        }\n      }]\n    }\n  }, {\n    type: 'axis',\n    scale: 'y',\n    dock: 'left'\n  }, {\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar chart = void 0;\n\nvar interactionOn = true;\nfunction handleInteractionChange(e) {\n  e.preventDefault();\n  interactionOn = !interactionOn;\n  if (interactionOn) {\n    chart.interactions.on();\n  } else {\n    chart.interactions.off();\n  }\n}\n\npicasso.component('button', {\n  require: ['renderer'],\n  dock: 'bottom',\n  renderer: 'dom',\n  preferredSize: function preferredSize(dockOpts) {\n    return 30;\n  },\n  render: function render(h) {\n    this.renderer.element().style['pointer-events'] = '';\n    return h('div', {\n      attrs: { style: 'padding: 5px;' }\n    }, [].concat(h('input', {\n      attrs: { type: 'checkbox', checked: interactionOn },\n      on: { change: handleInteractionChange }\n    }), ' Turn events on/off \\xA0\\xA0\\xA0'));\n  },\n  beforeDestroy: function beforeDestroy(element) {\n    element.innerHtml = '';\n  }\n});\n\nvar settings = {\n  scales: {\n    x: { source: '/qHyperCube/qMeasureInfo/0', expand: [0.05] },\n    y: { source: '/qHyperCube/qMeasureInfo/1', expand: [0.05], invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left',\n    on: {\n      tapped: function tapped(e) {\n        console.log('y-axis tapped', e);\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom',\n    on: {\n      tapped: function tapped(e) {\n        console.log('x-axis tapped', e);\n      }\n    }\n  }, {\n    type: 'grid-line',\n    x: { scale: 'x' },\n    y: { scale: 'y' },\n    minorTicks: {\n      show: true\n    },\n    mediator: {\n      tapping: function tapping(e) {\n        console.log('detected a tap from grid line');\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        color: { source: '/qHyperCube/qMeasureInfo/0' },\n        dim: { source: '/qHyperCube/qDimensionInfo/0', reducer: 'first', type: 'qual' },\n        x: { source: '/qHyperCube/qMeasureInfo/0' },\n        y: { source: '/qHyperCube/qMeasureInfo/1' },\n        size: { source: '/qHyperCube/qMeasureInfo/2' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0', attribute: '$index'\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      opacity: 0.95,\n      size: { scale: { source: '/qHyperCube/qMeasureInfo/2' } },\n      fill: { ref: 'color', scale: { source: '/qHyperCube/qMeasureInfo/0', type: 'color' } }\n    },\n    on: {\n      tapped: function tapped(e) {\n        console.log('scatter tapped', e);\n      }\n    },\n    mediator: {\n      tapping: function tapping(e) {\n        console.log('detected a tap from scatter');\n      }\n    }\n  }, {\n    type: 'button',\n    key: 'button',\n    dock: 'bottom',\n    displayOrder: 2\n  }],\n  interactions: [{\n    type: 'hammer',\n    gestures: [{\n      type: 'tap',\n      events: {\n        tap: function tap(e) {\n          this.mediator.emit('tapping', e);\n          this.chart.componentsFromPoint(e.center).forEach(function (c) {\n            return c.emit('tapped', e);\n          });\n        }\n      }\n    }, {\n      type: 'pan',\n      events: {\n        panstart: function panstart(e) {\n          console.log('panstart', e);\n        },\n        pan: function pan(e) {\n          console.log('pan', e);\n        },\n        panend: function panend(e) {\n          console.log('panend', e);\n        }\n      }\n    }]\n  }, {\n    type: 'native',\n    enable: false,\n    events: {\n      mousedown: function mousedown(e) {\n        console.log('mousedown', e);\n      }\n    }\n  }]\n};\n\nchart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 120 */
-/*!***********************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/histogram/data.js ***!
-  \***********************************************************/
+/*!*************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/interaction/data.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\nvar layout = {\n  qInfo: {\n    qId: 'Auj',\n    qType: 'barchart'\n  },\n  qSelectionInfo: {},\n  qHyperCube: {\n    qSize: {\n      qcx: 2,\n      qcy: 9\n    },\n    qDimensionInfo: [{\n      qFallbackTitle: 'sdf',\n      qApprMaxGlyphCount: 14,\n      qCardinal: 9,\n      qSortIndicator: 'A',\n      qGroupFallbackTitles: ['sdf'],\n      qGroupPos: 0,\n      qStateCounts: {\n        qLocked: 0,\n        qSelected: 0,\n        qOption: 9,\n        qDeselected: 0,\n        qAlternative: 0,\n        qExcluded: 0,\n        qSelectedExcluded: 0,\n        qLockedExcluded: 0\n      },\n      qTags: ['$numeric', '$integer'],\n      qDimensionType: 'N',\n      qGrouping: 'N',\n      qNumFormat: {\n        qType: 'U',\n        qnDec: 0,\n        qUseThou: 0\n      },\n      qIsAutoFormat: true,\n      qGroupFieldDefs: ['=class(CostPrice, 50)'],\n      qMin: 0,\n      qMax: 400,\n      qContinuousAxes: true,\n      qAttrExprInfo: [],\n      qAttrDimInfo: [],\n      autoSort: false,\n      cId: 'emEgPd',\n      othersLabel: 'Others'\n    }],\n    qMeasureInfo: [{\n      qFallbackTitle: 'Count(CostPrice)',\n      qApprMaxGlyphCount: 3,\n      qCardinal: 0,\n      qSortIndicator: 'D',\n      qNumFormat: {\n        qType: 'I',\n        qnDec: 0,\n        qUseThou: 1,\n        qFmt: '###0',\n        qDec: '.'\n      },\n      qMin: 1,\n      qMax: 658,\n      qIsAutoFormat: true,\n      qAttrExprInfo: [],\n      qAttrDimInfo: [],\n      autoSort: true,\n      cId: 'GnERNT',\n      numFormatFromTemplate: true\n    }],\n    qEffectiveInterColumnSortOrder: [0, 1],\n    qGrandTotalRow: [{\n      qText: '824',\n      qNum: 824,\n      qElemNumber: -1,\n      qState: 'X',\n      qIsTotalCell: true\n    }],\n    qDataPages: [{\n      qMatrix: [[{\n        qText: '0 <= x < 50',\n        qNum: 0,\n        qElemNumber: 1,\n        qState: 'O'\n      }, {\n        qText: '658',\n        qNum: 658,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '50 <= x < 100',\n        qNum: 50,\n        qElemNumber: 0,\n        qState: 'O'\n      }, {\n        qText: '98',\n        qNum: 98,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '100 <= x < 150',\n        qNum: 100,\n        qElemNumber: 2,\n        qState: 'O'\n      }, {\n        qText: '38',\n        qNum: 38,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '150 <= x < 200',\n        qNum: 150,\n        qElemNumber: 5,\n        qState: 'O'\n      }, {\n        qText: '6',\n        qNum: 6,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '200 <= x < 250',\n        qNum: 200,\n        qElemNumber: 6,\n        qState: 'O'\n      }, {\n        qText: '9',\n        qNum: 9,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '250 <= x < 300',\n        qNum: 250,\n        qElemNumber: 3,\n        qState: 'O'\n      }, {\n        qText: '8',\n        qNum: 8,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '300 <= x < 350',\n        qNum: 300,\n        qElemNumber: 4,\n        qState: 'O'\n      }, {\n        qText: '3',\n        qNum: 3,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '350 <= x < 400',\n        qNum: 350,\n        qElemNumber: 7,\n        qState: 'O'\n      }, {\n        qText: '3',\n        qNum: 3,\n        qElemNumber: 0,\n        qState: 'L'\n      }], [{\n        qText: '400 <= x < 450',\n        qNum: 400,\n        qElemNumber: 8,\n        qState: 'O'\n      }, {\n        qText: '1',\n        qNum: 1,\n        qElemNumber: 0,\n        qState: 'L'\n      }]],\n      qTails: [{\n        qUp: 0,\n        qDown: 0\n      }],\n      qArea: {\n        qLeft: 0,\n        qTop: 0,\n        qWidth: 2,\n        qHeight: 9\n      }\n    }],\n    qPivotDataPages: [],\n    qStackedDataPages: [],\n    qMode: 'S',\n    qNoOfLeftDims: -1,\n    customErrorMessage: {\n      calcCond: ''\n    }\n  },\n  refLine: {\n    refLines: []\n  },\n  showTitles: true,\n  title: '',\n  subtitle: '',\n  footnote: '',\n  showDetails: false,\n  barGrouping: {\n    grouping: 'grouped'\n  },\n  orientation: 'vertical',\n  scrollStartPos: 0,\n  gridLine: {\n    auto: true,\n    spacing: 2\n  },\n  dataPoint: {\n    showLabels: false\n  },\n  color: {\n    auto: true,\n    mode: 'primary',\n    useBaseColors: 'off',\n    singleColor: 3,\n    paletteColor: {\n      index: 6\n    },\n    persistent: false,\n    expressionIsColor: true,\n    expressionLabel: '',\n    measureScheme: 'sg',\n    reverseScheme: false,\n    dimensionScheme: '12',\n    autoMinMax: true,\n    measureMin: 0,\n    measureMax: 10\n  },\n  legend: {\n    show: true,\n    dock: 'auto',\n    showTitle: true\n  },\n  dimensionAxis: {\n    continuousAuto: true,\n    show: 'all',\n    label: 'auto',\n    dock: 'near'\n  },\n  preferContinuousAxis: true,\n  measureAxis: {\n    show: 'all',\n    dock: 'near',\n    spacing: 1,\n    autoMinMax: true,\n    minMax: 'min',\n    min: 0,\n    max: 10\n  },\n  visualization: 'barchart'\n};\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: layout.qHyperCube\n}];"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
 
 /***/ }),
 /* 121 */
-/*!************************************!*\
-  !*** ./pages/interaction/index.js ***!
-  \************************************/
+/*!***********************************!*\
+  !*** ./pages/legend-cat/index.js ***!
+  \***********************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32091,56 +29205,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
-  var code = _code2.default + '\n\nreturn chart;';
+  var code = _code2.default;
 
   return {
     description: _description2.default,
     code: code,
     data: data,
-    name: 'Interaction'
+    name: 'Legend - categorical'
   };
 }
 
-_registry2.default.register('interaction', page());
+_registry2.default.register('legend-cat', page());
 
 /***/ }),
 /* 122 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/interaction/description.md ***!
-  \********************************************************************/
+/*!*******************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/legend-cat/description.md ***!
+  \*******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Scroll component\n\n> By @ann\n\nThis example adds an interaction component which set up event listeners using HammerJS.\n\nKeep in mind that HammerJS has to be included by the consumer of picasso.js.\n"
+module.exports = "# Categorical color legend example\nThis includes brushing as well\n"
 
 /***/ }),
 /* 123 */
-/*!*************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/interaction/code.js ***!
-  \*************************************************************/
+/*!************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/legend-cat/code.js ***!
+  \************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar chart = void 0;\n\nvar interactionOn = true;\nfunction handleInteractionChange(e) {\n  e.preventDefault();\n  interactionOn = !interactionOn;\n  if (interactionOn) {\n    chart.interactions.on();\n  } else {\n    chart.interactions.off();\n  }\n}\n\npicasso.component('button', {\n  require: ['renderer'],\n  dock: 'bottom',\n  renderer: 'dom',\n  preferredSize: function preferredSize(dockOpts) {\n    return 30;\n  },\n  render: function render(h) {\n    this.renderer.element().style['pointer-events'] = '';\n    return h('div', {\n      attrs: { style: 'padding: 5px;' }\n    }, [].concat(h('input', {\n      attrs: { type: 'checkbox', checked: interactionOn },\n      on: { change: handleInteractionChange }\n    }), ' Turn events on/off \\xA0\\xA0\\xA0'));\n  },\n  beforeDestroy: function beforeDestroy(element) {\n    element.innerHtml = '';\n  }\n});\n\nvar settings = {\n  scales: {\n    x: { source: '/qHyperCube/qMeasureInfo/0', expand: [0.05] },\n    y: { source: '/qHyperCube/qMeasureInfo/1', expand: [0.05], invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left',\n    on: {\n      tapped: function tapped(e) {\n        console.log('y-axis tapped', e);\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom',\n    on: {\n      tapped: function tapped(e) {\n        console.log('x-axis tapped', e);\n      }\n    }\n  }, {\n    type: 'grid-line',\n    x: { scale: 'x' },\n    y: { scale: 'y' },\n    minorTicks: {\n      show: true\n    },\n    mediator: {\n      tapping: function tapping(e) {\n        console.log('detected a tap from grid line');\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        color: { source: '/qHyperCube/qMeasureInfo/0' },\n        dim: { source: '/qHyperCube/qDimensionInfo/0', reducer: 'first', type: 'qual' },\n        x: { source: '/qHyperCube/qMeasureInfo/0' },\n        y: { source: '/qHyperCube/qMeasureInfo/1' },\n        size: { source: '/qHyperCube/qMeasureInfo/2' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0', attribute: '$index'\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      opacity: 0.95,\n      size: { scale: { source: '/qHyperCube/qMeasureInfo/2' } },\n      fill: { ref: 'color', scale: { source: '/qHyperCube/qMeasureInfo/0', type: 'color' } }\n    },\n    on: {\n      tapped: function tapped(e) {\n        console.log('scatter tapped', e);\n      }\n    },\n    mediator: {\n      tapping: function tapping(e) {\n        console.log('detected a tap from scatter');\n      }\n    }\n  }, {\n    type: 'button',\n    key: 'button',\n    dock: 'bottom',\n    displayOrder: 2\n  }],\n  interactions: [{\n    type: 'hammer',\n    gestures: [{\n      type: 'tap',\n      events: {\n        tap: function tap(e) {\n          this.mediator.emit('tapping', e);\n          this.chart.componentsFromPoint(e.center).forEach(function (c) {\n            return c.emit('tapped', e);\n          });\n        }\n      }\n    }, {\n      type: 'pan',\n      events: {\n        panstart: function panstart(e) {\n          console.log('panstart', e);\n        },\n        pan: function pan(e) {\n          console.log('pan', e);\n        },\n        panend: function panend(e) {\n          console.log('panend', e);\n        }\n      }\n    }]\n  }, {\n    type: 'native',\n    enable: false,\n    events: {\n      mousedown: function mousedown(e) {\n        console.log('mousedown', e);\n      }\n    }\n  }]\n};\n\nchart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar color = null;\n\nvar settings = {\n  interactions: [{\n    type: 'native',\n    events: {\n      wheel: function w(e) {\n        var legend = this.chart.component('cat');\n        legend.emit('scroll', Math.max(-1, Math.min(1, -e.wheelDelta)));\n      }\n    }\n  }, {\n    type: 'hammer',\n    gestures: [{\n      type: 'Tap',\n      options: {\n        taps: 1\n      },\n      events: {\n        tap: function tap(e) {\n          var legend = this.chart.component('cat');\n          legend.emit('tap', e, 3);\n        }\n      }\n    }]\n  }],\n  scales: {\n    x: {\n      data: {\n        extract: {\n          field: 'qDimensionInfo/0',\n          value: function value(v) {\n            return v;\n          },\n          props: {\n            brush: {}\n          }\n        }\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      padding: 0.2\n    },\n    y: {\n      data: { fields: ['qMeasureInfo/0'] },\n      invert: true,\n      min: 0,\n      expand: 0.05\n    },\n    color: {\n      data: {\n        extract: {\n          field: 'qDimensionInfo/0',\n          value: function value(v) {\n            return v;\n          },\n          props: {\n            brush: {}\n          }\n        }\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      type: 'color'\n    }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'y'\n  }, {\n    type: 'axis',\n    scale: 'x',\n    brush: {\n      trigger: [{\n        on: 'tap',\n        action: 'toggle',\n        data: ['brush'],\n        contexts: ['highlight']\n      }],\n      consume: [{\n        context: 'highlight',\n        style: {\n          inactive: {\n            opacity: 0.4\n          }\n        }\n      }]\n    }\n  }, {\n    type: 'box-marker',\n    require: ['chart'],\n    created: function created() {\n      color = this.chart.scale('color');\n    },\n    brush: {\n      trigger: [{\n        on: 'tap',\n        action: 'toggle',\n        contexts: ['highlight']\n      }],\n      consume: [{\n        context: 'highlight',\n        style: {\n          inactive: {\n            opacity: 0.2\n          }\n        }\n      }]\n    },\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        props: {\n          start: { field: 'qMeasureInfo/0', value: 0 },\n          end: { field: 'qMeasureInfo/0', reduce: 'max' }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: function fill() {\n          return color(this.data.value);\n        },\n        stroke: 'gray',\n        maxWidthPx: 9999\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      },\n      vertical: true\n    }\n  }, {\n    key: 'cat',\n    type: 'legend-cat',\n    scale: 'color',\n    dock: 'right',\n    settings: {\n      item: {\n        label: {\n          wordBreak: 'break-word'\n        },\n        shape: {\n          type: 'square',\n          size: 8\n        }\n      },\n      title: {\n        text: 'My title',\n        wordBreak: 'break-word'\n      },\n      buttons: {\n        show: true\n      }\n    },\n    brush: {\n      trigger: [{\n        on: 'tap',\n        action: 'toggle',\n        data: ['brush'],\n        contexts: ['highlight']\n      }],\n      consume: [{\n        context: 'highlight',\n        style: {\n          inactive: {\n            opacity: 0.4\n          }\n        }\n      }]\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 124 */
-/*!*************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/interaction/data.js ***!
-  \*************************************************************/
+/*!************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/legend-cat/data.js ***!
+  \************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 65,\n  dataRange: [0, 100],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 125 */
-/*!***********************************!*\
-  !*** ./pages/legend-cat/index.js ***!
-  \***********************************/
+/*!**************************************!*\
+  !*** ./pages/null-handling/index.js ***!
+  \**************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32168,56 +29282,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
-  var code = _code2.default;
 
   return {
     description: _description2.default,
-    code: code,
+    code: _code2.default,
     data: data,
-    name: 'Legend - categorical'
+    name: 'Null Handling'
   };
 }
 
-_registry2.default.register('legend-cat', page());
+_registry2.default.register('null-handling', page());
 
 /***/ }),
 /* 126 */
-/*!*******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/legend-cat/description.md ***!
-  \*******************************************************************/
+/*!**********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/null-handling/description.md ***!
+  \**********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Categorical color legend example\nThis includes brushing as well\n"
+module.exports = "# Null value handling\nHandling of null values\n"
 
 /***/ }),
 /* 127 */
-/*!************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/legend-cat/code.js ***!
-  \************************************************************/
+/*!***************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/null-handling/code.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar color = null;\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.2\n    },\n    y: {\n      invert: true,\n      source: '/qHyperCube/qMeasureInfo/0',\n      min: 0,\n      max: 10000000\n    },\n    color: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      type: 'color'\n    }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'y'\n  }, {\n    type: 'axis',\n    scale: 'x'\n  }, {\n    type: 'box-marker',\n    require: ['chart'],\n    created: function created() {\n      color = this.chart.scale('color');\n    },\n    brush: {\n      trigger: [{\n        on: 'tap',\n        action: 'toggle',\n        contexts: ['highlight']\n      }],\n      consume: [{\n        context: 'highlight',\n        style: {\n          inactive: {\n            opacity: 0.2\n          }\n        }\n      }]\n    },\n    data: {\n      mapTo: {\n        start: 0,\n        end: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        fill: {\n          source: '/qHyperCube/qDimensionInfo/0'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: function fill() {\n          return color(this.data.self.value);\n        },\n        stroke: 'gray',\n        maxWidthPx: 9999\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      },\n      vertical: true\n    }\n  }, {\n    type: 'legend-cat',\n    scale: 'color',\n    dock: 'right',\n    brush: {\n      trigger: [{\n        on: 'tap',\n        action: 'toggle',\n        contexts: ['highlight']\n      }],\n      consume: [{\n        context: 'highlight',\n        style: {\n          inactive: {\n            opacity: 0.2\n          }\n        }\n      }]\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    x: {\n      data: {\n        extract: { field: 'qDimensionInfo/0', value: function value(v) {\n            return v;\n          } }\n      },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      padding: 0.2\n    },\n    y: {\n      data: { fields: ['qMeasureInfo/0', 'qMeasureInfo/1', 'qMeasureInfo/2', 'qMeasureInfo/3', 'qMeasureInfo/4'] },\n      invert: true,\n      expand: 0.02\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        props: {\n          min: { field: 'qMeasureInfo/0' },\n          start: { field: 'qMeasureInfo/1' },\n          med: { field: 'qMeasureInfo/2' },\n          end: { field: 'qMeasureInfo/3' },\n          max: { field: 'qMeasureInfo/4' }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      box: {\n        stroke: '#333',\n        strokeWidth: 2,\n        width: 1, // This is a multiplier for the width\n        fill: '#4477aa' // fill of the box\n      },\n      whisker: {\n        show: true,\n        stroke: '#333',\n        width: 1 // width multiplier for the whisker\n      },\n      median: {\n        stroke: '#f00', // stroke for the median\n        strokeWidth: 3 // stroke width for the median\n      },\n      line: {\n        stroke: '#333', // the line between min and q2 and q3 and max.\n        strokeWidth: 1\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        props: {\n          a: { field: 'qMeasureInfo/0' },\n          b: { field: 'qMeasureInfo/3' },\n          c: { field: 'qMeasureInfo/5' }\n        }\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x'\n      },\n      y: {\n        scale: 'y',\n        ref: 'c'\n      },\n      size: {\n        ref: 'a',\n        scale: {\n          data: { field: 'qMeasureInfo/0' }\n        }\n      },\n      fill: {\n        ref: 'b',\n        scale: {\n          data: { field: 'qMeasureInfo/3' },\n          type: 'color'\n        }\n      },\n      strokeWidth: 1,\n      stroke: '#4477aa'\n    }\n  }, {\n    type: 'axis',\n    scale: 'x',\n    settings: {\n      align: 'bottom',\n      tight: true,\n      ticks: {\n        show: false\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'y'\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 128 */
-/*!************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/legend-cat/data.js ***!
-  \************************************************************/
+/*!***************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/null-handling/data.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10000000],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator customGenerator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\nfunction _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 6,\n  rows: 15,\n  dataRange: [10, 100],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 1,\n  joinChar: '',\n  upperCase: true\n});\n\nvar nullArray = randomStringsData.map(function (row, i) {\n  if (i === 0) {\n    return row;\n  } else if (i === 2) {\n    row[6] /= 2;\n    return [null].concat(_toConsumableArray(generator.randomNullInsert(row.slice(1), 0.2)));\n  }\n  row[6] /= 2;\n  return [row[0]].concat(_toConsumableArray(generator.randomNullInsert(row.slice(1), 0.2)));\n});\n\nvar qLayout = generator.generateDataFromArray(nullArray);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 129 */
-/*!*******************************************!*\
-  !*** ./pages/multiple-instances/index.js ***!
-  \*******************************************/
+/*!*************************************!*\
+  !*** ./pages/picasso-logo/index.js ***!
+  \*************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32244,158 +29357,6 @@ var _registry2 = _interopRequireDefault(_registry);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function page() {
-  var data = _data2.default + '\n\nreturn { one: one, two: two };';
-
-  return {
-    description: _description2.default,
-    code: _code2.default,
-    data: data,
-    name: 'Multiple instances'
-  };
-}
-
-_registry2.default.register('multiple-instances', page());
-
-/***/ }),
-/* 130 */
-/*!***************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/multiple-instances/description.md ***!
-  \***************************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "# Multiple Rendering Instances\nGet multiple instances in an array by calling `element.getInstances( num )`.\nThese instances can then be used to draw multiple picasso charts over the same rendering area.\n"
-
-/***/ }),
-/* 131 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/multiple-instances/code.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar axes = [{\n  type: 'axis',\n  scale: 'y'\n}, {\n  type: 'axis',\n  scale: 'x',\n  settings: {\n    labels: {\n      layered: true\n    }\n  }\n}];\n\n// The layout is recieved from the Data tab as \"data\" variable\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.2\n    },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', // measure 0\n      '/qHyperCube/qMeasureInfo/1', // 1th measure\n      '/qHyperCube/qMeasureInfo/2', // 2nd measure\n      '/qHyperCube/qMeasureInfo/3', // 3rd measure\n      '/qHyperCube/qMeasureInfo/4' // 4th measure\n      ],\n      invert: true\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        start: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        },\n        med: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        },\n        end: {\n          source: '/qHyperCube/qMeasureInfo/3'\n        },\n        max: {\n          source: '/qHyperCube/qMeasureInfo/4'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      // min: { source: \"/qHyperCube/qMeasureInfo/0\" },\n      // start: { source: \"/qHyperCube/qMeasureInfo/1\" },\n      // med: { source: \"/qHyperCube/qMeasureInfo/2\" },\n      // end: { source: \"/qHyperCube/qMeasureInfo/3\" },\n      // max: { source: \"/qHyperCube/qMeasureInfo/4\" },\n      styles: {}\n    }\n  }].concat(axes)\n\n};\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\nvar settings2 = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.2\n    },\n    y: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      invert: true\n    }\n  },\n  components: [{\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        x: {\n          source: '/qHyperCube/qDimensionInfo/0',\n          type: 'qual',\n          reducer: 'first'\n        },\n        y: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/1',\n        attribute: '$index'\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x'\n      },\n      y: {\n        scale: 'y'\n      },\n      size: 0.01,\n      fill: 'rgba(0,0,0,0)',\n      stroke: 'grey',\n      strokeWidth: 1\n    }\n  }].concat(axes)\n};\n\n// if we call element.getInstances( num ), we get num instances back as an array.\n// These instances can then be used to draw multiple picasso charts over the same rendering area.\nvar elms = element.getInstances(2);\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: elms[0],\n  data: data.one,\n  settings: settings\n});\npicasso.chart({\n  element: elms[1],\n  data: data.two,\n  settings: settings2\n});"
-
-/***/ }),
-/* 132 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/multiple-instances/data.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* global generator */\n\nvar rawOne = { jsonrpc: '2.0', id: 20, delta: true, result: { qLayout: [{ op: 'add', path: '/', value: { qInfo: { qId: 'pxyWzp', qType: 'barchart' }, qSelectionInfo: {}, qHyperCube: { qSize: { qcx: 6, qcy: 17 }, qDimensionInfo: [{ qFallbackTitle: 'Basket Product Group Desc', qApprMaxGlyphCount: 19, qCardinal: 17, qSortIndicator: 'A', qGroupFallbackTitles: ['Basket Product Group Desc'], qGroupPos: 0, qStateCounts: { qLocked: 0, qSelected: 0, qOption: 17, qDeselected: 0, qAlternative: 0, qExcluded: 0, qSelectedExcluded: 0, qLockedExcluded: 0 }, qTags: ['$ascii', '$text'], qDimensionType: 'D', qGrouping: 'N', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qIsAutoFormat: true, qGroupFieldDefs: ['Basket Product Group Desc'], qMin: 'NaN', qMax: 'NaN', qAttrExprInfo: [], qAttrDimInfo: [], title: 'Basket Product Group Desc', autoSort: true, cId: 'hJNmMPn', othersLabel: 'Others' }], qMeasureInfo: [{ qFallbackTitle: 'Min', qApprMaxGlyphCount: 15, qCardinal: 0, qSortIndicator: 'D', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qMin: 300.340876577839708, qMax: 572.210546534003583, qIsAutoFormat: true, qAttrExprInfo: [{ qMin: 'NaN', qMax: 'NaN' }, { qMin: 'NaN', qMax: 'NaN' }], qAttrDimInfo: [], autoSort: true, cId: 'PybDQ', numFormatFromTemplate: true }, { qFallbackTitle: 'Q1', qApprMaxGlyphCount: 15, qCardinal: 0, qSortIndicator: 'D', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qMin: 443.918181051606666, qMax: 579.710680775521269, qIsAutoFormat: true, qAttrExprInfo: [{ qMin: 'NaN', qMax: 'NaN' }, { qMin: 'NaN', qMax: 'NaN' }], qAttrDimInfo: [], autoSort: true, cId: 'bFNJNBB', numFormatFromTemplate: true }, { qFallbackTitle: 'Median', qApprMaxGlyphCount: 15, qCardinal: 0, qSortIndicator: 'D', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qMin: 462.64643147862796, qMax: 605.319411788776165, qIsAutoFormat: true, qAttrExprInfo: [{ qMin: 'NaN', qMax: 'NaN' }, { qMin: 'NaN', qMax: 'NaN' }], qAttrDimInfo: [], autoSort: true, cId: 'gNWEG', numFormatFromTemplate: true }, { qFallbackTitle: 'Q3', qApprMaxGlyphCount: 15, qCardinal: 0, qSortIndicator: 'D', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qMin: 462.64643147862796, qMax: 679.183696285808423, qIsAutoFormat: true, qAttrExprInfo: [{ qMin: 'NaN', qMax: 'NaN' }, { qMin: 'NaN', qMax: 'NaN' }], qAttrDimInfo: [], autoSort: true, cId: 'jztZax', numFormatFromTemplate: true }, { qFallbackTitle: 'Max', qApprMaxGlyphCount: 15, qCardinal: 0, qSortIndicator: 'D', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qMin: 462.64643147862796, qMax: 889.354405454645871, qIsAutoFormat: true, qAttrExprInfo: [{ qMin: 'NaN', qMax: 'NaN' }, { qMin: 'NaN', qMax: 'NaN' }], qAttrDimInfo: [], autoSort: true, cId: 'CkqQZ', numFormatFromTemplate: true }], qEffectiveInterColumnSortOrder: [0, 1, 2, 3, 4, 5], qGrandTotalRow: [{ qText: '300.34087657784', qNum: 300.340876577839708, qElemNumber: -1, qState: 'X', qIsTotalCell: true }, { qText: '479.46796815589', qNum: 479.467968155894368, qElemNumber: -1, qState: 'X', qIsTotalCell: true }, { qText: '516.47728473266', qNum: 516.477284732657381, qElemNumber: -1, qState: 'X', qIsTotalCell: true }, { qText: '588.04931501819', qNum: 588.049315018185098, qElemNumber: -1, qState: 'X', qIsTotalCell: true }, { qText: '889.35440545465', qNum: 889.354405454645871, qElemNumber: -1, qState: 'X', qIsTotalCell: true }], qDataPages: [{ qMatrix: [[{ qText: 'Alcoholic Beverages', qNum: 'NaN', qElemNumber: 11, qState: 'O' }, { qText: '506.02373615664', qNum: 506.02373615663646, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '506.02373615664', qNum: 506.02373615663646, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '511.91792736786', qNum: 511.917927367862205, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '517.81211857909', qNum: 517.812118579087951, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '517.81211857909', qNum: 517.812118579087951, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Baked Goods', qNum: 'NaN', qElemNumber: 13, qState: 'O' }, { qText: '463.75395868783', qNum: 463.753958687832153, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '463.75395868783', qNum: 463.753958687832153, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '491.53929933217', qNum: 491.539299332170117, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '611.71394405953', qNum: 611.713944059534697, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '611.71394405953', qNum: 611.713944059534697, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: '420.95407651908', qNum: 420.95407651907874, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '472.02608795613', qNum: 472.026087956130823, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '530.93504430459', qNum: 530.935044304586086, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '568.85331180139', qNum: 568.853311801388372, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '889.35440545465', qNum: 889.354405454645871, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Beverages', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: '300.34087657784', qNum: 300.340876577839708, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '500.77845001673', qNum: 500.778450016729209, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '522.17944295034', qNum: 522.179442950339649, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '612.95153208867', qNum: 612.951532088671456, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '618.97731358459', qNum: 618.977313584587137, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Breakfast Foods', qNum: 'NaN', qElemNumber: 10, qState: 'O' }, { qText: '499.81825644484', qNum: 499.818256444843428, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '499.81825644484', qNum: 499.818256444843428, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '499.81825644484', qNum: 499.818256444843428, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '499.81825644484', qNum: 499.818256444843428, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '499.81825644484', qNum: 499.818256444843428, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: '431.83308960658', qNum: 431.833089606575356, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '443.91818105161', qNum: 443.918181051606666, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '505.95466810179', qNum: 505.954668101788911, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '583.46833106169', qNum: 583.46833106168674, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '630.693844131', qNum: 630.693844131002834, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Canned Products', qNum: 'NaN', qElemNumber: 14, qState: 'O' }, { qText: '515.14245088623', qNum: 515.142450886226698, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '515.14245088623', qNum: 515.142450886226698, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '515.14245088623', qNum: 515.142450886226698, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '515.14245088623', qNum: 515.142450886226698, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '515.14245088623', qNum: 515.142450886226698, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Dairy', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: '442.86870400689', qNum: 442.868704006891846, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '498.89312363039', qNum: 498.893123630385048, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '500.42714101535', qNum: 500.42714101534574, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '503.25890822238', qNum: 503.258908222376647, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '509.59453638377', qNum: 509.594536383769082, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Deli', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: '572.210546534', qNum: 572.210546534003583, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '579.71068077552', qNum: 579.710680775521269, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '605.31941178878', qNum: 605.319411788776165, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '679.18369628581', qNum: 679.183696285808423, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '876.88283987138', qNum: 876.882839871382885, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Eggs', qNum: 'NaN', qElemNumber: 9, qState: 'O' }, { qText: '462.64643147863', qNum: 462.64643147862796, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '462.64643147863', qNum: 462.64643147862796, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '462.64643147863', qNum: 462.64643147862796, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '462.64643147863', qNum: 462.64643147862796, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '462.64643147863', qNum: 462.64643147862796, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: '437.46626632104', qNum: 437.466266321036301, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '469.99123534803', qNum: 469.991235348034365, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '567.17600388178', qNum: 567.176003881776751, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '650.78261393451', qNum: 650.782613934506003, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '709.04283865673', qNum: 709.042838656729714, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Meat', qNum: 'NaN', qElemNumber: 15, qState: 'O' }, { qText: '489.42555631051', qNum: 489.425556310514935, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '489.42555631051', qNum: 489.425556310514935, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '489.42555631051', qNum: 489.425556310514935, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '489.42555631051', qNum: 489.425556310514935, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '489.42555631051', qNum: 489.425556310514935, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Produce', qNum: 'NaN', qElemNumber: 1, qState: 'O' }, { qText: '495.34302906226', qNum: 495.343029062257926, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '512.15057349207', qNum: 512.150573492071658, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '546.72524801418', qNum: 546.725248014184899, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '582.15034997491', qNum: 582.150349974909318, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '599.80832184333', qNum: 599.808321843334284, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Seafood', qNum: 'NaN', qElemNumber: 16, qState: 'O' }, { qText: '451.47626417612', qNum: 451.476264176120992, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '451.47626417612', qNum: 451.476264176120992, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '546.6935112281', qNum: 546.693511228095531, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '641.91075828007', qNum: 641.910758280070127, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '641.91075828007', qNum: 641.910758280070127, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: '437.90908511123', qNum: 437.909085111227796, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '478.56627555192', qNum: 478.566275551919716, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '523.78357366468', qNum: 523.783573664679466, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '576.36457344678', qNum: 576.364573446775807, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '682.5643518613', qNum: 682.5643518612967, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Snacks', qNum: 'NaN', qElemNumber: 12, qState: 'O' }, { qText: '464.5598489666', qNum: 464.55984896660425, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '464.5598489666', qNum: 464.55984896660425, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '507.33946394687', qNum: 507.339463946868648, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '593.44098853741', qNum: 593.440988537409226, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '593.44098853741', qNum: 593.440988537409226, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }], [{ qText: 'Starchy Foods', qNum: 'NaN', qElemNumber: 4, qState: 'O' }, { qText: '509.65247548807', qNum: 509.652475488068546, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '509.65247548807', qNum: 509.652475488068546, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '521.50967549246', qNum: 521.509675492462065, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '533.36687549686', qNum: 533.366875496855528, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }, { qText: '533.36687549686', qNum: 533.366875496855528, qElemNumber: 0, qState: 'L', qAttrExps: { qValues: [{ qNum: 'NaN' }, { qNum: 'NaN' }] } }]], qTails: [{ qUp: 0, qDown: 0 }], qArea: { qLeft: 0, qTop: 0, qWidth: 6, qHeight: 17 } }], qPivotDataPages: [], qStackedDataPages: [], qMode: 'S', qNoOfLeftDims: -1, customErrorMessage: { calcCond: '' }, columnOrder: [0, 1, 2, 3, 4, 5], columnWidths: [-1] }, refLine: { refLines: [] }, showTitles: true, title: '', subtitle: '', footnote: '', showDetails: false, barGrouping: { grouping: 'grouped' }, orientation: 'vertical', scrollStartPos: 0, gridLine: { auto: true, spacing: 2 }, dataPoint: { showLabels: false }, color: { auto: true, mode: 'primary', singleColor: 3, persistent: false, expressionIsColor: true, expressionLabel: '', measureScheme: 'sg', reverseScheme: false, dimensionScheme: '12', autoMinMax: true, measureMin: 0, measureMax: 10, dimensionId: '' }, legend: { show: true, dock: 'auto', showTitle: true }, dimensionAxis: { continuousAuto: true, show: 'all', label: 'auto', dock: 'near' }, preferContinuousAxis: true, measureAxis: { show: 'all', dock: 'near', spacing: 1, autoMinMax: true, minMax: 'min', min: 0, max: 10 }, visualization: 'barchart' } }] } };\n\nvar rawTwo = { jsonrpc: '2.0', id: 18, delta: true, result: { qLayout: [{ op: 'add', path: '/', value: { qInfo: { qId: 'cAYUJP', qType: 'barchart' }, qSelectionInfo: {}, qHyperCube: { qSize: { qcx: 3, qcy: 71 }, qDimensionInfo: [{ qFallbackTitle: 'Basket Product Group Desc', qApprMaxGlyphCount: 19, qCardinal: 17, qSortIndicator: 'A', qGroupFallbackTitles: ['Basket Product Group Desc'], qGroupPos: 0, qStateCounts: { qLocked: 0, qSelected: 0, qOption: 17, qDeselected: 0, qAlternative: 0, qExcluded: 0, qSelectedExcluded: 0, qLockedExcluded: 0 }, qTags: ['$ascii', '$text'], qDimensionType: 'D', qGrouping: 'N', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qIsAutoFormat: true, qGroupFieldDefs: ['Basket Product Group Desc'], qMin: 'NaN', qMax: 'NaN', qAttrExprInfo: [], qAttrDimInfo: [], title: 'Basket Product Group Desc', autoSort: true, cId: 'WExHPC', othersLabel: 'Others' }, { qFallbackTitle: 'Basket Product Sub Group Desc', qApprMaxGlyphCount: 17, qCardinal: 70, qSortIndicator: 'A', qGroupFallbackTitles: ['Basket Product Sub Group Desc'], qGroupPos: 0, qStateCounts: { qLocked: 0, qSelected: 0, qOption: 70, qDeselected: 0, qAlternative: 0, qExcluded: 0, qSelectedExcluded: 0, qLockedExcluded: 0 }, qTags: ['$ascii', '$text'], qDimensionType: 'D', qGrouping: 'N', qNumFormat: { qType: 'U', qnDec: 0, qUseThou: 0 }, qIsAutoFormat: true, qGroupFieldDefs: ['Basket Product Sub Group Desc'], qMin: 'NaN', qMax: 'NaN', qAttrExprInfo: [], qAttrDimInfo: [], title: 'Basket Product Sub Group Desc', autoSort: true, cId: 'Xadgf', othersLabel: 'Others' }], qMeasureInfo: [{ qFallbackTitle: 'Avg Sales', qApprMaxGlyphCount: 9, qCardinal: 0, qSortIndicator: 'D', qNumFormat: { qType: 'R', qnDec: 0, qUseThou: 0, qFmt: '########', qDec: '.', qThou: ',' }, qMin: 300.3408765778397, qMax: 889.3544054546459, qIsAutoFormat: true, qAttrExprInfo: [], qAttrDimInfo: [], autoSort: true, cId: 'PyQBjx', numFormatFromTemplate: true }], qEffectiveInterColumnSortOrder: [0, 1, 2], qGrandTotalRow: [{ qText: '751.94594', qNum: 751.9459353162317, qElemNumber: -1, qState: 'X', qIsTotalCell: true }], qDataPages: [{ qMatrix: [[{ qText: 'Alcoholic Beverages', qNum: 'NaN', qElemNumber: 11, qState: 'O' }, { qText: 'Beer', qNum: 'NaN', qElemNumber: 17, qState: 'O' }, { qText: '517.81212', qNum: 517.812118579088, qElemNumber: 0, qState: 'L' }], [{ qText: 'Alcoholic Beverages', qNum: 'NaN', qElemNumber: 11, qState: 'O' }, { qText: 'Wine', qNum: 'NaN', qElemNumber: 20, qState: 'O' }, { qText: '506.02374', qNum: 506.02373615663646, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baked Goods', qNum: 'NaN', qElemNumber: 13, qState: 'O' }, { qText: 'Bagels', qNum: 'NaN', qElemNumber: 62, qState: 'O' }, { qText: '611.71394', qNum: 611.7139440595347, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baked Goods', qNum: 'NaN', qElemNumber: 13, qState: 'O' }, { qText: 'Muffins', qNum: 'NaN', qElemNumber: 32, qState: 'O' }, { qText: '491.5393', qNum: 491.5392993321701, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baked Goods', qNum: 'NaN', qElemNumber: 13, qState: 'O' }, { qText: 'Sliced Bread', qNum: 'NaN', qElemNumber: 31, qState: 'O' }, { qText: '463.75396', qNum: 463.75395868783215, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Cooking Oil', qNum: 'NaN', qElemNumber: 37, qState: 'O' }, { qText: '420.95408', qNum: 420.95407651907874, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Jam', qNum: 'NaN', qElemNumber: 52, qState: 'O' }, { qText: '552.52932', qNum: 552.5293207547147, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Jelly', qNum: 'NaN', qElemNumber: 63, qState: 'O' }, { qText: '492.60223', qNum: 492.60222724954605, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Peanut Butter', qNum: 'NaN', qElemNumber: 27, qState: 'O' }, { qText: '536.02357', qNum: 536.0235672928758, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Preserves', qNum: 'NaN', qElemNumber: 13, qState: 'O' }, { qText: '525.84652', qNum: 525.8465213162964, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Sauces', qNum: 'NaN', qElemNumber: 66, qState: 'O' }, { qText: '585.1773', qNum: 585.177302848062, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Spices', qNum: 'NaN', qElemNumber: 22, qState: 'O' }, { qText: '451.44995', qNum: 451.44994866271566, qElemNumber: 0, qState: 'L' }], [{ qText: 'Baking Goods', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: 'Sugar', qNum: 'NaN', qElemNumber: 47, qState: 'O' }, { qText: '889.35441', qNum: 889.3544054546459, qElemNumber: 0, qState: 'L' }], [{ qText: 'Beverages', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: 'Chocolate', qNum: 'NaN', qElemNumber: 42, qState: 'O' }, { qText: '300.34088', qNum: 300.3408765778397, qElemNumber: 0, qState: 'L' }], [{ qText: 'Beverages', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: 'Coffee', qNum: 'NaN', qElemNumber: 44, qState: 'O' }, { qText: '618.97731', qNum: 618.9773135845871, qElemNumber: 0, qState: 'L' }], [{ qText: 'Beverages', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: 'Flavored Drinks', qNum: 'NaN', qElemNumber: 40, qState: 'O' }, { qText: '612.95153', qNum: 612.9515320886715, qElemNumber: 0, qState: 'L' }], [{ qText: 'Beverages', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: 'Juice', qNum: 'NaN', qElemNumber: 14, qState: 'O' }, { qText: '522.17944', qNum: 522.1794429503396, qElemNumber: 0, qState: 'L' }], [{ qText: 'Beverages', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: 'Soda', qNum: 'NaN', qElemNumber: 12, qState: 'O' }, { qText: '500.77845', qNum: 500.7784500167292, qElemNumber: 0, qState: 'L' }], [{ qText: 'Breakfast Foods', qNum: 'NaN', qElemNumber: 10, qState: 'O' }, { qText: 'Cereal', qNum: 'NaN', qElemNumber: 16, qState: 'O' }, { qText: '499.81826', qNum: 499.8182564448434, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Anchovies', qNum: 'NaN', qElemNumber: 60, qState: 'O' }, { qText: '578.88735', qNum: 578.8873471051883, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Canned Vegetables', qNum: 'NaN', qElemNumber: 11, qState: 'O' }, { qText: '527.5709', qNum: 527.5709020160073, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Clams', qNum: 'NaN', qElemNumber: 7, qState: 'O' }, { qText: '484.33843', qNum: 484.3384341875705, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Oysters', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: '431.83309', qNum: 431.83308960657536, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Sardines', qNum: 'NaN', qElemNumber: 25, qState: 'O' }, { qText: '588.04932', qNum: 588.0493150181851, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Shrimp', qNum: 'NaN', qElemNumber: 36, qState: 'O' }, { qText: '630.69384', qNum: 630.6938441310028, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Soup', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: '447.91885', qNum: 447.9188481430755, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Foods', qNum: 'NaN', qElemNumber: 2, qState: 'O' }, { qText: 'Tuna', qNum: 'NaN', qElemNumber: 65, qState: 'O' }, { qText: '439.91751', qNum: 439.9175139601378, qElemNumber: 0, qState: 'L' }], [{ qText: 'Canned Products', qNum: 'NaN', qElemNumber: 14, qState: 'O' }, { qText: 'Canned Fruit', qNum: 'NaN', qElemNumber: 50, qState: 'O' }, { qText: '515.14245', qNum: 515.1424508862267, qElemNumber: 0, qState: 'L' }], [{ qText: 'Dairy', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: 'Cheese', qNum: 'NaN', qElemNumber: 28, qState: 'O' }, { qText: '509.59454', qNum: 509.5945363837691, qElemNumber: 0, qState: 'L' }], [{ qText: 'Dairy', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: 'Cottage Cheese', qNum: 'NaN', qElemNumber: 35, qState: 'O' }, { qText: '442.8687', qNum: 442.86870400689185, qElemNumber: 0, qState: 'L' }], [{ qText: 'Dairy', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: 'Milk', qNum: 'NaN', qElemNumber: 9, qState: 'O' }, { qText: '503.25891', qNum: 503.25890822237665, qElemNumber: 0, qState: 'L' }], [{ qText: 'Dairy', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: 'Sour Cream', qNum: 'NaN', qElemNumber: 48, qState: 'O' }, { qText: '498.89312', qNum: 498.89312363038505, qElemNumber: 0, qState: 'L' }], [{ qText: 'Dairy', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: 'Yogurt', qNum: 'NaN', qElemNumber: 26, qState: 'O' }, { qText: '500.42714', qNum: 500.42714101534574, qElemNumber: 0, qState: 'L' }], [{ qText: 'Deli', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: 'Bologna', qNum: 'NaN', qElemNumber: 23, qState: 'O' }, { qText: '605.31941', qNum: 605.3194117887762, qElemNumber: 0, qState: 'L' }], [{ qText: 'Deli', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: 'Deli Meats', qNum: 'NaN', qElemNumber: 18, qState: 'O' }, { qText: '579.71068', qNum: 579.7106807755213, qElemNumber: 0, qState: 'L' }], [{ qText: 'Deli', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: 'Deli Salads', qNum: 'NaN', qElemNumber: 49, qState: 'O' }, { qText: '572.21055', qNum: 572.2105465340036, qElemNumber: 0, qState: 'L' }], [{ qText: 'Deli', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: 'Fresh Chicken', qNum: 'NaN', qElemNumber: 30, qState: 'O' }, { qText: '876.88284', qNum: 876.8828398713829, qElemNumber: 0, qState: 'L' }], [{ qText: 'Deli', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: 'Hot Dogs', qNum: 'NaN', qElemNumber: 3, qState: 'O' }, { qText: '679.1837', qNum: 679.1836962858084, qElemNumber: 0, qState: 'L' }], [{ qText: 'Eggs', qNum: 'NaN', qElemNumber: 9, qState: 'O' }, { qText: 'Eggs', qNum: 'NaN', qElemNumber: 15, qState: 'O' }, { qText: '462.64643', qNum: 462.64643147862796, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'French Fries', qNum: 'NaN', qElemNumber: 5, qState: 'O' }, { qText: '437.46627', qNum: 437.4662663210363, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Frozen Chicken', qNum: 'NaN', qElemNumber: 4, qState: 'O' }, { qText: '670.1437', qNum: 670.1436951719724, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Frozen Vegetables', qNum: 'NaN', qElemNumber: 56, qState: 'O' }, { qText: '709.04284', qNum: 709.0428386567297, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Ice Cream', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: '629.52097', qNum: 629.5209654133374, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Pancake Mix', qNum: 'NaN', qElemNumber: 55, qState: 'O' }, { qText: '634.66297', qNum: 634.6629701230199, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Pancakes', qNum: 'NaN', qElemNumber: 64, qState: 'O' }, { qText: '479.46797', qNum: 479.46796815589437, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Pizza', qNum: 'NaN', qElemNumber: 29, qState: 'O' }, { qText: '650.78261', qNum: 650.782613934506, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Popsicles', qNum: 'NaN', qElemNumber: 24, qState: 'O' }, { qText: '469.99124', qNum: 469.99123534803437, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'TV Dinner', qNum: 'NaN', qElemNumber: 51, qState: 'O' }, { qText: '504.83104', qNum: 504.8310423502161, qElemNumber: 0, qState: 'L' }], [{ qText: 'Frozen Foods', qNum: 'NaN', qElemNumber: 0, qState: 'O' }, { qText: 'Waffles', qNum: 'NaN', qElemNumber: 38, qState: 'O' }, { qText: '445.73564', qNum: 445.7356354695673, qElemNumber: 0, qState: 'L' }], [{ qText: 'Meat', qNum: 'NaN', qElemNumber: 15, qState: 'O' }, { qText: 'Hamburger', qNum: 'NaN', qElemNumber: 67, qState: 'O' }, { qText: '489.42556', qNum: 489.42555631051493, qElemNumber: 0, qState: 'L' }], [{ qText: 'Produce', qNum: 'NaN', qElemNumber: 1, qState: 'O' }, { qText: 'Fresh Fruit', qNum: 'NaN', qElemNumber: 34, qState: 'O' }, { qText: '528.95812', qNum: 528.9581179218854, qElemNumber: 0, qState: 'L' }], [{ qText: 'Produce', qNum: 'NaN', qElemNumber: 1, qState: 'O' }, { qText: 'Fresh Vegetables', qNum: 'NaN', qElemNumber: 1, qState: 'O' }, { qText: '599.80832', qNum: 599.8083218433343, qElemNumber: 0, qState: 'L' }], [{ qText: 'Produce', qNum: 'NaN', qElemNumber: 1, qState: 'O' }, { qText: 'Nuts', qNum: 'NaN', qElemNumber: 45, qState: 'O' }, { qText: '495.34303', qNum: 495.3430290622579, qElemNumber: 0, qState: 'L' }], [{ qText: 'Produce', qNum: 'NaN', qElemNumber: 1, qState: 'O' }, { qText: 'Tofu', qNum: 'NaN', qElemNumber: 58, qState: 'O' }, { qText: '564.49238', qNum: 564.4923781064844, qElemNumber: 0, qState: 'L' }], [{ qText: 'Seafood', qNum: 'NaN', qElemNumber: 16, qState: 'O' }, { qText: 'Fresh Fish', qNum: 'NaN', qElemNumber: 69, qState: 'O' }, { qText: '641.91076', qNum: 641.9107582800701, qElemNumber: 0, qState: 'L' }], [{ qText: 'Seafood', qNum: 'NaN', qElemNumber: 16, qState: 'O' }, { qText: 'Shellfish', qNum: 'NaN', qElemNumber: 68, qState: 'O' }, { qText: '451.47626', qNum: 451.476264176121, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Chips', qNum: 'NaN', qElemNumber: 19, qState: 'O' }, { qText: '523.78357', qNum: 523.7835736646795, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Cookies', qNum: 'NaN', qElemNumber: 54, qState: 'O' }, { qText: '536.82653', qNum: 536.8265335826198, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Crackers', qNum: 'NaN', qElemNumber: 33, qState: 'O' }, { qText: '682.56435', qNum: 682.5643518612967, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Dips', qNum: 'NaN', qElemNumber: 57, qState: 'O' }, { qText: '576.36457', qNum: 576.3645734467758, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Donuts', qNum: 'NaN', qElemNumber: 41, qState: 'O' }, { qText: '474.66222', qNum: 474.6622235153584, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Dried Fruit', qNum: 'NaN', qElemNumber: 10, qState: 'O' }, { qText: '437.90909', qNum: 437.9090851112278, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Dried Meat', qNum: 'NaN', qElemNumber: 59, qState: 'O' }, { qText: '584.79375', qNum: 584.7937458083641, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Popcorn', qNum: 'NaN', qElemNumber: 61, qState: 'O' }, { qText: '510.25063', qNum: 510.25063478438494, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snack Foods', qNum: 'NaN', qElemNumber: 6, qState: 'O' }, { qText: 'Pretzels', qNum: 'NaN', qElemNumber: 53, qState: 'O' }, { qText: '478.56628', qNum: 478.5662755519197, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snacks', qNum: 'NaN', qElemNumber: 12, qState: 'O' }, { qText: 'Chocolate Candy', qNum: 'NaN', qElemNumber: 43, qState: 'O' }, { qText: '464.55985', qNum: 464.55984896660425, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snacks', qNum: 'NaN', qElemNumber: 12, qState: 'O' }, { qText: 'Gum', qNum: 'NaN', qElemNumber: 46, qState: 'O' }, { qText: '507.33946', qNum: 507.33946394686865, qElemNumber: 0, qState: 'L' }], [{ qText: 'Snacks', qNum: 'NaN', qElemNumber: 12, qState: 'O' }, { qText: 'Hard Candy', qNum: 'NaN', qElemNumber: 21, qState: 'O' }, { qText: '593.44099', qNum: 593.4409885374092, qElemNumber: 0, qState: 'L' }], [{ qText: 'Starchy Foods', qNum: 'NaN', qElemNumber: 4, qState: 'O' }, { qText: 'Pasta', qNum: 'NaN', qElemNumber: 39, qState: 'O' }, { qText: '533.36688', qNum: 533.3668754968555, qElemNumber: 0, qState: 'L' }], [{ qText: 'Starchy Foods', qNum: 'NaN', qElemNumber: 4, qState: 'O' }, { qText: 'Rice', qNum: 'NaN', qElemNumber: 8, qState: 'O' }, { qText: '509.65248', qNum: 509.65247548806855, qElemNumber: 0, qState: 'L' }]], qTails: [{ qUp: 0, qDown: 0 }, { qUp: 0, qDown: 0 }], qArea: { qLeft: 0, qTop: 0, qWidth: 3, qHeight: 70 } }], qPivotDataPages: [], qStackedDataPages: [], qMode: 'S', qNoOfLeftDims: -1, customErrorMessage: { calcCond: '' } }, refLine: { refLines: [] }, showTitles: true, title: '', subtitle: '', footnote: '', showDetails: false, barGrouping: { grouping: 'grouped' }, orientation: 'vertical', scrollStartPos: 0, gridLine: { auto: true, spacing: 2 }, dataPoint: { showLabels: false }, color: { auto: true, mode: 'primary', singleColor: 3, persistent: true, expressionIsColor: true, expressionLabel: '', measureScheme: 'sg', reverseScheme: false, dimensionScheme: '12', autoMinMax: true, measureMin: 0, measureMax: 10, dimensionId: '' }, legend: { show: true, dock: 'auto', showTitle: true }, dimensionAxis: { continuousAuto: true, show: 'all', label: 'auto', dock: 'near' }, preferContinuousAxis: true, measureAxis: { show: 'all', dock: 'near', spacing: 1, autoMinMax: true, minMax: 'min', min: 0, max: 10 }, visualization: 'barchart' } }] } };\n\nvar one = {\n  type: 'q',\n  data: rawOne.result.qLayout[0].value\n};\n\nvar two = {\n  type: 'q',\n  data: rawTwo.result.qLayout[0].value\n};"
-
-/***/ }),
-/* 133 */
-/*!**************************************!*\
-  !*** ./pages/null-handling/index.js ***!
-  \**************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _description = __webpack_require__(/*! raw-loader!./description.md */ 134);
-
-var _description2 = _interopRequireDefault(_description);
-
-var _code = __webpack_require__(/*! raw-loader!./code */ 135);
-
-var _code2 = _interopRequireDefault(_code);
-
-var _data = __webpack_require__(/*! raw-loader!./data */ 136);
-
-var _data2 = _interopRequireDefault(_data);
-
-var _registry = __webpack_require__(/*! ../registry */ 0);
-
-var _registry2 = _interopRequireDefault(_registry);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function page() {
-  var data = _data2.default + '\n\nreturn data;';
-
-  return {
-    description: _description2.default,
-    code: _code2.default,
-    data: data,
-    name: 'Null Handling'
-  };
-}
-
-_registry2.default.register('null-handling', page());
-
-/***/ }),
-/* 134 */
-/*!**********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/null-handling/description.md ***!
-  \**********************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "# Null value handling\nHandling of null values\n"
-
-/***/ }),
-/* 135 */
-/*!***************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/null-handling/code.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.2\n    },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4']\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        start: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        },\n        med: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        },\n        end: {\n          source: '/qHyperCube/qMeasureInfo/3'\n        },\n        max: {\n          source: '/qHyperCube/qMeasureInfo/4'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: {\n        scale: 'x'\n      },\n      minor: {\n        scale: 'y'\n      },\n      box: {\n        stroke: '#333',\n        strokeWidth: 2,\n        width: 1, // This is a multiplier for the width\n        fill: '#4477aa' // fill of the box\n      },\n      whisker: {\n        show: true,\n        stroke: '#333',\n        width: 1 // width multiplier for the whisker\n      },\n      median: {\n        stroke: '#f00', // stroke for the median\n        strokeWidth: 3 // stroke width for the median\n      },\n      line: {\n        stroke: '#333', // the line between min and q2 and q3 and max.\n        strokeWidth: 1\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        a: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        b: {\n          source: '/qHyperCube/qMeasureInfo/3'\n        },\n        c: {\n          source: '/qHyperCube/qMeasureInfo/5'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x',\n        ref: 'self'\n      },\n      y: {\n        scale: 'y',\n        ref: 'c'\n      },\n      size: {\n        ref: 'a',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        }\n      },\n      fill: {\n        ref: 'b',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/3',\n          type: 'color'\n        }\n      },\n      strokeWidth: 1,\n      stroke: '#4477aa'\n    }\n  }, {\n    type: 'axis',\n    scale: 'x',\n    settings: {\n      align: 'bottom',\n      tight: true,\n      ticks: {\n        show: false\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'y'\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
-
-/***/ }),
-/* 136 */
-/*!***************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/null-handling/data.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* global generator customGenerator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\nfunction _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 6,\n  rows: 15,\n  dataRange: [10, 100],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 1,\n  joinChar: '',\n  upperCase: true\n});\n\nvar nullArray = randomStringsData.map(function (row, i) {\n  if (i === 0) {\n    return row;\n  } else if (i === 2) {\n    row[6] /= 2;\n    return [null].concat(_toConsumableArray(generator.randomNullInsert(row.slice(1), 0.2)));\n  }\n  row[6] /= 2;\n  return [row[0]].concat(_toConsumableArray(generator.randomNullInsert(row.slice(1), 0.2)));\n});\n\nvar qLayout = generator.generateDataFromArray(nullArray);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
-
-/***/ }),
-/* 137 */
-/*!*************************************!*\
-  !*** ./pages/picasso-logo/index.js ***!
-  \*************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _description = __webpack_require__(/*! raw-loader!./description.md */ 138);
-
-var _description2 = _interopRequireDefault(_description);
-
-var _code = __webpack_require__(/*! raw-loader!./code */ 139);
-
-var _code2 = _interopRequireDefault(_code);
-
-var _data = __webpack_require__(/*! raw-loader!./data */ 140);
-
-var _data2 = _interopRequireDefault(_data);
-
-var _registry = __webpack_require__(/*! ../registry */ 0);
-
-var _registry2 = _interopRequireDefault(_registry);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function page() {
   var data = _data2.default + '\n\nreturn data;';
 
   return {
@@ -32409,7 +29370,7 @@ function page() {
 _registry2.default.register('picasso-logo', page());
 
 /***/ }),
-/* 138 */
+/* 130 */
 /*!*********************************************************************!*\
   !*** ./node_modules/raw-loader!./pages/picasso-logo/description.md ***!
   \*********************************************************************/
@@ -32420,7 +29381,7 @@ _registry2.default.register('picasso-logo', page());
 module.exports = "# Picasso.JS Logotype\nThis is the picasso.js logo rendered directly to the renderer\n\nIt shows how picasso behind the scenes passes nodes to be rendered to the SVG or Canvas renderer\n"
 
 /***/ }),
-/* 139 */
+/* 131 */
 /*!**************************************************************!*\
   !*** ./node_modules/raw-loader!./pages/picasso-logo/code.js ***!
   \**************************************************************/
@@ -32431,7 +29392,7 @@ module.exports = "# Picasso.JS Logotype\nThis is the picasso.js logo rendered di
 module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar renderer = picasso.renderer()();\n\nelement.innerHTML = '';\n\nrenderer.appendTo(element);\n\nrenderer.size({ width: element.getBoundingClientRect().width, height: element.getBoundingClientRect().height });\n\nrenderer.render([{\n  type: 'path',\n  d: 'M65.1,49.9 L33.3,49.9 C27.4,49.9 22.7,54.7 22.7,60.5 L22.7,88.6 L5.3,88.6 C2.6,88.6 0.5,90.8 0.5,93.4 C0.5,96.1 2.7,98.2 5.3,98.2 L22.7,98.2 L22.7,122.4 C22.7,125.1 24.9,127.2 27.5,127.2 C30.1,127.2 32.3,125 32.3,122.4 L32.3,98.2 L65,98.2 C70.9,98.2 75.6,93.4 75.6,87.6 L75.6,60.5 C75.7,54.6 71,49.9 65.1,49.9 Z M66.1,84.7 C66.1,86.8 64.4,88.6 62.2,88.6 L32.4,88.6 L32.4,63.4 C32.4,61.3 34.1,59.5 36.3,59.5 L62.2,59.5 C64.3,59.5 66.1,61.2 66.1,63.4 L66.1,84.7 Z M95.1,55 L95.1,93.7 C95.1,96.4 92.9,98.5 90.3,98.5 C87.6,98.5 85.5,96.3 85.5,93.7 L85.5,55 C85.5,52.3 87.7,50.2 90.3,50.2 C92.9,50.2 95.1,52.3 95.1,55 Z M375.7,87.7206443 L375.7,60.5 C375.7,54.6 370.9,49.9 365.1,49.9 L338,49.9 C332.1,49.9 327.4,54.7 327.4,60.5 L327.4,87.6 C327.4,93.5 332.2,98.2 338,98.2 L365.3,98.2 C372.537323,98.2 375.7,93.9987963 375.7,87.7206443 Z M362.093877,88.6 C357.361904,88.6 350.263945,88.6 340.8,88.6 C338.7,88.6 336.9,86.9 336.9,84.7 L336.9,63.4 C336.9,61.3 338.6,59.5 340.8,59.5 L362.1,59.5 C364.2,59.5 366,61.2 366,63.4 C366,72.9327713 366,80.0823498 366,84.8487354 C366,87.1300139 363.998178,88.6 362.093877,88.6 Z M441.2,62.1 L441.2,65.6 C441.2,67.4 442.5,68.5 444.4,68.5 L469.2,68.5 C475.1,68.5 479.9,73.3 479.9,79.2 L479.9,86.9 C479.9,92.8 475.1,97.6 469.2,97.6 L436.3,97.6 C433.6,97.6 431.5,95.4 431.5,92.8 C431.5,90.1 433.7,88 436.3,88 L466.5,88 C468.7,88 470.2,86.9 470.2,85.2 L470.2,81.3 C470.2,79.3 468.3,78.3 466.5,78.3 L442.2,78.3 C436.3,78.3 431.5,73.5 431.5,67.6 L431.5,59.9 C431.5,54 436.3,49.2 442.2,49.2 L465.3,49.2 C468,49.2 470.1,51.4 470.1,54 C470.1,56.6 467.9,58.8 465.3,58.8 L444.6,58.8 C442.7,58.8 441.2,59.9 441.2,62.1 Z M221.8,63.1 L221.8,66.6 C221.8,68.4 223.1,69.5 225,69.5 L249.8,69.5 C255.7,69.5 260.5,74.3 260.5,80.2 L260.5,87.9 C260.5,93.8 255.7,98.6 249.8,98.6 L216.9,98.6 C214.2,98.6 212.1,96.4 212.1,93.8 C212.1,91.1 214.3,89 216.9,89 L247.1,89 C249.3,89 250.8,87.9 250.8,86.2 L250.8,82.3 C250.8,80.3 248.9,79.3 247.1,79.3 L222.8,79.3 C216.9,79.3 212.1,74.5 212.1,68.6 L212.1,60.9 C212.1,55 216.9,50.2 222.8,50.2 L245.9,50.2 C248.6,50.2 250.7,52.4 250.7,55 C250.7,57.6 248.5,59.8 245.9,59.8 L225.2,59.8 C223.3,59.8 221.8,60.9 221.8,63.1 Z M278.9,62.8 L278.9,66.3 C278.9,68.1 280.2,69.2 282.1,69.2 L306.9,69.2 C312.8,69.2 317.6,74 317.6,79.9 L317.6,87.6 C317.6,93.5 312.8,98.3 306.9,98.3 L274.1,98.3 C271.4,98.3 269.3,96.1 269.3,93.5 C269.3,90.8 271.5,88.7 274.1,88.7 L304.3,88.7 C306.5,88.7 308,87.6 308,85.9 L308,82 C308,80 306.1,79 304.3,79 L280,79 C274.1,79 269.3,74.2 269.3,68.3 L269.3,60.6 C269.3,54.7 274.1,49.9 280,49.9 L303.2,49.9 C305.9,49.9 308,52.1 308,54.7 C308,57.3 305.8,59.5 303.2,59.5 L282.5,59.5 C280.5,59.5 278.9,60.6 278.9,62.8 Z M138.6,98.2 L115.4,98.2 C109.5,98.2 104.7,93.4 104.7,87.5 L104.7,60.5 C104.7,54.6 109.5,49.8 115.4,49.8 L138.6,49.8 C141.3,49.8 143.4,52 143.4,54.6 C143.4,57.2 141.2,59.4 138.6,59.4 L118.3,59.4 C116.2,59.4 114.5,61.1 114.5,63.2 L114.5,84.5 C114.5,86.6 116.2,88.3 118.3,88.3 L138.6,88.3 C141.3,88.3 143.4,90.5 143.4,93.1 C143.5,96.1 141.3,98.2 138.6,98.2 Z M386.30328,126.751518 L409.50328,126.751518 C415.40328,126.751518 420.20328,121.951518 420.20328,116.051518 L420.20328,54.0515181 C420.20328,51.0088748 417.843703,49.2 415.380222,49.2 C412.916741,49.2 410.40328,51.0125396 410.40328,54.0515181 C410.40328,56.0775037 410.40328,75.7441704 410.40328,113.051518 C410.40328,115.151518 408.70328,116.851518 406.60328,116.851518 L386.30328,116.851518 C383.60328,116.851518 381.50328,119.051518 381.50328,121.651518 C381.40328,124.651518 383.60328,126.751518 386.30328,126.751518 Z M190.9,49.9 L167.7,49.9 C165,49.9 162.9,52.1 162.9,54.7 C162.9,57.3 165.1,59.5 167.7,59.5 L188,59.5 C190.1,59.5 191.9,61.2 191.9,63.4 L191.9,69.2 L163.8,69.2 C157.9,69.2 153.2,74 153.2,79.8 L153.2,87.5 C153.2,93.4 158,98.1 163.8,98.1 L190.9,98.1 C196.8,98.1 201.5,93.3 201.5,87.5 L201.5,60.5 C201.5,54.6 196.7,49.9 190.9,49.9 Z M187.9,88.6 L166.4,88.6 C163.8,88.6 162.8,87.2 162.8,85.4 C162.8,85.4 162.8,83 162.8,82.2 C162.8,80.4 164.5,79 166.6,79 C167.2,79 185,79 191.8,79 L191.8,84.8 C191.8,86.8 190.1,88.6 187.9,88.6 Z M90.4,42 C84.9,42 80.5,37.5 80.5,32.1 C80.5,26.7 85,22.2 90.4,22.2 C95.9,22.2 100.3,26.7 100.3,32.1 C100.3,37.5 95.9,42 90.4,42 Z M98.7,17.6 C94.7,17.6 91.5,14.4 91.5,10.4 C91.5,6.4 94.7,3.2 98.7,3.2 C102.7,3.2 105.9,6.4 105.9,10.4 C105.9,14.4 102.7,17.6 98.7,17.6 Z M119.4,22 C116.2,22 113.5,19.4 113.5,16.1 C113.5,12.8 116.1,10.2 119.4,10.2 C122.6,10.2 125.3,12.8 125.3,16.1 C125.3,19.4 122.7,22 119.4,22 Z M136.7,8.6 C134.4,8.6 132.5,6.7 132.5,4.4 C132.5,2.1 134.4,0.2 136.7,0.2 C139,0.2 140.9,2.1 140.9,4.4 C140.9,6.7 139.1,8.6 136.7,8.6 Z M393,98 C390.238576,98 388,95.7614237 388,93 C388,90.2385763 390.238576,88 393,88 C395.761424,88 398,90.2385763 398,93 C398,95.7614237 395.761424,98 393,98 Z',\n  strokeWidth: 0,\n  stroke: 'red',\n  fill: {\n    type: 'gradient',\n    degree: 210,\n    orientation: 'linear',\n    stops: [{\n      offset: 0,\n      color: '#45B3B2'\n    }, {\n      offset: 1,\n      color: '#9ECC4C'\n    }]\n  }\n}]);"
 
 /***/ }),
-/* 140 */
+/* 132 */
 /*!**************************************************************!*\
   !*** ./node_modules/raw-loader!./pages/picasso-logo/data.js ***!
   \**************************************************************/
@@ -32442,7 +29403,7 @@ module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar r
 module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar data = {};"
 
 /***/ }),
-/* 141 */
+/* 133 */
 /*!****************************************!*\
   !*** ./pages/point-example-1/index.js ***!
   \****************************************/
@@ -32453,11 +29414,11 @@ module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nva
 "use strict";
 
 
-var _code = __webpack_require__(/*! raw-loader!./code */ 142);
+var _code = __webpack_require__(/*! raw-loader!./code */ 134);
 
 var _code2 = _interopRequireDefault(_code);
 
-var _data = __webpack_require__(/*! raw-loader!./data */ 143);
+var _data = __webpack_require__(/*! raw-loader!./data */ 135);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -32481,7 +29442,7 @@ function page() {
 _registry2.default.register('point-example-1', page());
 
 /***/ }),
-/* 142 */
+/* 134 */
 /*!*****************************************************************!*\
   !*** ./node_modules/raw-loader!./pages/point-example-1/code.js ***!
   \*****************************************************************/
@@ -32492,7 +29453,7 @@ _registry2.default.register('point-example-1', page());
 module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    x: {\n      data: { extract: { field: 'qDimensionInfo/0' } }\n    },\n    y: {\n      data: { extract: { field: 'qMeasureInfo/0' } }\n    }\n  },\n  components: [{\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/0',\n        props: {\n          a: { field: 'qMeasureInfo/0' },\n          b: { field: 'qMeasureInfo/1' }\n        }\n      }\n    },\n    settings: {\n      x: function x() {\n        return Math.random();\n      },\n      y: function y(d, i, arr) {\n        // function is called for each datum `d`\n        return i / 10; // return i / arr.length;\n      },\n      strokeWidth: 4,\n      size: {\n        ref: 'b',\n        fn: function fn(d) {\n          return d.value * 8;\n        }\n      },\n      fill: {\n        ref: 'a',\n        scale: { // auto-constructs a color scale from the specified data source\n          data: { extract: { field: 'qMeasureInfo/1' } },\n          type: 'color'\n        }\n      },\n      opacity: {\n        ref: 'b',\n        fn: function fn(d, i) {\n          return d.value * 3;\n        }\n      },\n      shape: function shape(d, i) {\n        return ['rect', 'circle', 'star'][i % 3];\n      }\n    }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
-/* 143 */
+/* 135 */
 /*!*****************************************************************!*\
   !*** ./node_modules/raw-loader!./pages/point-example-1/data.js ***!
   \*****************************************************************/
@@ -32503,10 +29464,163 @@ module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// Th
 module.exports = "'use strict';\n\n/* global generator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\n// To generate random data:\n\nvar randomData = generator.generateRandomData(1, // Number of dimensions\n2, // Number of measures\n10, // Number of rows\nfalse // If the data is supported to be sorted or not (should be for box plot)\n);\n\nvar qLayout = generator.generateDataFromArray(randomData);\n\nvar data = [{\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n}];"
 
 /***/ }),
-/* 144 */
+/* 136 */
 /*!****************************************!*\
   !*** ./pages/reference-lines/index.js ***!
   \****************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _description = __webpack_require__(/*! raw-loader!./description.md */ 137);
+
+var _description2 = _interopRequireDefault(_description);
+
+var _code = __webpack_require__(/*! raw-loader!./code */ 138);
+
+var _code2 = _interopRequireDefault(_code);
+
+var _data = __webpack_require__(/*! raw-loader!./data */ 139);
+
+var _data2 = _interopRequireDefault(_data);
+
+var _registry = __webpack_require__(/*! ../registry */ 0);
+
+var _registry2 = _interopRequireDefault(_registry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function page() {
+  var data = _data2.default + '\n\nreturn data;';
+  var code = _code2.default + '\n\nreturn chart;';
+
+  return {
+    description: _description2.default,
+    code: code,
+    data: data,
+    name: 'Reference lines'
+  };
+}
+
+_registry2.default.register('reference-lines', page());
+
+/***/ }),
+/* 137 */
+/*!************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/reference-lines/description.md ***!
+  \************************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = "# Reference Lines example\nThis example show how you add the 'ref-line' component to your existing chart.\n\nThe reference lines object can be docked anywhere liked, and automatically handles out of bounds.\n\nFor further information, check the compoents/ref-line.md file in documentation.\n"
+
+/***/ }),
+/* 138 */
+/*!*****************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/reference-lines/code.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: {\n      data: { extract: { field: 'qMeasureInfo/0' } },\n      expand: [0.1]\n    },\n    y: {\n      data: { extract: { field: 'qMeasureInfo/1' } },\n      invert: true\n    }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left'\n  }, {\n    key: 'xaxis',\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: 'qDimensionInfo/3',\n        props: {\n          color: { field: 'qMeasureInfo/0' },\n          dim: { field: 'qDimensionInfo/2', reduce: 'first', type: 'qual' },\n          x: { field: 'qMeasureInfo/0' },\n          y: { field: 'qMeasureInfo/1' },\n          size: { field: 'qMeasureInfo/2' }\n        }\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      sizeLimits: {\n        maxRel: 0.1,\n        minRel: 0.001\n      },\n      opacity: 0.9,\n      size: { scale: { source: 'qMeasureInfo/2' } },\n      fill: { ref: 'color', scale: { source: 'qMeasureInfo/0', type: 'color' } }\n    }\n  }, {\n    type: 'ref-line',\n    style: {\n      oob: {\n        fontFamily: 'Arial'\n      }\n    },\n    lines: {\n      x: [{\n        value: 0.2,\n        line: {\n          stroke: 'green',\n          strokeWidth: 2\n        },\n        label: {\n          text: 'اسم عربي',\n          padding: 10,\n          fontSize: '20px',\n          vAlign: 0.75,\n          align: 'left'\n        }\n      }],\n      y: [{\n        value: 75,\n        scale: 'y',\n        line: {\n          stroke: 'red'\n        },\n        label: {\n          text: 'woqwedasdasdasdasdasdasdasdasdw',\n          fontSize: '14px',\n          vAlign: 0,\n          align: 0\n        }\n      }, {\n        value: 45,\n        scale: 'y',\n        line: {\n          stroke: 'red'\n        },\n        label: {\n          padding: 5,\n          text: 'ÅgoasdokasdkoÅgoasdokasdko',\n          fontSize: '14px',\n          align: 'right',\n          vAlign: 'bottom'\n        }\n      }]\n    }\n  }]\n};\n\nvar chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+
+/***/ }),
+/* 139 */
+/*!*****************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/reference-lines/data.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
+
+/***/ }),
+/* 140 */
+/*!************************************!*\
+  !*** ./pages/scale-color/index.js ***!
+  \************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _description = __webpack_require__(/*! raw-loader!./description.md */ 141);
+
+var _description2 = _interopRequireDefault(_description);
+
+var _code = __webpack_require__(/*! raw-loader!./code */ 142);
+
+var _code2 = _interopRequireDefault(_code);
+
+var _data = __webpack_require__(/*! raw-loader!./data */ 143);
+
+var _data2 = _interopRequireDefault(_data);
+
+var _registry = __webpack_require__(/*! ../registry */ 0);
+
+var _registry2 = _interopRequireDefault(_registry);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function page() {
+  var data = _data2.default + '\n\nreturn data;';
+
+  return {
+    description: _description2.default,
+    code: _code2.default,
+    data: data,
+    name: 'Scales - Color'
+  };
+}
+
+_registry2.default.register('scale-color', page());
+
+/***/ }),
+/* 141 */
+/*!********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scale-color/description.md ***!
+  \********************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = "# Color scales\n\nThis example demonstrates the different color scales available in picasso.\n"
+
+/***/ }),
+/* 142 */
+/*!*************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scale-color/code.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n// rows is also defined in the data tab, making it easier to change the resolution\n\nvar rows = 20;\n\nvar pointMarkerData = {\n  extract: {\n    field: 'qDimensionInfo/0',\n    props: {\n      a: {\n        field: 'qMeasureInfo/2'\n      }\n    }\n  }\n};\n\nvar settings = {\n  scales: {\n    x: {\n      data: { field: 'qDimensionInfo/0' }\n    },\n    y: {\n      data: { field: 'qMeasureInfo/0' }\n    }\n  },\n  components: [{\n    type: 'point-marker',\n    data: pointMarkerData,\n    settings: {\n      y: 0.1,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          data: { field: 'qMeasureInfo/2' },\n          type: 'threshold-color',\n          range: ['blue', 'darkred'],\n          domain: [rows / 2]\n        }\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: pointMarkerData,\n    settings: {\n      y: 0.3,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          data: { field: 'qMeasureInfo/2' },\n          type: 'threshold-color',\n          max: rows,\n          min: 0,\n          range: ['forestgreen', 'orange'],\n          domain: [20, 40, 60, 80].map(function (v) {\n            return rows * (v / 100);\n          })\n        }\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: pointMarkerData,\n    settings: {\n      y: 0.5,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          data: { field: 'qMeasureInfo/2' },\n          type: 'sequential-color',\n          range: ['blue', 'darkred']\n        }\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: pointMarkerData,\n    settings: {\n      y: 0.7,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          data: { field: 'qMeasureInfo/2' },\n          type: 'sequential-color',\n          range: ['red', 'grey', 'blue'],\n          domain: [0, rows * 0.2, rows]\n        }\n      }\n    }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+
+/***/ }),
+/* 143 */
+/*!*************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scale-color/data.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = "'use strict';\n\n/* global generator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\n// To generate random data:\n\nvar rows = 20;\n\nvar randomData = generator.generateRandomData(1, // Number of dimensions\n2, // Number of measures\nrows, // Number of rows\nfalse // If the data is supported to be sorted or not (should be for box plot)\n);\n\nrandomData.forEach(function (row, i) {\n  row.push(i === 0 ? 'm' : i - 1);\n});\n\nvar qLayout = generator.generateDataFromArray(randomData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
+
+/***/ }),
+/* 144 */
+/*!***************************************!*\
+  !*** ./pages/scale-settings/index.js ***!
+  \***************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32534,56 +29648,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
-  var code = _code2.default + '\n\nreturn chart;';
 
   return {
     description: _description2.default,
-    code: code,
+    code: _code2.default,
     data: data,
-    name: 'Reference lines'
+    name: 'Scale settings'
   };
 }
 
-_registry2.default.register('reference-lines', page());
+_registry2.default.register('scale-settings', page());
 
 /***/ }),
 /* 145 */
-/*!************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/reference-lines/description.md ***!
-  \************************************************************************/
+/*!***********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scale-settings/description.md ***!
+  \***********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Reference Lines example\nThis example show how you add the 'ref-line' component to your existing chart.\n\nThe reference lines object can be docked anywhere liked, and automatically handles out of bounds.\n\nFor further information, check the compoents/ref-line.md file in documentation.\n"
+module.exports = "List and explanation of scale options\r\n"
 
 /***/ }),
 /* 146 */
-/*!*****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/reference-lines/code.js ***!
-  \*****************************************************************/
+/*!****************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scale-settings/code.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: { source: '/qHyperCube/qMeasureInfo/0', expand: [0.1] },\n    y: { source: '/qHyperCube/qMeasureInfo/1', invert: true }\n  },\n  components: [{\n    scale: 'y',\n    type: 'axis',\n    dock: 'left'\n  }, {\n    key: 'xaxis',\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        color: { source: '/qHyperCube/qMeasureInfo/0' },\n        dim: { source: '/qHyperCube/qDimensionInfo/2', reducer: 'first', type: 'qual' },\n        x: { source: '/qHyperCube/qMeasureInfo/0' },\n        y: { source: '/qHyperCube/qMeasureInfo/1' },\n        size: { source: '/qHyperCube/qMeasureInfo/2' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/3', trackBy: '$index'\n      }\n    },\n    settings: {\n      x: { scale: 'x' },\n      y: { scale: 'y' },\n      sizeLimits: {\n        maxRel: 0.1,\n        minRel: 0.001\n      },\n      opacity: 0.9,\n      size: { scale: { source: '/qHyperCube/qMeasureInfo/2' } },\n      fill: { ref: 'color', scale: { source: '/qHyperCube/qMeasureInfo/0', type: 'color' } }\n    }\n  }, {\n    type: 'ref-line',\n    // dock: 'left',\n    // preferredSize: () => 50,\n    style: {\n      oob: {\n        fontFamily: 'Arial'\n      }\n    },\n    lines: {\n      x: [{\n        value: 0.2,\n        // scale: 'x', // does not need a scale\n        line: {\n          stroke: 'green',\n          strokeWidth: 2\n        },\n        label: {\n          text: 'اسم عربي',\n          padding: 10,\n          fontSize: '20px',\n          vAlign: 0.75,\n          align: 'left'\n        }\n      }],\n      y: [{\n        value: 75,\n        scale: 'y',\n        line: {\n          stroke: 'red'\n        },\n        label: {\n          text: 'woqwedasdasdasdasdasdasdasdasdw',\n          fontSize: '14px',\n          vAlign: 0,\n          align: 0\n        }\n      }, {\n        value: 45,\n        scale: 'y',\n        line: {\n          stroke: 'red'\n        },\n        label: {\n          padding: 5,\n          text: 'ÅgoasdokasdkoÅgoasdokasdko',\n          fontSize: '14px',\n          align: 'right',\n          vAlign: 'bottom'\n        }\n      }]\n    }\n  }]\n};\n\nvar chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar dimDataDef = {\n  extract: {\n    field: 'qDimensionInfo/0',\n    value: function value(v) {\n      return v;\n    }\n  }\n};\n\nvar settings = {\n  dockLayout: {\n    center: {\n      minWidthRatio: 0,\n      minHeightRatio: 0\n    }\n  },\n  scales: {\n    y: {\n      data: { field: 'qMeasureInfo/0' },\n      invert: true // Invert the scale range from [0,1] to [1,0]\n    },\n    yy: {\n      data: { field: 'qMeasureInfo/0' },\n      expand: 0.5 // Expand the min and max of the domain by this multiplier\n    },\n    yyy: {\n      data: { field: 'qMeasureInfo/0' },\n      include: [-100, 100] // Force values to be included into the domain range\n    },\n    yyyy: {\n      data: { field: 'qMeasureInfo/0' },\n      min: -999, // Force a minimum value of the domain\n      max: 999 // Force a maximum value of the domain\n    },\n    yticks: {\n      data: { field: 'qMeasureInfo/0' },\n      ticks: {\n        distance: 30\n        // values: [0, 3, 5]\n      }\n    },\n    x: {\n      data: dimDataDef,\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      padding: 0.5 // Change the inner and outer padding [0-1]\n    },\n    xx: {\n      data: dimDataDef,\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      paddingInner: 1 // Change the distance between values [0-1]\n    },\n    xxx: {\n      data: dimDataDef,\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      paddingOuter: 0 // Change the distance between the two outer values [0-1]\n    },\n    xxxx: {\n      data: dimDataDef,\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      align: 1 // How to shift the left over space [0-1]\n    }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'y',\n    dock: 'top',\n    displayOrder: 1\n  }, { // invert\n    type: 'axis',\n    scale: 'yy',\n    dock: 'top',\n    displayOrder: 3\n  }, { // expand\n    type: 'axis',\n    scale: 'yyy',\n    dock: 'top',\n    displayOrder: 5\n  }, { // include\n    type: 'axis',\n    scale: 'yyyy',\n    dock: 'top',\n    displayOrder: 7\n  }, { // include\n    type: 'axis',\n    scale: 'yticks',\n    dock: 'top',\n    displayOrder: 9\n  }, { // include\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom',\n    displayOrder: 2\n  }, { // padding\n    type: 'axis',\n    scale: 'xx',\n    dock: 'bottom',\n    displayOrder: 4\n  }, { // paddingInner\n    type: 'axis',\n    scale: 'xxx',\n    dock: 'bottom',\n    displayOrder: 6\n  }, { // paddingOuter\n    type: 'axis',\n    scale: 'xxxx',\n    dock: 'bottom',\n    displayOrder: 8\n  }, { // align\n    type: 'text',\n    displayOrder: 2,\n    dock: 'top',\n    text: 'Invert setting',\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Expand setting',\n    dock: 'top',\n    displayOrder: 4,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Include setting',\n    dock: 'top',\n    displayOrder: 6,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Min/Max setting',\n    dock: 'top',\n    displayOrder: 8,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Tick settings',\n    dock: 'top',\n    displayOrder: 10,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Padding',\n    dock: 'bottom',\n    displayOrder: 1,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Inner padding',\n    dock: 'bottom',\n    displayOrder: 3,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Outer padding',\n    dock: 'bottom',\n    displayOrder: 5,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Align',\n    dock: 'bottom',\n    displayOrder: 7,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 147 */
-/*!*****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/reference-lines/data.js ***!
-  \*****************************************************************/
+/*!****************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scale-settings/data.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 4,\n  measures: 3,\n  rows: 200,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 2,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nvar data = {\n  type: 'q',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 148 */
-/*!************************************!*\
-  !*** ./pages/scale-color/index.js ***!
-  \************************************/
+/*!*****************************************!*\
+  !*** ./pages/scroll-component/index.js ***!
+  \*****************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32611,54 +29724,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
+  var code = _code2.default + '\n\nreturn chart;';
 
   return {
     description: _description2.default,
-    code: _code2.default,
+    code: code,
     data: data,
-    name: 'Scales - Color'
+    name: 'Scroll component'
   };
 }
 
-_registry2.default.register('scale-color', page());
+// registry.register('scroll-component', page());
 
 /***/ }),
 /* 149 */
-/*!********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scale-color/description.md ***!
-  \********************************************************************/
+/*!*************************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scroll-component/description.md ***!
+  \*************************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Color scales\n\nThis example demonstrates the different color scales available in picasso.\n"
+module.exports = "# Scroll component\n\n> By @mek and @rsv\n\nThis example adds a scroll as a custom DOM component that allows scrolling in the data.\n\nKeep in mind it's a basic implementation that has a bunch of limitations.\n"
 
 /***/ }),
 /* 150 */
-/*!*************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scale-color/code.js ***!
-  \*************************************************************/
+/*!******************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scroll-component/code.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n// rows is also defined in the data tab, making it easier to change the resolution\n\nvar rows = 20;\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0'\n    },\n    y: {\n      source: '/qHyperCube/qMeasureInfo/0'\n    }\n  },\n  components: [{\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        a: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      y: 0.1,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/2',\n          type: 'threshold-color',\n          range: ['blue', 'darkred'],\n          domain: [rows / 2]\n        }\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        a: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      y: 0.3,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/2',\n          type: 'threshold-color',\n          max: rows,\n          min: 0,\n          range: ['forestgreen', 'orange'],\n          domain: [20, 40, 60, 80].map(function (v) {\n            return rows * (v / 100);\n          })\n        }\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        a: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      y: 0.5,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/2',\n          type: 'sequential-color',\n          range: ['blue', 'darkred']\n        }\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      mapTo: {\n        a: {\n          source: '/qHyperCube/qMeasureInfo/2'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      y: 0.7,\n      x: function y(d, i, arr) {\n        return (i + 0.5) / rows;\n      },\n      size: 2,\n      fill: {\n        ref: 'a',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/2',\n          type: 'sequential-color',\n          range: ['red', 'grey', 'blue'],\n          domain: [0, rows * 0.2, rows]\n        }\n      }\n    }\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nvar numberOfVisibleRows = 40;\n\nfunction resolve(path, obj) {\n  var arr = path.replace(/^\\//, '').split(/\\//);\n  var container = obj;\n\n  var _loop = function _loop(i) {\n    if (!arr[i] && Array.isArray(container)) {\n      return {\n        v: container.map(function (v) {\n          return resolve(arr.slice(i + 1).join('/'), v);\n        })\n      };\n    } else if (arr[i] in container) {\n      container = container[arr[i]];\n    }\n  };\n\n  for (var i = 0; i < arr.length; i++) {\n    var _ret = _loop(i);\n\n    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === \"object\") return _ret.v;\n  }\n  return container;\n}\n\nvar chart = void 0;\n\nfunction onscroll(diff) {\n  var state = chart.scroll('y').getState();\n  window.qq.getData('/qHyperCube', { qTop: state.start, qLeft: 0, qWidth: 4, qHeight: state.viewSize }).then(function (d) {\n    chart.update({\n      partialData: true,\n      data: {\n        type: 'q',\n        data: d\n      }\n    });\n  });\n}\nfunction scroll(diff) {\n  if (!chart || !chart.update) {\n    return;\n  }\n  chart.scroll('y').move(diff);\n}\n\nfunction startPos(event) {\n  return {\n    x: event.center.x - event.deltaX,\n    y: event.center.y - event.deltaY\n  };\n}\n\nvar settings = {\n  scales: {\n    y: {\n      source: '/qHyperCube/qDimensionInfo/0'\n    },\n    x: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      expand: 0.1\n    }\n  },\n  scroll: {\n    y: { viewSize: numberOfVisibleRows, max: data.data.qHyperCube.qSize.qcy }\n  },\n  components: [{\n    type: 'point-marker',\n    key: 'point-marker',\n    data: {\n      mapTo: {\n        y: {\n          source: '/qHyperCube/qDimensionInfo/0',\n          reducer: 'first',\n          type: 'qual'\n        },\n        x: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        b: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      y: {\n        scale: 'y',\n        ref: 'y'\n      },\n      x: {\n        scale: 'x',\n        ref: 'x'\n      }\n    },\n    mounted: function mounted(element) {\n      this.element = element;\n    },\n\n    on: {\n      panStart: function panStart(event) {\n        var containerRect = this.element.getBoundingClientRect();\n        var containerStart = containerRect.top;\n        var length = containerRect.height;\n        var scrollApi = chart.scroll('y');\n        this.startOffset = event.center.y - containerStart;\n        this.startScroll = scrollApi.getState().start;\n      },\n      panMove: function panMove(event) {\n        if (this.startOffset == null) {\n          return;\n        }\n        var containerRect = this.element.getBoundingClientRect();\n        var containerStart = containerRect.top;\n        var length = containerRect.height;\n        var scrollApi = chart.scroll('y');\n        var offset = event.center.y - containerStart;\n        var scrollState = scrollApi.getState();\n        var scrollMove = (this.startOffset - offset) / length * scrollState.viewSize;\n        var scrollStart = this.startScroll + scrollMove;\n        scrollApi.moveTo(scrollStart);\n      },\n      panEnd: function panEnd(event) {\n        if (this.startOffset == null) {\n          return;\n        }\n        var containerRect = this.element.getBoundingClientRect();\n        var containerStart = containerRect.top;\n        var length = containerRect.height;\n        var scrollApi = chart.scroll('y');\n        var offset = event.center.y - containerStart;\n        var scrollState = scrollApi.getState();\n        var scrollMove = (this.startOffset - offset) / length * scrollState.viewSize;\n        var scrollStart = this.startScroll + scrollMove;\n        scrollApi.moveTo(scrollStart);\n\n        this.startOffset = null;\n        this.startScroll = null;\n      },\n      panCancel: function panCancel(event) {\n        this.startOffset = null;\n        this.startScroll = null;\n      }\n    }\n  }, {\n    type: 'axis',\n    key: 'y-axis',\n    scale: 'y',\n    dock: 'left',\n    settings: {\n      ticks: {\n        show: false\n      },\n      line: {\n        show: false\n      }\n    }\n  }, {\n    type: 'axis',\n    key: 'x-axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'scrollbar',\n    key: 'scrollbar',\n    dock: 'left',\n    scroll: 'y',\n    settings: {\n      backgroundColor: '#fff'\n    }\n  }],\n  interactions: [{\n    type: 'hammer',\n    key: 'interaction',\n    require: ['chart'],\n    actions: [{\n      // single tap\n      type: 'Tap',\n      handlers: {\n        tap: function tap(e) {\n          var components = this.chart.componentsFromPoint(e.center);\n          components.forEach(function (c) {\n            return c.emit('tap', e);\n          });\n        }\n      }\n    }, {\n      type: 'Pan',\n      handlers: {\n        panstart: function onPanStart(e) {\n          var pos = startPos(e);\n          var components = this.chart.componentsFromPoint(pos);\n          components.forEach(function (c) {\n            return c.emit('panStart', e);\n          });\n        },\n        pan: function onPan(e) {\n          e.preventDefault();\n          var pos = startPos(e);\n          var components = this.chart.componentsFromPoint(pos);\n          components.forEach(function (c) {\n            return c.emit('panMove', e);\n          });\n        },\n        panend: function onPanEnd(e) {\n          var pos = startPos(e);\n          var components = this.chart.componentsFromPoint(pos);\n          components.forEach(function (c) {\n            return c.emit('panEnd', e);\n          });\n        }\n      }\n    }]\n  }]\n};\n\nchart = picasso.chart({\n  element: element,\n  created: function created() {\n    var _this = this;\n\n    window.qq.getData('/qHyperCube', {\n      qTop: 0,\n      qLeft: 0,\n      qWidth: 4,\n      qHeight: numberOfVisibleRows\n    }).then(function (d) {\n      _this.update({\n        data: {\n          type: 'q',\n          data: d\n        },\n        settings: settings\n      });\n      _this.scroll('y').on('update', onscroll);\n    });\n  },\n  mounted: function mounted(el) {\n    el.addEventListener('wheel', function (e) {\n      e.preventDefault();\n      var dir = e.deltaY > 0 ? 1 : -1;\n      var diff = Math.max(1, Math.round(Math.abs(e.deltaY / 40)));\n      scroll(diff * dir);\n    });\n  }\n});"
 
 /***/ }),
 /* 151 */
-/*!*************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scale-color/data.js ***!
-  \*************************************************************/
+/*!******************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/scroll-component/data.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\n// To generate random data:\n\nvar rows = 20;\n\nvar randomData = generator.generateRandomData(1, // Number of dimensions\n2, // Number of measures\nrows, // Number of rows\nfalse // If the data is supported to be sorted or not (should be for box plot)\n);\n\nrandomData.forEach(function (row, i) {\n  row.push(i === 0 ? 'm' : i - 1);\n});\n\nvar qLayout = generator.generateDataFromArray(randomData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 4,\n  rows: 1000,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};\n\nfunction resolve(path, obj) {\n  var arr = path.replace(/^\\//, '').split(/\\//);\n  var container = obj;\n\n  var _loop = function _loop(i) {\n    if (!arr[i] && Array.isArray(container)) {\n      return {\n        v: container.map(function (v) {\n          return resolve(arr.slice(i + 1).join('/'), v);\n        })\n      };\n    } else if (arr[i] in container) {\n      container = container[arr[i]];\n    }\n  };\n\n  for (var i = 0; i < arr.length; i++) {\n    var _ret = _loop(i);\n\n    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === \"object\") return _ret.v;\n  }\n  return container;\n}\n\nfunction qData(layout) {\n  function q() {}\n\n  q.getData = function (path, page) {\n    var d = resolve(path, layout);\n\n    var dataPage = d.qDataPages[0];\n    var x = page.qLeft;\n    var y = Math.max(0, Math.min(page.qTop, dataPage.qArea.qHeight - dataPage.qArea.qTop));\n    var height = page.qHeight;\n    var width = page.qWidth;\n    var matrix = dataPage.qMatrix.slice(y, y + height).map(function (row) {\n      return row.slice(x, x + width);\n    });\n    var newPage = {\n      qArea: {\n        qTop: y,\n        qHeight: height,\n        qLeft: x,\n        qWidth: width\n      },\n      qMatrix: matrix\n    };\n\n    var slicedLayout = {\n      qHyperCube: {}\n    };\n    Object.keys(layout.qHyperCube).forEach(function (prop) {\n      if (prop !== 'qDataPages') {\n        slicedLayout.qHyperCube[prop] = layout.qHyperCube[prop];\n      }\n    });\n    slicedLayout.qHyperCube.qDataPages = [newPage];\n    return Promise.resolve(slicedLayout);\n  };\n\n  return q;\n}\n\nwindow.qq = qData(data.data);"
 
 /***/ }),
 /* 152 */
 /*!***************************************!*\
-  !*** ./pages/scale-settings/index.js ***!
+  !*** ./pages/text-example-1/index.js ***!
   \***************************************/
 /*! no static exports found */
 /*! all exports used */
@@ -32686,56 +29800,57 @@ var _registry2 = _interopRequireDefault(_registry);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function page() {
+  var code = _code2.default + '\n\nreturn chart;';
   var data = _data2.default + '\n\nreturn data;';
 
   return {
     description: _description2.default,
-    code: _code2.default,
+    code: code,
     data: data,
-    name: 'Scale settings'
+    name: 'Text dock'
   };
 }
 
-_registry2.default.register('scale-settings', page());
+_registry2.default.register('text-dock', page());
 
 /***/ }),
 /* 153 */
 /*!***********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scale-settings/description.md ***!
+  !*** ./node_modules/raw-loader!./pages/text-example-1/description.md ***!
   \***********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "List and explanation of scale options\r\n"
+module.exports = "List and explanation of text docking options\r\n"
 
 /***/ }),
 /* 154 */
 /*!****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scale-settings/code.js ***!
+  !*** ./node_modules/raw-loader!./pages/text-example-1/code.js ***!
   \****************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    y: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      invert: true // Invert the scale range from [0,1] to [1,0]\n    },\n    yy: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      expand: 0.5 // Expand the min and max of the domain by this multiplier\n    },\n    yyy: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      include: [-100, 100] // Force values to be included into the domain range\n    },\n    yyyy: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      min: -999, // Force a minimum value of the domain\n      max: 999 // Force a maximum value of the domain\n    },\n    yticks: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      ticks: {\n        distance: 30\n        // values: [0, 3, 5]\n      }\n    },\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      padding: 0.5 // Change the inner and outer padding [0-1]\n    },\n    xx: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      paddingInner: 1 // Change the distance between values [0-1]\n    },\n    xxx: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      paddingOuter: 0 // Change the distance between the two outer values [0-1]\n    },\n    xxxx: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      align: 1 // How to shift the left over space [0-1]\n    }\n  },\n  components: [{\n    type: 'axis',\n    scale: 'y',\n    dock: 'top',\n    displayOrder: 1\n  }, { // invert\n    type: 'axis',\n    scale: 'yy',\n    dock: 'top',\n    displayOrder: 3\n  }, { // expand\n    type: 'axis',\n    scale: 'yyy',\n    dock: 'top',\n    displayOrder: 5\n  }, { // include\n    type: 'axis',\n    scale: 'yyyy',\n    dock: 'top',\n    displayOrder: 7\n  }, { // include\n    type: 'axis',\n    scale: 'yticks',\n    dock: 'top',\n    displayOrder: 9\n  }, { // include\n    type: 'axis',\n    scale: 'x',\n    dock: 'bottom',\n    displayOrder: 2\n  }, { // padding\n    type: 'axis',\n    scale: 'xx',\n    dock: 'bottom',\n    displayOrder: 4\n  }, { // paddingInner\n    type: 'axis',\n    scale: 'xxx',\n    dock: 'bottom',\n    displayOrder: 6\n  }, { // paddingOuter\n    type: 'axis',\n    scale: 'xxxx',\n    dock: 'bottom',\n    displayOrder: 8\n  }, { // align\n    type: 'text',\n    text: 'Invert setting',\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Expand setting',\n    dock: 'top',\n    displayOrder: 4,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Include setting',\n    dock: 'top',\n    displayOrder: 6,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Min/Max setting',\n    dock: 'top',\n    displayOrder: 8,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Tick settings',\n    dock: 'top',\n    displayOrder: 10,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Padding',\n    dock: 'bottom',\n    displayOrder: 1,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Inner padding',\n    dock: 'bottom',\n    displayOrder: 3,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Outer padding',\n    dock: 'bottom',\n    displayOrder: 5,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }, {\n    type: 'text',\n    text: 'Align',\n    dock: 'bottom',\n    displayOrder: 7,\n    settings: {\n      style: {\n        fontSize: '10px'\n      }\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: {\n      data: { extract: { field: 'qDimensionInfo/0' } }\n    },\n    y: {\n      data: {\n        extract: {\n          fields: ['qMeasureInfo/0', 'qMeasureInfo/1', 'qMeasureInfo/2', 'qMeasureInfo/3', 'qMeasureInfo/4']\n        }\n      }\n    }\n  },\n  components: [{\n    type: 'text',\n    text: 'Dock: left, anchor: top',\n    dock: 'left',\n    settings: {\n      // Where in to dock in the layout\n      // Where to dock in the local layout, left & Right dock can have top, bottom or center as anchor\n      // Top & Bottom dock can have left, right or center as anchor\n      anchor: 'top'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: left, anchor: center',\n    dock: 'left',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: left, anchor: bottom',\n    dock: 'left',\n    settings: {\n      anchor: 'bottom'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: right, anchor: top',\n    dock: 'right',\n    settings: {\n      anchor: 'top'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: right, anchor: center',\n    dock: 'right',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: right, anchor: bottom',\n    dock: 'right',\n    settings: {\n      anchor: 'bottom'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: top, anchor: left',\n    dock: 'top',\n    settings: {\n      anchor: 'left'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: top, anchor: center',\n    dock: 'top',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: top, anchor: right',\n    dock: 'top',\n    settings: {\n      anchor: 'right'\n    }\n  }, {\n    type: 'text',\n    dock: 'bottom',\n    text: 'Dock: bottom, anchor: left',\n    settings: {\n      anchor: 'left'\n    }\n  }, {\n    type: 'text',\n    dock: 'bottom',\n    text: 'Dock: bottom, anchor: center',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    dock: 'bottom',\n    text: 'Dock: bottom, anchor: right',\n    settings: {\n      anchor: 'right'\n    }\n  }]\n};\n\nvar chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 155 */
 /*!****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scale-settings/data.js ***!
+  !*** ./node_modules/raw-loader!./pages/text-example-1/data.js ***!
   \****************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 2,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 156 */
-/*!*****************************************!*\
-  !*** ./pages/scroll-component/index.js ***!
-  \*****************************************/
+/*!*********************************!*\
+  !*** ./pages/tooltips/index.js ***!
+  \*********************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32769,50 +29884,50 @@ function page() {
     description: _description2.default,
     code: code,
     data: data,
-    name: 'Scroll component'
+    name: 'Tooltips'
   };
 }
 
-_registry2.default.register('scroll-component', page());
+// registry.register('tooltips', page());
 
 /***/ }),
 /* 157 */
-/*!*************************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scroll-component/description.md ***!
-  \*************************************************************************/
+/*!*****************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/tooltips/description.md ***!
+  \*****************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "# Scroll component\n\n> By @mek and @rsv\n\nThis example adds a scroll as a custom DOM component that allows scrolling in the data.\n\nKeep in mind it's a basic implementation that has a bunch of limitations.\n"
+module.exports = "# Tooltips\n\n> By @rsv\n\nTooltips example using a distribution chart. Tooltips will be shown when hovering points, displaying data of the first point.\n"
 
 /***/ }),
 /* 158 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scroll-component/code.js ***!
-  \******************************************************************/
+/*!**********************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/tooltips/code.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nvar numberOfVisibleRows = 40;\n\nfunction resolve(path, obj) {\n  var arr = path.replace(/^\\//, '').split(/\\//);\n  var container = obj;\n\n  var _loop = function _loop(i) {\n    if (!arr[i] && Array.isArray(container)) {\n      return {\n        v: container.map(function (v) {\n          return resolve(arr.slice(i + 1).join('/'), v);\n        })\n      };\n    } else if (arr[i] in container) {\n      container = container[arr[i]];\n    }\n  };\n\n  for (var i = 0; i < arr.length; i++) {\n    var _ret = _loop(i);\n\n    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === \"object\") return _ret.v;\n  }\n  return container;\n}\n\nvar chart = void 0;\n\nfunction onscroll(diff) {\n  var state = chart.scroll('y').getState();\n  window.qq.getData('/qHyperCube', { qTop: state.start, qLeft: 0, qWidth: 4, qHeight: state.viewSize }).then(function (d) {\n    chart.update({\n      partialData: true,\n      data: {\n        type: 'q',\n        data: d\n      }\n    });\n  });\n}\nfunction scroll(diff) {\n  if (!chart || !chart.update) {\n    return;\n  }\n  chart.scroll('y').move(diff);\n}\n\nfunction startPos(event) {\n  return {\n    x: event.center.x - event.deltaX,\n    y: event.center.y - event.deltaY\n  };\n}\n\nvar settings = {\n  scales: {\n    y: {\n      source: '/qHyperCube/qDimensionInfo/0'\n    },\n    x: {\n      source: '/qHyperCube/qMeasureInfo/0',\n      expand: 0.1\n    }\n  },\n  scroll: {\n    y: { viewSize: numberOfVisibleRows, max: data.data.qHyperCube.qSize.qcy }\n  },\n  components: [{\n    type: 'point-marker',\n    key: 'point-marker',\n    data: {\n      mapTo: {\n        y: {\n          source: '/qHyperCube/qDimensionInfo/0',\n          reducer: 'first',\n          type: 'qual'\n        },\n        x: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        b: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      y: {\n        scale: 'y',\n        ref: 'y'\n      },\n      x: {\n        scale: 'x',\n        ref: 'x'\n      }\n    },\n    mounted: function mounted(element) {\n      this.element = element;\n    },\n\n    on: {\n      panStart: function panStart(event) {\n        var containerRect = this.element.getBoundingClientRect();\n        var containerStart = containerRect.top;\n        var length = containerRect.height;\n        var scrollApi = chart.scroll('y');\n        this.startOffset = event.center.y - containerStart;\n        this.startScroll = scrollApi.getState().start;\n      },\n      panMove: function panMove(event) {\n        if (this.startOffset == null) {\n          return;\n        }\n        var containerRect = this.element.getBoundingClientRect();\n        var containerStart = containerRect.top;\n        var length = containerRect.height;\n        var scrollApi = chart.scroll('y');\n        var offset = event.center.y - containerStart;\n        var scrollState = scrollApi.getState();\n        var scrollMove = (this.startOffset - offset) / length * scrollState.viewSize;\n        var scrollStart = this.startScroll + scrollMove;\n        scrollApi.moveTo(scrollStart);\n      },\n      panEnd: function panEnd(event) {\n        if (this.startOffset == null) {\n          return;\n        }\n        var containerRect = this.element.getBoundingClientRect();\n        var containerStart = containerRect.top;\n        var length = containerRect.height;\n        var scrollApi = chart.scroll('y');\n        var offset = event.center.y - containerStart;\n        var scrollState = scrollApi.getState();\n        var scrollMove = (this.startOffset - offset) / length * scrollState.viewSize;\n        var scrollStart = this.startScroll + scrollMove;\n        scrollApi.moveTo(scrollStart);\n\n        this.startOffset = null;\n        this.startScroll = null;\n      },\n      panCancel: function panCancel(event) {\n        this.startOffset = null;\n        this.startScroll = null;\n      }\n    }\n  }, {\n    type: 'axis',\n    key: 'y-axis',\n    scale: 'y',\n    dock: 'left',\n    settings: {\n      ticks: {\n        show: false\n      },\n      line: {\n        show: false\n      }\n    }\n  }, {\n    type: 'axis',\n    key: 'x-axis',\n    scale: 'x',\n    dock: 'bottom'\n  }, {\n    type: 'scrollbar',\n    key: 'scrollbar',\n    dock: 'left',\n    scroll: 'y',\n    settings: {\n      backgroundColor: '#fff'\n    }\n  }],\n  interactions: [{\n    type: 'hammer',\n    key: 'interaction',\n    require: ['chart'],\n    actions: [{\n      // single tap\n      type: 'Tap',\n      handlers: {\n        tap: function tap(e) {\n          var components = this.chart.componentsFromPoint(e.center);\n          components.forEach(function (c) {\n            return c.emit('tap', e);\n          });\n        }\n      }\n    }, {\n      type: 'Pan',\n      handlers: {\n        panstart: function onPanStart(e) {\n          var pos = startPos(e);\n          var components = this.chart.componentsFromPoint(pos);\n          components.forEach(function (c) {\n            return c.emit('panStart', e);\n          });\n        },\n        pan: function onPan(e) {\n          e.preventDefault();\n          var pos = startPos(e);\n          var components = this.chart.componentsFromPoint(pos);\n          components.forEach(function (c) {\n            return c.emit('panMove', e);\n          });\n        },\n        panend: function onPanEnd(e) {\n          var pos = startPos(e);\n          var components = this.chart.componentsFromPoint(pos);\n          components.forEach(function (c) {\n            return c.emit('panEnd', e);\n          });\n        }\n      }\n    }]\n  }]\n};\n\nchart = picasso.chart({\n  element: element,\n  created: function created() {\n    var _this = this;\n\n    window.qq.getData('/qHyperCube', {\n      qTop: 0,\n      qLeft: 0,\n      qWidth: 4,\n      qHeight: numberOfVisibleRows\n    }).then(function (d) {\n      _this.update({\n        data: {\n          type: 'q',\n          data: d\n        },\n        settings: settings\n      });\n      _this.scroll('y').on('update', onscroll);\n    });\n  },\n  mounted: function mounted(el) {\n    el.addEventListener('wheel', function (e) {\n      e.preventDefault();\n      var dir = e.deltaY > 0 ? 1 : -1;\n      var diff = Math.max(1, Math.round(Math.abs(e.deltaY / 40)));\n      scroll(diff * dir);\n    });\n  }\n});"
+module.exports = "/* globals picasso, element, data */\n/* eslint no-mixed-operators: 0 */\n\n'use strict';\n\nvar DEFAULT_STYLE = {\n  position: 'absolute',\n  top: '-99999px',\n  left: '-99999px',\n  minHeight: '28px',\n  maxWidth: '50%',\n  boxSizing: 'border-box',\n  display: 'inline-block',\n  padding: '5px 8px',\n  borderRadius: '3px',\n  fontSize: '13px',\n  zIndex: '1021',\n  color: '#FFFFFF',\n  backgroundColor: 'rgba(0, 0, 0, 0.9)'\n};\n\nfunction tooltip() {\n  var element = null;\n\n  var fn = function fn() {};\n\n  fn.format = function (rows) {\n    return '<table>\\n      <tbody>\\n      ' + rows.map(function (row) {\n      return '<tr>\\n          <td style=\"padding-right: 10px;\"><b>' + row.key + '</b></td>\\n          <td>' + row.value + '</td>\\n        </tr>';\n    }).join('') + '\\n      </tbody>\\n    </table>';\n  };\n\n  fn.show = function () {\n    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};\n\n    if (!element) {\n      var x = options.x,\n          y = options.y,\n          html = options.html,\n          _options$style = options.style,\n          style = _options$style === undefined ? {} : _options$style;\n\n      var left = x;\n      var top = y;\n\n      element = document.createElement('div');\n      element.innerHTML = html;\n\n      Object.keys(DEFAULT_STYLE).forEach(function (key) {\n        element.style[key] = DEFAULT_STYLE[key];\n      });\n      Object.keys(style).forEach(function (key) {\n        element.style[key] = style[key];\n      });\n\n      var containerElement = options.appendToElement || document.body;\n      containerElement.appendChild(element);\n\n      element.style.top = top - element.clientHeight + 'px';\n      element.style.left = left - element.clientWidth / 2 + 'px';\n    }\n  };\n\n  fn.hide = function () {\n    if (element) {\n      var first = element.firstChild;\n\n      while (first) {\n        element.removeChild(first);\n        first = element.firstChild;\n      }\n      element.parentElement.removeChild(element);\n      element = null;\n    }\n  };\n\n  return fn;\n}\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    y: {\n      data: { extract: { field: 'qDimensionInfo/0' } },\n      ticks: {\n        tight: false\n      }\n    },\n    x: {\n      data: { extract: { field: 'qMeasureInfo/0' } },\n      expand: 0.2\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      extract: {\n        key: 'qHyperCube',\n        field: 'qDimensionInfo/0',\n        props: {\n          start: { field: 'qMeasureInfo/0', reduce: 'min' },\n          end: { field: 'qMeasureInfo/0', reduce: 'max' }\n        }\n      }\n    },\n    settings: {\n      major: {\n        scale: 'y'\n      },\n      minor: {\n        scale: 'x'\n      },\n      box: {\n        fill: 'rgba(100, 100, 100, 0.15)',\n        stroke: 'red',\n        strokeWidth: 0,\n        width: 0.5\n      },\n      orientation: 'horizontal'\n    }\n  }, {\n    type: 'point-marker',\n    require: ['renderer'],\n    created: function created() {\n      this.tooltip = tooltip();\n    },\n    mounted: function mounted(element) {\n      this.element = element;\n    },\n\n    on: {\n      mousemove: function mousemove(e) {\n        var _this = this;\n\n        var items = this.renderer.itemsAt({\n          x: e.offsetX,\n          y: e.offsetY\n        });\n        if (items.length) {\n          var bounds = [];\n          var _data = [];\n          items.forEach(function (item) {\n            _data.push(_this.data[item.node.data]);\n            bounds.push(item.node.bounds);\n          });\n\n          // Only handles the first point\n          var svgRect = this.element.getBoundingClientRect();\n          var html = this.tooltip.format([{\n            key: 'Team',\n            value: _data[0].self.value\n          }, {\n            key: 'City',\n            value: _data[0].y.value\n          }, {\n            key: 'Value',\n            value: _data[0].x.value\n          }]);\n          this.tooltip.show({\n            x: bounds[0].x - bounds[0].width / 2 + svgRect.left,\n            y: bounds[0].y + svgRect.top - 10,\n            html: html\n          });\n        } else {\n          this.tooltip.hide();\n        }\n      },\n      mouseout: function mouseout(e) {\n        this.tooltip.hide();\n      }\n    },\n    data: {\n      extract: {\n        field: 'qDimensionInfo/1',\n        trackBy: '$index',\n        props: {\n          x: {\n            field: 'qMeasureInfo/0'\n          },\n          m1: {\n            field: 'qMeasureInfo/1'\n          },\n          y: {\n            field: 'qDimensionInfo/0',\n            reduce: 'first',\n            type: 'qual'\n          }\n        }\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x',\n        ref: 'x'\n      },\n      y: {\n        scale: 'y',\n        ref: 'y'\n      },\n      fill: {\n        ref: 'm1',\n        scale: {\n          data: { extract: { field: 'qMeasureInfo/1' } },\n          type: 'color'\n        }\n      },\n      opacity: 0.8,\n      size: 0.5,\n      stroke: '#fff',\n      strokeWidth: 1\n    }\n  }, {\n    type: 'axis',\n    dock: 'bottom',\n    scale: 'x'\n  }, {\n    type: 'axis',\n    scale: 'y',\n    dock: 'left'\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\nvar chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 159 */
-/*!******************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/scroll-component/data.js ***!
-  \******************************************************************/
+/*!**********************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/tooltips/data.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar _typeof = typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; };\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 4,\n  rows: 1000,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};\n\nfunction resolve(path, obj) {\n  var arr = path.replace(/^\\//, '').split(/\\//);\n  var container = obj;\n\n  var _loop = function _loop(i) {\n    if (!arr[i] && Array.isArray(container)) {\n      return {\n        v: container.map(function (v) {\n          return resolve(arr.slice(i + 1).join('/'), v);\n        })\n      };\n    } else if (arr[i] in container) {\n      container = container[arr[i]];\n    }\n  };\n\n  for (var i = 0; i < arr.length; i++) {\n    var _ret = _loop(i);\n\n    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === \"object\") return _ret.v;\n  }\n  return container;\n}\n\nfunction qData(layout) {\n  function q() {}\n\n  q.getData = function (path, page) {\n    var d = resolve(path, layout);\n\n    var dataPage = d.qDataPages[0];\n    var x = page.qLeft;\n    var y = Math.max(0, Math.min(page.qTop, dataPage.qArea.qHeight - dataPage.qArea.qTop));\n    var height = page.qHeight;\n    var width = page.qWidth;\n    var matrix = dataPage.qMatrix.slice(y, y + height).map(function (row) {\n      return row.slice(x, x + width);\n    });\n    var newPage = {\n      qArea: {\n        qTop: y,\n        qHeight: height,\n        qLeft: x,\n        qWidth: width\n      },\n      qMatrix: matrix\n    };\n\n    var slicedLayout = {\n      qHyperCube: {}\n    };\n    Object.keys(layout.qHyperCube).forEach(function (prop) {\n      if (prop !== 'qDataPages') {\n        slicedLayout.qHyperCube[prop] = layout.qHyperCube[prop];\n      }\n    });\n    slicedLayout.qHyperCube.qDataPages = [newPage];\n    return Promise.resolve(slicedLayout);\n  };\n\n  return q;\n}\n\nwindow.qq = qData(data.data);"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 2,\n  measures: 2,\n  rows: 300,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
 /* 160 */
-/*!***************************************!*\
-  !*** ./pages/text-example-1/index.js ***!
-  \***************************************/
+/*!*************************************!*\
+  !*** ./pages/update-chart/index.js ***!
+  \*************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32840,55 +29955,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function page() {
   var data = _data2.default + '\n\nreturn data;';
+  var code = _code2.default + '\n\nreturn window.chart;';
 
   return {
     description: _description2.default,
-    code: _code2.default,
+    code: code,
     data: data,
-    name: 'Text dock'
+    name: 'Update chart'
   };
 }
 
-_registry2.default.register('text-dock', page());
+// registry.register('update-chart', page());
 
 /***/ }),
 /* 161 */
-/*!***********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/text-example-1/description.md ***!
-  \***********************************************************************/
+/*!*********************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/update-chart/description.md ***!
+  \*********************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "List and explanation of text docking options\r\n"
+module.exports = "# Update chart\n\n> By @rsv\n\nThis example provides controls to update the data with new data / and or settings.\n\nThe \"Update settings\" button will toggle between `settings` and `newSettings`. Note that the `key` property must match between components in them for updates to work properly.\nThe \"Update data\" button will generate (fairly) random data through the `genData` function.\n\nIt has a custom component, `updatebar`, that can be copied to other examples in order to test update functionality elsewhere.\n"
 
 /***/ }),
 /* 162 */
-/*!****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/text-example-1/code.js ***!
-  \****************************************************************/
+/*!**************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/update-chart/code.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0'\n    },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4']\n    }\n  },\n  components: [{\n    type: 'text',\n    text: 'Dock: left, anchor: top',\n    dock: 'left',\n    settings: {\n      // Where in to dock in the layout\n      // Where to dock in the local layout, left & Right dock can have top, bottom or center as anchor\n      // Top & Bottom dock can have left, right or center as anchor\n      anchor: 'top'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: left, anchor: center',\n    dock: 'left',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: left, anchor: bottom',\n    dock: 'left',\n    settings: {\n      anchor: 'bottom'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: right, anchor: top',\n    dock: 'right',\n    settings: {\n      anchor: 'top'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: right, anchor: center',\n    dock: 'right',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: right, anchor: bottom',\n    dock: 'right',\n    settings: {\n      anchor: 'bottom'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: top, anchor: left',\n    dock: 'top',\n    settings: {\n      anchor: 'left'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: top, anchor: center',\n    dock: 'top',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    text: 'Dock: top, anchor: right',\n    dock: 'top',\n    settings: {\n      anchor: 'right'\n    }\n  }, {\n    type: 'text',\n    dock: 'bottom',\n    text: 'Dock: bottom, anchor: left',\n    settings: {\n      anchor: 'left'\n    }\n  }, {\n    type: 'text',\n    dock: 'bottom',\n    text: 'Dock: bottom, anchor: center',\n    settings: {\n      anchor: 'center'\n    }\n  }, {\n    type: 'text',\n    dock: 'bottom',\n    text: 'Dock: bottom, anchor: right',\n    settings: {\n      anchor: 'right'\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
+module.exports = "'use strict';\n\n/* globals picasso, element, data, generator, customGenerator */\n\nvar settings = {\n  formatters: {\n    customFormatter: {\n      formatter: 'd3', // The type of formatter to use\n      type: 'number', // The type of data to format\n      format: '.0s' // Format pattern\n    }\n  },\n  scales: {\n    x: { source: '/qHyperCube/qDimensionInfo/0', padding: 0.2 },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4'],\n      expand: 0.1,\n      invert: true,\n      ticks: { tight: false }\n    }\n  },\n  components: [{\n    key: 0,\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: { source: '/qHyperCube/qMeasureInfo/0' },\n        start: { source: '/qHyperCube/qMeasureInfo/1' },\n        med: { source: '/qHyperCube/qMeasureInfo/2' },\n        end: { source: '/qHyperCube/qMeasureInfo/3' },\n        max: { source: '/qHyperCube/qMeasureInfo/4' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: { scale: 'x' },\n      minor: { scale: 'y' },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      }\n    }\n  }, {\n    key: 1,\n    type: 'axis',\n    scale: 'y',\n    formatter: 'customFormatter',\n    settings: {\n      align: 'left'\n    }\n  }, {\n    key: 2,\n    type: 'axis',\n    scale: 'x'\n  }, {\n    key: 3,\n    type: 'text',\n    text: 'Measure axis',\n    dock: 'left'\n  }, {\n    key: 4,\n    type: 'text',\n    text: 'Dimension axis',\n    dock: 'bottom'\n  }, {\n    key: 5,\n    type: 'updatebar',\n    dock: 'bottom'\n  }]\n};\n\nvar nextSettings = {\n  scales: {\n    x: { source: '/qHyperCube/qDimensionInfo/0' },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4'],\n      expand: 0.1,\n      invert: true\n    }\n  },\n  components: [{\n    key: 0,\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: { source: '/qHyperCube/qMeasureInfo/0' },\n        start: { source: '/qHyperCube/qMeasureInfo/1' },\n        med: { source: '/qHyperCube/qMeasureInfo/2' },\n        end: { source: '/qHyperCube/qMeasureInfo/3' },\n        max: { source: '/qHyperCube/qMeasureInfo/4' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: { scale: 'x' },\n      minor: { scale: 'y' },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      }\n    }\n  }, {\n    key: 1,\n    type: 'axis',\n    scale: 'y',\n    settings: {\n      align: 'left'\n    }\n  }, {\n    key: 2,\n    type: 'axis',\n    scale: 'x'\n  }, {\n    key: 3,\n    type: 'text',\n    text: 'Measure axis 2',\n    dock: 'left'\n  }, {\n    key: 4,\n    type: 'text',\n    text: 'Dimension axis 2',\n    dock: 'bottom'\n  }, {\n    key: 5,\n    type: 'updatebar',\n    dock: 'bottom'\n  }, {\n    key: 6,\n    type: 'grid-line',\n    y: { scale: 'y' },\n    displayOrder: -1\n  }]\n};\n\npicasso.component('updatebar', {\n  dock: 'bottom',\n  renderer: 'dom',\n  created: function created(opts) {\n    this.chartSettings = settings;\n    this.msg = '';\n  },\n  preferredSize: function preferredSize(dockOpts) {\n    return 50;\n  },\n  render: function render(h) {\n    var _this = this;\n\n    var updateData = function updateData(e) {\n      _this.msg = 'Updated data'; // The update function below will re-trigger the render function\n\n      var start = Math.floor(Math.random() * 1000) - 2001;\n      var end = Math.floor(Math.random() * 10000) + 1;\n      var newRandomStringsData = customGenerator.generateRandomStringData({\n        dimensions: 1,\n        measures: 5,\n        rows: 15,\n        dataRange: [start, end],\n        sorted: true,\n        sortAlphabetically: true,\n        chars: 5,\n        joinChar: '',\n        upperCase: true\n      });\n\n      var data = {\n        type: 'q',\n        data: generator.generateDataFromArray(newRandomStringsData)\n      };\n\n      window.chart.update({\n        data: data\n      });\n    };\n\n    var updateSettings = function updateSettings(e) {\n      _this.msg = 'Updated settings'; // The update function below will re-trigger the render function\n      var nextChartSettings = _this.chartSettings === settings ? nextSettings : settings;\n      window.chart.update({\n        settings: nextChartSettings\n      });\n      _this.chartSettings = nextChartSettings;\n    };\n\n    return h(\n      'div',\n      {\n        style: {\n          margin: 'padding: 10px'\n        }\n      },\n      [].concat(h(\n        'button',\n        {\n          on: {\n            click: updateData\n          }\n        },\n        [].concat('Update data')\n      ), h(\n        'button',\n        {\n          on: {\n            click: updateSettings\n          },\n          style: {\n            margin: '10px'\n          }\n        },\n        [].concat('Update settings')\n      ), h(\n        'span',\n        {\n          style: {\n            color: 'darkgreen',\n            margin: '10px'\n          }\n        },\n        [].concat(this.msg)\n      ))\n    );\n  }\n});\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\nwindow.chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
 /* 163 */
-/*!****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/text-example-1/data.js ***!
-  \****************************************************************/
+/*!**************************************************************!*\
+  !*** ./node_modules/raw-loader!./pages/update-chart/data.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
+module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
 
 /***/ }),
 /* 164 */
-/*!***************************************!*\
-  !*** ./pages/text-example-2/index.js ***!
-  \***************************************/
+/*!**********************************!*\
+  !*** ./pages/waterfall/index.js ***!
+  \**********************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32921,235 +30037,6 @@ function page() {
     description: _description2.default,
     code: _code2.default,
     data: data,
-    name: 'Text data sources'
-  };
-}
-
-_registry2.default.register('text-data', page());
-
-/***/ }),
-/* 165 */
-/*!***********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/text-example-2/description.md ***!
-  \***********************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "List and explanation of text settings\r\n"
-
-/***/ }),
-/* 166 */
-/*!****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/text-example-2/code.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* globals picasso, element, data */\n\nvar settings = {\n  scales: {\n    x: {\n      source: '/qHyperCube/qDimensionInfo/0'\n    },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4']\n    }\n  },\n  components: [{\n    type: 'text',\n    scale: 'x', // Fetch text from scale\n    dock: 'left'\n  }, {\n    type: 'text',\n    scale: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1']\n    }, // Fetch text from multiple data sources\n    dock: 'bottom',\n    settings: {\n      join: ' # ' // Specify string to join the data with,\n    }\n  }, {\n    type: 'text',\n    scale: {\n      source: '/qHyperCube/qMeasureInfo/0'\n    }, // Fetch text from single data source\n    dock: 'bottom'\n  }, {\n    type: 'text',\n    text: function text(t) {\n      return 'My text function: ' + t.findField('/qHyperCube/qDimensionInfo/0').title();\n    },\n    dock: 'right'\n  }, {\n    type: 'text',\n    text: 'Text with custom padding and style',\n    dock: 'top',\n    settings: {\n      padding: 15,\n      style: {\n        fontSize: '25px',\n        fontFamily: 'Arial',\n        fill: '#193'\n      }\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
-
-/***/ }),
-/* 167 */
-/*!****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/text-example-2/data.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true\n});\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 1000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
-
-/***/ }),
-/* 168 */
-/*!*********************************!*\
-  !*** ./pages/tooltips/index.js ***!
-  \*********************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _description = __webpack_require__(/*! raw-loader!./description.md */ 169);
-
-var _description2 = _interopRequireDefault(_description);
-
-var _code = __webpack_require__(/*! raw-loader!./code */ 170);
-
-var _code2 = _interopRequireDefault(_code);
-
-var _data = __webpack_require__(/*! raw-loader!./data */ 171);
-
-var _data2 = _interopRequireDefault(_data);
-
-var _registry = __webpack_require__(/*! ../registry */ 0);
-
-var _registry2 = _interopRequireDefault(_registry);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function page() {
-  var data = _data2.default + '\n\nreturn data;';
-
-  return {
-    description: _description2.default,
-    code: _code2.default,
-    data: data,
-    name: 'Tooltips'
-  };
-}
-
-_registry2.default.register('tooltips', page());
-
-/***/ }),
-/* 169 */
-/*!*****************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/tooltips/description.md ***!
-  \*****************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "# Tooltips\n\n> By @rsv\n\nTooltips example using a distribution chart. Tooltips will be shown when hovering points, displaying data of the first point.\n"
-
-/***/ }),
-/* 170 */
-/*!**********************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/tooltips/code.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "/* globals picasso, element, data */\n/* eslint no-mixed-operators: 0 */\n\n'use strict';\n\nvar DEFAULT_STYLE = {\n  position: 'absolute',\n  top: '-99999px',\n  left: '-99999px',\n  minHeight: '28px',\n  maxWidth: '50%',\n  boxSizing: 'border-box',\n  display: 'inline-block',\n  padding: '5px 8px',\n  borderRadius: '3px',\n  fontSize: '13px',\n  zIndex: '1021',\n  color: '#FFFFFF',\n  backgroundColor: 'rgba(0, 0, 0, 0.9)'\n};\n\nfunction tooltip() {\n  var element = null;\n\n  var fn = function fn() {};\n\n  fn.format = function (rows) {\n    return '<table>\\n      <tbody>\\n      ' + rows.map(function (row) {\n      return '<tr>\\n          <td style=\"padding-right: 10px;\"><b>' + row.key + '</b></td>\\n          <td>' + row.value + '</td>\\n        </tr>';\n    }).join('') + '\\n      </tbody>\\n    </table>';\n  };\n\n  fn.show = function () {\n    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};\n\n    if (!element) {\n      var x = options.x,\n          y = options.y,\n          html = options.html,\n          _options$style = options.style,\n          style = _options$style === undefined ? {} : _options$style;\n\n      var left = x;\n      var top = y;\n\n      element = document.createElement('div');\n      element.innerHTML = html;\n\n      Object.keys(DEFAULT_STYLE).forEach(function (key) {\n        element.style[key] = DEFAULT_STYLE[key];\n      });\n      Object.keys(style).forEach(function (key) {\n        element.style[key] = style[key];\n      });\n\n      var containerElement = options.appendToElement || document.body;\n      containerElement.appendChild(element);\n\n      element.style.top = top - element.clientHeight + 'px';\n      element.style.left = left - element.clientWidth / 2 + 'px';\n    }\n  };\n\n  fn.hide = function () {\n    if (element) {\n      var first = element.firstChild;\n\n      while (first) {\n        element.removeChild(first);\n        first = element.firstChild;\n      }\n      element.parentElement.removeChild(element);\n      element = null;\n    }\n  };\n\n  return fn;\n}\n\n// The layout is recieved from the Data tab as \"qLayout\" variable\n\nvar settings = {\n  scales: {\n    y: {\n      source: '/qHyperCube/qDimensionInfo/0',\n      ticks: {\n        tight: false\n      }\n    },\n    x: {\n      source: ['/qHyperCube/qMeasureInfo/0'],\n      expand: 0.2\n    }\n  },\n  components: [{\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        start: {\n          source: '/qHyperCube/qMeasureInfo/0',\n          reducer: 'min'\n        },\n        end: {\n          source: '/qHyperCube/qMeasureInfo/0',\n          reducer: 'max'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: {\n        scale: 'y'\n      },\n      minor: {\n        scale: 'x'\n      },\n      box: {\n        fill: 'rgba(100, 100, 100, 0.15)',\n        stroke: 'red',\n        strokeWidth: 0,\n        width: 0.5\n      },\n      orientation: 'horizontal'\n    }\n  }, {\n    type: 'point-marker',\n    require: ['renderer'],\n    created: function created() {\n      this.tooltip = tooltip();\n    },\n    mounted: function mounted(element) {\n      this.element = element;\n    },\n\n    on: {\n      mousemove: function mousemove(e) {\n        var _this = this;\n\n        var items = this.renderer.itemsAt({\n          x: e.offsetX,\n          y: e.offsetY\n        });\n        if (items.length) {\n          var bounds = [];\n          var _data = [];\n          items.forEach(function (item) {\n            _data.push(_this.data[item.node.data]);\n            bounds.push(item.node.bounds);\n          });\n\n          // Only handles the first point\n          var svgRect = this.element.getBoundingClientRect();\n          var html = this.tooltip.format([{\n            key: 'Team',\n            value: _data[0].self.value\n          }, {\n            key: 'City',\n            value: _data[0].y.value\n          }, {\n            key: 'Value',\n            value: _data[0].x.value\n          }]);\n          this.tooltip.show({\n            x: bounds[0].x - bounds[0].width / 2 + svgRect.left,\n            y: bounds[0].y + svgRect.top - 10,\n            html: html\n          });\n        } else {\n          this.tooltip.hide();\n        }\n      },\n      mouseout: function mouseout(e) {\n        this.tooltip.hide();\n      }\n    },\n    data: {\n      mapTo: {\n        x: {\n          source: '/qHyperCube/qMeasureInfo/0'\n        },\n        m1: {\n          source: '/qHyperCube/qMeasureInfo/1'\n        },\n        y: {\n          source: '/qHyperCube/qDimensionInfo/0',\n          reducer: 'first',\n          type: 'qual'\n        }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/1',\n        trackBy: '$index'\n      }\n    },\n    settings: {\n      x: {\n        scale: 'x',\n        ref: 'x'\n      },\n      y: {\n        scale: 'y',\n        ref: 'y'\n      },\n      // fill: 'steelblue',\n      fill: {\n        ref: 'm1',\n        scale: {\n          source: '/qHyperCube/qMeasureInfo/1',\n          type: 'color'\n        }\n      },\n      opacity: 0.8,\n      size: 0.5,\n      stroke: '#fff',\n      strokeWidth: 1\n    }\n  }, {\n    type: 'axis',\n    dock: 'bottom',\n    scale: 'x'\n  }, {\n    type: 'axis',\n    scale: 'y',\n    dock: 'left'\n  }]\n};\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
-
-/***/ }),
-/* 171 */
-/*!**********************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/tooltips/data.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\nvar teamData = customGenerator.generateTeamNameData({\n  dimensions: 2,\n  measures: 2,\n  rows: 300,\n  dataRange: [10, 100],\n  sorted: false,\n  sortAlphabetically: false\n});\n\nvar qLayout = generator.generateDataFromArray(teamData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
-
-/***/ }),
-/* 172 */
-/*!*************************************!*\
-  !*** ./pages/update-chart/index.js ***!
-  \*************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _description = __webpack_require__(/*! raw-loader!./description.md */ 173);
-
-var _description2 = _interopRequireDefault(_description);
-
-var _code = __webpack_require__(/*! raw-loader!./code */ 174);
-
-var _code2 = _interopRequireDefault(_code);
-
-var _data = __webpack_require__(/*! raw-loader!./data */ 175);
-
-var _data2 = _interopRequireDefault(_data);
-
-var _registry = __webpack_require__(/*! ../registry */ 0);
-
-var _registry2 = _interopRequireDefault(_registry);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function page() {
-  var data = _data2.default + '\n\nreturn data;';
-  var code = _code2.default + '\n\nreturn window.chart;';
-
-  return {
-    description: _description2.default,
-    code: code,
-    data: data,
-    name: 'Update chart'
-  };
-}
-
-_registry2.default.register('update-chart', page());
-
-/***/ }),
-/* 173 */
-/*!*********************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/update-chart/description.md ***!
-  \*********************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "# Update chart\n\n> By @rsv\n\nThis example provides controls to update the data with new data / and or settings.\n\nThe \"Update settings\" button will toggle between `settings` and `newSettings`. Note that the `key` property must match between components in them for updates to work properly.\nThe \"Update data\" button will generate (fairly) random data through the `genData` function.\n\nIt has a custom component, `updatebar`, that can be copied to other examples in order to test update functionality elsewhere.\n"
-
-/***/ }),
-/* 174 */
-/*!**************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/update-chart/code.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* globals picasso, element, data, generator, customGenerator */\n\nvar settings = {\n  formatters: {\n    customFormatter: {\n      formatter: 'd3', // The type of formatter to use\n      type: 'number', // The type of data to format\n      format: '.0s' // Format pattern\n    }\n  },\n  scales: {\n    x: { source: '/qHyperCube/qDimensionInfo/0', padding: 0.2 },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4'],\n      expand: 0.1,\n      invert: true,\n      ticks: { tight: false }\n    }\n  },\n  components: [{\n    key: 0,\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: { source: '/qHyperCube/qMeasureInfo/0' },\n        start: { source: '/qHyperCube/qMeasureInfo/1' },\n        med: { source: '/qHyperCube/qMeasureInfo/2' },\n        end: { source: '/qHyperCube/qMeasureInfo/3' },\n        max: { source: '/qHyperCube/qMeasureInfo/4' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: { scale: 'x' },\n      minor: { scale: 'y' },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      }\n    }\n  }, {\n    key: 1,\n    type: 'axis',\n    scale: 'y',\n    formatter: 'customFormatter',\n    settings: {\n      align: 'left'\n    }\n  }, {\n    key: 2,\n    type: 'axis',\n    scale: 'x'\n  }, {\n    key: 3,\n    type: 'text',\n    text: 'Measure axis',\n    dock: 'left'\n  }, {\n    key: 4,\n    type: 'text',\n    text: 'Dimension axis',\n    dock: 'bottom'\n  }, {\n    key: 5,\n    type: 'updatebar',\n    dock: 'bottom'\n  }]\n};\n\nvar nextSettings = {\n  scales: {\n    x: { source: '/qHyperCube/qDimensionInfo/0' },\n    y: {\n      source: ['/qHyperCube/qMeasureInfo/0', '/qHyperCube/qMeasureInfo/1', '/qHyperCube/qMeasureInfo/2', '/qHyperCube/qMeasureInfo/3', '/qHyperCube/qMeasureInfo/4'],\n      expand: 0.1,\n      invert: true\n    }\n  },\n  components: [{\n    key: 0,\n    type: 'box-marker',\n    data: {\n      mapTo: {\n        min: { source: '/qHyperCube/qMeasureInfo/0' },\n        start: { source: '/qHyperCube/qMeasureInfo/1' },\n        med: { source: '/qHyperCube/qMeasureInfo/2' },\n        end: { source: '/qHyperCube/qMeasureInfo/3' },\n        max: { source: '/qHyperCube/qMeasureInfo/4' }\n      },\n      groupBy: {\n        source: '/qHyperCube/qDimensionInfo/0'\n      }\n    },\n    settings: {\n      major: { scale: 'x' },\n      minor: { scale: 'y' },\n      whisker: {\n        stroke: 'gray',\n        strokeWidth: 2\n      },\n      box: {\n        fill: 'lightgray',\n        stroke: 'gray'\n      },\n      median: {\n        strokeWidth: 1,\n        stroke: 'gray'\n      }\n    }\n  }, {\n    key: 1,\n    type: 'axis',\n    scale: 'y',\n    settings: {\n      align: 'left'\n    }\n  }, {\n    key: 2,\n    type: 'axis',\n    scale: 'x'\n  }, {\n    key: 3,\n    type: 'text',\n    text: 'Measure axis 2',\n    dock: 'left'\n  }, {\n    key: 4,\n    type: 'text',\n    text: 'Dimension axis 2',\n    dock: 'bottom'\n  }, {\n    key: 5,\n    type: 'updatebar',\n    dock: 'bottom'\n  }, {\n    key: 6,\n    type: 'grid-line',\n    y: { scale: 'y' },\n    displayOrder: -1\n  }]\n};\n\npicasso.component('updatebar', {\n  dock: 'bottom',\n  renderer: 'dom',\n  created: function created(opts) {\n    this.chartSettings = settings;\n    this.msg = '';\n  },\n  preferredSize: function preferredSize(dockOpts) {\n    return 50;\n  },\n  render: function render(h) {\n    var _this = this;\n\n    var updateData = function updateData(e) {\n      _this.msg = 'Updated data'; // The update function below will re-trigger the render function\n\n      var start = Math.floor(Math.random() * 1000) - 2001;\n      var end = Math.floor(Math.random() * 10000) + 1;\n      var newRandomStringsData = customGenerator.generateRandomStringData({\n        dimensions: 1,\n        measures: 5,\n        rows: 15,\n        dataRange: [start, end],\n        sorted: true,\n        sortAlphabetically: true,\n        chars: 5,\n        joinChar: '',\n        upperCase: true\n      });\n\n      var data = {\n        type: 'q',\n        data: generator.generateDataFromArray(newRandomStringsData)\n      };\n\n      window.chart.update({\n        data: data\n      });\n    };\n\n    var updateSettings = function updateSettings(e) {\n      _this.msg = 'Updated settings'; // The update function below will re-trigger the render function\n      var nextChartSettings = _this.chartSettings === settings ? nextSettings : settings;\n      window.chart.update({\n        settings: nextChartSettings\n      });\n      _this.chartSettings = nextChartSettings;\n    };\n\n    return h(\n      'div',\n      {\n        style: {\n          margin: 'padding: 10px'\n        }\n      },\n      [].concat(h(\n        'button',\n        {\n          on: {\n            click: updateData\n          }\n        },\n        [].concat('Update data')\n      ), h(\n        'button',\n        {\n          on: {\n            click: updateSettings\n          },\n          style: {\n            margin: '10px'\n          }\n        },\n        [].concat('Update settings')\n      ), h(\n        'span',\n        {\n          style: {\n            color: 'darkgreen',\n            margin: '10px'\n          }\n        },\n        [].concat(this.msg)\n      ))\n    );\n  }\n});\n\n// Use picasso.chart with the painting element recieved as \"element\",\n// and the data & settings you provided\nwindow.chart = picasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
-
-/***/ }),
-/* 175 */
-/*!**************************************************************!*\
-  !*** ./node_modules/raw-loader!./pages/update-chart/data.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = "'use strict';\n\n/* global generator, customGenerator */\n\n// When loading data we have access to the Hypercube Generator class as the \"generator\" variable\n\nvar randomStringsData = customGenerator.generateRandomStringData({\n  dimensions: 1,\n  measures: 5,\n  rows: 15,\n  dataRange: [0, 10000],\n  sorted: true,\n  sortAlphabetically: true,\n  chars: 5,\n  joinChar: '',\n  upperCase: true\n});\n\nvar qLayout = generator.generateDataFromArray(randomStringsData);\n\nvar data = {\n  type: 'q',\n  data: qLayout\n};"
-
-/***/ }),
-/* 176 */
-/*!**********************************!*\
-  !*** ./pages/waterfall/index.js ***!
-  \**********************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _description = __webpack_require__(/*! raw-loader!./description.md */ 177);
-
-var _description2 = _interopRequireDefault(_description);
-
-var _code = __webpack_require__(/*! raw-loader!./code */ 178);
-
-var _code2 = _interopRequireDefault(_code);
-
-var _data = __webpack_require__(/*! raw-loader!./data */ 179);
-
-var _data2 = _interopRequireDefault(_data);
-
-var _registry = __webpack_require__(/*! ../registry */ 0);
-
-var _registry2 = _interopRequireDefault(_registry);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function page() {
-  var data = _data2.default + '\n\nreturn data;';
-
-  return {
-    description: _description2.default,
-    code: _code2.default,
-    data: data,
     name: 'Waterfall chart'
   };
 }
@@ -33157,7 +30044,7 @@ function page() {
 _registry2.default.register('waterfall', page());
 
 /***/ }),
-/* 177 */
+/* 165 */
 /*!******************************************************************!*\
   !*** ./node_modules/raw-loader!./pages/waterfall/description.md ***!
   \******************************************************************/
@@ -33168,7 +30055,7 @@ _registry2.default.register('waterfall', page());
 module.exports = "# Waterfall chart\n\nA basic waterfall chart with:\n\n- color coded bars based on value\n- 'smart' label placement\n- label color based on bar color\n- 'bridge' layer connecting bars\n- duplicate labels on discrete axis\n  - the values are tracked by id due to the `trackBy: 'id'` settings on `dim` scale\n"
 
 /***/ }),
-/* 178 */
+/* 166 */
 /*!***********************************************************!*\
   !*** ./node_modules/raw-loader!./pages/waterfall/code.js ***!
   \***********************************************************/
@@ -33179,7 +30066,7 @@ module.exports = "# Waterfall chart\n\nA basic waterfall chart with:\n\n- color 
 module.exports = "/* globals picasso, element, data */\n\n'use strict';\n\nvar _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"]) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError(\"Invalid attempt to destructure non-iterable instance\"); } }; }();\n\nvar d0 = 'qDimensionInfo/0';\nvar d1 = 'qDimensionInfo/1';\nvar d2 = 'qDimensionInfo/2';\nvar m0 = 'qMeasureInfo/0';\nvar m1 = 'qMeasureInfo/1';\n\nvar barWidthRatio = 0.6;\n\nvar rHex = /^\\s*#([A-Fa-f0-9]{2})([A-f0-A-Fa-f0-9]{2})([A-Fa-f0-9]{2})\\s*$/i;\nvar rHexShort = /^\\s*#([A-Fa-f0-9])([A-Fa-f0-9])([A-Fa-f0-9])\\s*$/i;\n\nfunction hexToRgb(colStr) {\n  var _slice$map = (rHex.exec(colStr) || rHexShort.exec(colStr) || []).slice(1).map(function (v) {\n    return parseInt(v.length === 1 ? v + v : v, 16);\n  }),\n      _slice$map2 = _slicedToArray(_slice$map, 3),\n      r = _slice$map2[0],\n      g = _slice$map2[1],\n      b = _slice$map2[2];\n\n  return { r: r, g: g, b: b };\n}\n\nfunction luminance(c) {\n  /* eslint no-restricted-properties: 0*/\n  var lum = Math.sqrt(0.299 * Math.pow(c.r, 2) + 0.587 * Math.pow(c.g, 2) + 0.114 * Math.pow(c.b, 2));\n  return lum / 255;\n}\n\nfunction isDark(color) {\n  return luminance(hexToRgb(color)) < 0.49;\n}\n\nvar settings = {\n  scales: {\n    dim: {\n      data: { extract: { field: d0, value: function value(v) {\n            return v;\n          } } },\n      value: function value(v) {\n        return v.value.qElemNumber;\n      },\n      label: function label(v) {\n        return v.value.qText;\n      },\n      maxPxStep: 200\n    },\n    metric: {\n      data: { extract: { field: m1 } },\n      invert: true,\n      max: 700,\n      include: [0]\n    },\n    color: {\n      range: ['#4682b4', '#f33', '#aaa'],\n      domain: ['Positive', 'Negative', 'Subtotal'],\n      type: 'categorical-color'\n    }\n  },\n  components: [{\n    type: 'grid-line',\n    y: 'metric'\n  }, {\n    type: 'legend-cat',\n    dock: 'top',\n    scale: 'color',\n    title: { show: false },\n    preferredSize: function preferredSize() {\n      return 32;\n    }\n  }, {\n    type: 'box-marker',\n    key: 'bars',\n    data: {\n      extract: {\n        field: d0,\n        props: {\n          start: { field: m0 },\n          end: { field: m1 },\n          label: { field: m1, value: function value(v) {\n              return v.qText;\n            } },\n          type: { field: d1 },\n          fill: { field: d2, value: function value(v) {\n              return v.qText;\n            } }\n        }\n      }\n    },\n    settings: {\n      major: { scale: 'dim' },\n      minor: { scale: 'metric' },\n      orientation: 'vertical',\n      box: {\n        fill: function fill(d) {\n          return this.data.fill.value;\n        },\n\n        strokeWidth: 0,\n        width: barWidthRatio,\n        maxWidth: 10000,\n        minWidth: 1\n      }\n    }\n  }, {\n    type: 'point-marker',\n    data: {\n      extract: {\n        field: d0,\n        props: {\n          x: {},\n          y: { field: m1 },\n          type: { field: d1 }\n        }\n      }\n    },\n    settings: {\n      x: {\n        scale: 'dim',\n        ref: 'x',\n        fn: function fn(d) {\n          return this.scale(d.value) + this.scale.bandwidth(); // place the point between two bars\n        }\n      },\n      y: { scale: 'metric' },\n      sizeLimits: {\n        maxPx: 20000,\n        maxRelExtent: 10000,\n        minRelDiscrete: 0.0,\n        maxRelDiscrete: 1\n      },\n      shape: 'line',\n      stroke: '#666',\n      size: 1 - barWidthRatio,\n      strokeDasharray: '4 4',\n      fill: 'none',\n      strokeWidth: function strokeWidth(d, i, all) {\n        var next = all[i + 1];\n        return next && next.type.value !== 'total' ? 2 : 0;\n      }\n    }\n  }, {\n    type: 'axis',\n    scale: 'dim',\n    dock: 'bottom'\n  }, {\n    type: 'axis',\n    scale: 'metric',\n    dock: 'left'\n  }, {\n    type: 'labels',\n    displayOrder: 2,\n    settings: {\n      sources: [{\n        component: 'bars',\n        selector: 'rect',\n        strategy: {\n          type: 'bar',\n          settings: {\n            direction: function direction(data) {\n              return data && data.end.value > data.start.value ? 'up' : 'down';\n            },\n            fontFamily: 'Arial',\n            fontSize: 24,\n            align: 0.5,\n            labels: [{\n              placements: [{\n                position: 'inside',\n                fill: function fill(s) {\n                  return isDark(s.data.fill.value) ? '#fff' : '#333';\n                },\n\n                justify: 1\n              }, {\n                position: 'outside',\n                fill: '#666',\n                justify: 0\n              }, {\n                position: 'opposite',\n                fill: '#666',\n                justify: 0\n              }],\n              label: function label(data) {\n                return data ? data.label.value : '';\n              }\n            }]\n          }\n        }\n      }]\n    }\n  }]\n};\n\npicasso.chart({\n  element: element,\n  data: data,\n  settings: settings\n});"
 
 /***/ }),
-/* 179 */
+/* 167 */
 /*!***********************************************************!*\
   !*** ./node_modules/raw-loader!./pages/waterfall/data.js ***!
   \***********************************************************/
@@ -33190,7 +30077,7 @@ module.exports = "/* globals picasso, element, data */\n\n'use strict';\n\nvar _
 module.exports = "'use strict';\n\nvar arr = [['d', 'd', 'd', 'm', 'm'], ['dim', 'type', 'color', 'measure_start', 'measure_end'], ['pro revenue', 'sum', '#aaa', 0, 420], ['services', 'diff', '#9c6', 420, 630], ['revenue', 'total', '#aaa', 0, 630], ['fixed costs', 'diff', '#f33', 630, 460], ['fixed costs', 'diff', '#f33', 460, 320], ['salable', 'total', '#aaa', 0, 320]];\n\nvar qLayout = generator.generateDataFromArray(arr);\n\nqLayout.qHyperCube.qMeasureInfo[1].qNumFormat.qFmt = '$#,##0.##';\nqLayout.qHyperCube.qDataPages[0].qMatrix[4][0].qElemNumber = 7;\n\nvar data = {\n  type: 'q',\n  key: 'qHyperCube',\n  data: qLayout.qHyperCube\n};"
 
 /***/ }),
-/* 180 */
+/* 168 */
 /*!************************************!*\
   !*** ./pages/z-not-found/index.js ***!
   \************************************/
@@ -33220,7 +30107,7 @@ function page() {
 _registry2.default.register('not-found', page());
 
 /***/ }),
-/* 181 */
+/* 169 */
 /*!**********************************!*\
   !*** ./pages/z-sandbox/index.js ***!
   \**********************************/
@@ -33235,11 +30122,11 @@ var _storage = __webpack_require__(/*! ../../src/core/storage */ 10);
 
 var _storage2 = _interopRequireDefault(_storage);
 
-var _popup = __webpack_require__(/*! ../../src/core/popup */ 182);
+var _popup = __webpack_require__(/*! ../../src/core/popup */ 170);
 
 var _popup2 = _interopRequireDefault(_popup);
 
-var _migrations = __webpack_require__(/*! ./migrations.js */ 183);
+var _migrations = __webpack_require__(/*! ./migrations.js */ 171);
 
 var _migrations2 = _interopRequireDefault(_migrations);
 
@@ -33337,7 +30224,7 @@ _registry2.default.registry['new-sandbox'] = {
 };
 
 /***/ }),
-/* 182 */
+/* 170 */
 /*!***************************!*\
   !*** ./src/core/popup.js ***!
   \***************************/
@@ -33374,7 +30261,7 @@ popup.prompt = function (msg, name, callback) {
 exports.default = popup;
 
 /***/ }),
-/* 183 */
+/* 171 */
 /*!***************************************!*\
   !*** ./pages/z-sandbox/migrations.js ***!
   \***************************************/
@@ -33458,7 +30345,7 @@ function migrate() {
 }
 
 /***/ }),
-/* 184 */
+/* 172 */
 /*!****************************!*\
   !*** ./src/sense/index.js ***!
   \****************************/
@@ -33471,7 +30358,7 @@ function migrate() {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /* eslint no-confusing-arrow: 0 */
 
-var _comm = __webpack_require__(/*! ./comm */ 185);
+var _comm = __webpack_require__(/*! ./comm */ 173);
 
 var _comm2 = _interopRequireDefault(_comm);
 
@@ -33726,7 +30613,7 @@ function go() {
 _lifecycle2.default.on('init', go);
 
 /***/ }),
-/* 185 */
+/* 173 */
 /*!***************************!*\
   !*** ./src/sense/comm.js ***!
   \***************************/
@@ -33741,15 +30628,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _enigma = __webpack_require__(/*! enigma.js/dist/enigma */ 186);
+var _enigma = __webpack_require__(/*! enigma.js/dist/enigma */ 174);
 
 var _enigma2 = _interopRequireDefault(_enigma);
 
-var _schema = __webpack_require__(/*! ../../qix/3.0/schema.json */ 187);
+var _schema = __webpack_require__(/*! ../../qix/3.0/schema.json */ 175);
 
 var _schema2 = _interopRequireDefault(_schema);
 
-var _index = __webpack_require__(/*! ./mixins/index */ 188);
+var _index = __webpack_require__(/*! ./mixins/index */ 176);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -33796,7 +30683,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 186 */
+/* 174 */
 /*!***********************************************!*\
   !*** ./node_modules/enigma.js/dist/enigma.js ***!
   \***********************************************/
@@ -66510,7 +63397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../timers-browserify/main.js */ 5).setImmediate, __webpack_require__(/*! ./../../timers-browserify/main.js */ 5).clearImmediate))
 
 /***/ }),
-/* 187 */
+/* 175 */
 /*!*****************************!*\
   !*** ./qix/3.0/schema.json ***!
   \*****************************/
@@ -66521,7 +63408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 module.exports = {"structs":{"Field":{"GetCardinal":{"In":[],"Out":[]},"GetAndMode":{"In":[],"Out":[]},"SelectValues":{"In":[{"Name":"qFieldValues","DefaultValue":[{"qText":"","qIsNumeric":false,"qNumber":0}]},{"Name":"qToggleMode","DefaultValue":false,"Optional":true},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"Select":{"In":[{"Name":"qMatch","DefaultValue":""},{"Name":"qSoftLock","DefaultValue":false,"Optional":true},{"Name":"qExcludedValuesMode","DefaultValue":0,"Optional":true}],"Out":[]},"ToggleSelect":{"In":[{"Name":"qMatch","DefaultValue":""},{"Name":"qSoftLock","DefaultValue":false,"Optional":true},{"Name":"qExcludedValuesMode","DefaultValue":0,"Optional":true}],"Out":[]},"ClearAllButThis":{"In":[{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"SelectPossible":{"In":[{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"SelectExcluded":{"In":[{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"SelectAll":{"In":[{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"Lock":{"In":[],"Out":[]},"Unlock":{"In":[],"Out":[]},"GetNxProperties":{"In":[],"Out":[{"Name":"qProperties"}]},"SetNxProperties":{"In":[{"Name":"qProperties","DefaultValue":{"qOneAndOnlyOne":false}}],"Out":[]},"SetAndMode":{"In":[{"Name":"qAndMode","DefaultValue":false}],"Out":[]},"SelectAlternative":{"In":[{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"LowLevelSelect":{"In":[{"Name":"qValues","DefaultValue":[0]},{"Name":"qToggleMode","DefaultValue":false},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"Clear":{"In":[],"Out":[]}},"Variable":{"GetContent":{"In":[],"Out":[{"Name":"qContent"}]},"GetRawContent":{"In":[],"Out":[]},"SetContent":{"In":[{"Name":"qContent","DefaultValue":""},{"Name":"qUpdateMRU","DefaultValue":false}],"Out":[]},"ForceContent":{"In":[{"Name":"qs","DefaultValue":""},{"Name":"qd","DefaultValue":0}],"Out":[]},"GetNxProperties":{"In":[],"Out":[{"Name":"qProperties"}]},"SetNxProperties":{"In":[{"Name":"qProperties","DefaultValue":{"qName":"","qNumberPresentation":{"qType":0,"qnDec":0,"qUseThou":0,"qFmt":"","qDec":"","qThou":""},"qIncludeInBookmark":false,"qUsePredefListedValues":false,"qPreDefinedList":[""]}}],"Out":[]}},"GenericObject":{"GetLayout":{"In":[],"Out":[{"Name":"qLayout"}]},"GetListObjectData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qPages","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]}],"Out":[{"Name":"qDataPages"}]},"GetHyperCubeData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qPages","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]}],"Out":[{"Name":"qDataPages"}]},"GetHyperCubeReducedData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qPages","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]},{"Name":"qZoomFactor","DefaultValue":0},{"Name":"qReductionMode","DefaultValue":0}],"Out":[{"Name":"qDataPages"}]},"GetHyperCubePivotData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qPages","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]}],"Out":[{"Name":"qDataPages"}]},"GetHyperCubeStackData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qPages","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]},{"Name":"qMaxNbrCells","DefaultValue":0,"Optional":true}],"Out":[{"Name":"qDataPages"}]},"GetHyperCubeContinuousData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qOptions","DefaultValue":{"qStart":0,"qEnd":0,"qNbrPoints":0,"qMaxNbrTicks":0,"qMaxNumberLines":0}},{"Name":"qReverseSort","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qDataPages"},{"Name":"qAxisData"}]},"GetHyperCubeBinnedData":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qPages","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]},{"Name":"qViewport","DefaultValue":{"qWidth":0,"qHeight":0,"qZoomLevel":0}},{"Name":"qDataRanges","DefaultValue":[{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0}]},{"Name":"qMaxNbrCells","DefaultValue":0},{"Name":"qQueryLevel","DefaultValue":0},{"Name":"qBinningMethod","DefaultValue":0}],"Out":[{"Name":"qDataPages"}]},"ApplyPatches":{"In":[{"Name":"qPatches","DefaultValue":[{"qOp":0,"qPath":"","qValue":""}]},{"Name":"qSoftPatch","DefaultValue":false,"Optional":true}],"Out":[]},"ClearSoftPatches":{"In":[],"Out":[]},"SetProperties":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qExtendsId":"","qMetaDef":{}}}],"Out":[]},"GetProperties":{"In":[],"Out":[{"Name":"qProp"}]},"GetEffectiveProperties":{"In":[],"Out":[{"Name":"qProp"}]},"SetFullPropertyTree":{"In":[{"Name":"qPropEntry","DefaultValue":{"qProperty":{"qInfo":{"qId":"","qType":""},"qExtendsId":"","qMetaDef":{}},"qChildren":[],"qEmbeddedSnapshotRef":null}}],"Out":[]},"GetFullPropertyTree":{"In":[],"Out":[{"Name":"qPropEntry"}]},"GetInfo":{"In":[],"Out":[{"Name":"qInfo"}]},"ClearSelections":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qColIndices","DefaultValue":[0],"Optional":true}],"Out":[]},"ExportData":{"In":[{"Name":"qFileType","DefaultValue":0},{"Name":"qPath","DefaultValue":"","Optional":true},{"Name":"qFileName","DefaultValue":"","Optional":true},{"Name":"qExportState","DefaultValue":0,"Optional":true}],"Out":[{"Name":"qUrl"}]},"SelectListObjectValues":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qValues","DefaultValue":[0]},{"Name":"qToggleMode","DefaultValue":false},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectListObjectPossible":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectListObjectExcluded":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectListObjectAlternative":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectListObjectAll":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectListObjectContinuousRange":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRanges","DefaultValue":[{"qMin":0,"qMax":0,"qMinInclEq":false,"qMaxInclEq":false}]},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SearchListObjectFor":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qMatch","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"AbortListObjectSearch":{"In":[{"Name":"qPath","DefaultValue":""}],"Out":[]},"AcceptListObjectSearch":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qToggleMode","DefaultValue":false},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[]},"ExpandLeft":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRow","DefaultValue":0},{"Name":"qCol","DefaultValue":0},{"Name":"qAll","DefaultValue":false}],"Out":[]},"ExpandTop":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRow","DefaultValue":0},{"Name":"qCol","DefaultValue":0},{"Name":"qAll","DefaultValue":false}],"Out":[]},"CollapseLeft":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRow","DefaultValue":0},{"Name":"qCol","DefaultValue":0},{"Name":"qAll","DefaultValue":false}],"Out":[]},"CollapseTop":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRow","DefaultValue":0},{"Name":"qCol","DefaultValue":0},{"Name":"qAll","DefaultValue":false}],"Out":[]},"DrillUp":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qDimNo","DefaultValue":0},{"Name":"qNbrSteps","DefaultValue":0}],"Out":[]},"Lock":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qColIndices","DefaultValue":[0],"Optional":true}],"Out":[]},"Unlock":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qColIndices","DefaultValue":[0],"Optional":true}],"Out":[]},"SelectHyperCubeValues":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qDimNo","DefaultValue":0},{"Name":"qValues","DefaultValue":[0]},{"Name":"qToggleMode","DefaultValue":false}],"Out":[{"Name":"qSuccess"}]},"SelectHyperCubeCells":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRowIndices","DefaultValue":[0]},{"Name":"qColIndices","DefaultValue":[0]},{"Name":"qSoftLock","DefaultValue":false,"Optional":true},{"Name":"qDeselectOnlyOneSelected","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectPivotCells":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qSelections","DefaultValue":[{"qType":0,"qCol":0,"qRow":0}]},{"Name":"qSoftLock","DefaultValue":false,"Optional":true},{"Name":"qDeselectOnlyOneSelected","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"RangeSelectHyperCubeValues":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRanges","DefaultValue":[{"qRange":{"qMin":0,"qMax":0,"qMinInclEq":false,"qMaxInclEq":false},"qMeasureIx":0}]},{"Name":"qColumnsToSelect","DefaultValue":[0],"Optional":true},{"Name":"qOrMode","DefaultValue":false,"Optional":true},{"Name":"qDeselectOnlyOneSelected","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"SelectHyperCubeContinuousRange":{"In":[{"Name":"qPath","DefaultValue":""},{"Name":"qRanges","DefaultValue":[{"qRange":{"qMin":0,"qMax":0,"qMinInclEq":false,"qMaxInclEq":false},"qDimIx":0}]},{"Name":"qSoftLock","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"GetChild":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"GetChildInfos":{"In":[],"Out":[{"Name":"qInfos"}]},"CreateChild":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qExtendsId":"","qMetaDef":{}}},{"Name":"qPropForThis","DefaultValue":null,"Optional":true}],"Out":[{"Name":"qInfo"}]},"DestroyChild":{"In":[{"Name":"qId","DefaultValue":""},{"Name":"qPropForThis","DefaultValue":null,"Optional":true}],"Out":[{"Name":"qSuccess"}]},"DestroyAllChildren":{"In":[{"Name":"qPropForThis","DefaultValue":null,"Optional":true}],"Out":[]},"SetChildArrayOrder":{"In":[{"Name":"qIds","DefaultValue":[""]}],"Out":[]},"GetLinkedObjects":{"In":[],"Out":[{"Name":"qItems"}]},"CopyFrom":{"In":[{"Name":"qFromId","DefaultValue":""}],"Out":[]},"BeginSelections":{"In":[{"Name":"qPaths","DefaultValue":[""]}],"Out":[]},"EndSelections":{"In":[{"Name":"qAccept","DefaultValue":false}],"Out":[]},"ResetMadeSelections":{"In":[],"Out":[]},"EmbedSnapshotObject":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"GetSnapshotObject":{"In":[],"Out":[]},"Publish":{"In":[],"Out":[]},"UnPublish":{"In":[],"Out":[]}},"GenericDimension":{"GetLayout":{"In":[],"Out":[{"Name":"qLayout"}]},"ApplyPatches":{"In":[{"Name":"qPatches","DefaultValue":[{"qOp":0,"qPath":"","qValue":""}]}],"Out":[]},"SetProperties":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qDim":{"qGrouping":0,"qFieldDefs":[""],"qFieldLabels":[""]},"qMetaDef":{}}}],"Out":[]},"GetProperties":{"In":[],"Out":[{"Name":"qProp"}]},"GetInfo":{"In":[],"Out":[{"Name":"qInfo"}]},"GetDimension":{"In":[],"Out":[{"Name":"qDim"}]},"GetLinkedObjects":{"In":[],"Out":[{"Name":"qItems"}]},"Publish":{"In":[],"Out":[]},"UnPublish":{"In":[],"Out":[]}},"GenericBookmark":{"GetFieldValues":{"In":[{"Name":"qField","DefaultValue":""},{"Name":"qGetExcludedValues","DefaultValue":false},{"Name":"qDataPage","DefaultValue":{"qStartIndex":0,"qEndIndex":0}}],"Out":[{"Name":"qFieldValues"}]},"GetLayout":{"In":[],"Out":[{"Name":"qLayout"}]},"ApplyPatches":{"In":[{"Name":"qPatches","DefaultValue":[{"qOp":0,"qPath":"","qValue":""}]}],"Out":[]},"SetProperties":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMetaDef":{}}}],"Out":[]},"GetProperties":{"In":[],"Out":[{"Name":"qProp"}]},"GetInfo":{"In":[],"Out":[{"Name":"qInfo"}]},"Apply":{"In":[],"Out":[{"Name":"qSuccess"}]},"Publish":{"In":[],"Out":[]},"UnPublish":{"In":[],"Out":[]}},"GenericVariable":{"GetLayout":{"In":[],"Out":[{"Name":"qLayout"}]},"ApplyPatches":{"In":[{"Name":"qPatches","DefaultValue":[{"qOp":0,"qPath":"","qValue":""}]}],"Out":[]},"SetProperties":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMetaDef":{},"qName":"","qComment":"","qNumberPresentation":{"qType":0,"qnDec":0,"qUseThou":0,"qFmt":"","qDec":"","qThou":""},"qIncludeInBookmark":false,"qDefinition":""}}],"Out":[]},"GetProperties":{"In":[],"Out":[{"Name":"qProp"}]},"GetInfo":{"In":[],"Out":[{"Name":"qInfo"}]},"SetStringValue":{"In":[{"Name":"qVal","DefaultValue":""}],"Out":[]},"SetNumValue":{"In":[{"Name":"qVal","DefaultValue":0}],"Out":[]},"SetDualValue":{"In":[{"Name":"qText","DefaultValue":""},{"Name":"qNum","DefaultValue":0}],"Out":[]}},"GenericMeasure":{"GetLayout":{"In":[],"Out":[{"Name":"qLayout"}]},"ApplyPatches":{"In":[{"Name":"qPatches","DefaultValue":[{"qOp":0,"qPath":"","qValue":""}]}],"Out":[]},"SetProperties":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMeasure":{"qLabel":"","qDef":"","qGrouping":0,"qExpressions":[""],"qActiveExpression":0},"qMetaDef":{}}}],"Out":[]},"GetProperties":{"In":[],"Out":[{"Name":"qProp"}]},"GetInfo":{"In":[],"Out":[{"Name":"qInfo"}]},"GetMeasure":{"In":[],"Out":[{"Name":"qMeasure"}]},"GetLinkedObjects":{"In":[],"Out":[{"Name":"qItems"}]},"Publish":{"In":[],"Out":[]},"UnPublish":{"In":[],"Out":[]}},"GenericDerivedFields":{"SetProperties":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qDerivedDefinitionId":"","qFieldName":[""],"qMetaDef":{}}}],"Out":[]},"GetProperties":{"In":[],"Out":[{"Name":"qProp"}]},"GetInfo":{"In":[],"Out":[{"Name":"qInfo"}]},"GetDerivedFieldData":{"In":[],"Out":[{"Name":"qData"}]},"GetDerivedField":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qFields"}]},"GetListData":{"In":[],"Out":[{"Name":"qListData"}]},"GetDerivedFields":{"In":[],"Out":[{"Name":"qFields"}]},"GetDerivedGroups":{"In":[],"Out":[{"Name":"qGroups"}]}},"Doc":{"GetProperties":{"In":[],"Out":[]},"GetField":{"In":[{"Name":"qFieldName","DefaultValue":""},{"Name":"qStateName","DefaultValue":"","Optional":true}],"Out":[]},"GetFieldDescription":{"In":[{"Name":"qFieldName","DefaultValue":""}],"Out":[]},"GetVariable":{"In":[{"Name":"qName","DefaultValue":""}],"Out":[]},"GetLooselyCoupledVector":{"In":[],"Out":[{"Name":"qv"}]},"SetLooselyCoupledVector":{"In":[{"Name":"qv","DefaultValue":[0]}],"Out":[]},"Evaluate":{"In":[{"Name":"qExpression","DefaultValue":""}],"Out":[]},"EvaluateEx":{"In":[{"Name":"qExpression","DefaultValue":""}],"Out":[{"Name":"qValue"}]},"ClearAll":{"In":[{"Name":"qLockedAlso","DefaultValue":false,"Optional":true},{"Name":"qStateName","DefaultValue":"","Optional":true}],"Out":[]},"LockAll":{"In":[{"Name":"qStateName","DefaultValue":"","Optional":true}],"Out":[]},"UnlockAll":{"In":[{"Name":"qStateName","DefaultValue":"","Optional":true}],"Out":[]},"Back":{"In":[],"Out":[]},"Forward":{"In":[],"Out":[]},"ReduceData":{"In":[{"Name":"qConfirm","DefaultValue":false,"Optional":true},{"Name":"qDropFieldNames","DefaultValue":[""],"Optional":true}],"Out":[]},"RemoveAllData":{"In":[{"Name":"qConfirm","DefaultValue":false,"Optional":true}],"Out":[]},"CreateVariable":{"In":[{"Name":"qName","DefaultValue":""}],"Out":[]},"RemoveVariable":{"In":[{"Name":"qName","DefaultValue":""}],"Out":[]},"GetLocaleInfo":{"In":[],"Out":[]},"GetTablesAndKeys":{"In":[{"Name":"qWindowSize","DefaultValue":{"qcx":0,"qcy":0}},{"Name":"qNullSize","DefaultValue":{"qcx":0,"qcy":0}},{"Name":"qCellHeight","DefaultValue":0},{"Name":"qSyntheticMode","DefaultValue":false},{"Name":"qIncludeSysVars","DefaultValue":false}],"Out":[{"Name":"qtr"},{"Name":"qk"}]},"GetViewDlgSaveInfo":{"In":[],"Out":[]},"SetViewDlgSaveInfo":{"In":[{"Name":"qInfo","DefaultValue":{"qPos":{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0},"qCtlInfo":{"qInternalView":{"qTables":[{"qPos":{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0},"qCaption":""}],"qBroomPoints":[{"qPos":{"qx":0,"qy":0},"qTable":"","qFields":[""]}],"qConnectionPoints":[{"qPos":{"qx":0,"qy":0},"qFields":[""]}],"qZoomFactor":0},"qSourceView":{"qTables":[{"qPos":{"qLeft":0,"qTop":0,"qWidth":0,"qHeight":0},"qCaption":""}],"qBroomPoints":[{"qPos":{"qx":0,"qy":0},"qTable":"","qFields":[""]}],"qConnectionPoints":[{"qPos":{"qx":0,"qy":0},"qFields":[""]}],"qZoomFactor":0}},"qMode":0}}],"Out":[]},"GetEmptyScript":{"In":[{"Name":"qLocalizedMainSection","DefaultValue":"","Optional":true}],"Out":[]},"DoReload":{"In":[{"Name":"qMode","DefaultValue":0,"Optional":true},{"Name":"qPartial","DefaultValue":false,"Optional":true},{"Name":"qDebug","DefaultValue":false,"Optional":true}],"Out":[]},"GetScriptBreakpoints":{"In":[],"Out":[{"Name":"qBreakpoints"}]},"SetScriptBreakpoints":{"In":[{"Name":"qBreakpoints","DefaultValue":[{"qbufferName":"","qlineIx":0,"qEnabled":false}]}],"Out":[]},"GetScript":{"In":[],"Out":[{"Name":"qScript"}]},"GetTextMacros":{"In":[],"Out":[{"Name":"qMacros"}]},"SetFetchLimit":{"In":[{"Name":"qLimit","DefaultValue":0}],"Out":[]},"DoSave":{"In":[{"Name":"qFileName","DefaultValue":"","Optional":true}],"Out":[]},"GetTableData":{"In":[{"Name":"qOffset","DefaultValue":0},{"Name":"qRows","DefaultValue":0},{"Name":"qSyntheticMode","DefaultValue":false},{"Name":"qTableName","DefaultValue":""}],"Out":[{"Name":"qData"}]},"GetAppLayout":{"In":[],"Out":[{"Name":"qLayout"}]},"SetAppProperties":{"In":[{"Name":"qProp","DefaultValue":{"qTitle":"","qLastReloadTime":"","qMigrationHash":"","qSavedInProductVersion":"","qThumbnail":{"qUrl":""}}}],"Out":[]},"GetAppProperties":{"In":[],"Out":[{"Name":"qProp"}]},"CreateSessionObject":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qExtendsId":"","qMetaDef":{}}}],"Out":[]},"DestroySessionObject":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"CreateObject":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qExtendsId":"","qMetaDef":{}}}],"Out":[{"Name":"qInfo"}]},"DestroyObject":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"GetObject":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"CloneObject":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qCloneId"}]},"CreateDraft":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qDraftId"}]},"CommitDraft":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"DestroyDraft":{"In":[{"Name":"qId","DefaultValue":""},{"Name":"qSourceId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"Undo":{"In":[],"Out":[{"Name":"qSuccess"}]},"Redo":{"In":[],"Out":[{"Name":"qSuccess"}]},"ClearUndoBuffer":{"In":[],"Out":[]},"CreateDimension":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qDim":{"qGrouping":0,"qFieldDefs":[""],"qFieldLabels":[""]},"qMetaDef":{}}}],"Out":[{"Name":"qInfo"}]},"DestroyDimension":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"GetDimension":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"CloneDimension":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qCloneId"}]},"CreateMeasure":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMeasure":{"qLabel":"","qDef":"","qGrouping":0,"qExpressions":[""],"qActiveExpression":0},"qMetaDef":{}}}],"Out":[{"Name":"qInfo"}]},"DestroyMeasure":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"GetMeasure":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"CloneMeasure":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qCloneId"}]},"CreateSessionVariable":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMetaDef":{},"qName":"","qComment":"","qNumberPresentation":{"qType":0,"qnDec":0,"qUseThou":0,"qFmt":"","qDec":"","qThou":""},"qIncludeInBookmark":false,"qDefinition":""}}],"Out":[]},"DestroySessionVariable":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"CreateVariableEx":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMetaDef":{},"qName":"","qComment":"","qNumberPresentation":{"qType":0,"qnDec":0,"qUseThou":0,"qFmt":"","qDec":"","qThou":""},"qIncludeInBookmark":false,"qDefinition":""}}],"Out":[{"Name":"qInfo"}]},"DestroyVariableById":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"DestroyVariableByName":{"In":[{"Name":"qName","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"GetVariableById":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"GetVariableByName":{"In":[{"Name":"qName","DefaultValue":""}],"Out":[]},"MigrateVariables":{"In":[],"Out":[]},"MigrateDerivedFields":{"In":[],"Out":[]},"CheckExpression":{"In":[{"Name":"qExpr","DefaultValue":""},{"Name":"qLabels","DefaultValue":[""],"Optional":true}],"Out":[{"Name":"qErrorMsg"},{"Name":"qBadFieldNames"},{"Name":"qDangerousFieldNames"}]},"CheckNumberOrExpression":{"In":[{"Name":"qExpr","DefaultValue":""}],"Out":[{"Name":"qErrorMsg"},{"Name":"qBadFieldNames"}]},"AddAlternateState":{"In":[{"Name":"qStateName","DefaultValue":""}],"Out":[]},"RemoveAlternateState":{"In":[{"Name":"qStateName","DefaultValue":""}],"Out":[]},"CreateBookmark":{"In":[{"Name":"qProp","DefaultValue":{"qInfo":{"qId":"","qType":""},"qMetaDef":{}}}],"Out":[{"Name":"qInfo"}]},"DestroyBookmark":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"GetBookmark":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[]},"ApplyBookmark":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"CloneBookmark":{"In":[{"Name":"qId","DefaultValue":""}],"Out":[{"Name":"qCloneId"}]},"AddFieldFromExpression":{"In":[{"Name":"qName","DefaultValue":""},{"Name":"qExpr","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"GetAllInfos":{"In":[],"Out":[{"Name":"qInfos"}]},"Resume":{"In":[],"Out":[]},"AbortModal":{"In":[{"Name":"qAccept","DefaultValue":false}],"Out":[]},"Publish":{"In":[{"Name":"qStreamId","DefaultValue":""},{"Name":"qName","DefaultValue":"","Optional":true}],"Out":[]},"UnPublish":{"In":[],"Out":[]},"GetMatchingFields":{"In":[{"Name":"qTags","DefaultValue":[""]},{"Name":"qMatchingFieldMode","DefaultValue":0,"Optional":true}],"Out":[{"Name":"qFieldNames"}]},"FindMatchingFields":{"In":[{"Name":"qFieldName","DefaultValue":""},{"Name":"qTags","DefaultValue":[""]}],"Out":[{"Name":"qFieldNames"}]},"SaveObjects":{"In":[],"Out":[]},"GetAssociationScores":{"In":[{"Name":"qTable1","DefaultValue":""},{"Name":"qTable2","DefaultValue":""}],"Out":[{"Name":"qScore"}]},"GetMediaList":{"In":[],"Out":[{"Name":"qList"}]},"GetContentLibraries":{"In":[],"Out":[{"Name":"qList"}]},"GetLibraryContent":{"In":[{"Name":"qName","DefaultValue":""}],"Out":[{"Name":"qList"}]},"DoReloadEx":{"In":[{"Name":"qParams","DefaultValue":{"qMode":0,"qPartial":false,"qDebug":false},"Optional":true}],"Out":[{"Name":"qResult"}]},"BackCount":{"In":[],"Out":[]},"ForwardCount":{"In":[],"Out":[]},"SetScript":{"In":[{"Name":"qScript","DefaultValue":""}],"Out":[]},"CheckScriptSyntax":{"In":[],"Out":[{"Name":"qErrors"}]},"GetFavoriteVariables":{"In":[],"Out":[{"Name":"qNames"}]},"SetFavoriteVariables":{"In":[{"Name":"qNames","DefaultValue":[""]}],"Out":[]},"GetIncludeFileContent":{"In":[{"Name":"qPath","DefaultValue":""}],"Out":[{"Name":"qContent"}]},"CreateConnection":{"In":[{"Name":"qConnection","DefaultValue":{"qId":"","qName":"","qConnectionString":"","qType":"","qUserName":"","qPassword":"","qModifiedDate":"","qMeta":{"qName":""},"qLogOn":0}}],"Out":[{"Name":"qConnectionId"}]},"ModifyConnection":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qConnection","DefaultValue":{"qId":"","qName":"","qConnectionString":"","qType":"","qUserName":"","qPassword":"","qModifiedDate":"","qMeta":{"qName":""},"qLogOn":0}},{"Name":"qOverrideCredentials","DefaultValue":false,"Optional":true}],"Out":[]},"DeleteConnection":{"In":[{"Name":"qConnectionId","DefaultValue":""}],"Out":[]},"GetConnection":{"In":[{"Name":"qConnectionId","DefaultValue":""}],"Out":[{"Name":"qConnection"}]},"GetConnections":{"In":[],"Out":[{"Name":"qConnections"}]},"GetDatabaseInfo":{"In":[{"Name":"qConnectionId","DefaultValue":""}],"Out":[{"Name":"qInfo"}]},"GetDatabases":{"In":[{"Name":"qConnectionId","DefaultValue":""}],"Out":[{"Name":"qDatabases"}]},"GetDatabaseOwners":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qDatabase","DefaultValue":"","Optional":true}],"Out":[{"Name":"qOwners"}]},"GetDatabaseTables":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qDatabase","DefaultValue":"","Optional":true},{"Name":"qOwner","DefaultValue":"","Optional":true}],"Out":[{"Name":"qTables"}]},"GetDatabaseTableFields":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qDatabase","DefaultValue":"","Optional":true},{"Name":"qOwner","DefaultValue":"","Optional":true},{"Name":"qTable","DefaultValue":""}],"Out":[{"Name":"qFields"}]},"GetDatabaseTablePreview":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qDatabase","DefaultValue":"","Optional":true},{"Name":"qOwner","DefaultValue":"","Optional":true},{"Name":"qTable","DefaultValue":""}],"Out":[{"Name":"qPreview"}]},"GetFolderItemsForConnection":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qRelativePath","DefaultValue":"","Optional":true}],"Out":[{"Name":"qFolderItems"}]},"GuessFileType":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qRelativePath","DefaultValue":"","Optional":true}],"Out":[{"Name":"qDataFormat"}]},"GetFileTables":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qRelativePath","DefaultValue":"","Optional":true},{"Name":"qDataFormat","DefaultValue":{"qType":0,"qLabel":"","qQuote":"","qComment":"","qDelimiter":{"qName":"","qScriptCode":"","qNumber":0,"qIsMultiple":false},"qCodePage":0,"qHeaderSize":0,"qRecordSize":0,"qTabSize":0,"qIgnoreEOF":false,"qFixedWidthDelimiters":""}}],"Out":[{"Name":"qTables"}]},"GetFileTableFields":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qRelativePath","DefaultValue":"","Optional":true},{"Name":"qDataFormat","DefaultValue":{"qType":0,"qLabel":"","qQuote":"","qComment":"","qDelimiter":{"qName":"","qScriptCode":"","qNumber":0,"qIsMultiple":false},"qCodePage":0,"qHeaderSize":0,"qRecordSize":0,"qTabSize":0,"qIgnoreEOF":false,"qFixedWidthDelimiters":""}},{"Name":"qTable","DefaultValue":""}],"Out":[{"Name":"qFields"},{"Name":"qFormatSpec"}]},"GetFileTablePreview":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qRelativePath","DefaultValue":"","Optional":true},{"Name":"qDataFormat","DefaultValue":{"qType":0,"qLabel":"","qQuote":"","qComment":"","qDelimiter":{"qName":"","qScriptCode":"","qNumber":0,"qIsMultiple":false},"qCodePage":0,"qHeaderSize":0,"qRecordSize":0,"qTabSize":0,"qIgnoreEOF":false,"qFixedWidthDelimiters":""}},{"Name":"qTable","DefaultValue":""}],"Out":[{"Name":"qPreview"},{"Name":"qFormatSpec"}]},"GetFileTablesEx":{"In":[{"Name":"qConnectionId","DefaultValue":""},{"Name":"qRelativePath","DefaultValue":"","Optional":true},{"Name":"qDataFormat","DefaultValue":{"qType":0,"qLabel":"","qQuote":"","qComment":"","qDelimiter":{"qName":"","qScriptCode":"","qNumber":0,"qIsMultiple":false},"qCodePage":0,"qHeaderSize":0,"qRecordSize":0,"qTabSize":0,"qIgnoreEOF":false,"qFixedWidthDelimiters":""}}],"Out":[{"Name":"qTables"}]},"SendGenericCommandToCustomConnector":{"In":[{"Name":"qProvider","DefaultValue":""},{"Name":"qCommand","DefaultValue":""},{"Name":"qMethod","DefaultValue":""},{"Name":"qParameters","DefaultValue":[""]},{"Name":"qAppendConnection","DefaultValue":""}],"Out":[{"Name":"qResult"}]},"SearchSuggest":{"In":[{"Name":"qOptions","DefaultValue":{"qSearchFields":[""],"qContext":0}},{"Name":"qTerms","DefaultValue":[""]}],"Out":[{"Name":"qResult"}]},"SearchAssociations":{"In":[{"Name":"qOptions","DefaultValue":{"qSearchFields":[""],"qContext":0}},{"Name":"qTerms","DefaultValue":[""]},{"Name":"qPage","DefaultValue":{"qOffset":0,"qCount":0,"qMaxNbrFieldMatches":0,"qGroupOptions":[{"qGroupType":0,"qOffset":0,"qCount":0}],"qGroupItemOptions":[{"qGroupItemType":0,"qOffset":0,"qCount":0}]}}],"Out":[{"Name":"qResults"}]},"SelectAssociations":{"In":[{"Name":"qOptions","DefaultValue":{"qSearchFields":[""],"qContext":0}},{"Name":"qTerms","DefaultValue":[""]},{"Name":"qMatchIx","DefaultValue":0},{"Name":"qSoftLock","DefaultValue":null,"Optional":true}],"Out":[]},"SearchResults":{"In":[{"Name":"qOptions","DefaultValue":{"qSearchFields":[""],"qContext":0}},{"Name":"qTerms","DefaultValue":[""]},{"Name":"qPage","DefaultValue":{"qOffset":0,"qCount":0,"qMaxNbrFieldMatches":0,"qGroupOptions":[{"qGroupType":0,"qOffset":0,"qCount":0}],"qGroupItemOptions":[{"qGroupItemType":0,"qOffset":0,"qCount":0}]}}],"Out":[{"Name":"qResult"}]},"SearchObjects":{"In":[{"Name":"qOptions","DefaultValue":{"qAttributes":[""]}},{"Name":"qTerms","DefaultValue":[""]},{"Name":"qPage","DefaultValue":{"qOffset":0,"qCount":0,"qMaxNbrFieldMatches":0,"qGroupOptions":[{"qGroupType":0,"qOffset":0,"qCount":0}],"qGroupItemOptions":[{"qGroupItemType":0,"qOffset":0,"qCount":0}]}}],"Out":[{"Name":"qResult"}]}},"Global":{"AbortRequest":{"In":[{"Name":"qRequestId","DefaultValue":0}],"Out":[]},"AbortAll":{"In":[],"Out":[]},"GetProgress":{"In":[{"Name":"qRequestId","DefaultValue":0}],"Out":[{"Name":"qProgressData"}]},"QvVersion":{"In":[],"Out":[]},"OSVersion":{"In":[],"Out":[]},"OSName":{"In":[],"Out":[]},"QTProduct":{"In":[],"Out":[]},"GetDocList":{"In":[],"Out":[{"Name":"qDocList"}]},"GetInteract":{"In":[{"Name":"qRequestId","DefaultValue":0}],"Out":[{"Name":"qDef"}]},"InteractDone":{"In":[{"Name":"qRequestId","DefaultValue":0},{"Name":"qDef","DefaultValue":{"qType":0,"qTitle":"","qMsg":"","qButtons":0,"qLine":"","qOldLineNr":0,"qNewLineNr":0,"qPath":"","qHidden":false,"qResult":0,"qInput":""}}],"Out":[]},"GetAuthenticatedUser":{"In":[],"Out":[]},"GetStreamList":{"In":[],"Out":[{"Name":"qStreamList"}]},"UploadToContentService":{"In":[{"Name":"qDirectory","DefaultValue":""},{"Name":"qAppId","DefaultValue":""},{"Name":"qQrsObjects","DefaultValue":[{"qEngineObjectID":"","qItemID":""}]}],"Out":[{"Name":"qUploadedObjects"}]},"CreateDocEx":{"In":[{"Name":"qDocName","DefaultValue":""},{"Name":"qUserName","DefaultValue":"","Optional":true},{"Name":"qPassword","DefaultValue":"","Optional":true},{"Name":"qSerial","DefaultValue":"","Optional":true},{"Name":"qLocalizedScriptMainSection","DefaultValue":"","Optional":true}],"Out":[{"Name":"qDocId"}]},"GetActiveDoc":{"In":[],"Out":[]},"AllowCreateApp":{"In":[],"Out":[]},"CreateApp":{"In":[{"Name":"qAppName","DefaultValue":""},{"Name":"qLocalizedScriptMainSection","DefaultValue":"","Optional":true}],"Out":[{"Name":"qSuccess"},{"Name":"qAppId"}]},"DeleteApp":{"In":[{"Name":"qAppId","DefaultValue":""}],"Out":[{"Name":"qSuccess"}]},"IsDesktopMode":{"In":[],"Out":[]},"GetConfiguration":{"In":[],"Out":[{"Name":"qConfig"}]},"CancelRequest":{"In":[{"Name":"qRequestId","DefaultValue":0}],"Out":[]},"ShutdownProcess":{"In":[],"Out":[]},"ReloadExtensionList":{"In":[],"Out":[]},"ReplaceAppFromID":{"In":[{"Name":"qTargetAppId","DefaultValue":""},{"Name":"qSrcAppID","DefaultValue":""},{"Name":"qIds","DefaultValue":[""]}],"Out":[{"Name":"qSuccess"}]},"CopyApp":{"In":[{"Name":"qTargetAppId","DefaultValue":""},{"Name":"qSrcAppId","DefaultValue":""},{"Name":"qIds","DefaultValue":[""]}],"Out":[{"Name":"qSuccess"}]},"ImportApp":{"In":[{"Name":"qAppId","DefaultValue":""},{"Name":"qSrcPath","DefaultValue":""},{"Name":"qIds","DefaultValue":[""]}],"Out":[{"Name":"qSuccess"}]},"ImportAppEx":{"In":[{"Name":"qAppId","DefaultValue":""},{"Name":"qSrcPath","DefaultValue":""},{"Name":"qIds","DefaultValue":[""]},{"Name":"qExcludeConnections","DefaultValue":false}],"Out":[]},"ExportApp":{"In":[{"Name":"qTargetPath","DefaultValue":""},{"Name":"qSrcAppId","DefaultValue":""},{"Name":"qIds","DefaultValue":[""]}],"Out":[{"Name":"qSuccess"}]},"PublishApp":{"In":[{"Name":"qAppId","DefaultValue":""},{"Name":"qName","DefaultValue":""},{"Name":"qStreamId","DefaultValue":""}],"Out":[]},"IsPersonalMode":{"In":[],"Out":[]},"GetUniqueID":{"In":[],"Out":[{"Name":"qUniqueID"}]},"OpenDoc":{"In":[{"Name":"qDocName","DefaultValue":""},{"Name":"qUserName","DefaultValue":"","Optional":true},{"Name":"qPassword","DefaultValue":"","Optional":true},{"Name":"qSerial","DefaultValue":"","Optional":true},{"Name":"qNoData","DefaultValue":false,"Optional":true}],"Out":[]},"CreateSessionApp":{"In":[],"Out":[{"Name":"qSessionAppId"}]},"CreateSessionAppFromApp":{"In":[{"Name":"qSrcAppId","DefaultValue":""}],"Out":[{"Name":"qSessionAppId"}]},"ProductVersion":{"In":[],"Out":[]},"GetAppEntry":{"In":[{"Name":"qAppID","DefaultValue":""}],"Out":[{"Name":"qEntry"}]},"ConfigureReload":{"In":[{"Name":"qCancelOnScriptError","DefaultValue":false},{"Name":"qUseErrorData","DefaultValue":false},{"Name":"qInteractOnError","DefaultValue":false}],"Out":[]},"CancelReload":{"In":[],"Out":[]},"GetBNF":{"In":[{"Name":"qBnfType","DefaultValue":0}],"Out":[{"Name":"qBnfDefs"}]},"GetFunctions":{"In":[{"Name":"qGroup","DefaultValue":0,"Optional":true}],"Out":[{"Name":"qFunctions"}]},"GetOdbcDsns":{"In":[],"Out":[{"Name":"qOdbcDsns"}]},"GetOleDbProviders":{"In":[],"Out":[{"Name":"qOleDbProviders"}]},"GetDatabasesFromConnectionString":{"In":[{"Name":"qConnection","DefaultValue":{"qId":"","qName":"","qConnectionString":"","qType":"","qUserName":"","qPassword":"","qModifiedDate":"","qMeta":{"qName":""},"qLogOn":0}}],"Out":[{"Name":"qDatabases"}]},"IsValidConnectionString":{"In":[{"Name":"qConnection","DefaultValue":{"qId":"","qName":"","qConnectionString":"","qType":"","qUserName":"","qPassword":"","qModifiedDate":"","qMeta":{"qName":""},"qLogOn":0}}],"Out":[]},"GetDefaultAppFolder":{"In":[],"Out":[{"Name":"qPath"}]},"GetMyDocumentsFolder":{"In":[],"Out":[{"Name":"qFolder"}]},"GetLogicalDriveStrings":{"In":[],"Out":[{"Name":"qDrives"}]},"GetFolderItemsForPath":{"In":[{"Name":"qPath","DefaultValue":""}],"Out":[{"Name":"qFolderItems"}]},"GetSupportedCodePages":{"In":[],"Out":[{"Name":"qCodePages"}]},"GetCustomConnectors":{"In":[{"Name":"qReloadList","DefaultValue":false,"Optional":true}],"Out":[{"Name":"qConnectors"}]}}},"enums":{"LocalizedMessageCode":{"LOCMSG_SCRIPTEDITOR_EMPTY_MESSAGE":0,"LOCMSG_SCRIPTEDITOR_PROGRESS_SAVING_STARTED":1,"LOCMSG_SCRIPTEDITOR_PROGRESS_BYTES_LEFT":2,"LOCMSG_SCRIPTEDITOR_PROGRESS_STORING_TABLES":3,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVD_ROWS_SO_FAR":4,"LOCMSG_SCRIPTEDITOR_PROGRESS_CONNECTED":5,"LOCMSG_SCRIPTEDITOR_PROGRESS_CONNECTING_TO":6,"LOCMSG_SCRIPTEDITOR_PROGRESS_CONNECT_FAILED":7,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVD_ROWISH":8,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVD_COLUMNAR":9,"LOCMSG_SCRIPTEDITOR_ERROR":10,"LOCMSG_SCRIPTEDITOR_DONE":11,"LOCMSG_SCRIPTEDITOR_LOAD_EXTERNAL_DATA":12,"LOCMSG_SCRIPTEDITOR_PROGRESS_OLD_QVD_ISLOADING":13,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVC_LOADING":14,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVD_BUFFERED":15,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVC_PREPARING":16,"LOCMSG_SCRIPTEDITOR_PROGRESS_QVC_APPENDING":17,"LOCMSG_SCRIPTEDITOR_REMOVE_SYNTHETIC":18,"LOCMSG_SCRIPTEDITOR_PENDING_LINKEDTABLE_FETCHING":19,"LOCMSG_SCRIPTEDITOR_RELOAD":20,"LOCMSG_SCRIPTEDITOR_LINES_FETCHED":21},"QrsChangeType":{"QRS_CHANGE_UNDEFINED":0,"QRS_CHANGE_ADD":1,"QRS_CHANGE_UPDATE":2,"QRS_CHANGE_DELETE":3},"LocalizedErrorCode":{"LOCERR_INTERNAL_ERROR":-128,"LOCERR_GENERIC_UNKNOWN":-1,"LOCERR_GENERIC_OK":0,"LOCERR_GENERIC_NOT_SET":1,"LOCERR_GENERIC_NOT_FOUND":2,"LOCERR_GENERIC_ALREADY_EXISTS":3,"LOCERR_GENERIC_INVALID_PATH":4,"LOCERR_GENERIC_ACCESS_DENIED":5,"LOCERR_GENERIC_OUT_OF_MEMORY":6,"LOCERR_GENERIC_NOT_INITIALIZED":7,"LOCERR_GENERIC_INVALID_PARAMETERS":8,"LOCERR_GENERIC_EMPTY_PARAMETERS":9,"LOCERR_GENERIC_INTERNAL_ERROR":10,"LOCERR_GENERIC_CORRUPT_DATA":11,"LOCERR_GENERIC_MEMORY_INCONSISTENCY":12,"LOCERR_GENERIC_INVISIBLE_OWNER_ABORT":13,"LOCERR_GENERIC_PROHIBIT_VALIDATE":14,"LOCERR_GENERIC_ABORTED":15,"LOCERR_GENERIC_CONNECTION_LOST":16,"LOCERR_GENERIC_UNSUPPORTED_IN_PRODUCT_VERSION":17,"LOCERR_GENERIC_REST_CONNECTION_FAILURE":18,"LOCERR_HTTP_400":400,"LOCERR_HTTP_401":401,"LOCERR_HTTP_402":402,"LOCERR_HTTP_403":403,"LOCERR_HTTP_404":404,"LOCERR_HTTP_405":405,"LOCERR_HTTP_406":406,"LOCERR_HTTP_407":407,"LOCERR_HTTP_408":408,"LOCERR_HTTP_409":409,"LOCERR_HTTP_410":410,"LOCERR_HTTP_411":411,"LOCERR_HTTP_412":412,"LOCERR_HTTP_413":413,"LOCERR_HTTP_414":414,"LOCERR_HTTP_415":415,"LOCERR_HTTP_416":416,"LOCERR_HTTP_417":417,"LOCERR_HTTP_500":500,"LOCERR_HTTP_501":501,"LOCERR_HTTP_502":502,"LOCERR_HTTP_503":503,"LOCERR_HTTP_504":504,"LOCERR_HTTP_505":505,"LOCERR_HTTP_509":509,"LOCERR_APP_ALREADY_EXISTS":1000,"LOCERR_APP_INVALID_NAME":1001,"LOCERR_APP_ALREADY_OPEN":1002,"LOCERR_APP_NOT_FOUND":1003,"LOCERR_APP_IMPORT_FAILED":1004,"LOCERR_APP_SAVE_FAILED":1005,"LOCERR_APP_CREATE_FAILED":1006,"LOCERR_APP_INVALID":1007,"LOCERR_APP_CONNECT_FAILED":1008,"LOCERR_APP_ALREADY_OPEN_IN_DIFFERENT_MODE":1009,"LOCERR_APP_MIGRATION_COULD_NOT_CONTACT_MIGRATION_SERVICE":1010,"LOCERR_APP_MIGRATION_COULD_NOT_START_MIGRATION":1011,"LOCERR_APP_MIGRATION_FAILURE":1012,"LOCERR_APP_SCRIPT_MISSING":1013,"LOCERR_CONNECTION_ALREADY_EXISTS":2000,"LOCERR_CONNECTION_NOT_FOUND":2001,"LOCERR_CONNECTION_FAILED_TO_LOAD":2002,"LOCERR_CONNECTION_FAILED_TO_IMPORT":2003,"LOCERR_CONNECTION_NAME_IS_INVALID":2004,"LOCERR_FILE_ACCESS_DENIED":3000,"LOCERR_FILE_NAME_INVALID":3001,"LOCERR_FILE_CORRUPT":3002,"LOCERR_FILE_NOT_FOUND":3003,"LOCERR_FILE_FORMAT_UNSUPPORTED":3004,"LOCERR_FILE_OPENED_IN_UNSUPPORTED_MODE":3005,"LOCERR_USER_ACCESS_DENIED":4000,"LOCERR_USER_IMPERSONATION_FAILED":4001,"LOCERR_SERVER_OUT_OF_SESSION_AND_USER_CALS":5000,"LOCERR_SERVER_OUT_OF_SESSION_CALS":5001,"LOCERR_SERVER_OUT_OF_USAGE_CALS":5002,"LOCERR_SERVER_OUT_OF_CALS":5003,"LOCERR_SERVER_OUT_OF_NAMED_CALS":5004,"LOCERR_SERVER_OFF_DUTY":5005,"LOCERR_SERVER_BUSY":5006,"LOCERR_SERVER_LICENSE_EXPIRED":5007,"LOCERR_SERVER_AJAX_DISABLED":5008,"LOCERR_HC_INVALID_OBJECT":6000,"LOCERR_HC_RESULT_TOO_LARGE":6001,"LOCERR_HC_INVALID_OBJECT_STATE":6002,"LOCERR_HC_MODAL_OBJECT_ERROR":6003,"LOCERR_CALC_INVALID_DEF":7000,"LOCERR_CALC_NOT_IN_LIB":7001,"LOCERR_CALC_HEAP_ERROR":7002,"LOCERR_CALC_TOO_LARGE":7003,"LOCERR_CALC_TIMEOUT":7004,"LOCERR_CALC_EVAL_CONDITION_FAILED":7005,"LOCERR_CALC_MIXED_LINKED_AGGREGATION":7006,"LOCERR_CALC_MISSING_LINKED":7007,"LOCERR_CALC_INVALID_COL_SORT":7008,"LOCERR_CALC_PAGES_TOO_LARGE":7009,"LOCERR_CALC_SEMANTIC_FIELD_NOT_ALLOWED":7010,"LOCERR_CALC_VALIDATION_STATE_INVALID":7011,"LOCERR_CALC_PIVOT_DIMENSIONS_ALREADY_EXISTS":7012,"LOCERR_CALC_MISSING_LINKED_FIELD":7013,"LOCERR_LAYOUT_EXTENDS_INVALID_ID":8000,"LOCERR_LAYOUT_LINKED_OBJECT_NOT_FOUND":8001,"LOCERR_LAYOUT_LINKED_OBJECT_INVALID":8002,"LOCERR_PERSISTENCE_WRITE_FAILED":9000,"LOCERR_PERSISTENCE_READ_FAILED":9001,"LOCERR_PERSISTENCE_DELETE_FAILED":9002,"LOCERR_PERSISTENCE_NOT_FOUND":9003,"LOCERR_PERSISTENCE_UNSUPPORTED_VERSION":9004,"LOCERR_PERSISTENCE_MIGRATION_FAILED_READ_ONLY":9005,"LOCERR_PERSISTENCE_MIGRATION_CANCELLED":9006,"LOCERR_PERSISTENCE_MIGRATION_BACKUP_FAILED":9007,"LOCERR_PERSISTENCE_DISK_FULL":9008,"LOCERR_PERSISTENCE_NOT_SUPPORTED_FOR_SESSION_APP":9009,"LOCERR_PERSISTENCE_SYNC_SET_CHUNK_INVALID_PARAMETERS":9510,"LOCERR_PERSISTENCE_SYNC_GET_CHUNK_INVALID_PARAMETERS":9511,"LOCERR_SCRIPT_DATASOURCE_ACCESS_DENIED":10000,"LOCERR_RELOAD_IN_PROGRESS":11000,"LOCERR_PERSONAL_NEW_VERSION_AVAILABLE":12000,"LOCERR_PERSONAL_VERSION_EXPIRED":12001,"LOCERR_PERSONAL_SECTION_ACCESS_DETECTED":12002,"LOCERR_PERSONAL_APP_DELETION_FAILED":12003,"LOCERR_EXPORT_OUT_OF_MEMORY":13000,"LOCERR_EXPORT_NO_DATA":13001,"LOCERR_SYNC_INVALID_OFFSET":14000,"LOCERR_SEARCH_TIMEOUT":15000,"LOCERR_DIRECT_DISCOVERY_LINKED_EXPRESSION_FAIL":16000,"LOCERR_DIRECT_DISCOVERY_ROWCOUNT_OVERFLOW":16001,"LOCERR_DIRECT_DISCOVERY_EMPTY_RESULT":16002,"LOCERR_DIRECT_DISCOVERY_DB_CONNECTION_FAILED":16003,"LOCERR_DIRECT_DISCOVERY_MEASURE_NOT_ALLOWED":16004,"LOCERR_DIRECT_DISCOVERY_DETAIL_NOT_ALLOWED":16005,"LOCERR_DIRECT_DISCOVERY_NOT_SYNTH_CIRCULAR_ALLOWED":16006,"LOCERR_DIRECT_DISCOVERY_ONLY_ONE_DD_TABLE_ALLOWED":16007,"LOCERR_DIRECT_DISCOVERY_DB_AUTHORIZATION_FAILED":16008,"LOCERR_SMART_LOAD_TABLE_NOT_FOUND":17000,"LOCERR_SMART_LOAD_TABLE_DUPLICATED":17001,"LOCERR_VARIABLE_NO_NAME":18000,"LOCERR_VARIABLE_DUPLICATE_NAME":18001,"LOCERR_VARIABLE_INCONSISTENCY":18002,"LOCERR_MEDIA_LIBRARY_LIST_FAILED":19000,"LOCERR_MEDIA_LIBRARY_CONTENT_FAILED":19001,"LOCERR_MEDIA_BUNDLING_FAILED":19002,"LOCERR_MEDIA_UNBUNDLING_FAILED":19003,"LOCERR_MEDIA_LIBRARY_NOT_FOUND":19004,"LOCERR_FEATURE_DISABLED":20000,"LOCERR_JSON_RPC_INVALID_REQUEST":-32600,"LOCERR_JSON_RPC_METHOD_NOT_FOUND":-32601,"LOCERR_JSON_RPC_INVALID_PARAMETERS":-32602,"LOCERR_JSON_RPC_INTERNAL_ERROR":-32603,"LOCERR_JSON_RPC_PARSE_ERROR":-32700},"LocalizedWarningCode":{"LOCWARN_PERSONAL_RELOAD_REQUIRED":0,"LOCWARN_PERSONAL_VERSION_EXPIRES_SOON":1,"LOCWARN_EXPORT_DATA_TRUNCATED":1000,"LOCWARN_COULD_NOT_OPEN_ALL_OBJECTS":2000},"GrpType":{"GRP_NX_NONE":0,"GRP_NX_HIEARCHY":1,"GRP_NX_COLLECTION":2},"ExportFileType":{"EXPORT_CSV_C":0,"EXPORT_CSV_T":1,"EXPORT_OOXML":2},"ExportState":{"EXPORT_POSSIBLE":0,"EXPORT_ALL":1},"DimCellType":{"NX_DIM_CELL_VALUE":0,"NX_DIM_CELL_EMPTY":1,"NX_DIM_CELL_NORMAL":2,"NX_DIM_CELL_TOTAL":3,"NX_DIM_CELL_OTHER":4,"NX_DIM_CELL_AGGR":5,"NX_DIM_CELL_PSEUDO":6,"NX_DIM_CELL_ROOT":7,"NX_DIM_CELL_NULL":8},"StackElemType":{"NX_STACK_CELL_NORMAL":0,"NX_STACK_CELL_TOTAL":1,"NX_STACK_CELL_OTHER":2,"NX_STACK_CELL_SUM":3,"NX_STACK_CELL_VALUE":4,"NX_STACK_CELL_PSEUDO":5},"SortIndicatorType":{"NX_SORT_INDICATE_NONE":0,"NX_SORT_INDICATE_ASC":1,"NX_SORT_INDICATE_DESC":2},"DimensionType":{"NX_DIMENSION_TYPE_DISCRETE":0,"NX_DIMENSION_TYPE_NUMERIC":1,"NX_DIMENSION_TYPE_TIME":2},"FieldSelectionMode":{"SELECTION_MODE_NORMAL":0,"SELECTION_MODE_AND":1,"SELECTION_MODE_NOT":2},"FrequencyMode":{"NX_FREQUENCY_NONE":0,"NX_FREQUENCY_VALUE":1,"NX_FREQUENCY_PERCENT":2,"NX_FREQUENCY_RELATIVE":3},"DataReductionMode":{"DATA_REDUCTION_NONE":0,"DATA_REDUCTION_ONEDIM":1,"DATA_REDUCTION_SCATTERED":2,"DATA_REDUCTION_CLUSTERED":3,"DATA_REDUCTION_STACKED":4},"HypercubeMode":{"DATA_MODE_STRAIGHT":0,"DATA_MODE_PIVOT":1,"DATA_MODE_PIVOT_STACK":2},"PatchOperationType":{"Add":0,"Remove":1,"Replace":2},"SelectionCellType":{"NX_CELL_DATA":0,"NX_CELL_TOP":1,"NX_CELL_LEFT":2},"MatchingFieldMode":{"MATCHINGFIELDMODE_MATCH_ALL":0,"MATCHINGFIELDMODE_MATCH_ONE":1},"ExtEngineDataType":{"NX_EXT_DATATYPE_STRING":0,"NX_EXT_DATATYPE_DOUBLE":1,"NX_EXT_DATATYPE_BOTH":2},"ExtEngineFunctionType":{"NX_EXT_FUNCTIONTYPE_SCALAR":0,"NX_EXT_FUNCTIONTYPE_AGGR":1,"NX_EXT_FUNCTIONTYPE_TENSOR":2},"ExtEngineMsgType":{"NX_EXT_MSGTYPE_FUNCTION_CALL":1,"NX_EXT_MSGTYPE_SCRIPT_CALL":2,"NX_EXT_MSGTYPE_RETURN_VALUE":3,"NX_EXT_MSGTYPE_RETURN_MULTIPLE":4,"NX_EXT_MSGTYPE_RETURN_ERROR":5}}}
 
 /***/ }),
-/* 188 */
+/* 176 */
 /*!***********************************!*\
   !*** ./src/sense/mixins/index.js ***!
   \***********************************/
@@ -66536,19 +63423,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _doc = __webpack_require__(/*! ./doc */ 189);
+var _doc = __webpack_require__(/*! ./doc */ 177);
 
 var _doc2 = _interopRequireDefault(_doc);
 
-var _layoutObservable = __webpack_require__(/*! ./layout-observable */ 190);
+var _layoutObservable = __webpack_require__(/*! ./layout-observable */ 178);
 
 var _layoutObservable2 = _interopRequireDefault(_layoutObservable);
 
-var _currentSelections = __webpack_require__(/*! ./current-selections */ 191);
+var _currentSelections = __webpack_require__(/*! ./current-selections */ 179);
 
 var _currentSelections2 = _interopRequireDefault(_currentSelections);
 
-var _picassodata = __webpack_require__(/*! ./picassodata */ 192);
+var _picassodata = __webpack_require__(/*! ./picassodata */ 180);
 
 var _picassodata2 = _interopRequireDefault(_picassodata);
 
@@ -66557,7 +63444,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = [_doc2.default, _layoutObservable2.default, _currentSelections2.default, _picassodata2.default];
 
 /***/ }),
-/* 189 */
+/* 177 */
 /*!*********************************!*\
   !*** ./src/sense/mixins/doc.js ***!
   \*********************************/
@@ -66816,7 +63703,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 190 */
+/* 178 */
 /*!***********************************************!*\
   !*** ./src/sense/mixins/layout-observable.js ***!
   \***********************************************/
@@ -66895,7 +63782,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 191 */
+/* 179 */
 /*!************************************************!*\
   !*** ./src/sense/mixins/current-selections.js ***!
   \************************************************/
@@ -66939,7 +63826,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 192 */
+/* 180 */
 /*!*****************************************!*\
   !*** ./src/sense/mixins/picassodata.js ***!
   \*****************************************/
@@ -67022,7 +63909,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 193 */
+/* 181 */
 /*!***************************!*\
   !*** ./src/sync/index.js ***!
   \***************************/
@@ -67043,9 +63930,9 @@ var _storage2 = _interopRequireDefault(_storage);
 
 var _comm = __webpack_require__(/*! ./comm */ 20);
 
-var _queryselect = __webpack_require__(/*! ../core/dom/queryselect */ 4);
+var _queryselect = __webpack_require__(/*! ../core/dom/queryselect */ 3);
 
-var _qr = __webpack_require__(/*! ../core/misc/qr */ 194);
+var _qr = __webpack_require__(/*! ../core/misc/qr */ 182);
 
 var _qr2 = _interopRequireDefault(_qr);
 
@@ -67162,7 +64049,7 @@ _lifecycle2.default.on('srv-config', function (newConfig) {
 });
 
 /***/ }),
-/* 194 */
+/* 182 */
 /*!*****************************!*\
   !*** ./src/core/misc/qr.js ***!
   \*****************************/
@@ -67178,7 +64065,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = createQR;
 
-var _qrious = __webpack_require__(/*! qrious */ 195);
+var _qrious = __webpack_require__(/*! qrious */ 183);
 
 var _qrious2 = _interopRequireDefault(_qrious);
 
@@ -67194,7 +64081,7 @@ function createQR(element, value) {
 }
 
 /***/ }),
-/* 195 */
+/* 183 */
 /*!************************************************!*\
   !*** ./node_modules/qrious/dist/umd/qrious.js ***!
   \************************************************/
@@ -71226,17 +68113,6 @@ function createQR(element, value) {
 })));
 
 //# sourceMappingURL=qrious.js.map
-
-/***/ }),
-/* 196 */
-/*!**********************!*\
-  !*** ./package.json ***!
-  \**********************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports) {
-
-module.exports = {"name":"picasso-sandbox","version":"0.1.8","description":"","author":"","license":"ISC","private":true,"scripts":{"build":"npm run build:debug","build:debug":"webpack --debug --devtool source-map --output-pathinfo","build:watch":"npm run build:debug -- --watch","docs":"rimraf ./docs/api && jsdoc -r ./src -d ./docs/api","lint":"eslint . --quiet","lint:fix":"npm run lint -- --fix","test":"aw-test-runner ./src/**/*.spec.js","test:watch":"aw-test-runner ./src/**/*.spec.js -w","start":"node server","start-daemon":"node server -d"},"repository":{"type":"git"},"files":["/dist"],"main":"index.js","devDependencies":{"@qlik/after-work":"^0.10.7","@qlik/picasso":"file:../picasso.js/qlik-picasso-0.33.0.tgz","array.prototype.fill":"^1.0.1","babel-core":"^6.25.0","babel-loader":"^7.1.1","babel-plugin-syntax-jsx":"^6.18.0","babel-plugin-transform-object-rest-spread":"^6.23.0","babel-preset-es2015":"^6.24.1","babel-snabbdom-jsx":"^0.4.0","copy-dir":"^0.3.0","css-loader":"^0.23.1","enigma.js":"^1.0.0","eslint":"^3.8.0","eslint-config-airbnb":"^13.0.0","eslint-plugin-import":"^2.2.0","eslint-plugin-mocha":"^4.7.0","eslint-plugin-react":"^6.8.0","express":"^4.14.0","express-markdown":"0.0.6","express-ws":"^2.0.0","extend":"^3.0.0","extract-text-webpack-plugin":"^3.0.0","fs-extra":"^2.0.0","jsdoc":"^3.4.0","json-loader":"^0.5.4","less":"^2.6.1","less-loader":"^2.2.2","marked":"^0.3.6","on-build-webpack":"^0.1.0","qrious":"^2.2.0","raw-loader":"^0.5.1","request":"^2.79.0","rimraf":"^2.5.4","run-script":"^0.1.0","serve-index":"^1.8.0","style-loader":"^0.13.0","watch":"^0.18.0","webpack":"^3.3.0","webpack-livereload-plugin":"^0.8.2","yargs":"^4.7.1"},"dependencies":{"ace-builds":"^1.2.5","body-parser":"^1.17.1","hammerjs":"^2.0.8","promise-polyfill":"6.0.2"}}
 
 /***/ })
 /******/ ]);
