@@ -23,29 +23,26 @@ class Barchart extends Picasso {
     this.state.settings = {
       scales: {
         x: {
-          source: '/qHyperCube/qDimensionInfo/0',
+          data: { extract: { field: 'qDimensionInfo/0', props: { label: v => v.qText } } },
+          label: v => v.label.value,
           padding: 0.2,
         },
         y: {
-          source: '/qHyperCube/qMeasureInfo/0',
-          expand: 0.05,
+          data: { field: 'qMeasureInfo/0' },
           invert: !(this.props.orientation === 'horizontal'),
-          include: [0],
+          include: [-1],
         },
       },
       components: [{
         type: 'box-marker',
         displayOrder: '1',
         data: {
-          mapTo: {
-            start: 0,
-            end: {
-              source: '/qHyperCube/qMeasureInfo/0',
+          extract: {
+            field: 'qDimensionInfo/0',
+            props: {
+              start: 0,
+              end: { field: 'qMeasureInfo/0' },
             },
-            elemNo: { source: '/qHyperCube/qDimensionInfo/0', reducer: 'first', property: 'id' },
-          },
-          groupBy: {
-            source: '/qHyperCube/qDimensionInfo/0',
           },
         },
         settings: {
@@ -69,11 +66,9 @@ class Barchart extends Picasso {
           trigger: [{
             on: 'tap',
             contexts: ['highlight'],
-            data: ['elemNo'],
           }],
           consume: [{
             context: 'highlight',
-            data: ['elemNo'],
             style: {
               inactive: {
                 opacity: 0.3,
@@ -105,8 +100,8 @@ class Barchart extends Picasso {
       },
       {
         type: 'grid-line',
-        y:  this.props.orientation !== 'horizontal' ? { scale: 'y' } : undefined,
-        x:  this.props.orientation === 'horizontal' ? { scale: 'y' } : undefined,
+        y: this.props.orientation !== 'horizontal' ? { scale: 'y' } : undefined,
+        x: this.props.orientation === 'horizontal' ? { scale: 'y' } : undefined,
         opacity: 0.95,
       }],
     };
