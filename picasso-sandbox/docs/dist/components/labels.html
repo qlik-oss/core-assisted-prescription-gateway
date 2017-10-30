@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Components/labels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../../style.css" rel="stylesheet"/>
+    <link href="../../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="-labels-component"><code>labels</code> component</h1>
+<p>A component that renders labels based on the visual output of other components.</p>
+<p>Since this component depends on other referenced component, it is important that the <code>displayOrder</code> of this component is set to a larger value than all of the referenced components.</p>
+<h2 id="component-settings">Component settings</h2>
+<pre><code class="lang-js">settings: {
+  sources: { // 
+    component: &#39;foo&#39;, // 
+    selector: &#39;foo&#39;, // 
+    strategy: , // 
+  },
+}
+</code></pre>
+<h2 id="strategies">Strategies</h2>
+<h3 id="-bars-"><code>bars</code></h3>
+<p>A strategy used primarily for labeling the rectangles in a bar chart, histogram, waterfall or similar.</p>
+<pre><code class="lang-js">settings: {
+  direction: &#39;up&#39;, // The direction in which the bars are growing: &#39;up&#39;, or &#39;down&#39;. Default: &#39;up&#39;. Optional.
+  fontFamily: &#39;Arial&#39;, //  Default: &#39;Arial&#39;. Optional.
+  fontSize: 12, //  Default: 12. Optional.
+  labels: { // 
+    label: &#39;foo&#39;, // The text value.
+    placements: { // 
+      position,: &#39;foo&#39;, // 
+      justify: 0, // Placement of the label along the direction of the bar. Default: 0. Optional.
+      align: 0.5, // Placement of the label along the perpendicular direction of the bar. Default: 0.5. Optional.
+      fill: &#39;#333&#39;, // Color of the label. Default: &#39;#333&#39;. Optional.
+    },
+  },
+}
+</code></pre>
+<h2 id="example">Example</h2>
+<p>```js
+components: [
+  {
+    type: &#39;box-marker&#39;,
+    key: &#39;bars&#39;,
+    displayOrder: 1,
+    /<em> ... </em>/
+  },
+  {
+    type: &#39;labels&#39;,
+    displayOrder: 2 // must be larger than the displayOrder for the &#39;bars&#39; component
+    settings: {
+      sources: [{
+        component: &#39;bars&#39;,
+        selector: &#39;rect&#39;, // select all &#39;rect&#39; shapes from the &#39;bars&#39; component
+        strategy: {
+          type: &#39;bar&#39;, // the strategy type
+          settings: {
+            direction: function(data) { // data argument is the data bound to the shape in the referenced component
+              return data &amp;&amp; data.end.value &gt; data.start.value ? &#39;up&#39; : &#39;down&#39;
+            },
+            fontFamily: &#39;Helvetica&#39;,
+            fontSize: 14,
+            align: 0.5,
+            justify: 1,
+            labels: [{
+              label(data) {
+                return data ? data.end.label : &#39;&#39;;
+              },
+              placements: [ // label placements in prio order, label will be placed in the first place it fits into
+                { position: &#39;inside&#39;, fill: &#39;#fff&#39; },
+                { position: &#39;outside&#39;, fill: &#39;#666&#39; }
+              ]
+            }]
+          }
+        }
+      }]
+    }
+  }
+]</p>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

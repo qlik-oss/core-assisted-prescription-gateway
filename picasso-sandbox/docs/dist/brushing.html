@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Brushing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../style.css" rel="stylesheet"/>
+    <link href="../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="brushing-in-components">Brushing in components</h1>
+<p>Brushing in a component is handled in two ways; <em>trigger</em> and <em>consume</em>.</p>
+<h2 id="observe-actions-on-the-component">Observe actions on the component</h2>
+<p><code>trigger</code> controls how the component reacts to various user actions like &#39;tapping on a shape&#39;:</p>
+<ul>
+<li><code>on</code>: type of interaction to react to</li>
+<li><code>action</code>: type of action to respond with.  <em>Optional</em></li>
+<li><code>contexts</code>: name of the brushing contexts to affect</li>
+<li><code>data</code>: the mapped data properties to add to the brush. <em>Optional</em></li>
+<li><code>propagation</code>: control the event propagation when multiple shapes are tapped. Disabled by default. <em>Optional</em></li>
+<li><code>globalPropagation</code>: control the event propagation between components. Disabled by default. <em>Optional</em></li>
+<li><code>touchRadius</code>: extend contact area for touch events. Disabled by default. <em>Optional</em></li>
+</ul>
+<pre><code class="lang-js">trigger: [{
+  on: &#39;tap&#39;,
+  action: &#39;toggle&#39;,
+  contexts: [&#39;selection&#39;, &#39;tooltip&#39;],
+  data: [&#39;x&#39;],
+  propagation: &#39;stop&#39;, // &#39;stop&#39; =&gt; prevent trigger to propagate further then to first shape
+  globalPropagation: &#39;stop&#39;, // &#39;stop&#39; =&gt; prevent trigger of same type to be triggered on other components
+  touchRadius: 24
+}],
+</code></pre>
+<h2 id="observe-changes-of-a-brush-context">Observe changes of a brush context</h2>
+<p> <code>consume</code> controls how the component uses active brushes.</p>
+<ul>
+<li><code>context</code>: name of the brush context to observe</li>
+<li><code>data</code>: the mapped data properties to observe. <em>Optional</em></li>
+<li><code>style</code>: the style to apply to the shapes of the component<ul>
+<li><code>active</code>: the style of <em>active</em> data points</li>
+<li><code>inactive</code>: the style of <em>inactive</em> data points</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-js">consume: [{
+  context: &#39;selection&#39;,
+  data: [&#39;x&#39;],
+  style: {
+    active: {
+      fill: &#39;red&#39;,
+      stroke: &#39;#333&#39;,
+      strokeWidth: 2
+    },
+    inactive: {
+    }
+  }
+}]
+</code></pre>
+<h2 id="programmatic-changes">Programmatic changes</h2>
+<p>Brushes can be controlled programatically by accessing a certain brush from the picasso instance:</p>
+<pre><code class="lang-js">
+const pic = picasso.chart(...);
+const highlighter = pic.brush(&#39;highlight&#39;);
+highlighter.addValue(&#39;products&#39;, &#39;Bike&#39;);
+</code></pre>
+<p>when <code>addValue</code> is called, components that are <em>consuming</em> the <em>highlight</em> brushing context will react automatically and apply the specified style.</p>
+<h2 id="scenarios">Scenarios</h2>
+<p><strong>Scenario</strong>: Tapping on a data point in a component should activate a brush called <em>highlight</em>, add the relevant data to the brush, and finally highlight the point in the component.</p>
+<pre><code class="lang-js">{
+  type: &#39;point-marker&#39;,
+  data: {...},
+  settings: {...},
+  brush: {
+    trigger: [{
+      on: &#39;tap&#39;,
+      contexts: [&#39;highlight&#39;]
+    }],
+    consume: [{
+      context: &#39;highlight&#39;,
+      style: {
+        inactive: {
+          opacity: 0.3
+        }
+      }
+    }]
+  }
+}
+</code></pre>
+<p>To make the component react to a &#39;tap&#39;, we add a <em>trigger object</em> with an <code>on</code> of type &#39;tap&#39; and set the brush <code>contexts</code> we want to affect.</p>
+<p>To have the component listen to brush changes and update itself, we add a <em>consume object</em> with the name of the <code>context</code> we want it to observe, and set the <code>style</code> of <code>inactive</code> points.</p>
+<p><strong>Related</strong></p>
+<ul>
+<li><a href="./data-brush.html">data-brush</a></li>
+</ul>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

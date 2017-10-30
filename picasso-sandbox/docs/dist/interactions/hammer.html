@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Interactions/hammer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../../style.css" rel="stylesheet"/>
+    <link href="../../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h2 id="important">IMPORTANT</h2>
+<p>HammerJS has to be loaded to be able to use this plugin so that the Hammer variable is
+available on the global namespace</p>
+<h1 id="-hammer-interaction-component"><code>hammer</code> interaction component</h1>
+<p>A interaction component that binds events using HammerJS.
+This plugin provides an api for binding HammerJS recognizers to the chart element
+in a declaritive way. The documentation for the Hammer api is available here <a href="http://hammerjs.github.io/api/" target="_blank">http://hammerjs.github.io/api/</a></p>
+<h2 id="how-to-use">How to use</h2>
+<pre><code class="lang-js">import picassoHammer from &#39;@qlik/picasso/plugins/hammer&#39;;
+
+picasso.use(picassoHammer);
+</code></pre>
+<h2 id="hammer-interaction-settings">Hammer interaction settings</h2>
+<pre><code class="lang-js">interactions: [{
+  type: &#39;hammer&#39;,
+  key: &#39;here&#39;,
+  enable: function() {  // bool or function that runs when interactions are added, not every event loop
+    this.chart /*...*/;
+    return true;
+  },
+  gestures: [{
+    type: &#39;Pan&#39;, // required - Point out which hammer recognizer that should be used
+    options: { // optional - Options for hammer Pan recognizer
+      /**
+      * Determines if this gestures should be enabled or not, Runs every event loop that Hammer processes
+      */
+      enable: function() {
+        this.chart /*...*/;
+      },
+      event: &#39;thePan&#39;, // optional - name the event this gestures should trigger defaults to &#39;pan&#39; in this case
+      ... // Pan options are described here http://hammerjs.github.io/recognizer-pan/
+    },
+    recognizeWith: &#39;otherEvent1 otherEvent2&#39;, // space separated list of recognizers that should run simultaneously. The name is the event name specified in the options of the gesture (or the default name)
+    requireFailure: &#39;otherEvent&#39;, // space separated list of recognizers that needs to fail before this one gets recognized. The name is the event name specified in the options of the gesture (or the default name)
+    events: {
+      /**
+      * When hammer recognizes that a pan gesture begins the event specified in
+      * the options object above with &#39;start&#39; added is emitted.
+      */
+      thePanstart: function(e) {
+        // handle event for pan start
+      },
+      /**
+      * When hammer recognizes a pan gesture the event specified in the options object
+      * above with is emitted.
+      */
+      thePan: function(e) {
+        // handle event for panning
+      },
+      /**
+      * When hammer recognizes that a pan gesture ends the event specified in
+      * the options object above with &#39;end&#39; added is emitted.
+      */
+      thePanend: function(e) {
+        // handle event for pan end
+      }
+    }
+  }]
+}]
+</code></pre>
+<h2 id="another-example">Another example</h2>
+<pre><code class="lang-js">interactions: [{
+  type: &#39;hammer&#39;,
+  key: &#39;akey&#39;,
+  gestures: [{
+    type: &#39;Tap&#39;,
+    options: {
+      event: &#39;tripleTap&#39;,
+      taps: 3
+    },
+    recognizeWith: &#39;doubleTap tap&#39;,
+    events: {
+      tripleTap: function(e) {
+        console.log(&#39;triple tapped&#39;);
+      }
+    }
+  },{
+    type: &#39;Tap&#39;,
+    options: {
+      event: &#39;doubleTap&#39;,
+      taps: 2
+    },
+    recognizeWith: &#39;tap&#39;,
+    requireFailure: &#39;tripleTap&#39;,
+    events: {
+      doubleTap: function(e) {
+        console.log(&#39;double tapped&#39;);
+      }
+    }
+  },{
+    type: &#39;Tap&#39;,
+    options: {
+      taps: 1
+    },
+    requireFailure: &#39;doubleTap tripleTap&#39;,
+    events: {
+      tap: function(e) {
+        console.log(&#39;tapped&#39;);
+      }
+    }
+  },]
+}]
+</code></pre>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

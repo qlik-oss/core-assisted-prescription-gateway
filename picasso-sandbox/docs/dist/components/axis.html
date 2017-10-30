@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Components/axis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../../style.css" rel="stylesheet"/>
+    <link href="../../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="-axis-component"><code>axis</code> component</h1>
+<h2 id="basic-definition">Basic definition</h2>
+<p>The axis need only a scale defined to generate either a continuous or discrete axis depending on scale type.</p>
+<pre><code class="lang-js">{
+  type: &#39;axis&#39;,
+  scale: &#39;x&#39;
+}
+</code></pre>
+<h2 id="example">Example</h2>
+<h3 id="discrete-axis">Discrete axis</h3>
+<p>Limit the label length to 80px and use a angle of 35 degrees on the labels.</p>
+<pre><code class="lang-js">{
+  type: &#39;axis&#39;,
+  scale: &#39;x&#39;,
+  dock: &#39;top&#39;
+  settings: {
+    labels: {
+      mode: &#39;tilted&#39;,
+      fontSize: &#39;15px&#39;,
+      tiltAngle: 35,
+      maxLengthPx: 80,
+      maxEdgeBleed: 50
+    },
+    line: {
+      show: true
+    },
+    ticks: {
+      show: false
+    }
+  }
+}
+</code></pre>
+<h3 id="continuous-axis">Continuous axis</h3>
+<pre><code class="lang-js">{
+  type: &#39;axis&#39;,
+  scale: &#39;y&#39;,
+  dock: &#39;left&#39;
+  settings: {
+    labels: {
+      mode: &#39;horizontal&#39;,
+      fontSize: &#39;15px&#39;,
+    },
+    line: {
+      show: false
+    },
+    ticks: {
+      show: true
+    },
+    minorTicks: {
+      show: true,
+      tickSize: 3
+    }
+  }
+}
+</code></pre>
+<h3 id="using-maxglyphcount">Using maxGlyphCount</h3>
+<p>The <code>maxGlyphCount</code> property is used to measure the largest possible size a label. The size of a label affect the primarly two things - when we determine the required size to render an axis (this can also be limited via the <code>maxSize</code> property). Secondly when the <code>mode</code> is set to <code>auto</code>, it is used to calculate the threshold for switching between horizontal and tilted labels.</p>
+<p>Under the hood - <code>maxGlyphCount</code> is a multipler on the size of the character <code>M</code>, as measured using the <code>fontSize</code> and <code>fontFamily</code>.</p>
+<pre><code class="lang-js">{
+  type: &#39;axis&#39;,
+  scale: &#39;x&#39;,
+  settings: {
+    labels: {
+      mode: &#39;auto&#39;,
+      maxGlyphCount: 20
+    }
+  }
+}
+</code></pre>
+<h2 id="api-reference-table-of-contents">API reference - Table of contents</h2>
+<pre><code class="lang-js">settings: {
+  labels: { // Labels settings. Optional.
+    show: true, //  Default: true. Optional.
+    mode: &#39;auto&#39;, // Control how labels arrange themself. Availabe modes are auto, horizontal, layered and tilted. Only horizontal is supported on a continuous axis. Default: &#39;auto&#39;. Optional.
+    tiltAngle: 40, // Angle in degrees, capped between -90 and 90. Default: 40. Optional.
+    maxEdgeBleed: Infinity, //  Default: Infinity. Optional.
+    fontFamily: &#39;Arial&#39;, //  Default: &#39;Arial&#39;. Optional.
+    fontSize: &#39;12px&#39;, //  Default: &#39;12px&#39;. Optional.
+    fill: &#39;#595959&#39;, //  Default: &#39;#595959&#39;. Optional.
+    margin: 3.14, // Space between tick and label. Default to 6 (discrete) or 4 (continuous). Optional.
+    maxLengthPx: 150, // Max length of labels in pixels. Default: 150. Optional.
+    minLengthPx: 0, // Min length of labels in pixels. Labels will always at least require this much space. Default: 0. Optional.
+    maxGlyphCount: , // Is used to measure the largest possible size a label. Default: . Optional.
+  },
+  line: { //  Optional.
+    show: true, //  Default: true. Optional.
+    strokeWidth: 1, //  Default: 1. Optional.
+    stroke: &#39;#cccccc&#39;, //  Default: &#39;#cccccc&#39;. Optional.
+  },
+  ticks: { //  Optional.
+    show: true, //  Default: true. Optional.
+    margin: 0, //  Default: 0. Optional.
+    tickSize: 3.14, // Default to 4 (discrete) or 8 (continuous). Optional.
+    stroke: &#39;#cccccc&#39;, //  Default: &#39;#cccccc&#39;. Optional.
+    strokeWidth: 1, //  Default: 1. Optional.
+  },
+  minorTicks: { // Only on a continuous axis. Optional.
+    show: true, //  Default: true. Optional.
+    margin: 0, //  Default: 0. Optional.
+    tickSize: 3, //  Default: 3. Optional.
+    stroke: &#39;#e6e6e6&#39;, //  Default: &#39;#e6e6e6&#39;. Optional.
+    strokeWidth: 1, //  Default: 1. Optional.
+  },
+}
+</code></pre>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

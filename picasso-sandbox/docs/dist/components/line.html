@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Components/line</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../../style.css" rel="stylesheet"/>
+    <link href="../../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="-line-component"><code>line</code> component</h1>
+<blockquote>
+<p>Experimental</p>
+</blockquote>
+<p>A component that renders lines and areas.</p>
+<p><img src="../../assets/line.png" alt="Line component"></p>
+<h2 id="example">Example</h2>
+<pre><code class="lang-js">{
+  type: &#39;line&#39;,
+  data: {
+    extract: {
+      field: &#39;Month&#39;,
+      props: {
+        minor: { field: &#39;Sales&#39; },
+        year: { field: &#39;Year&#39; }
+      }
+    }
+  },
+  settings: {
+    coordinates: {
+      minor: { scale: &#39;y&#39; },
+      major: { scale: &#39;x&#39; },
+      layerId: { ref: &#39;year&#39; } 
+    },
+    orientation: &#39;horizontal&#39;,
+    layers: {
+      curve: &#39;monotone&#39;,
+      show: true,
+      line: {
+        strokeWidth: 2,
+        stroke: {
+          scale: &#39;color&#39;,
+          ref: &#39;id&#39; 
+        },
+        opacity: 1,
+        show: (a, i) =&gt; i &gt;= 1
+      },
+      area: {
+        fill: {
+          scale: &#39;color&#39;,
+          ref: &#39;id&#39;
+        },
+        opacity: 0.9,
+        show: (a, i) =&gt; i &lt; 2
+      }
+    }
+  }
+</code></pre>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

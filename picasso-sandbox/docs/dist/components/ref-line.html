@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Components/ref-line</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../../style.css" rel="stylesheet"/>
+    <link href="../../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="-ref-line-reference-line-component-experimental-"><code>ref-line</code> (Reference Line) component [<em>EXPERIMENTAL</em>]</h1>
+<p>A component that renders reference line(s) according to configuration</p>
+<h2 id="component-settings">Component settings</h2>
+<pre><code class="lang-js">component: {
+  style: refline-generic-style, // x coordinate. Default: refline-generic-style. Optional.
+  lines: { // X &amp; Y Lines.
+    x: refline-line[], // lines along X. Default: refline-line[]. Optional.
+    y: refline-line[], // lines along Y. Default: refline-line[]. Optional.
+  },
+}
+</code></pre>
+<pre><code class="lang-js">refline-generic-style: {
+  oob: refline-oob-style, // Style for out of bounds object (oob). Default: refline-oob-style. Optional.
+  line: refline-line, // Generic style for lines. Default: refline-line. Optional.
+  label: refline-line-label, // Generic style for labels. Default: refline-line-label. Optional.
+}
+</code></pre>
+<pre><code class="lang-js">refline-oob-style: {
+  show: true, // Show out of bounds items. Default: true. Optional.
+  type: &#39;foo&#39;, // EXPERIMENTAL:  Set this to &#39;arc&#39; for an experimental out of bounds shape (only works with SVG). Optional.
+  width: 10, // Width of the out of bounds object. Default: 10. Optional.
+  fill: &#39;#1A1A1A&#39;, // Fill color of the OOB object. Default: &#39;#1A1A1A&#39;. Optional.
+  stroke: &#39;transparent&#39;, // Stroke of the OOB object. Default: &#39;transparent&#39;. Optional.
+  strokeWidth: 0, // Stroke width of the OOB object. Default: 0. Optional.
+  opacity: 1, // Opacity of the OOB object. Default: 1. Optional.
+  text: refline-generic-text, // Text configuration for out of bounds. Default: refline-generic-text. Optional.
+  triangle: refline-generic-object, // The triangle in OOB. Default: refline-generic-object. Optional.
+  padding: { // Padding on X. Optional.
+    x: 28, // Padding on X. Default: 28. Optional.
+    y: 5, // Padding on X. Default: 5. Optional.
+  },
+}
+</code></pre>
+<pre><code class="lang-js">refline-generic-text: {
+  text: &#39;&#39;, // Text (if applicable). Default: &#39;&#39;. Optional.
+  fontSize: &#39;12px&#39;, // Font size (if applicable). Default: &#39;12px&#39;. Optional.
+  fontFamily: &#39;Arial&#39;, // Font family. Default: &#39;Arial&#39;. Optional.
+  fill: &#39;#fff&#39;, // Fill color. Default: &#39;#fff&#39;. Optional.
+  stroke: &#39;transparent&#39;, // Stroke. Default: &#39;transparent&#39;. Optional.
+  strokeWidth: 0, // Stroke width. Default: 0. Optional.
+  opacity: 1, // Opacity. Default: 1. Optional.
+}
+</code></pre>
+<pre><code class="lang-js">refline-line: {
+  value: 3.14, // The value of the reference line. If a scale is specified, it is applied..
+  scale: , // Scale to use (if undefined will use normalized value 0-1). Optional.
+  line: refline-generic-object, // The style of the line. Default: refline-generic-object. Optional.
+  label: refline-line-label, // The label style of the line. Default: refline-line-label. Optional.
+}
+</code></pre>
+<pre><code class="lang-js">refline-line-label: {
+  padding: 5, // Padding inside the label. Default: 5.
+  text: &#39;&#39;, // Text. Default: &#39;&#39;. Optional.
+  fontSize: &#39;12px&#39;, // Font size. Default: &#39;12px&#39;. Optional.
+  fontFamily: &#39;Arial&#39;, // Font family. Default: &#39;Arial&#39;. Optional.
+  stroke: &#39;transparent&#39;, // Stroke. Default: &#39;transparent&#39;. Optional.
+  strokeWidth: 0, // Stroke width. Default: 0. Optional.
+  opacity: 1, // Opacity. Default: 1. Optional.
+  align: 0, // Alignment property left to right (0 = left, 1 = right). Also supports string (&#39;left&#39;, &#39;center&#39;, &#39;middle&#39;, &#39;right&#39;). Default: 0. Optional.
+  vAlign: 0, // Alignment property top to bottom (0 = top, 1 = bottom). Also supports string (&#39;top&#39;, &#39;center&#39;, &#39;middle&#39;, &#39;bottom&#39;). Default: 0. Optional.
+  maxWidth: 1, // The maximum relative width to the width of the rendering area (see maxWidthPx below aswell). Default: 1. Optional.
+  maxWidthPx: 9999, // The maximum width in pixels.. Default: 9999. Optional.
+  background: refline-line-label-background, // The background style (rect behind text). Default: refline-line-label-background. Optional.
+}
+</code></pre>
+<pre><code class="lang-js">refline-line-label-background: {
+  fill: &#39;#fff&#39;, // Fill color. Default: &#39;#fff&#39;. Optional.
+  stroke: &#39;transparent&#39;, // Stroke. Default: &#39;transparent&#39;. Optional.
+  strokeWidth: 0, // Stroke width. Default: 0. Optional.
+  opacity: 0.5, // Opacity. Default: 0.5. Optional.
+}
+</code></pre>
+<pre><code class="lang-js">refline-generic-object: {
+  fill: &#39;#fff&#39;, // Fill color. Default: &#39;#fff&#39;. Optional.
+  stroke: &#39;transparent&#39;, // Stroke. Default: &#39;transparent&#39;. Optional.
+  strokeWidth: 0, // Stroke width. Default: 0. Optional.
+  opacity: 1, // Opacity. Default: 1. Optional.
+}
+</code></pre>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

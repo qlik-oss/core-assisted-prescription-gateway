@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Components/brush-area-dir</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../../style.css" rel="stylesheet"/>
+    <link href="../../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="-brush-area-dir-component-experimental-"><code>brush-area-dir</code> component [<em>EXPERIMENTAL</em>]</h1>
+<h2 id="definition">Definition</h2>
+<pre><code class="lang-js">{
+  type: &#39;brush-area-dir&#39;,
+  key: &#39;area&#39;, // component identifier
+  preferredSize: () =&gt; 50,
+  settings: {
+    brush: {
+      components: {
+        key: &#39;key1&#39;, // Component key to trigger brush on
+        contexts: [&#39;highlight&#39;],
+        data: [&#39;self&#39;],
+        action: &#39;add&#39;
+      }
+    },
+    direction: &#39;vertical&#39;,
+    bubbles: {
+      show: true,
+      align: &#39;start&#39;, // or end
+      fontSize: &#39;14px&#39;,
+      fontFamily: &#39;Arial&#39;,
+      fill: &#39;#595959&#39;,
+      label: data =&gt; data.self.label
+    },
+    target: { // render matching overlay on target component (optional)
+      component: &#39;y-axis&#39;,
+      fill: &#39;rgba(82,204,82,0.2)&#39;,
+      fillActive: &#39;rgba(82,204,82,0.4)&#39; // target area color on hover
+    }
+  }
+}
+</code></pre>
+<h2 id="example-usage">Example usage</h2>
+<pre><code class="lang-js">var rangeRef;
+
+picasso.chart({
+  element: element,
+  data: data,
+  settings: {
+    scales: {
+      x: { source: x, expand: 0.2 }
+      y: { source: y, expand: 0.2 }
+    },
+    interactions: [{
+      type: &#39;hammer&#39;,
+      gestures: [{
+        type: &#39;Pan&#39;,
+        options: {
+          direction: Hammer.DIRECTION_VERTICAL,
+          event: &#39;minor&#39;
+        },
+        events: {
+          minorstart: function(e) {
+            this.chart.component(&#39;area&#39;).emit(&#39;areaStart&#39;, e);
+          },
+          minormove: function(e) {
+            this.chart.component(&#39;area&#39;).emit(&#39;areaMove&#39;, e);
+          },
+          minorend: function(e) {
+            this.chart.component(&#39;area&#39;).emit(&#39;areaEnd&#39;, e);
+          }
+        }
+      }
+    }],
+    components: [
+      {
+        type: &#39;point-marker&#39;,
+        key: &#39;pm&#39;,
+        ...
+      },
+      {
+        key: &#39;x-axis&#39;,
+        type: &#39;axis&#39;,
+        scale: &#39;x&#39;,
+      },
+      {
+        type: &#39;brush-area-dir&#39;,
+        key: &#39;area&#39;
+        settings: {
+          brush: {
+            components: {
+              key: &#39;pm&#39;
+              contexts: [&#39;highlight&#39;],
+              data: [&#39;self&#39;],
+              action: &#39;add&#39;
+            }
+          },
+          direction: &#39;vertical&#39;,
+          target: {
+            component: &#39;x-axis&#39;
+          }
+        }
+      }
+    ]
+  }
+});
+</code></pre>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

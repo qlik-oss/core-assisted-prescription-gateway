@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Picasso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../style.css" rel="stylesheet"/>
+    <link href="../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="picasso">picasso</h1>
+<p>The <code>picasso</code> object is not just a namespace, it&#39;s also function which enables the creation of multiple custom configurations of <code>picasso.js</code>. Each call to <code>picasso()</code> will return a function with the same interface but have different configurations internally.</p>
+<pre><code class="lang-js">import picasso from &#39;picasso&#39;; // &#39;global&#39;
+
+picasso.renderer.default(&#39;canvas&#39;); // use canvas renderer by default
+
+// configure a custom picasso which logs everything
+const pic = picasso({
+  logger: { // experimental
+    level: 4
+  }
+});
+pic.renderer.default(&#39;svg&#39;); // use svg renderer by default for all charts created from this configuration
+pic.component(&#39;mine&#39;, myComponent); // register a custom component
+
+
+pic.chart(/* */); // svg renderer is used, &#39;mine&#39; component is available for use
+
+picasso.chart( /* */ ); // canvas renderer is used, &#39;mine&#39; component not available in this configuration
+</code></pre>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>

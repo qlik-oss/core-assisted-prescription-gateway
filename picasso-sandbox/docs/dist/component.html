@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>picasso.js docs - Component</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
+    <link href="../style.css" rel="stylesheet"/>
+    <link href="../favicon.ico" rel="icon" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      window.onload = function() {
+        hljs.configure({
+          languages: ["javascript"]
+        });
+
+        var inlineBlocks = document.querySelectorAll('code');
+        Array.prototype.slice.call(inlineBlocks).forEach(function(b) {
+          if(b.parentNode.tagName !== "PRE") {
+            b.classList.add("inline");
+          } else {
+            hljs.highlightBlock(b);
+          }
+        });
+      };
+    </script>
+</head>
+<body>
+    <div id="page">
+    <div class="header-wrapper">
+      <div class="header">
+        <a class="header-logo" href="./index.html">
+          <img src="../picasso-logo.svg">
+        </a>
+        <div class="header-links">
+          <!--<a href="#">Github</a>-->
+        </div>
+      </div>
+    </div>
+        <div class="container" id="container">
+      <div class="sidebar">
+        <ul><li>
+  <a href="../dist/index.html">Index</a>
+</li>
+<li>
+  <a href="../dist/QIX selections.html">QIX selections</a>
+</li>
+<li>
+  <a href="../dist/README.html">README</a>
+</li>
+<li>
+  <a href="../dist/brushing.html">Brushing</a>
+</li>
+<li>
+  <a href="../dist/chart.html">Chart</a>
+</li>
+<li>
+  <a href="../dist/component.html">Component</a>
+</li>
+<li>
+  <a href="../dist/components/axis.html">Components / axis</a>
+</li>
+<li>
+  <a href="../dist/components/box-marker.html">Components / box Marker</a>
+</li>
+<li>
+  <a href="../dist/components/brush-area-dir.html">Components / brush Area Dir</a>
+</li>
+<li>
+  <a href="../dist/components/brush-lasso.html">Components / brush Lasso</a>
+</li>
+<li>
+  <a href="../dist/components/brush-range.html">Components / brush Range</a>
+</li>
+<li>
+  <a href="../dist/components/grid-line.html">Components / grid Line</a>
+</li>
+<li>
+  <a href="../dist/components/labels.html">Components / labels</a>
+</li>
+<li>
+  <a href="../dist/components/legend-cat.html">Components / legend Cat</a>
+</li>
+<li>
+  <a href="../dist/components/legend-seq.html">Components / legend Seq</a>
+</li>
+<li>
+  <a href="../dist/components/line.html">Components / line</a>
+</li>
+<li>
+  <a href="../dist/components/pie.html">Components / pie</a>
+</li>
+<li>
+  <a href="../dist/components/point-marker.html">Components / point Marker</a>
+</li>
+<li>
+  <a href="../dist/components/range.html">Components / range</a>
+</li>
+<li>
+  <a href="../dist/components/ref-line.html">Components / ref Line</a>
+</li>
+<li>
+  <a href="../dist/components/text.html">Components / text</a>
+</li>
+<li>
+  <a href="../dist/data-brush.html">Data Brush</a>
+</li>
+<li>
+  <a href="../dist/data.html">Data</a>
+</li>
+<li>
+  <a href="../dist/dock-layout.html">Dock Layout</a>
+</li>
+<li>
+  <a href="../dist/interaction.html">Interaction</a>
+</li>
+<li>
+  <a href="../dist/interactions/hammer.html">Interactions / hammer</a>
+</li>
+<li>
+  <a href="../dist/interactions/native.html">Interactions / native</a>
+</li>
+<li>
+  <a href="../dist/picasso.html">Picasso</a>
+</li>
+<li>
+  <a href="../dist/scales.html">Scales</a>
+</li>
+<li>
+  <a href="../dist/scroll-api.html">Scroll Api</a>
+</li>
+</ul>
+      </div>
+      <div class="content">
+              <h1 id="component">Component</h1>
+<p>Components make up the visual parts of a chart, these typically include axis, grid-lines and data points encoded in various ways.</p>
+<h2 id="using-components-in-a-chart">Using components in a chart</h2>
+<p>Each component has a <code>type</code> property which identifies the type of component to create.</p>
+<p>To use components, you need to add them in the <code>components</code> array:</p>
+<pre><code class="lang-js">picasso.chart({
+  settings: {
+    components: [{
+      type: &#39;point-marker&#39;,
+      data: { /* ... */ },
+      settings: { /* ... */ }
+    }, {
+      type: &#39;axis&#39;,
+      dock: &#39;bottom&#39;,
+      scale: &#39;x&#39;
+    }]
+  }
+});
+</code></pre>
+<p>Some properties are general and can be used on all components:</p>
+<ul>
+<li><code>dock</code> <em>string</em>. Dock setting. Any of <code>top</code> | <code>right</code> | <code>bottom</code> | <code>left</code></li>
+<li><code>show</code> <em>boolean</em>. True if component should be rendered.</li>
+<li><code>displayOrder</code> <em>number</em>. </li>
+<li><code>prioOrder</code> <em>number</em>. </li>
+<li><code>minimumLayoutMode</code> <em>string</em>. </li>
+<li><code>created</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>beforeMount</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>mounted</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>beforeRender</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>beforeUpdate</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>updated</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>beforeDestroy</code> <em>function</em>. Lifecycle hook.</li>
+<li><code>destroyed</code> <em>function</em>. Lifecycle hook.</li>
+</ul>
+<h2 id="bundled-components">Bundled components</h2>
+<p>Picasso.js comes with a pre-bundled set of components:</p>
+<ul>
+<li><a href="./components/box-marker.html">box-marker</a></li>
+<li><a href="./components/point-marker.html">point-marker</a></li>
+<li><a href="./components/axis.html">axis</a></li>
+<li><a href="./components/grid-line.html">grid-line</a></li>
+<li><a href="./components/text.html">text</a></li>
+<li><a href="./components/ref-line.html">ref-line</a></li>
+<li><a href="./components/range.html">range</a></li>
+<li><a href="./components/brush-range.html">brush-range</a></li>
+<li><a href="./components/brush-lasso.html">brush-lasso</a></li>
+<li><a href="./components/interaction.html">interaction</a></li>
+</ul>
+<h2 id="register-a-custom-component">Register a custom component</h2>
+<p>To register a component, use the <code>picasso.component</code> function.</p>
+<h3 id="-picasso-component-name-definition-"><code>picasso.component(name, definition)</code></h3>
+<ul>
+<li><code>name</code> <em>string</em>. Name of the component to register.</li>
+<li><code>definition</code> <em>object</em><ul>
+<li><code>dock</code> <em>string</em>. </li>
+<li><code>show</code> <em>boolean</em>.</li>
+<li><code>displayOrder</code> <em>number</em>. </li>
+<li><code>prioOrder</code> <em>number</em>. </li>
+<li><code>minimumLayoutMode</code> <em>string</em>. </li>
+<li><code>created</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>beforeMount</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>mounted</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>beforeRender</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>beforeUpdate</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>updated</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>beforeDestroy</code> <em>function</em> (optional). Lifecycle hook.</li>
+<li><code>destroyed</code> <em>function</em> (optional). Lifecycle hook.</li>
+</ul>
+</li>
+</ul>
+<h2 id="component-lifecycle-hooks">Component lifecycle hooks</h2>
+<p><strong>TODO</strong></p>
+<p>(Note that the lifecycle hooks in the component definition <strong>does not</strong> share the same context as hooks used in the component settings of a chart).</p>
+<h2 id="component-displayorder">Component displayOrder</h2>
+<p>The <code>displayOrder</code> property is used by the layout engine to lay out components. Components are interpreted in the ascending order of the <code>displayOrder</code> value. The layout engine apply the value in two ways, the first is the order in which components are rendererd. The second is the area components are laid out in when they have a direction, i.e. docked to either top, bottom, left or right.</p>
+<p>If docked at the same area, the component with a higher <code>displayOrder</code> will be rendered on top of the component with a lower <code>displayOrder</code>. It can be seen as defining a z-index. A lower <code>displayOrder</code> also means that a component will be laid out first in a given direction, i.e. laid out closer to the central area (non-directional area) then a component with a higher <code>displayOrder</code>. It can it this case be seen as the x-index or y-index.</p>
+<h2 id="component-prioorder">Component prioOrder</h2>
+<p>The <code>prioOrder</code> property is used to define the order in which components are added to the layout engine, this is done before any components are laid out. When there is not enough space to add any more components to a given area, all components not all ready added, are then discarded. The <code>prioOrder</code> is interpreted in the ascending order. Such that a lower value is added to the layout engine first.</p>
+
+          </div>
+        </div>
+    </div>
+</body>
+</html>
