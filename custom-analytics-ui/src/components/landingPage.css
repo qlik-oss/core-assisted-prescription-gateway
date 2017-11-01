@@ -2,7 +2,7 @@
   width: 100%;
   position: relative;
   background-size: cover;
-  min-height: 90vh;
+  min-height: calc(100vh - 64px);
   background-image: url(../resources/landingPage-background-image.jpg);
 }
 
