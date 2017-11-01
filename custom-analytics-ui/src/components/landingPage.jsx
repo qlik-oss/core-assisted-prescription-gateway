@@ -15,7 +15,7 @@ export default function LandingPage() {
     <div>
       <div className="landing">
         <div className="content white-text right-align">
-          <h2>Insights for prescriptions<br>at your fingertips</h2>
+          <h2>Insights for prescriptions<br />at your fingertips</h2>
           <p>Save more lives, time and money</p>
           <RedirectButton />
         </div>
