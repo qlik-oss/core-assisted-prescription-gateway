@@ -23,7 +23,7 @@ done
 
 echo
 echo
-echo "Ready to hack! Please go to http://localhost/dev/ (mind the ending slash)"
+echo "Ready to hack! Please go to https://localhost/dev/ (mind the ending slash)"
 echo "and hack away..."
 echo
 echo
