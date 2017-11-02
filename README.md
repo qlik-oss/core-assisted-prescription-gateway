@@ -20,12 +20,13 @@ To use this container you need to set these environment variables:
 
 And these are optional:
 
-`CERT_FILE`, `CERT_KEY` - HTTPS certificates (if not set, HTTPS will not work so
-  make sure port 80 is mapped)
+`CERT_FILE`, `CERT_KEY` - HTTPS certificates (if not set, self-signed certificates will be generated on start up)
 
 ## Developing the UI
 
-1. Start up a local environment of [qliktive-custom-analytics](https://github.com/qlik-ea/qliktive-custom-analytics)
+_Note: You do not need to set any environment variables for this._
+
+1. Start up a local environment of [qliktive-custom-analytics](https://github.com/qlik-ea/qliktive-custom-analytics#getting-started)
 2. Open up a terminal (or Git Bash in Windows) and run [`./run-dev.sh`](./run-dev.sh)
 3. Follow the guidelines in the terminal
 4. Hack away on the UI and the browser should auto-update
