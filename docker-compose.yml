@@ -21,6 +21,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ../info/site:/usr/local/openresty/nginx/html/docs
 
   webpack-dev:
     image: mhart/alpine-node:8

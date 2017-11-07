@@ -91,6 +91,15 @@ http {
       access_log off;
     }
 
+    location /docs/ {
+      access_by_lua_block {
+        validate_user();
+      }
+      alias html/docs/;
+      try_files $uri $uri/ =404;
+      access_log off;
+    }
+
     location /picasso-sandbox {
       access_by_lua_block {
         validate_user();
