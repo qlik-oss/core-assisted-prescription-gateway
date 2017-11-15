@@ -25,14 +25,14 @@ services:
       - ../info/site:/usr/local/openresty/nginx/html/docs
 
   webpack-dev:
-    image: mhart/alpine-node:8
+    image: mhart/alpine-node:8.1
     networks:
       - qliktivecustomanalytics_default
     ports:
       - "8080:8080"
     volumes:
       - ./custom-analytics-ui:/ui
-    command: sh -c 'cd /ui && npm install && npm run start'
+    command: sh -c 'cd /ui && rm -rf package-lock.json && npm install && npm run start'
 
 networks:
   qliktivecustomanalytics_default:
