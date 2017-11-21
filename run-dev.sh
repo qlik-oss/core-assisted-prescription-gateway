@@ -1,41 +1,37 @@
 #!/bin/sh
 
-CONTAINER_ID=$(docker ps | grep openresty | grep -o '^\S\+')
+CONTAINER_ID=$(docker ps -qf "name=openresty")
+echo $CONTAINER_ID
 
-if [ "$CONTAINER_ID" != "" ]; then
-  echo "Stopping existing openresty service..."
-  docker stop $CONTAINER_ID
-fi
+docker commit $CONTAINER_ID openresty-dev
+docker kill $CONTAINER_ID
+docker run -d --network=qliktivecustomanalytics_default -v "$PWD/custom-analytics-ui/dev":/usr/local/openresty/nginx/html/dev openresty-dev
+ 
 
-# make sure the dist/ folder exists before building:
-mkdir -p custom-analytics-ui/dist
+# if [ "$CONTAINER_ID" != "" ]; then
+#   echo "Stopping existing openresty service..."
+#   docker stop $CONTAINER_ID
+# fi
 
-docker-compose up --build &
+# docker-compose up --build -d
 
-echo "Waiting for services to start up..."
 
-WEBPACK_IS_DOWN="true"
+# echo
+# echo
+# echo "Ready to hack! Please go to https://localhost/dev/ (mind the ending slash)"
+# echo "and hack away..."
+# echo
+# echo
+# echo "Press ctrl-c to cancel dev mode..."
+# echo
+# echo 
 
-while [ "$WEBPACK_IS_DOWN" == "true" ]; do
-  WEBPACK_IS_DOWN=$(curl http://localhost:8080 -s -f -o /dev/null || echo "true")
-  sleep 1
-done
+# sleep 5
 
-echo
-echo
-echo "Ready to hack! Please go to https://localhost/dev/ (mind the ending slash)"
-echo "and hack away..."
-echo
-echo
-echo "Press any key to cancel dev mode..."
-echo
-echo
+# npm --prefix ./custom-analytics-ui/ run start
 
-# wait for keyboard input:
-read -n1 -r -p ""
+# docker-compose down
 
-docker-compose down
-
-if [ "$CONTAINER_ID" != "" ]; then
-  docker start $CONTAINER_ID
-fi
+# if [ "$CONTAINER_ID" != "" ]; then
+#   docker start $CONTAINER_ID
+# fi
