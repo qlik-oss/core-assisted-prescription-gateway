@@ -27,6 +27,6 @@ And these are optional:
 _Note: You do not need to set any environment variables for this._
 
 1. Start up a local environment of [qliktive-custom-analytics](https://github.com/qlik-ea/qliktive-custom-analytics#getting-started)
-2. Open up a terminal (or Git Bash in Windows) and run [`./run-dev.sh`](./run-dev.sh)
-3. Follow the guidelines in the terminal
-4. Hack away on the UI and the browser should auto-update
+2. Open up a terminal (or Git Bash in Windows) and run ```./run-dev.sh```
+
+Now you will be able to do changes to the files in src and it will be rebuilt and shown in your browser after a refresh. 

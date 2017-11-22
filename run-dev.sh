@@ -11,6 +11,9 @@ fi
 mkdir -p custom-analytics-ui/dist
 
 docker-compose up --build -d
+cd custom-analytics-ui
+npm install
+
 Yellow='\033[0;33m'
 echo
 echo
@@ -24,7 +27,7 @@ echo
 
 sleep 5
 
-npm --prefix ./custom-analytics-ui/ run start
+npm run start
 
 docker-compose down
 
