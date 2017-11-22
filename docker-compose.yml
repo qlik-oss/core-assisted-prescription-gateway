@@ -4,7 +4,6 @@ services:
   openresty:
     build: .
     environment:
-      DEV: 'true'
       SESSION_COOKIE_NAME: custom-analytics
       KIBANA_HOST: 127.0.0.1
       KIBANA_PORT: 5601
@@ -23,16 +22,7 @@ services:
       - "443:443"
     volumes:
       - ../info/site:/usr/local/openresty/nginx/html/docs
-
-  webpack-dev:
-    image: mhart/alpine-node:8
-    networks:
-      - qliktivecustomanalytics_default
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./custom-analytics-ui:/ui
-    command: sh -c 'cd /ui && npm install && npm run start'
+      - ./custom-analytics-ui/dist:/usr/local/openresty/nginx/html/custom-analytics-ui
 
 networks:
   qliktivecustomanalytics_default:

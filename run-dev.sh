@@ -1,37 +1,33 @@
 #!/bin/sh
 
-CONTAINER_ID=$(docker ps -qf "name=openresty")
-echo $CONTAINER_ID
-
-docker commit $CONTAINER_ID openresty-dev
-docker kill $CONTAINER_ID
-docker run -d --network=qliktivecustomanalytics_default -v "$PWD/custom-analytics-ui/dev":/usr/local/openresty/nginx/html/dev openresty-dev
- 
-
-# if [ "$CONTAINER_ID" != "" ]; then
-#   echo "Stopping existing openresty service..."
-#   docker stop $CONTAINER_ID
-# fi
-
-# docker-compose up --build -d
+CONTAINER_ID=$(docker ps -aqf "name=openresty")
 
 
-# echo
-# echo
-# echo "Ready to hack! Please go to https://localhost/dev/ (mind the ending slash)"
-# echo "and hack away..."
-# echo
-# echo
-# echo "Press ctrl-c to cancel dev mode..."
-# echo
-# echo 
+if [ "$CONTAINER_ID" != "" ]; then
+  echo "Stopping existing openresty service..."
+  docker stop $CONTAINER_ID
+fi
 
-# sleep 5
+mkdir -p custom-analytics-ui/dist
 
-# npm --prefix ./custom-analytics-ui/ run start
+docker-compose up --build -d
+Yellow='\033[0;33m'
+echo
+echo
+echo "${Yellow}Ready to hack! Please go to https://localhost/ (mind the ending slash)"
+echo "and hack away..."
+echo
+echo
+echo "Press ctrl-c to cancel dev mode..."
+echo
+echo 
 
-# docker-compose down
+sleep 5
 
-# if [ "$CONTAINER_ID" != "" ]; then
-#   docker start $CONTAINER_ID
-# fi
+npm --prefix ./custom-analytics-ui/ run start
+
+docker-compose down
+
+if [ "$CONTAINER_ID" != "" ]; then
+  docker start $CONTAINER_ID
+fi

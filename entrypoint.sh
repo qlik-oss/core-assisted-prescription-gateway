@@ -1,7 +1,5 @@
 #!/bin/sh
 
-export DEV_INCLUDE=
-
 if [ "$CERT_FILE" == "" ]; then
   if [ "$CERT_HOST" == "" ]; then
     CERT_HOST="localhost"
@@ -14,11 +12,6 @@ if [ "$CERT_FILE" == "" ]; then
   echo "Using generated self-signed certificates"
 else
   echo "Using pre-defined certificates"
-fi
-
-if [ "$DEV" == "true" ]; then
-  echo "Including webpack-dev configuration"
-  DEV_INCLUDE="include dev.conf;"
 fi
 
 envsubst '\
@@ -34,7 +27,6 @@ $QIX_SESSION_HOST \
 $QIX_SESSION_PORT \
 $AUTH_HOST \
 $AUTH_PORT \
-$DEV_INCLUDE \
 $CERT_FILE \
 $CERT_KEY \
 ' \
