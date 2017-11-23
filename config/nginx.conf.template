@@ -77,8 +77,6 @@ http {
 
     index index.html;
 
-    ${DEV_INCLUDE}
-
     location / {
       alias html/custom-analytics-ui/;
       try_files $uri $uri/ =404;
