@@ -89,12 +89,6 @@ http {
       access_log off;
     }
 
-    location /dev/ {
-      alias html/dev/;
-      try_files $uri $uri/ =404;
-      access_log off;
-    }
-
     location /docs/ {
       access_by_lua_block {
         validate_user();
