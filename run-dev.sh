@@ -16,7 +16,7 @@ npm install
 
 printf
 printf
-printf "\x1b[31m Ready to hack!\n"
+printf "\x1b[32m Ready to hack!\n"
 printf " Please go to https://localhost/ (mind the ending slash) and hack away...\n"
 printf " Press ctrl-c to cancel dev mode...\x1b[0m\n"
 
