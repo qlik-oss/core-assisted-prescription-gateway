@@ -4,7 +4,7 @@ CONTAINER_ID=$(docker ps -aqf "name=openresty")
 
 
 if [ "$CONTAINER_ID" != "" ]; then
-  echo "Stopping existing openresty service..."
+  printf "Stopping existing openresty service..."
   docker stop $CONTAINER_ID
 fi
 
@@ -14,16 +14,11 @@ docker-compose up --build -d
 cd custom-analytics-ui
 npm install
 
-Yellow='\033[0;33m'
-echo
-echo
-echo "${Yellow}Ready to hack! Please go to https://localhost/ (mind the ending slash)"
-echo "and hack away..."
-echo
-echo
-echo "Press ctrl-c to cancel dev mode..."
-echo
-echo 
+printf
+printf
+printf "\x1b[31m Ready to hack!\n"
+printf " Please go to https://localhost/ (mind the ending slash) and hack away...\n"
+printf " Press ctrl-c to cancel dev mode...\x1b[0m\n"
 
 sleep 5
 
