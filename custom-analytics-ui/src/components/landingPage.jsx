@@ -7,7 +7,7 @@ import './landingPage.css';
 injectTapEventPlugin();
 
 const RedirectButton = withRouter(({ history }) => (
-  <RaisedButton style={{backgroundColor: 'transparent'}} label="Get started" backgroundColor="#3a7391" labelColor="#ffffff" onTouchTap={() => { history.push('/app'); }} />
+  <RaisedButton label="Get started" onTouchTap={() => { history.push('/app'); }} style={{backgroundColor: 'transparent'}} backgroundColor="#3a7391" labelColor="#ffffff" />
 ));
 
 export default function LandingPage() {
