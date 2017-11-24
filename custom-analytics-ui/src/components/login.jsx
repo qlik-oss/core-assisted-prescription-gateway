@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 const customContentStyle = {
-  width: '25%',
+  width: '350px',
 };
 
 export default class Login extends React.Component {
@@ -33,13 +33,13 @@ export default class Login extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary
+        style={{color: '#3a7391'}}
         onTouchTap={this.props.onCancel}
         key={1}
       />,
       <FlatButton
         label="Sign in"
-        primary
+        style={{color: '#3a7391'}}
         onTouchTap={() => this.props.onLogin(this.state.username, this.state.password)}
         key={2}
       />,
@@ -47,13 +47,13 @@ export default class Login extends React.Component {
     return (
       <Dialog
         title="Sign in"
-        modal={false}
         open={this.props.open}
         contentStyle={customContentStyle}
+        overlayClassName="ca-login-overlay"
       >
-        <TextField name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
+        <TextField underlineFocusStyle={{borderBottomColor: '#3a7391'}} name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
         <br />
-        <TextField name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
+        <TextField underlineFocusStyle={{borderBottomColor: '#3a7391'}} name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
         <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
           {actions}
         </div>

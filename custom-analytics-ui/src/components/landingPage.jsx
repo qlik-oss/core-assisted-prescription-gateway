@@ -7,17 +7,20 @@ import './landingPage.css';
 injectTapEventPlugin();
 
 const RedirectButton = withRouter(({ history }) => (
-  <RaisedButton primary label="Get started" onTouchTap={() => { history.push('/app'); }} />
+  <RaisedButton style={{backgroundColor: 'transparent'}} label="Get started" backgroundColor="#3a7391" labelColor="#ffffff" onTouchTap={() => { history.push('/app'); }} />
 ));
 
 export default function LandingPage() {
   return (
     <div>
-      <div className="landing">
-        <div className="content white-text right-align">
-          <h2>Insights for prescriptions<br />at your fingertips</h2>
-          <p>Save more lives, time and money</p>
-          <RedirectButton />
+      <div className="ca-landing">
+        <div className="ca-content-wrapper">
+          <div className="ca-landing-content white-text right-align">
+            <h2>Insights for prescriptions<br />at your fingertips</h2>
+            <div className="ca-landing-divider"></div>
+            <h4>Save more lives, time and money</h4>
+            <RedirectButton />
+          </div>
         </div>
       </div>
     </div>

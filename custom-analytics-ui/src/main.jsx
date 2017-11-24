@@ -127,9 +127,10 @@ class ThePage extends React.Component {
     return (
       <div>
         <AppBar
-          style={{ backgroundColor: '#0071bc' }}
+          className="ca-app-bar"
           title={<span className="pointer">Qliktive - Assisted Prescription</span>}
           onTitleTouchTap={this.navigateToLandingPage}
+          zDepth={3}
           iconElementRight={
             <div style={
             { marginTop: '8px',
