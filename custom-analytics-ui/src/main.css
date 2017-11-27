@@ -43,6 +43,7 @@ body {
 
 .pointer {
   cursor: pointer;
+  user-select: none;
 }
 
 .white {
@@ -54,3 +55,11 @@ body {
 }
 
 #root > [data-reactroot] { height: 100% }
+
+.ca-app-bar {
+  background: linear-gradient(to right, #44751d 0%,#3a7391 100%);
+}
+
+
+
+

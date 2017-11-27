@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-
-const customContentStyle = {
-  width: '25%',
-};
+import {colors, styles} from '../ui-constants';
+import './login.css';
 
 export default class Login extends React.Component {
 
@@ -33,28 +31,29 @@ export default class Login extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary
+        style={{color: colors.darkBlue}}
         onTouchTap={this.props.onCancel}
         key={1}
       />,
       <FlatButton
         label="Sign in"
-        primary
+        style={{color: colors.darkBlue}}
         onTouchTap={() => this.props.onLogin(this.state.username, this.state.password)}
         key={2}
       />,
     ];
     return (
       <Dialog
+        className="ca-login"
         title="Sign in"
-        modal={false}
         open={this.props.open}
-        contentStyle={customContentStyle}
+        contentStyle={styles.login.contentStyle}
+        overlayClassName="ca-login-overlay"
       >
-        <TextField name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
+        <TextField underlineFocusStyle={styles.login.underline} name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
         <br />
-        <TextField name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
-        <div style={{ textAlign: 'right', padding: 8, margin: '24px -24px -24px -24px' }}>
+        <TextField underlineFocusStyle={styles.login.underline} name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
+        <div className="action-button-wrapper">
           {actions}
         </div>
       </Dialog>
