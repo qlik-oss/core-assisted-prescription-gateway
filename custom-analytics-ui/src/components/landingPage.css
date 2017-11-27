@@ -5,14 +5,14 @@
   min-height: calc(100vh - 64px);
   background-image: url(../resources/landingPage-background-image.jpg);
 }
-.ca-landing .ca-content-wrapper {
+.ca-landing .content-wrapper {
   position: relative;
   width: 100%;
   min-height: calc(100vh - 64px);
   background: linear-gradient(45deg, rgba(33,65,82,0.45) 0%,rgba(255,255,255,0) 100%);
 }
 
-.ca-landing .ca-landing-content {
+.ca-landing .landing-content {
   position: relative;
   width: 33vw;
   min-width:260px;
@@ -26,14 +26,14 @@
   border-radius: 3px;
 }
 
-.ca-landing h2 {
+.ca-landing .landing-title {
   font-size: 1.5rem;
   margin-bottom:10px;
   line-height: 100%;
   font-weight: 400;
   text-transform: uppercase;
 }
-.ca-landing h4 {
+.ca-landing .landing-subtitle {
   font-weight: 400;
   margin-top: 10px;
   color: #c5d5cd;
@@ -49,7 +49,7 @@
   text-transform: uppercase;
   vertical-align: middle;
 }
-.ca-landing .ca-landing-divider {
+.ca-landing .landing-divider {
   height: 1px;
   right: 40px;
   margin-left:auto;

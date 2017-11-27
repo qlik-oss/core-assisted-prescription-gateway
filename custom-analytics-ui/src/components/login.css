@@ -1,0 +1,8 @@
+.ca-login-overlay {
+  background: linear-gradient(45deg, rgba(33,65,82,1) 0%,rgba(255,255,255,0) 100%);
+}
+.ca-login .action-button-wrapper {
+  text-align: right;
+  padding: 8px;
+  margin: 24px -24px -24px -24px;
+}

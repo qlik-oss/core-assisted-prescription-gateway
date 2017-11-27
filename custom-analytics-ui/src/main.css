@@ -57,12 +57,9 @@ body {
 #root > [data-reactroot] { height: 100% }
 
 .ca-app-bar {
-  background-color: transparent !important;
   background: linear-gradient(to right, #44751d 0%,#3a7391 100%);
 }
-.ca-login-overlay {
-  background: linear-gradient(45deg, rgba(33,65,82,1) 0%,rgba(255,255,255,0) 100%);
-  background-color: transparent !important;
-}
+
+
 
 
