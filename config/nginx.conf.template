@@ -34,7 +34,7 @@ http {
     ~/kibana  0;
     default 1;
   }
-  log_format logstash_json '{ "@timestamp": "$time_iso8601", '
+  log_format logstash_json '{ "timestamp": "$time_iso8601", '
                          '"remote_addr": "$remote_addr", '
                          '"remote_user": "$remote_user", '
                          '"body_bytes_sent": "$body_bytes_sent", '
