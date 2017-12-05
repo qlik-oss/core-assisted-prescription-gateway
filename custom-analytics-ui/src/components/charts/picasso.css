@@ -2,10 +2,10 @@
   margin: 1vw;
   background: #fff;
   position: relative;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   overflow: hidden;
   border-radius: 6px;
-  height: 50vh;
-  width: 28vw;
-  display: inline-block;
+  height: 350px;
+  width: 100%;
+  margin-bottom: 20px;
 }

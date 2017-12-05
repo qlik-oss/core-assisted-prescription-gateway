@@ -128,7 +128,11 @@ class ThePage extends React.Component {
       <div>
         <AppBar
           className="ca-app-bar"
-          title={<span className="pointer">Qliktive - Assisted Prescription</span>}
+          title={<div className="pointer app-bar-title">
+          Qliktive
+            <span className="app-bar-title-dash"> /</span>
+            <span className="app-bar-subtitle"> Assisted Prescription</span>
+          </div>}
           onTitleTouchTap={this.navigateToLandingPage}
           zDepth={3}
           iconElementRight={
