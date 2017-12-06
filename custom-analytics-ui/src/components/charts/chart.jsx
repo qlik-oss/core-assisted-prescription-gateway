@@ -20,13 +20,13 @@ class Chart extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize.bind(this), false);
   }
-  
+
   handleResize() {
     if ( !this.resizeTimeout ) {
-      this.resizeTimeout = setTimeout(function() {
+      this.resizeTimeout = setTimeout(() => {
         this.resizeTimeout = null;
         this.update();
-      }.bind(this), 100);
+      }, 100);
     }
   }
 
