@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'material-ui/List';
+import { colors, styles } from '../../ui-constants';
 
 import Chart from './chart';
 import './filterbox.css';
@@ -73,37 +74,45 @@ class Filterbox extends Chart {
     }
 
     const sStyle = {
-      background: '#52cc52',
+      background: colors.darkGreen,
       color: '#ffffff',
+      userSelect: 'none',
     };
 
     const xStyle = {
       background: '#a9a9a9',
       color: '#000000',
+      userSelect: 'none',
     };
 
     // Needed to be able to override default element styles that got higher importance than classes
     function getStyle(item) {
       let style = {};
+      let hoverColor = '';
 
       if (item.qState === 'S') {
         style = sStyle;
+        hoverColor = colors.green;
       } else if (item.qState === 'X') {
         style = xStyle;
+        hoverColor = 'lightgrey';
       }
 
-      return style;
+      return { style, hoverColor };
     }
 
 
     const items = this.state.layout.qListObject.qDataPages[0].qMatrix.map((matrixItem) => {
       const item = matrixItem[0];
       const classes = `item state-${item.qState}`;
+      const listItemStyles = getStyle(item);
       return (
         <ListItem
           key={item.qElemNumber}
           className={classes}
-          style={getStyle(item)}
+          style={listItemStyles.style}
+          innerDivStyle={styles.userSelectNone}
+          hoverColor={listItemStyles.hoverColor}
           primaryText={item.qText}
           onClick={() => this.toggleValue(item)}
         />
@@ -113,8 +122,9 @@ class Filterbox extends Chart {
     return (
       <ListItem
         primaryText={this.props.title}
+        innerDivStyle={styles.userSelectNone}
         nestedItems={items}
-        primaryTogglesNestedList={true}
+        primaryTogglesNestedList
       />
     );
   }

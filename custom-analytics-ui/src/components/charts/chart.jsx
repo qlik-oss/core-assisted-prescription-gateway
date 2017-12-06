@@ -14,6 +14,20 @@ class Chart extends React.Component {
 
   componentDidMount() {
     this.createModel();
+    window.addEventListener('resize', this.handleResize.bind(this), false);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize.bind(this), false);
+  }
+
+  handleResize() {
+    if ( !this.resizeTimeout ) {
+      this.resizeTimeout = setTimeout(() => {
+        this.resizeTimeout = null;
+        this.update();
+      }, 100);
+    }
   }
 
   createModel() {

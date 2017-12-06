@@ -1,8 +1,9 @@
 import React from 'react';
-import * as picasso from '@qlik/picasso/dist/picasso';
+import picasso from '@qlik/picasso/dist/picasso';
 import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 import Chart from './chart';
 import './picasso.css';
+import { palettes } from '../../ui-constants';
 
 class Picasso extends Chart {
   renderPicasso() {
@@ -15,7 +16,11 @@ class Picasso extends Chart {
     }];
 
     if (!this.state.pic) {
-      const pic = picasso.chart({
+      const pic = picasso({
+        palettes: [
+          palettes.categorical,
+        ],
+      }).chart({
         element: this.container,
         data,
         settings: this.state.settings,
@@ -28,6 +33,7 @@ class Picasso extends Chart {
           this.state.model[selections[0].method](...selections[0].params);
         }
       });
+
       this.setState({ pic });
     } else {
       this.state.pic.update({ data });

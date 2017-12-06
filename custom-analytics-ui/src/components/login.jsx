@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import {colors, styles} from '../ui-constants';
+import { colors, styles } from '../ui-constants';
 import './login.css';
 
 export default class Login extends React.Component {
@@ -31,13 +31,13 @@ export default class Login extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        style={{color: colors.darkBlue}}
+        style={{ color: colors.darkBlue }}
         onTouchTap={this.props.onCancel}
         key={1}
       />,
       <FlatButton
         label="Sign in"
-        style={{color: colors.darkBlue}}
+        style={{ color: colors.darkBlue }}
         onTouchTap={() => this.props.onLogin(this.state.username, this.state.password)}
         key={2}
       />,

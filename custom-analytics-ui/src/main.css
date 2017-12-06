@@ -2,9 +2,9 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src:  url(resources/MaterialIcons-Regular.woff2) format('woff2'),
-        url(resources/MaterialIcons-Regular.woff) format('woff'),
-        url(resources/MaterialIcons-Regular.ttf) format('truetype');
+  src: url(resources/MaterialIcons-Regular.woff2) format('woff2'),
+  url(resources/MaterialIcons-Regular.woff) format('woff'),
+  url(resources/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 .material-icons {
@@ -30,7 +30,6 @@
   font-feature-settings: 'liga';
 }
 
-
 html,
 body {
   height: 100%;
@@ -54,11 +53,34 @@ body {
   height: 100%;
 }
 
-#root > [data-reactroot] { height: 100% }
+#root > [data-reactroot] {
+  height: 100%
+}
 
 .ca-app-bar {
-  background: linear-gradient(to right, #44751d 0%,#3a7391 100%);
+  background: linear-gradient(to right, #44751d 0%, #3a7391 100%);
 }
+
+.ca-app-bar .app-bar-title-dash {
+  color: #d38119;
+  font-size: 2.5rem;
+  box-sizing: border-box;
+  padding: 8px 3px 3px 3px;;
+}
+
+.ca-app-bar .app-bar-title {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.ca-app-bar .app-bar-subtitle {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #c5d5cd;
+  padding-top: 5px;
+}
+
 
 
 

@@ -4,6 +4,7 @@
   list-style: none;
   padding-left: 15px;
   padding-right: 15px;
+  user-select: none;
 }
 
 .filterbox .item {
@@ -11,12 +12,8 @@
   cursor: pointer;
 }
 
-.filterbox .item:hover {
-  background: lightgrey;
-}
-
 span.state-S {
-  background: #52cc52;
+  background: #44751d;
   color: #ffffff;
  }
 

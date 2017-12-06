@@ -1,6 +1,7 @@
 import merge from 'deep-extend';
 import PropTypes from 'prop-types';
 import Picasso from './picasso';
+import { palettes } from '../../ui-constants';
 
 class Barchart extends Picasso {
   constructor(...args) {
@@ -32,6 +33,15 @@ class Barchart extends Picasso {
           invert: !(this.props.orientation === 'horizontal'),
           include: [-1],
         },
+        color: {
+          data: { extract: { field: 'qDimensionInfo/0' } },
+          type: 'color',
+        },
+        seqcolor: {
+          data: { extract: { field: 'qMeasureInfo/0' } },
+          type: 'sequential-color',
+          range: palettes.sequential,
+        },
       },
       components: [{
         type: 'box-marker',
@@ -54,7 +64,10 @@ class Barchart extends Picasso {
             scale: 'y',
           },
           box: {
-            fill: 'steelblue',
+            fill: {
+              scale: this.props.colorType === 'sequential' ? 'seqcolor' : 'color',
+              ref: this.props.colorType === 'sequential' ? 'end' : undefined,
+            },
             strokeWidth: 1,
             stroke: 'rgba(255, 255, 255, 0.8)',
             width: 1,
@@ -118,10 +131,12 @@ class Barchart extends Picasso {
 
 Barchart.propTypes = {
   title: PropTypes.string,
+  colorType: PropTypes.string,
 };
 
 Barchart.defaultProps = {
   title: '',
+  colorType: 'categorical',
 };
 
 export default Barchart;

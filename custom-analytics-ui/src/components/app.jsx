@@ -10,6 +10,7 @@ import { Card, CardMedia, CardTitle } from 'material-ui/Card';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
+import { colors, styles } from '../ui-constants';
 
 import Filterbox from './charts/filterbox';
 import Barchart from './charts/barchart';
@@ -250,14 +251,13 @@ export default class App extends React.Component {
 
     return (
 
-      <div className="main app-background">
-
-        <div className="row">
-          <div className="col s3">
-            <Card style={{ margin: '20px', width: '23vw', position: 'fixed' }}>
+      <div className="ca-main app-background">
+        <div className="main-content">
+          <div className="app-toolbar">
+            <Card zDepth={3} style={{ margin: '15px', width: '100%' }}>
               <Toolbar style={{ backgroundColor: '#fafafa' }}>
                 <ToolbarGroup >
-                  <ToolbarTitle text="Filters" />
+                  <ToolbarTitle style={styles.userSelectNone} text="Filters" />
                 </ToolbarGroup>
                 <ToolbarGroup>
                   <IconMenu
@@ -272,47 +272,70 @@ export default class App extends React.Component {
                   </IconMenu>
                 </ToolbarGroup>
               </Toolbar>
-              <List style={{ maxHeight: '80vh', overflowY: 'auto' }}>
-                <Subheader>Demographics</Subheader>
+              <List style={{ maxHeight: 'calc(100vh - 158px)', overflowY: 'auto' }}>
+                <Subheader style={styles.userSelectNone}>Demographics</Subheader>
                 <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
                 <Filterbox app={this.state.app} field="Gender" title="Gender" />
                 <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
                 <Filterbox app={this.state.app} field="Country" title="Location" />
                 <Divider />
-                <Subheader>Drugs</Subheader>
+                <Subheader style={styles.userSelectNone}>Drugs</Subheader>
                 <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
               </List>
             </Card>
           </div>
-          <div className="col s8">
-
-
-            <div id="charts">
-              <Card style={{ margin: '20px' }}>
-                <CardTitle title="Reactions" />
-                <CardMedia>
-                  <Barchart app={this.state.app} overrides={reactions} title={reactions.title} />
+          <div className="app-charts">
+            <Card zDepth={3} style={styles.app.chartCard}>
+              <CardTitle
+                title="Reactions"
+                className="subheader"
+                style={styles.app.cardTitle}
+                titleStyle={styles.app.cardTitleSize}
+                titleColor={colors.deepBlue}
+              />
+              <CardMedia>
+                <div className="chart-wrapper">
+                  <Barchart app={this.state.app} overrides={reactions} title={reactions.title} colorType="sequential" />
+                  <div className="card-divider" />
                   <Barchart app={this.state.app} overrides={outcome} title={outcome.title} orientation={'horizontal'} />
-                </CardMedia>
-              </Card>
+                </div>
+              </CardMedia>
+            </Card>
 
-              <Card style={{ margin: '20px' }}>
-                <CardTitle title="Therapy" />
-                <CardMedia>
-                  <Barchart app={this.state.app} overrides={therapy} title={therapy.title} />
+            <Card zDepth={3} style={styles.app.chartCard} >
+              <CardTitle
+                title="Therapy"
+                className="subheader"
+                style={styles.app.cardTitle}
+                titleStyle={styles.app.cardTitleSize}
+                titleColor={colors.deepBlue}
+              />
+              <CardMedia>
+                <div className="chart-wrapper">
                   <Barchart app={this.state.app} overrides={stop} title={stop.title} />
-                </CardMedia>
-              </Card>
+                  <div className="card-divider" />
+                  <Barchart app={this.state.app} overrides={therapy} title={therapy.title} colorType="sequential" />
 
-              <Card style={{ margin: '20px' }}>
-                <CardTitle title="Risk" />
-                <CardMedia>
-                  <Barchart app={this.state.app} overrides={risk} title={risk.title} />
+                </div>
+              </CardMedia>
+            </Card>
+
+            <Card zDepth={3} style={styles.app.chartCard}>
+              <CardTitle
+                title="Risk"
+                className="subheader"
+                style={styles.app.cardTitle}
+                titleStyle={styles.app.cardTitleSize}
+                titleColor={colors.deepBlue}
+              />
+              <CardMedia>
+                <div className="chart-wrapper">
+                  <Barchart app={this.state.app} overrides={risk} title={risk.title} colorType="sequential" />
+                  <div className="card-divider" />
                   <Barchart app={this.state.app} overrides={deaths} title={deaths.title} />
-                </CardMedia>
-              </Card>
-
-            </div>
+                </div>
+              </CardMedia>
+            </Card>
           </div>
         </div>
       </div>
