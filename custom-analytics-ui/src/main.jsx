@@ -113,7 +113,6 @@ class ThePage extends React.Component {
 
   navigateToLandingPage = () => {
     window.location.replace('#/');
-
   }
 
   navigateToAppPage = () => {

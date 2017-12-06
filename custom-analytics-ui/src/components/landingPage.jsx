@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import './landingPage.css';
-import {colors, styles} from '../ui-constants';
+import { colors, styles } from '../ui-constants';
 
 injectTapEventPlugin();
 
@@ -18,7 +18,7 @@ export default function LandingPage() {
         <div className="content-wrapper">
           <div className="landing-content white-text right-align">
             <h2 className="landing-title">Insights for prescriptions<br />at your fingertips</h2>
-            <div className="landing-divider"></div>
+            <div className="landing-divider" />
             <h4 className="landing-subtitle">Save more lives, time and money</h4>
             <RedirectButton />
           </div>

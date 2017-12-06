@@ -19,7 +19,7 @@ const palettes = {
       [colors.darkGreen, colors.darkBlue, colors.orange, colors.purple],
       [colors.darkGreen, colors.darkBlue, colors.orange, colors.purple, '#79d69f', '#138185', '#65d3da'],
       [colors.darkGreen, colors.darkBlue, colors.orange, colors.purple, '#f9ec86', '#cbe989', '#70ba6e', '#578b60', '#79d69f', '#26a0a7', '#138185', '#65d3da'],
-    ]
+    ],
   },
   sequential: [colors.deepBlue, colors.darkBlue, colors.green],
 };
@@ -44,11 +44,11 @@ const styles = {
       padding: '0 0 0 15px',
     },
     cardTitleSize: {
-      fontSize : '1rem',
+      fontSize: '1rem',
     },
     chartCard: { margin: '15px',
       flex: '1 1 auto',
     },
   },
-}
-export {colors, styles, palettes};
+};
+export { colors, styles, palettes };

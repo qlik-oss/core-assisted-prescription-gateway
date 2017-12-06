@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'material-ui/List';
-import {colors, styles} from '../../ui-constants'
+import { colors, styles } from '../../ui-constants';
 
 import Chart from './chart';
 import './filterbox.css';
@@ -98,7 +98,7 @@ class Filterbox extends Chart {
         hoverColor = 'lightgrey';
       }
 
-      return {style, hoverColor} ;
+      return { style, hoverColor };
     }
 
 
@@ -124,7 +124,7 @@ class Filterbox extends Chart {
         primaryText={this.props.title}
         innerDivStyle={styles.userSelectNone}
         nestedItems={items}
-        primaryTogglesNestedList={true}
+        primaryTogglesNestedList
       />
     );
   }

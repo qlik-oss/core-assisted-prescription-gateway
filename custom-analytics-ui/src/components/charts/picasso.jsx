@@ -3,7 +3,7 @@ import picasso from '@qlik/picasso/dist/picasso';
 import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
 import Chart from './chart';
 import './picasso.css';
-import {palettes} from '../../ui-constants'
+import { palettes } from '../../ui-constants';
 
 class Picasso extends Chart {
   renderPicasso() {
