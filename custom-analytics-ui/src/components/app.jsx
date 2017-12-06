@@ -252,7 +252,6 @@ export default class App extends React.Component {
     return (
 
       <div className="ca-main app-background">
-
         <div className="main-content">
           <div className="app-toolbar">
             <Card zDepth={3} style={{ margin: '15px', width: '100%' }}>

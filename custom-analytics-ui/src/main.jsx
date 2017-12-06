@@ -127,6 +127,7 @@ class ThePage extends React.Component {
       <div>
         <AppBar
           className="ca-app-bar"
+          showMenuIconButton={false}
           title={<div className="pointer app-bar-title">
           Qliktive
             <span className="app-bar-title-dash"> /</span>
@@ -136,7 +137,7 @@ class ThePage extends React.Component {
           zDepth={3}
           iconElementRight={
             <div style={
-            { marginTop: '8px',
+            { marginTop: '6px',
               marginRight: '0px',
               marginLeft: 'auto' }}
             >

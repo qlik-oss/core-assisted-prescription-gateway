@@ -12,13 +12,22 @@ class Chart extends React.Component {
     };
   }
 
+  handleResize() {
+    if ( !this.resizeTimeout ) {
+      this.resizeTimeout = setTimeout(function() {
+        this.resizeTimeout = null;
+        this.update();
+      }.bind(this), 100);
+    }
+  }
+
   componentDidMount() {
     this.createModel();
-    window.addEventListener('resize', this.update.bind(this));
+    window.addEventListener('resize', this.handleResize.bind(this), false);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.update.bind(this));
+    window.removeEventListener('resize', this.handleResize.bind(this), false);
   }
 
   createModel() {
