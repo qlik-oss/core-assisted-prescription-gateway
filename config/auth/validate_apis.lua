@@ -64,6 +64,7 @@ function validate_user()
   local jwt = getJWTIfLoggedIn()
 
   if not jwt then
+    ngx.header['Set-Cookie'] = 'qliktive_redirect_url=' .. ngx.var.uri ..'; path=/'
     ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY"), 301)
   end
 
