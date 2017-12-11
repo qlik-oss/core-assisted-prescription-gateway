@@ -1,6 +1,7 @@
 worker_processes auto;
 
 env SESSION_COOKIE_NAME;
+env AUTH_STRATEGY;
 
 events {
   worker_connections ${WORKER_CONNECTIONS};
