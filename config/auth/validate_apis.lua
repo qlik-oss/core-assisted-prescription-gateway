@@ -60,12 +60,16 @@ function getJWTIfLoggedIn()
   end
 end
 
-function validate_user()
+function validate_user(redirect)
   local jwt = getJWTIfLoggedIn()
 
   if not jwt then
-    ngx.header['Set-Cookie'] = 'qliktive_redirect_url=' .. ngx.var.uri ..'; path=/'
-    ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY"), 301)
+    if redirect then
+      ngx.header['Set-Cookie'] = 'qliktive_redirect_url=' .. ngx.var.uri ..'; path=/'
+      ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY"), 301)
+    else
+      ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    end
   end
 
   -- validate JWT?
