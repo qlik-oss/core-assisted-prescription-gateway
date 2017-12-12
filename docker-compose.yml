@@ -15,6 +15,7 @@ services:
       QIX_SESSION_PORT: 9455
       AUTH_HOST: auth
       AUTH_PORT: 3000
+      AUTH_STRATEGY: local
     networks:
       - qliktivecustomanalytics_default
     ports:

@@ -1,6 +1,7 @@
 worker_processes auto;
 
 env SESSION_COOKIE_NAME;
+env AUTH_STRATEGY;
 
 events {
   worker_connections ${WORKER_CONNECTIONS};
@@ -93,7 +94,7 @@ http {
 
     location /docs/ {
       access_by_lua_block {
-        validate_user();
+        validate_user(true);
       }
       alias html/docs/;
       try_files $uri $uri/ =404;
@@ -102,7 +103,7 @@ http {
 
     location /picasso-sandbox {
       access_by_lua_block {
-        validate_user();
+        validate_user(true);
       }
       alias html/picasso-sandbox/;
       try_files $uri $uri/ =404;
@@ -151,7 +152,7 @@ http {
 
     location /kibana/ {
       access_by_lua_block {
-        validate_user();
+        validate_user(true);
       }
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
@@ -159,7 +160,7 @@ http {
 
     location /grafana/ {
       access_by_lua_block {
-        validate_user();
+        validate_user(true);
       }
       proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
@@ -168,7 +169,7 @@ http {
 
     location /viz/ {
       access_by_lua_block {
-        validate_user();
+        validate_user(true);
       }
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;

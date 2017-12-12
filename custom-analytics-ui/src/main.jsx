@@ -21,6 +21,8 @@ import './main.css';
 picasso.use(picassoHammer);
 picasso.use(picassoQ);
 
+const qliktiveRedirectParam = 'redirect_url=/#/app';
+
 const auth = {
 
   isAuthenticated:
@@ -31,10 +33,10 @@ const auth = {
     fetch('/idp')
       .then(response => response.text()),
   authenticate() {
-    window.location.href = '/login/github';
+    window.location.href = `/login/github?${qliktiveRedirectParam}`;
   },
   localAuthenticate(username, password) {
-    window.location.href = `/login/local/callback?username=${username}&password=${password}`;
+    window.location.href = `/login/local/callback?username=${username}&password=${password}&${qliktiveRedirectParam}`;
   },
   signout(cb) {
     fetch('/logout', {

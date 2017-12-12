@@ -60,11 +60,15 @@ function getJWTIfLoggedIn()
   end
 end
 
-function validate_user()
+function validate_user(redirect)
   local jwt = getJWTIfLoggedIn()
 
   if not jwt then
-    ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    if redirect then
+      ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY") .. '?redirect_url='.. ngx.var.uri, 301)
+    else
+      ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    end
   end
 
   -- validate JWT?
