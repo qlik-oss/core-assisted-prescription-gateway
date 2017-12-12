@@ -21,7 +21,7 @@ import './main.css';
 picasso.use(picassoHammer);
 picasso.use(picassoQ);
 
-const sucessRedirectCookieString = 'qliktive_redirect_url=/#/app;path=/';
+const qliktiveRedirectParam = 'qliktive_redirect_url=/#/app';
 
 const auth = {
 
@@ -33,12 +33,10 @@ const auth = {
     fetch('/idp')
       .then(response => response.text()),
   authenticate() {
-    document.cookie = sucessRedirectCookieString;
-    window.location.href = '/login/github';
+    window.location.href = `/login/github?${qliktiveRedirectParam}`;
   },
   localAuthenticate(username, password) {
-    document.cookie = sucessRedirectCookieString;
-    window.location.href = `/login/local/callback?username=${username}&password=${password}`;
+    window.location.href = `/login/local/callback?username=${username}&password=${password}&${qliktiveRedirectParam}`;
   },
   signout(cb) {
     fetch('/logout', {
