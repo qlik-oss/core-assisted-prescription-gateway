@@ -21,7 +21,7 @@ import './main.css';
 picasso.use(picassoHammer);
 picasso.use(picassoQ);
 
-const qliktiveRedirectParam = 'qliktive_redirect_url=/#/app';
+const qliktiveRedirectParam = 'redirect_url=/#/app';
 
 const auth = {
 
