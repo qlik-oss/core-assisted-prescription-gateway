@@ -18,6 +18,8 @@ import SessionFailed from './sessionFailed';
 import config from '../enigma-config';
 import './app.css';
 
+const MAX_CONNECTION_TRIES = 10;
+
 const reactions = {
   definition: {
     qHyperCubeDef: {
@@ -212,19 +214,38 @@ export default class App extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = { app: null };
+    this.state = { app: null, error: null, retry: 0 };
 
     const session = enigma.create(config);
+
     session.on('closed', evt => this.setState({ error: evt }));
     session.on('suspended', () => {
-      this.setState({ suspended: true });
-      session.resume().then(() => {
-        this.setState({ suspended: false });
-      }).catch(() => session.close());
+      let retry = 0;
+
+      const updateSuspended = () => {
+        retry += 1;
+        this.setState({ error: { suspended: true, retry, MAX_CONNECTION_TRIES } });
+      };
+
+      const retryConnection = () => {
+        updateSuspended();
+
+        if (retry === MAX_CONNECTION_TRIES) {
+          session.close();
+        } else {
+          session.resume()
+            .then(() => this.setState({ error: null }))
+            .catch(() => setTimeout(retryConnection, 10000));
+        }
+      };
+
+      retryConnection();
     });
-    session.open().then(global => global.getActiveDoc()).then((app) => {
-      this.setState({ app });
-    }).catch(error => this.setState({ error }));
+
+    session.open()
+      .then(global => global.getActiveDoc())
+      .then(app => this.setState({ app }))
+      .catch(error => this.setState({ error }));
   }
 
   clearSelections = () => {
@@ -239,12 +260,16 @@ export default class App extends React.Component {
         <div className="main app-background">
           <div className="row">
             <div className="section">
-              <SessionFailed />
+              <SessionFailed
+                app={this.state.app}
+                error={this.state.error}
+              />
             </div>
           </div>
         </div>
       );
     }
+
     if (!this.state.app) {
       return null;
     }
