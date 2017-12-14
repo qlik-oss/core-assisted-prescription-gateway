@@ -22,7 +22,7 @@ class Chart extends React.Component {
   }
 
   handleResize() {
-    if ( !this.resizeTimeout ) {
+    if (!this.resizeTimeout) {
       this.resizeTimeout = setTimeout(() => {
         this.resizeTimeout = null;
         this.update();
