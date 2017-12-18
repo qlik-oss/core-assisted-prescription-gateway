@@ -1,6 +1,10 @@
 {
-  "name": "qliktive-custom-analytics",
+  "name": "core-custom-analytics-ui",
   "version": "0.0.1",
+  "description": "UI for the custom analytics usecase",
+  "author": "QlikTech International AB",
+  "private": true,
+  "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -11,8 +15,6 @@
     "start": "webpack --watch",
     "eslint": "eslint --ext .js,.jsx --fix ."
   },
-  "author": "QLIK",
-  "license": "MIT",
   "dependencies": {
     "@qlik/picasso": "./picasso-0.34.0.tgz",
     "deep-extend": "^0.5.0",

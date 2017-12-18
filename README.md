@@ -8,6 +8,10 @@ Each change to this repo will publish an image to Docker hub, tagged
 
  Changes on `master` branch will also update the `latest` tag on Docker hub.
 
+## Contributing
+
+Contributions are welcome and encouraged! See more info at [Open Source at Qlik R&D](https://github.com/qlik-oss/open-source).
+
 ## Required environment variables
 
 To use this container you need to set these environment variables:
@@ -16,7 +20,7 @@ To use this container you need to set these environment variables:
 `GRAFANA_HOST`, `GRAFANA_PORT`,
 `VISUALIZER_HOST`, `VISUALIZER_PORT`,
 `QIX_SESSION_HOST`, `QIX_SESSION_PORT`,
-`AUTH_HOST`, `AUTH_PORT`
+`AUTH_HOST`, `AUTH_PORT`, `AUTH_STRATEGY`
 
 And these are optional:
 

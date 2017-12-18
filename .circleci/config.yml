@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/qliktive-custom-analytics-openresty
     docker:
-      - image: node:7
+      - image: circleci/node:8
     environment:
       DOCKER_REPO: qlikea/qliktive-custom-analytics-openresty
     steps:
