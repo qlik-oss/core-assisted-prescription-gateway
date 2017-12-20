@@ -86,11 +86,6 @@ http {
       access_log off;
     }
 
-    location /redis/ {
-      include proxy_settings.conf;
-      proxy_pass http://redis:6379;
-    }
-
     location /hellochart/ {
       alias html/hello-chart/;
       try_files $uri $uri/ =404;
