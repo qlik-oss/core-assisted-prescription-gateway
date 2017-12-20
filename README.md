@@ -25,6 +25,7 @@ To use this container you need to set these environment variables:
 And these are optional:
 
 `CERT_FILE`, `CERT_KEY` - HTTPS certificates (if not set, self-signed certificates will be generated on start up)
+`ERROR_LEVEL` - Log level for openresty. Possible values are `debug`, `info`, `notice`, `warn`, `error`, `crit`, `alert`, or `emerg` (if not set, `info` will be used)
 
 ## Developing the UI
 
