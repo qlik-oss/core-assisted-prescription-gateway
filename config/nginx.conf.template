@@ -15,7 +15,7 @@ http {
     require("auth.validate_apis");
   }
 
-  resolver 10.96.0.10 ipv6=off valid=5s;
+  #resolver 10.96.0.10 ipv6=off valid=5s;
   default_type application/octet-stream;
   sendfile on;
   keepalive_timeout 65;
