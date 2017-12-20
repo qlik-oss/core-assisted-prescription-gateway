@@ -9,7 +9,7 @@ local function getdb()
   -- redis hostname here:
   local ok, err = red:connect("redis", 6379)
   if not ok then
-    ngx.log(ngx.ERROR, "auth: Redis connect failed - " .. err)
+    ngx.log(ngx.WARN, "auth: Redis connect failed - " .. err)
     return
   end
 
