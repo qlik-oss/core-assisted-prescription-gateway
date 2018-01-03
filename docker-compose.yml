@@ -5,21 +5,10 @@ services:
     build: .
     environment:
       SESSION_COOKIE_NAME: custom-analytics
-      KIBANA_HOST: 127.0.0.1
-      KIBANA_PORT: 5601
-      GRAFANA_HOST: 127.0.0.1
-      GRAFANA_PORT: 3000
-      VISUALIZER_HOST: 127.0.0.1
-      VISUALIZER_PORT: 8080
-      QIX_SESSION_HOST: qix-session
-      QIX_SESSION_PORT: 9455
-      AUTH_HOST: auth
-      AUTH_PORT: 3000
       AUTH_STRATEGY: local
     networks:
       - qliktivecustomanalytics_default
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - ../info/site:/usr/local/openresty/nginx/html/docs

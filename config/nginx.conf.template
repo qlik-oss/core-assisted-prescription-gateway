@@ -1,13 +1,28 @@
-worker_processes auto;
-
 env SESSION_COOKIE_NAME;
 env AUTH_STRATEGY;
 
+worker_processes auto;
+worker_rlimit_nofile 100000;
+
 events {
   worker_connections ${WORKER_CONNECTIONS};
+  use epoll;
+  multi_accept on;
 }
 
 http {
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+
+  map $request $loggable {
+    ~/viz 0;
+    ~/grafana 0;
+    ~/kibana 0;
+    default 1;
+  }
+
   init_by_lua_block {
     string = require("string");
     cjson = require("cjson");
@@ -15,46 +30,8 @@ http {
     require("auth.validate_apis");
   }
 
-  resolver 127.0.0.11 ipv6=off valid=5s;
-  default_type application/octet-stream;
-  sendfile on;
-  keepalive_timeout 65;
-  include mime_types.conf;
-
-  map $http_upgrade $connection_upgrade {
-    default upgrade;
-    '' close;
-  }
-
-  ##
-  # Logging Settings
-  ##
-  map $request $loggable {
-    ~/viz  0;
-    ~/grafana  0;
-    ~/kibana  0;
-    default 1;
-  }
-  log_format logstash_json '{ "timestamp": "$time_iso8601", '
-                         '"remote_addr": "$remote_addr", '
-                         '"remote_user": "$remote_user", '
-                         '"body_bytes_sent": "$body_bytes_sent", '
-                         '"request_time": "$request_time", '
-                         '"status": "$status", '
-                         '"request": "$request", '
-                         '"request_method": "$request_method", '
-                         '"http_referrer": "$http_referer", '
-                         '"uri": "$uri", '
-                             '"server_protocol": "$server_protocol", '
-                             '"host": "$host", '
-                         '"http_user_agent": "$http_user_agent" }';
-
-    access_log /usr/local/openresty/nginx/logs/access.log logstash_json if=$loggable;
-  error_log /dev/stdout ${ERROR_LEVEL};
-
-
   upstream engine_backend {
-    server 0.0.0.1; # just an invalid address as a place holder
+    server 0.0.0.1;
     balancer_by_lua_block {
       local ok, err = balancer.set_current_peer(ngx.var.qix_session_host, ngx.var.qix_session_port);
       if not ok then
@@ -63,31 +40,63 @@ http {
     }
   }
 
+  types {
+    text/html html;
+    text/css css;
+    text/javascript js;
+    image/svg+xml svg;
+    image/png png;
+    application/font-woff woff;
+  }
+
+  log_format logstash_json '{ "timestamp": "$time_iso8601", '
+    '"remote_addr": "$remote_addr", '
+    '"remote_user": "$remote_user", '
+    '"body_bytes_sent": "$body_bytes_sent", '
+    '"request_time": "$request_time", '
+    '"status": "$status", '
+    '"request": "$request", '
+    '"request_method": "$request_method", '
+    '"http_referrer": "$http_referer", '
+    '"uri": "$uri", '
+    '"server_protocol": "$server_protocol", '
+    '"host": "$host", '
+    '"http_user_agent": "$http_user_agent" }';
+
+  access_log /usr/local/openresty/nginx/logs/access.log logstash_json buffer=32k if=$loggable;
+  error_log /dev/stdout ${ERROR_LEVEL};
+
+  resolver 127.0.0.11 ipv6=off valid=5s;
+  tcp_nopush on;
+  tcp_nodelay on;
+  gzip on;
+  gzip_min_length 10240;
+  gzip_proxied expired no-cache no-store private auth;
+  gzip_types text/plain text/css text/javascript;
+  reset_timedout_connection on;
+  client_body_timeout 10;
+  client_body_buffer_size 2M;
+  sendfile on;
+  keepalive_timeout 30;
+  keepalive_requests 5000;
+  send_timeout 2;
+  default_type application/octet-stream;
+
   server {
-    listen 443 ssl;
-    server_name _;
-
-    client_body_buffer_size 1M;
-
     ssl_certificate ${CERT_FILE};
     ssl_certificate_key ${CERT_KEY};
-
     ssl on;
     ssl_session_cache builtin:1000 shared:SSL:10m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
     ssl_prefer_server_ciphers on;
 
+    listen 443 ssl;
+    server_name _;
     index index.html;
 
     location / {
       alias html/custom-analytics-ui/;
-      try_files $uri $uri/ =404;
-      access_log off;
-    }
-
-    location /hellochart/ {
-      alias html/hello-chart/;
       try_files $uri $uri/ =404;
       access_log off;
     }
@@ -101,14 +110,13 @@ http {
       access_log off;
     }
 
-    location /picasso-sandbox {
+    location /picasso-sandbox/ {
       access_by_lua_block {
         validate_user(true);
       }
       alias html/picasso-sandbox/;
       try_files $uri $uri/ =404;
       access_log off;
-      index index.html;
     }
 
     location /idp {
@@ -126,28 +134,19 @@ http {
       proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
     }
 
-    location /auth-test {
-      add_header Cache-Control no-cache;
-      expires off;
-      access_by_lua_block {
-        validate_user();
-      }
-      alias html/hellochart/;
-      index index.html;
-    }
-
     location /is-authenticated {
       add_header Cache-Control no-cache;
       expires off;
       content_by_lua '
-                      ngx.header["Content-Type"] = "text/json";
-                      local jwt = getJWTIfLoggedIn()
-                      if not jwt then
-                        ngx.say("false")
-                      else
-                        ngx.say("true")
-                      end
-                      ngx.exit(ngx.HTTP_OK)';
+        ngx.header["Content-Type"] = "text/json";
+        local jwt = getJWTIfLoggedIn()
+        if not jwt then
+          ngx.say("false")
+        else
+          ngx.say("true")
+        end
+        ngx.exit(ngx.HTTP_OK)
+      ';
     }
 
     location /kibana/ {
@@ -175,28 +174,28 @@ http {
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
     }
 
-    location /qix_session_service {
+    location /qix-session {
       internal; # only exposed internally, used during requests to /doc
       proxy_pass http://${QIX_SESSION_HOST}:${QIX_SESSION_PORT}/v1/session;
     }
 
     location /doc {
-
       set $qix_session_host '';
       set $qix_session_port '';
 
       access_by_lua_block {
         validate_user();
         local uri = string.sub(ngx.var.request_uri, 5)
-        local routeResponse = ngx.location.capture("/qix_session_service" ..  uri)
+        local routeResponse = ngx.location.capture("/qix-session" .. uri)
         if routeResponse.status == 200 then
           local qix_session_route_data = cjson.decode(routeResponse.body);
           ngx.var.qix_session_host = qix_session_route_data.ip;
           ngx.var.qix_session_port = qix_session_route_data.port;
           ngx.req.set_header("X-Qlik-Session", qix_session_route_data.sessionId)
           ngx.req.set_uri("/app/engineData")
+          ngx.log(ngx.INFO, "QIX Engine session placed on " .. qix_session_route_data.ip .. " with id " .. qix_session_route_data.sessionId)
         else
-          ngx.log(ngx.WARN, "Failed to find an Engine")
+          ngx.log(ngx.WARN, "Invalid response from session service: " .. routeResponse.status)
           ngx.exit(routeResponse.status)
         end
       }
