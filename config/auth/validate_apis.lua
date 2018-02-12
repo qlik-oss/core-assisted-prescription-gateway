@@ -82,6 +82,7 @@ function is_admin(redirect)
       ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY") .. '?redirect_url='.. ngx.var.uri, 302)
     else
       ngx.exit(ngx.HTTP_UNAUTHORIZED)
+    end
   end
 
   local jwt = require "resty.jwt"
