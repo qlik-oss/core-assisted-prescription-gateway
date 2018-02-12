@@ -1,5 +1,7 @@
 # qliktive-custom-analytics-openresty
 
+[![CircleCI](https://circleci.com/gh/qlik-ea/qliktive-custom-analytics-openresty.svg?style=svg&circle-token=31f97de56be9324ffa2e707342de2500208e5e97)](https://circleci.com/gh/qlik-ea/qliktive-custom-analytics-openresty)
+
 This repo contains configuration for the openresty service running in the Qliktive
 "Custom Analytics UI" use-case.
 
