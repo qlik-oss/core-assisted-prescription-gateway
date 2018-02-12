@@ -71,8 +71,25 @@ function validate_user(redirect)
     end
   end
 
-  -- validate JWT?
-
   ngx.req.set_header("Authorization", "Bearer " .. jwt)
-  --ngx.req.clear_header("Cookie")
+end
+
+function is_admin(redirect)
+  local tempjwt = getJWTIfLoggedIn()
+
+  if not tempjwt then
+    if redirect then
+      ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY") .. '?redirect_url='.. ngx.var.uri, 302)
+    else
+      ngx.exit(ngx.HTTP_UNAUTHORIZED)
+  end
+
+  local jwt = require "resty.jwt"
+  local jwt_obj = jwt:load_jwt(tempjwt)
+  local userRole = jwt_obj.payload.userRole;
+  if userRole ~= "Admin" then
+    ngx.exit(ngx.HTTP_UNAUTHORIZED)
+  end
+
+  ngx.req.set_header("Authorization", "Bearer " .. tempjwt)
 end
