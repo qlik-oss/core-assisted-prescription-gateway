@@ -60,9 +60,7 @@ function getJWTIfLoggedIn()
   end
 end
 
-function validate_user(redirect)
-  local jwt = getJWTIfLoggedIn()
-
+local function does_jwt_exist(jwt)
   if not jwt then
     if redirect then
       ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY") .. '?redirect_url='.. ngx.var.uri, 302)
@@ -70,20 +68,18 @@ function validate_user(redirect)
       ngx.exit(ngx.HTTP_UNAUTHORIZED)
     end
   end
+  return
+end
 
+function validate_user(redirect)
+  local jwt = getJWTIfLoggedIn()
+  does_jwt_exist(jwt)
   ngx.req.set_header("Authorization", "Bearer " .. jwt)
 end
 
 function is_admin(redirect)
   local tempjwt = getJWTIfLoggedIn()
-
-  if not tempjwt then
-    if redirect then
-      ngx.redirect("/login/" .. os.getenv("AUTH_STRATEGY") .. '?redirect_url='.. ngx.var.uri, 302)
-    else
-      ngx.exit(ngx.HTTP_UNAUTHORIZED)
-    end
-  end
+  does_jwt_exist(jwt)
 
   local jwt = require "resty.jwt"
   local jwt_obj = jwt:load_jwt(tempjwt)
