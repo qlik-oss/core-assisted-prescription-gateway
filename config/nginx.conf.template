@@ -103,7 +103,7 @@ http {
 
     location /docs/ {
       access_by_lua_block {
-        validate_user(true);
+        is_admin(true);
       }
       alias html/docs/;
       try_files $uri $uri/ =404;
@@ -112,7 +112,7 @@ http {
 
     location /picasso-sandbox/ {
       access_by_lua_block {
-        validate_user(true);
+        is_admin(true);
       }
       alias html/picasso-sandbox/;
       try_files $uri $uri/ =404;
@@ -151,7 +151,7 @@ http {
 
     location /kibana/ {
       access_by_lua_block {
-        validate_user(true);
+        is_admin(true);
       }
       include proxy_settings.conf;
       proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
@@ -159,7 +159,7 @@ http {
 
     location /grafana/ {
       access_by_lua_block {
-        validate_user(true);
+        is_admin(true);
       }
       proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
       include proxy_settings.conf;
@@ -168,7 +168,7 @@ http {
 
     location /viz/ {
       access_by_lua_block {
-        validate_user(true);
+        is_admin(true);
       }
       include proxy_settings.conf;
       proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
