@@ -79,7 +79,7 @@ end
 
 function is_admin(redirect)
   local tempjwt = getJWTIfLoggedIn()
-  does_jwt_exist(jwt)
+  does_jwt_exist(tempjwt)
 
   local jwt = require "resty.jwt"
   local jwt_obj = jwt:load_jwt(tempjwt)
