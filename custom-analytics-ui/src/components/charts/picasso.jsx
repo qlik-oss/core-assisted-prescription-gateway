@@ -1,6 +1,6 @@
 import React from 'react';
-import picasso from 'picasso.js/dist/picasso';
-import picassoQ from 'picasso-plugin-q/dist/picasso-q';
+import picasso from 'picasso.js';
+import picassoQ from 'picasso-plugin-q';
 import Chart from './chart';
 import './picasso.css';
 import { palettes } from '../../ui-constants';

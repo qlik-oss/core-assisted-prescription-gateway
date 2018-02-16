@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import picasso from 'picasso.js/dist/picasso';
+import picasso from 'picasso.js';
 import hammerjs from 'hammerjs'; /* eslint no-unused-vars:0 */
-import picassoHammer from 'picasso-plugin-hammer/dist/picasso-hammer';
-import picassoQ from 'picasso-plugin-q/dist/picasso-q';
+import picassoHammer from 'picasso-plugin-hammer';
+import picassoQ from 'picasso-plugin-q';
 
 import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
