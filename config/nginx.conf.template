@@ -110,15 +110,6 @@ http {
       access_log off;
     }
 
-    location /picasso-sandbox/ {
-      access_by_lua_block {
-        is_admin(true);
-      }
-      alias html/picasso-sandbox/;
-      try_files $uri $uri/ =404;
-      access_log off;
-    }
-
     location /idp {
       include proxy_settings.conf;
       proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
