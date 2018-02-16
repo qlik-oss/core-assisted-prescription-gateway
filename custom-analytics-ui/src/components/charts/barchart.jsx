@@ -1,6 +1,6 @@
 import merge from 'deep-extend';
 import PropTypes from 'prop-types';
-import Picasso from './picasso';
+import Picasso from 'picasso.js';
 import { palettes } from '../../ui-constants';
 
 class Barchart extends Picasso {
