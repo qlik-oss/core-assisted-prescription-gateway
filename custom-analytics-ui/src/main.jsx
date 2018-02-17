@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import picasso from 'picasso.js';
@@ -38,9 +38,7 @@ const auth = {
   signout(cb) {
     fetch('/logout', {
       credentials: 'same-origin',
-    }).then((response) => {
-      cb();
-    });
+    }).then(cb);
   },
 };
 
