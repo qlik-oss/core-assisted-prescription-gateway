@@ -4,8 +4,6 @@ import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import picasso from 'picasso.js';
-import hammerjs from 'hammerjs'; /* eslint no-unused-vars:0 */
-import picassoHammer from 'picasso-plugin-hammer';
 import picassoQ from 'picasso-plugin-q';
 
 import FlatButton from 'material-ui/FlatButton';
@@ -18,7 +16,6 @@ import PrivateRoute from './components/privateRoute';
 
 import './main.css';
 
-picasso.use(picassoHammer);
 picasso.use(picassoQ);
 
 const qliktiveRedirectParam = 'redirect_url=/#/app';
