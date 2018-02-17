@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import * as picasso from '@qlik/picasso/dist/picasso';
-import hammerjs from 'hammerjs'; /* eslint no-unused-vars:0 */
-import picassoHammer from '@qlik/picasso/plugins/hammer/dist/picasso-hammer';
-import picassoQ from '@qlik/picasso/plugins/q/dist/picasso-q';
+import picasso from 'picasso.js';
+import picassoQ from 'picasso-plugin-q';
 
 import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
@@ -18,7 +16,6 @@ import PrivateRoute from './components/privateRoute';
 
 import './main.css';
 
-picasso.use(picassoHammer);
 picasso.use(picassoQ);
 
 const qliktiveRedirectParam = 'redirect_url=/#/app';
@@ -41,9 +38,7 @@ const auth = {
   signout(cb) {
     fetch('/logout', {
       credentials: 'same-origin',
-    }).then((response) => {
-      cb();
-    });
+    }).then(cb);
   },
 };
 
