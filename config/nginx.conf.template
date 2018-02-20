@@ -56,7 +56,6 @@ http {
     '"host": "$host", '
     '"http_user_agent": "$http_user_agent" }';
 
-  access_log /usr/local/openresty/nginx/logs/access.log logstash_json buffer=32k if=$loggable;
   error_log /dev/stdout ${ERROR_LEVEL};
 
   resolver 127.0.0.11 ipv6=off valid=5s;
