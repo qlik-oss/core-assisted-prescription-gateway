@@ -7,8 +7,7 @@ local function getdb()
   red:set_timeout(1000)
 
   -- redis hostname here:
-  local redis_ip = "10.96.0.101"
-  local ok, err = red:connect(redis_ip, 6379)
+local ok, err = red:connect("redis", 6379)	
   if not ok then
     ngx.log(ngx.WARN, "auth: Redis connect failed - " .. err)
     return
