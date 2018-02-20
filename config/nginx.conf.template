@@ -1,6 +1,3 @@
-env SESSION_COOKIE_NAME;
-env AUTH_STRATEGY;
-
 worker_processes auto;
 worker_rlimit_nofile 100000;
 
@@ -17,9 +14,6 @@ http {
   }
 
   map $request $loggable {
-    ~/viz 0;
-    ~/grafana 0;
-    ~/kibana 0;
     default 1;
   }
 
@@ -27,7 +21,6 @@ http {
     string = require("string");
     cjson = require("cjson");
     balancer = require "ngx.balancer";
-    require("auth.validate_apis");
   }
 
   upstream engine_backend {
@@ -98,75 +91,9 @@ http {
     location / {
       alias html/custom-analytics-ui/;
       try_files $uri $uri/ =404;
-      access_log off;
-    }
-
-    location /docs/ {
-      access_by_lua_block {
-        is_admin(true);
-      }
-      alias html/docs/;
-      try_files $uri $uri/ =404;
-      access_log off;
-    }
-
-    location /idp {
-      include proxy_settings.conf;
-      proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
-    }
-
-    location /login {
-      include proxy_settings.conf;
-      proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
-    }
-
-    location /logout {
-      include proxy_settings.conf;
-      proxy_pass http://${AUTH_HOST}:${AUTH_PORT};
-    }
-
-    location /is-authenticated {
-      add_header Cache-Control no-cache;
-      expires off;
-      content_by_lua '
-        ngx.header["Content-Type"] = "text/json";
-        local jwt = getJWTIfLoggedIn()
-        if not jwt then
-          ngx.say("false")
-        else
-          ngx.say("true")
-        end
-        ngx.exit(ngx.HTTP_OK)
-      ';
-    }
-
-    location /kibana/ {
-      access_by_lua_block {
-        is_admin(true);
-      }
-      include proxy_settings.conf;
-      proxy_pass http://${KIBANA_HOST}:${KIBANA_PORT}/;
-    }
-
-    location /grafana/ {
-      access_by_lua_block {
-        is_admin(true);
-      }
-      proxy_set_header Authorization ""; # removes the jwt because grafana interprets this value as their API key
-      include proxy_settings.conf;
-      proxy_pass http://${GRAFANA_HOST}:${GRAFANA_PORT}/;
-    }
-
-    location /viz/ {
-      access_by_lua_block {
-        is_admin(true);
-      }
-      include proxy_settings.conf;
-      proxy_pass http://${VISUALIZER_HOST}:${VISUALIZER_PORT}/;
     }
 
     location /qix-session {
-      internal; # only exposed internally, used during requests to /doc
       proxy_pass http://${QIX_SESSION_HOST}:${QIX_SESSION_PORT}/v1/session;
     }
 
@@ -174,22 +101,19 @@ http {
       set $qix_session_host '';
       set $qix_session_port '';
 
-      access_by_lua_block {
-        is_admin();
-        local uri = string.sub(ngx.var.request_uri, 5)
-        local routeResponse = ngx.location.capture("/qix-session" .. uri)
-        if routeResponse.status == 200 then
-          local qix_session_route_data = cjson.decode(routeResponse.body);
-          ngx.var.qix_session_host = qix_session_route_data.ip;
-          ngx.var.qix_session_port = qix_session_route_data.port;
-          ngx.req.set_header("X-Qlik-Session", qix_session_route_data.sessionId)
-          ngx.req.set_uri("/app/engineData")
-          ngx.log(ngx.INFO, "QIX Engine session placed on " .. qix_session_route_data.ip .. " with id " .. qix_session_route_data.sessionId)
-        else
-          ngx.log(ngx.WARN, "Invalid response from session service: " .. routeResponse.status)
-          ngx.exit(routeResponse.status)
-        end
-      }
+      local uri = string.sub(ngx.var.request_uri, 5)
+      local routeResponse = ngx.location.capture("/qix-session" .. uri)
+      if routeResponse.status == 200 then
+        local qix_session_route_data = cjson.decode(routeResponse.body);
+        ngx.var.qix_session_host = qix_session_route_data.ip;
+        ngx.var.qix_session_port = qix_session_route_data.port;
+        ngx.req.set_header("X-Qlik-Session", qix_session_route_data.sessionId)
+        ngx.req.set_uri("/app/engineData")
+        ngx.log(ngx.INFO, "QIX Engine session placed on " .. qix_session_route_data.ip .. " with id " .. qix_session_route_data.sessionId)
+      else
+        ngx.log(ngx.WARN, "Invalid response from session service: " .. routeResponse.status)
+        ngx.exit(routeResponse.status)
+      end
 
       include websocket_proxy_settings.conf;
       proxy_pass http://engine_backend/;
