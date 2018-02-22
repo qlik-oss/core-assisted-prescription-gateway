@@ -27,6 +27,17 @@ export QIX_SESSION_PORT=${QIX_SESSION_PORT:-9455}
 export AUTH_HOST=${AUTH_HOST:-auth}
 export AUTH_PORT=${AUTH_PORT:-3000}
 
+echo "Waiting for Kibana..."
+./wait-for.sh $KIBANA_HOST:$KIBANA_PORT
+echo "Waiting for Grafana..."
+./wait-for.sh $GRAFANA_HOST:$GRAFANA_PORT
+echo "Waiting for Visualizer..."
+./wait-for.sh $VISUALIZER_HOST:$VISUALIZER_PORT
+echo "Waiting for QIX Session Service..."
+./wait-for.sh $QIX_SESSION_HOST:$QIX_SESSION_PORT
+echo "Waiting for Authentication Service..."
+./wait-for.sh $AUTH_HOST:$AUTH_PORT
+
 envsubst '\
 $ERROR_LEVEL \
 $WORKER_CONNECTIONS \

@@ -14,7 +14,8 @@ COPY ./config/ .
 COPY ./custom-analytics-ui/dist/ ./html/custom-analytics-ui
 RUN chmod -R 0755 ./html
 
+COPY ./wait-for.sh .
 COPY ./entrypoint.sh .
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh ./wait-for.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
