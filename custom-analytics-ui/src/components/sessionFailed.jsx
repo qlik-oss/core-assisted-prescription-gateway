@@ -15,7 +15,7 @@ export default function SessionFailed(props) {
           <p>Connecting... {props.error.retry}/{props.error.MAX_CONNECTION_TRIES}</p>
 
           <p>If you got stuck on this screen for several minutes, feel free to give us a
-          ping <a href="https://github.com/qlik-ea/qliktive-custom-analytics/issues">on GitHub.</a></p>
+          ping <a href="https://github.com/qlik-oss/core-assisted-prescription/issues">on GitHub.</a></p>
         </CardText>
       </Card>
     );
@@ -29,7 +29,7 @@ export default function SessionFailed(props) {
         <p><strong>You will need to refresh this page to continue.</strong></p>
 
         <p>This should generally never happen so feel free to give us a
-        ping <a href="https://github.com/qlik-ea/qliktive-custom-analytics/issues">on GitHub!</a></p>
+        ping <a href="https://github.com/qlik-oss/core-assisted-prescription/issues">on GitHub!</a></p>
       </CardText>
     </Card>
   );
