@@ -126,7 +126,7 @@ class ThePage extends React.Component {
           className="ca-app-bar"
           showMenuIconButton={false}
           title={<div className="pointer app-bar-title">
-          Qliktive
+          Qlik Core
             <span className="app-bar-title-dash"> /</span>
             <span className="app-bar-subtitle"> Assisted Prescription</span>
           </div>}
