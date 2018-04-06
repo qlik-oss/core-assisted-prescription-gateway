@@ -175,7 +175,7 @@ http {
       set $qix_session_port '';
 
       access_by_lua_block {
-        is_admin();
+        validate_user(true);
         local uri = string.sub(ngx.var.request_uri, 5)
         local routeResponse = ngx.location.capture("/qix-session" .. uri)
         if routeResponse.status == 200 then
