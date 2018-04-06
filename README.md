@@ -1,14 +1,14 @@
 # core-assisted-prescription-gateway
 
-[![CircleCI](https://circleci.com/gh/qlik-ea/core-assisted-prescription-gateway.svg?style=svg&circle-token=31f97de56be9324ffa2e707342de2500208e5e97)](https://circleci.com/gh/qlik-ea/core-assisted-prescription-gateway)
+[![CircleCI](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway.svg?style=svg)](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway)(https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway)
 
-This repo contains configuration for the openresty service running in the Qliktive
-"Custom Analytics UI" use-case.
+This repo contains configuration for the openresty service running in the Qlik Core
+Assisted Prescriptions use-case.
 
 Each change to this repo will publish an image to Docker hub, tagged
-`<branch name>-<rolling build number>`, e.g. `qlikea/qliktive-custom-analytics-openresty:master-123`.
+`<branch name>-<rolling build number>`, e.g. `qlikcore/assisted-prescription-gateway:master-123`.
 
- Changes on `master` branch will also update the `latest` tag on Docker hub.
+Changes on `master` branch will also update the `latest` tag on Docker hub.
 
 ## Contributing
 
@@ -33,7 +33,7 @@ And these are optional:
 
 _Note: You do not need to set any environment variables for this._
 
-* Start up a local environment of [qliktive-custom-analytics](https://github.com/qlik-ea/qliktive-custom-analytics#getting-started)
+* Start up a local environment of [core-assisted-prescription](https://github.com/qlik-oss/core-assisted-prescription#getting-started)
 * Open up a terminal (or Git Bash in Windows) and run `./run-dev.sh`
 * When it has booted up, go to https://localhost/ to see the page, 'admin' and 'password' as credentials.
-* Now you will be able to do changes to the files in `/src` folder, and it will be rebuilt and shown in your browser after a refresh. 
+* Now you will be able to do changes to the files in `/src` folder, and it will be rebuilt and shown in your browser after a refresh.

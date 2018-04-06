@@ -1,14 +1,14 @@
 {
-  "name": "core-custom-analytics-ui",
+  "name": "core-assisted-prescription-ui",
   "version": "0.0.1",
-  "description": "UI for the custom analytics usecase",
+  "description": "UI for the assisted prescription usecase",
   "author": "QlikTech International AB",
   "private": true,
   "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qlik-ea/qliktive-custom-analytics"
+    "url": "https://github.com/qlik-oss/core-assisted-prescription-gateway"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
