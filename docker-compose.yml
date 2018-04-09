@@ -7,7 +7,7 @@ services:
       SESSION_COOKIE_NAME: custom-analytics
       AUTH_STRATEGY: local
     networks:
-      - qliktivecustomanalytics_default
+      - coreassistedprescription_default
     ports:
       - "443:443"
     volumes:
@@ -15,5 +15,5 @@ services:
       - ./custom-analytics-ui/dist:/usr/local/openresty/nginx/html/custom-analytics-ui
 
 networks:
-  qliktivecustomanalytics_default:
+  coreassistedprescription_default:
     external: true
