@@ -1,369 +1,97 @@
 import React from 'react';
 import enigma from 'enigma.js';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/more-vert';
 
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import { Card, CardMedia, CardTitle } from 'material-ui/Card';
-import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
-import { colors, styles } from '../ui-constants';
-
-import Filterbox from './charts/filterbox';
-import Barchart from './charts/barchart';
-import SessionFailed from './sessionFailed';
+import Dashboard from './dashboard';
+import Closed from './closed';
+import Suspended from './suspended';
+import TimedOut from './timedOut';
 import config from '../enigma-config';
 import './app.css';
 
-const MAX_CONNECTION_TRIES = 10;
-
-const reactions = {
-  definition: {
-    qHyperCubeDef: {
-      qDimensions: [{
-        qDef: {
-          qFieldDefs: ['Medical Description Reaction'],
-          qLabel: 'Medical Description Reaction',
-          qSortCriterias: [{
-            qSortByAscii: 1,
-          }],
-        },
-      }],
-      qMeasures: [{
-        qDef: {
-          qDef: 'Count(Demographic_Caseid)',
-          qLabel: '# Patient Cases',
-        },
-        qSortBy: {
-          qSortByNumeric: -1,
-        },
-      }],
-    },
-  },
-  settings: {},
-  title: 'Patient Medical Reactions',
-  extraComponents: [{
-    type: 'text',
-    dock: 'left',
-    text: '# Patient Cases',
-  }],
-};
-
-const outcome = {
-  definition: {
-    qHyperCubeDef: {
-      qDimensions: [{
-        qNullSuppression: true,
-        qDef: {
-          qFieldDefs: ['Patient Event Outcome'],
-          qLabel: 'Patient Event Outcome',
-          qSortCriterias: [{
-            qSortByAscii: 1,
-          }],
-        },
-      }],
-      qMeasures: [{
-        qDef: {
-          qDef: 'Count(Demographic_Caseid)',
-          qLabel: '# Patient Cases',
-        },
-        qSortBy: {
-          qSortByNumeric: -1,
-        },
-      }],
-    },
-  },
-  settings: {},
-  title: '# Patient Cases',
-  extraComponents: [{
-    type: 'text',
-    dock: 'bottom',
-    text: '# Patient Cases',
-  }],
-};
-
-const therapy = {
-  definition: {
-    qHyperCubeDef: {
-      qDimensions: [{
-        qDef: {
-          qFieldDefs: ['Medical Description Drug Use'],
-          qLabel: 'Medical Description Drug Use',
-          qSortCriterias: [{
-            qSortByAscii: 1,
-          }],
-        },
-      }],
-      qMeasures: [{
-        qDef: {
-          qDef: 'Count(Demographic_Caseid)',
-          qLabel: '# Patient Cases',
-        },
-        qSortBy: {
-          qSortByNumeric: -1,
-        },
-      }],
-    },
-  },
-  settings: {},
-  title: 'Patient Illness',
-  extraComponents: [{
-    type: 'text',
-    dock: 'left',
-    text: '# Patient Cases',
-  }],
-};
-
-const stop = {
-  definition: {
-    qHyperCubeDef: {
-      qInterColumnSortOrder: [0, 1],
-      qDimensions: [{
-        qNullSuppression: true,
-        qDef: {
-          qFieldDefs: ['Reaction Therapy Stop'],
-          qLabel: 'Reaction Therapy Stop',
-          qSortCriterias: [{
-            qSortByAscii: 1,
-          }],
-        },
-      }],
-      qMeasures: [{
-        qDef: {
-          qDef: 'Count(Demographic_Caseid)',
-          qLabel: '# Patient Cases',
-        },
-      }],
-    },
-  },
-  settings: {},
-  title: 'Reactions Therapy Stop',
-  extraComponents: [{
-    type: 'text',
-    dock: 'left',
-    text: '# Patient Cases',
-  }],
-};
-
-const risk = {
-  definition: {
-    qHyperCubeDef: {
-      qDimensions: [{
-        qDef: {
-          qFieldDefs: ['Manufacturer Code Name'],
-          qLabel: 'Manufacturer Name',
-          qSortCriterias: [{
-            qSortByAscii: 1,
-          }],
-        },
-      }],
-      qMeasures: [{
-        qDef: {
-          qDef: 'Count(Drug_caseID)',
-          qLabel: '# Drug Cases',
-        },
-        qSortBy: {
-          qSortByNumeric: -1,
-        },
-      }],
-    },
-  },
-  settings: {},
-  title: '# Drug Cases by Manufacturer',
-  extraComponents: [{
-    type: 'text',
-    dock: 'left',
-    text: '# Drug Cases',
-  }],
-};
-
-const deaths = {
-  definition: {
-    qHyperCubeDef: {
-      qInterColumnSortOrder: [0, 1],
-      qDimensions: [{
-        qDef: {
-          qFieldDefs: ['Patient Age Group'],
-          qLabel: 'Patient Age Group',
-          qSortCriterias: [{
-            qSortByNumeric: 1,
-          }],
-        },
-      }],
-      qMeasures: [{
-        qDef: {
-          qDef: 'Count({<[Drug Role Event] = {\'Primary Suspect Drug\'},[Medical Description Reaction] = {\'Death\'} >}Demographic_Caseid)',
-          qLabel: '# Death by primary suspect',
-        },
-      }],
-    },
-  },
-  settings: {},
-  title: '# Deaths',
-  extraComponents: [{
-    type: 'text',
-    dock: 'left',
-    text: 'Death by primary suspect',
-  }],
-};
+const RETRY_MAX_COUNT = 10;
+const RETRY_DELAY = 5000;
+const IDLE_TIMEOUT = 3 * (60 * 60 * 1000); // 3 hours of timeout
 
 export default class App extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = { app: null, error: null, retry: 0 };
-
     const session = enigma.create(config);
-
-    session.on('closed', evt => this.setState({ error: evt }));
-    session.on('suspended', () => {
-      let retry = 0;
-
-      const updateSuspended = () => {
-        retry += 1;
-        this.setState({ error: { suspended: true, retry, MAX_CONNECTION_TRIES } });
-      };
-
-      const retryConnection = () => {
-        updateSuspended();
-
-        if (retry === MAX_CONNECTION_TRIES) {
-          session.close();
-        } else {
-          session.resume()
-            .then(() => this.setState({ error: null }))
-            .catch(() => setTimeout(retryConnection, 10000));
-        }
-      };
-
-      retryConnection();
-    });
-
+    session.on('closed', () => this.setState({ view: 'closed' }));
+    session.on('suspended', () => this.maybeResume());
+    session.on('traffic:sent', () => { this.setState({ lastActivityDate: new Date() }); });
     session.open()
       .then(global => global.getActiveDoc())
-      .then(app => this.setState({ app }))
-      .catch(error => this.setState({ error }));
+      .then(app => this.setState({ view: 'app', app }))
+      .catch(() => this.setState({ view: 'suspended' }));
+
+    this.state = {
+      retries: 0,
+      lastActivityDate: new Date(),
+      session,
+    };
   }
 
-  clearSelections = () => {
-    if (this.state.app) {
-      this.state.app.clearAll();
+  maybeResume = () => {
+    if ((new Date() - this.state.lastActivityDate) >= IDLE_TIMEOUT) {
+      this.setState({ view: 'timedOut' });
+    } else if (this.state.retries < RETRY_MAX_COUNT) {
+      this.setState(prev => ({ view: 'suspended', app: prev.app, retries: prev.retries + 1 }));
+      // we should retry until reaching max connection tries:
+      setTimeout(() => {
+        this.state.session.resume().then(() => {
+          this.setState({ view: 'app', retries: 0 });
+        }).catch(() => this.maybeResume());
+      }, RETRY_DELAY);
+    } else {
+      // they weren't idle long enough and we couldn't reestablish a
+      // session, fail gracefully:
+      this.setState({ view: 'closed' });
     }
   }
 
   render() {
-    if (this.state.error) {
+    if (this.state.view === 'app') {
       return (
         <div className="main app-background">
           <div className="row">
             <div className="section">
-              <SessionFailed
-                app={this.state.app}
-                error={this.state.error}
-              />
+              <Dashboard app={this.state.app} />
+            </div>
+          </div>
+        </div>
+      );
+    } else if (this.state.view === 'suspended') {
+      return (
+        <div className="main app-background">
+          <div className="row">
+            <div className="section">
+              <Suspended retries={this.state.retries} maxRetries={RETRY_MAX_COUNT} />
+            </div>
+          </div>
+        </div>
+      );
+    } else if (this.state.view === 'timedOut') {
+      return (
+        <div className="main app-background">
+          <div className="row">
+            <div className="section">
+              <TimedOut />
+            </div>
+          </div>
+        </div>
+      );
+    } else if (this.state.view === 'closed') {
+      return (
+        <div className="main app-background">
+          <div className="row">
+            <div className="section">
+              <Closed />
             </div>
           </div>
         </div>
       );
     }
-
-    if (!this.state.app) {
-      return null;
-    }
-
-    return (
-
-      <div className="ca-main app-background">
-        <div className="main-content">
-          <div className="app-toolbar">
-            <Card zDepth={3} style={{ margin: '15px', width: '100%' }}>
-              <Toolbar style={{ backgroundColor: '#fafafa' }}>
-                <ToolbarGroup >
-                  <ToolbarTitle style={styles.userSelectNone} text="Filters" />
-                </ToolbarGroup>
-                <ToolbarGroup>
-                  <IconMenu
-                    style={{ marginRight: '-16px' }}
-                    iconButtonElement={
-                      <IconButton touch>
-                        <NavigationExpandMoreIcon />
-                      </IconButton>
-                    }
-                  >
-                    <MenuItem primaryText="Clear All Selections" onTouchTap={this.clearSelections} />
-                  </IconMenu>
-                </ToolbarGroup>
-              </Toolbar>
-              <List style={{ maxHeight: 'calc(100vh - 158px)', overflowY: 'auto' }}>
-                <Subheader style={styles.userSelectNone}>Demographics</Subheader>
-                <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
-                <Filterbox app={this.state.app} field="Gender" title="Gender" />
-                <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
-                <Filterbox app={this.state.app} field="Country" title="Location" />
-                <Divider />
-                <Subheader style={styles.userSelectNone}>Drugs</Subheader>
-                <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
-              </List>
-            </Card>
-          </div>
-          <div className="app-charts">
-            <Card zDepth={3} style={styles.app.chartCard}>
-              <CardTitle
-                title="Reactions"
-                className="subheader"
-                style={styles.app.cardTitle}
-                titleStyle={styles.app.cardTitleSize}
-                titleColor={colors.deepBlue}
-              />
-              <CardMedia>
-                <div className="chart-wrapper">
-                  <Barchart app={this.state.app} overrides={reactions} title={reactions.title} colorType="sequential" />
-                  <div className="card-divider" />
-                  <Barchart app={this.state.app} overrides={outcome} title={outcome.title} orientation={'horizontal'} />
-                </div>
-              </CardMedia>
-            </Card>
-
-            <Card zDepth={3} style={styles.app.chartCard} >
-              <CardTitle
-                title="Therapy"
-                className="subheader"
-                style={styles.app.cardTitle}
-                titleStyle={styles.app.cardTitleSize}
-                titleColor={colors.deepBlue}
-              />
-              <CardMedia>
-                <div className="chart-wrapper">
-                  <Barchart app={this.state.app} overrides={stop} title={stop.title} />
-                  <div className="card-divider" />
-                  <Barchart app={this.state.app} overrides={therapy} title={therapy.title} colorType="sequential" />
-
-                </div>
-              </CardMedia>
-            </Card>
-
-            <Card zDepth={3} style={styles.app.chartCard}>
-              <CardTitle
-                title="Risk"
-                className="subheader"
-                style={styles.app.cardTitle}
-                titleStyle={styles.app.cardTitleSize}
-                titleColor={colors.deepBlue}
-              />
-              <CardMedia>
-                <div className="chart-wrapper">
-                  <Barchart app={this.state.app} overrides={risk} title={risk.title} colorType="sequential" />
-                  <div className="card-divider" />
-                  <Barchart app={this.state.app} overrides={deaths} title={deaths.title} />
-                </div>
-              </CardMedia>
-            </Card>
-          </div>
-        </div>
-      </div>
-    );
+    return null;
   }
 }
