@@ -1,6 +1,6 @@
 # core-assisted-prescription-gateway
 
-[![CircleCI](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway.svg?style=svg)](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway)(https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway)
+[![CircleCI](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway.svg?style=svg)](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway)
 
 This repo contains configuration for the openresty service running in the Qlik Core
 Assisted Prescriptions use-case.
