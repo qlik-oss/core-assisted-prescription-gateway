@@ -1,0 +1,24 @@
+.ca-main .app-charts {
+  width: 80vw;
+  margin-left: 15px;
+  height: 100%;
+  overflow: auto;
+}
+
+.ca-main .app-toolbar {
+  width: 20vw;
+  min-width: 200px;
+}
+
+.ca-main .chart-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.ca-main .subheader {
+  border-bottom: 1px solid #e1e1e1;
+  background-color: #FAFAFA;
+  padding-top: 2px;
+  text-transform: uppercase;
+}

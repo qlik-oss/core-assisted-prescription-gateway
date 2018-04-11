@@ -1,5 +1,7 @@
 import qixSchema from 'enigma.js/schemas/12.20.0.json';
 
+const ERR_ABORTED = 15;
+
 const config = {
   schema: qixSchema,
   url: `${location.origin.replace(/^http/, 'ws')}/doc/doc/drugcases`,
@@ -7,7 +9,7 @@ const config = {
   interceptors: [
     {
       onRejected(session, request, error) {
-        if (error.code === 15) {
+        if (error.code === ERR_ABORTED) {
           return request.retry();
         }
         return Promise.reject(error);
