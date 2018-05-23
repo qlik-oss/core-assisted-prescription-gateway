@@ -9,6 +9,7 @@ import picassoQ from 'picasso-plugin-q';
 import FlatButton from 'material-ui/FlatButton';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AcceptCookies from './components/acceptCookies';
 import LandingPage from './components/landingPage';
 import App from './components/app';
 import Login from './components/login';
@@ -69,7 +70,12 @@ class ThePage extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = { authMode: null, isAuthenticated: null, dialogIsOpen: false };
+    this.state = {
+      authMode: null,
+      isAuthenticated: null,
+      dialogIsOpen: false,
+      cookieAccepted: document.cookie.indexOf('apqlikcoreaccept') !== -1,
+    };
 
     auth.idp.then((authMode) => {
       this.setState({ authMode });
@@ -106,6 +112,12 @@ class ThePage extends React.Component {
 
   loginClicked = (username, password) => {
     auth.localAuthenticate(username, password);
+  }
+
+  acceptClicked = () => {
+    const cookie = `apqlikcoreaccept=true; expires=${new Date('2050-01-01').toUTCString()}; path=/`;
+    document.cookie = cookie;
+    this.setState({ cookieAccepted: true });
   }
 
   navigateToLandingPage = () => {
@@ -156,6 +168,10 @@ class ThePage extends React.Component {
           open={this.state.dialogIsOpen}
           onCancel={this.cancelLoginClicked}
           onLogin={this.loginClicked}
+        />
+        <AcceptCookies
+          open={!this.state.cookieAccepted}
+          onAccept={this.acceptClicked}
         />
       </div>
     );
