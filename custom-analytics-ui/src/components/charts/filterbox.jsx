@@ -113,7 +113,7 @@ class Filterbox extends Chart {
           style={listItemStyles.style}
           innerDivStyle={styles.userSelectNone}
           hoverColor={listItemStyles.hoverColor}
-          primaryText={item.qText}
+          primaryText={item.qText.replace('<= x <', ' → ')}
           onClick={() => this.toggleValue(item)}
         />
       );
