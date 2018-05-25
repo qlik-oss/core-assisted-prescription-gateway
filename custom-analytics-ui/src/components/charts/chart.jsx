@@ -32,7 +32,7 @@ class Chart extends React.Component {
 
   createModel() {
     this.props.app.createSessionObject(this.state.definition).then((model) => {
-      this.setState({ model });
+      this.setState({ model, error: null });
       model.on('changed', () => this.update());
       model.on('closed', () => this.createModel());
       model.emit('changed');
