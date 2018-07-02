@@ -215,41 +215,47 @@ export default class Dashboard extends React.Component {
   }
 
   clearSelections = () => {
-    this.state.app.clearAll();
+    const { app } = this.state;
+    app.clearAll();
   }
 
   render() {
+    const { app } = this.state;
     return (
       <div className="ca-main app-background">
         <div className="main-content">
           <div className="app-toolbar">
             <Card zDepth={3} style={{ margin: '15px', width: '100%' }}>
               <Toolbar style={{ backgroundColor: '#fafafa' }}>
-                <ToolbarGroup >
+                <ToolbarGroup>
                   <ToolbarTitle style={styles.userSelectNone} text="Filters" />
                 </ToolbarGroup>
                 <ToolbarGroup>
                   <IconMenu
                     style={{ marginRight: '-16px' }}
-                    iconButtonElement={
+                    iconButtonElement={(
                       <IconButton touch>
                         <NavigationExpandMoreIcon />
                       </IconButton>
-                    }
+)}
                   >
                     <MenuItem primaryText="Clear All Selections" onTouchTap={this.clearSelections} />
                   </IconMenu>
                 </ToolbarGroup>
               </Toolbar>
               <List style={{ maxHeight: 'calc(100vh - 158px)', overflowY: 'auto' }}>
-                <Subheader style={styles.userSelectNone}>Demographics</Subheader>
-                <Filterbox app={this.state.app} field="Patient Age Group" title="Age" />
-                <Filterbox app={this.state.app} field="Gender" title="Gender" />
-                <Filterbox app={this.state.app} field="Patient Weight Group" title="Weight" />
-                <Filterbox app={this.state.app} field="Country" title="Location" />
+                <Subheader style={styles.userSelectNone}>
+Demographics
+                </Subheader>
+                <Filterbox app={app} field="Patient Age Group" title="Age" />
+                <Filterbox app={app} field="Gender" title="Gender" />
+                <Filterbox app={app} field="Patient Weight Group" title="Weight" />
+                <Filterbox app={app} field="Country" title="Location" />
                 <Divider />
-                <Subheader style={styles.userSelectNone}>Drugs</Subheader>
-                <Filterbox app={this.state.app} field="Drug Dose Form" title="Drug Dose Form" />
+                <Subheader style={styles.userSelectNone}>
+Drugs
+                </Subheader>
+                <Filterbox app={app} field="Drug Dose Form" title="Drug Dose Form" />
               </List>
             </Card>
           </div>
@@ -264,14 +270,14 @@ export default class Dashboard extends React.Component {
               />
               <CardMedia>
                 <div className="chart-wrapper">
-                  <Barchart app={this.state.app} overrides={reactions} title={reactions.title} colorType="sequential" />
+                  <Barchart app={app} overrides={reactions} title={reactions.title} colorType="sequential" />
                   <div className="card-divider" />
-                  <Barchart app={this.state.app} overrides={outcome} title={outcome.title} orientation={'horizontal'} />
+                  <Barchart app={app} overrides={outcome} title={outcome.title} orientation="horizontal" />
                 </div>
               </CardMedia>
             </Card>
 
-            <Card zDepth={3} style={styles.app.chartCard} >
+            <Card zDepth={3} style={styles.app.chartCard}>
               <CardTitle
                 title="Therapy"
                 className="subheader"
@@ -281,9 +287,9 @@ export default class Dashboard extends React.Component {
               />
               <CardMedia>
                 <div className="chart-wrapper">
-                  <Barchart app={this.state.app} overrides={stop} title={stop.title} />
+                  <Barchart app={app} overrides={stop} title={stop.title} />
                   <div className="card-divider" />
-                  <Barchart app={this.state.app} overrides={therapy} title={therapy.title} colorType="sequential" />
+                  <Barchart app={app} overrides={therapy} title={therapy.title} colorType="sequential" />
 
                 </div>
               </CardMedia>
@@ -299,9 +305,9 @@ export default class Dashboard extends React.Component {
               />
               <CardMedia>
                 <div className="chart-wrapper">
-                  <Barchart app={this.state.app} overrides={risk} title={risk.title} colorType="sequential" />
+                  <Barchart app={app} overrides={risk} title={risk.title} colorType="sequential" />
                   <div className="card-divider" />
-                  <Barchart app={this.state.app} overrides={deaths} title={deaths.title} />
+                  <Barchart app={app} overrides={deaths} title={deaths.title} />
                 </div>
               </CardMedia>
             </Card>

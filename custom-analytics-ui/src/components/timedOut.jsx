@@ -6,9 +6,15 @@ export default function SessionSuspended() {
     <Card id="session-failed" style={{ margin: '15% 0 0 0', padding: '5%' }}>
       <CardTitle title="Session timed out" />
       <CardText>
-        <p>Your analytics session timed out due to inactivity.</p>
+        <p>
+Your analytics session timed out due to inactivity.
+        </p>
 
-        <p><strong>Refresh this page to establish a new session.</strong></p>
+        <p>
+          <strong>
+Refresh this page to establish a new session.
+          </strong>
+        </p>
       </CardText>
     </Card>
   );

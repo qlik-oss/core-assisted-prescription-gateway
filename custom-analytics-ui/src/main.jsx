@@ -66,7 +66,6 @@ Main.defaultProps = {
 const AppBarButtonStyle = { color: 'white' };
 
 class ThePage extends React.Component {
-
   constructor(...args) {
     super(...args);
 
@@ -87,9 +86,10 @@ class ThePage extends React.Component {
   }
 
   signinClicked = () => {
-    if (this.state.authMode === 'local') {
+    const { authMode } = this.state;
+    if (authMode === 'local') {
       this.setState({ dialogIsOpen: true });
-    } else if (this.state.authMode === 'github') {
+    } else if (authMode === 'github') {
       auth.authenticate();
     }
   }
@@ -99,9 +99,10 @@ class ThePage extends React.Component {
   }
 
   notAuthorizedCallback = () => {
-    if (this.state.authMode === 'local') {
+    const { authMode } = this.state;
+    if (authMode === 'local') {
       this.setState({ dialogIsOpen: true });
-    } else if (this.state.authMode === 'github') {
+    } else if (authMode === 'github') {
       alert('Please sign in to access this page'); // eslint-disable-line no-alert
     }
   }
@@ -129,7 +130,8 @@ class ThePage extends React.Component {
   }
 
   render() {
-    if (this.state.isAuthenticated === null) {
+    const { isAuthenticated, dialogIsOpen, cookieAccepted } = this.state;
+    if (isAuthenticated === null) {
       return null;
     }
     return (
@@ -137,40 +139,49 @@ class ThePage extends React.Component {
         <AppBar
           className="ca-app-bar"
           showMenuIconButton={false}
-          title={<div className="pointer app-bar-title">
+          title={(
+            <div className="pointer app-bar-title">
           Qlik Core
-            <span className="app-bar-title-dash"> /</span>
-            <span className="app-bar-subtitle"> Assisted Prescription</span>
-          </div>}
+              <span className="app-bar-title-dash">
+                {' '}
+/
+              </span>
+              <span className="app-bar-subtitle">
+                {' '}
+Assisted Prescription
+              </span>
+            </div>
+)}
           onTitleTouchTap={this.navigateToLandingPage}
           zDepth={3}
-          iconElementRight={
+          iconElementRight={(
             <div style={
-            { marginTop: '6px',
+            {
+              marginTop: '6px',
               marginRight: '0px',
-              marginLeft: 'auto' }}
+              marginLeft: 'auto',
+            }}
             >
               <FlatButton label="App" labelStyle={AppBarButtonStyle} onClick={this.navigateToAppPage} />
               {
-                this.state.isAuthenticated ?
-                (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
-                :
-                (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked} />)
+                isAuthenticated
+                  ? (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
+                  : (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked} />)
               }
             </div>
-          }
+)}
         />
         <Main
-          isAuthenticated={this.state.isAuthenticated}
+          isAuthenticated={isAuthenticated}
           notAuthorizedCallback={this.notAuthorizedCallback}
         />
         <Login
-          open={this.state.dialogIsOpen}
+          open={dialogIsOpen}
           onCancel={this.cancelLoginClicked}
           onLogin={this.loginClicked}
         />
         <AcceptCookies
-          open={!this.state.cookieAccepted}
+          open={!cookieAccepted}
           onAccept={this.acceptClicked}
         />
       </div>

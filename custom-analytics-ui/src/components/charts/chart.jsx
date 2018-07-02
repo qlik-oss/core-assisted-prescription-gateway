@@ -31,7 +31,9 @@ class Chart extends React.Component {
   }
 
   createModel() {
-    this.props.app.createSessionObject(this.state.definition).then((model) => {
+    const { app } = this.props;
+    const { definition } = this.state;
+    app.createSessionObject(definition).then((model) => {
       this.setState({ model, error: null });
       model.on('changed', () => this.update());
       model.on('closed', () => this.createModel());
@@ -47,11 +49,13 @@ class Chart extends React.Component {
   }
 
   update() {
-    this.state.model.getLayout().then((layout) => {
+    const { model } = this.state;
+    model.getLayout().then((layout) => {
       // TODO: this only works for listobjects:
       if (layout.qListObject && layout.qListObject.qDimensionInfo.qError) {
         // generalize error:
-        this.fail({ message: `Could not find field: ${this.props.field}` });
+        const { field } = this.props;
+        this.fail({ message: `Could not find field: ${field}` });
       } else {
         this.setState({
           layout,
@@ -69,7 +73,6 @@ Chart.propTypes = {
 
 Chart.defaultProps = {
   field: '',
-  app: null,
 };
 
 export default Chart;

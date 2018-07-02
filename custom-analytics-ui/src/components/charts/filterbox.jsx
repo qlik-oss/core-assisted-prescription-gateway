@@ -48,19 +48,20 @@ class Filterbox extends Chart {
     event.stopPropagation();
     event.preventDefault();
 
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
+    this.setState(oldState => Object.assign({}, oldState, { isOpen: !oldState.isOpen }));
   }
 
   render() {
     if (this.state.error) {
-      const msg = this.state.error instanceof Event ?
-        'Failed to establish a connection to an Engine' :
-        this.state.error.message;
+      const msg = this.state.error instanceof Event
+        ? 'Failed to establish a connection to an Engine'
+        : this.state.error.message;
       return (
         <div className="card-panel filterbox">
-          <p>Failed to render filterbox: {msg}</p>
+          <p>
+Failed to render filterbox:
+            {msg}
+          </p>
         </div>
       );
     }
@@ -68,7 +69,9 @@ class Filterbox extends Chart {
     if (!this.state.layout) {
       return (
         <div className="card-panel filterbox">
-          <p>Initializing...</p>
+          <p>
+Initializing...
+          </p>
         </div>
       );
     }

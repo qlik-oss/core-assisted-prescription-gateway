@@ -7,7 +7,6 @@ import { colors, styles } from '../ui-constants';
 import './login.css';
 
 export default class Login extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = { username: '', password: '' };
@@ -23,22 +22,26 @@ export default class Login extends React.Component {
 
   loginOnEnter(e) {
     if (e.keyCode === 13) {
-      this.props.onLogin(this.state.username, this.state.password);
+      const { onLogin } = this.props;
+      const { username, password } = this.state;
+      onLogin(username, password);
     }
   }
 
   render() {
+    const { onCancel, onLogin, open } = this.props;
+    const { username, password } = this.state;
     const actions = [
       <FlatButton
         label="Cancel"
         style={{ color: colors.darkBlue }}
-        onTouchTap={this.props.onCancel}
+        onTouchTap={onCancel}
         key={1}
       />,
       <FlatButton
         label="Sign in"
         style={{ color: colors.darkBlue }}
-        onTouchTap={() => this.props.onLogin(this.state.username, this.state.password)}
+        onTouchTap={() => onLogin(username, password)}
         key={2}
       />,
     ];
@@ -46,13 +49,13 @@ export default class Login extends React.Component {
       <Dialog
         className="ca-login"
         title="Sign in"
-        open={this.props.open}
+        open={open}
         contentStyle={styles.login.contentStyle}
         overlayClassName="ca-login-overlay"
       >
-        <TextField underlineFocusStyle={styles.login.underline} name="username" hintText="User ID" value={this.state.username} onChange={e => this.handleUsernameChange(e)} />
+        <TextField underlineFocusStyle={styles.login.underline} name="username" hintText="User ID" value={username} onChange={e => this.handleUsernameChange(e)} />
         <br />
-        <TextField underlineFocusStyle={styles.login.underline} name="password" type="password" hintText="Password" value={this.state.password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
+        <TextField underlineFocusStyle={styles.login.underline} name="password" type="password" hintText="Password" value={password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
         <div className="action-button-wrapper">
           {actions}
         </div>

@@ -15,7 +15,9 @@ class Barchart extends Picasso {
         qDimensions: [], // extended from consumer
         qMeasures: [], // extended from consumer
         qInterColumnSortOrder: [1, 0],
-        qInitialDataFetch: [{ qTop: 0, qHeight: 20, qLeft: 0, qWidth: 17 }],
+        qInitialDataFetch: [{
+          qTop: 0, qHeight: 20, qLeft: 0, qWidth: 17,
+        }],
         qSuppressZero: false,
         qSuppressMissing: true,
       },
@@ -122,8 +124,9 @@ class Barchart extends Picasso {
     // The merge function replaces and does not concatenate arrays.
     // Therefore we add the components from the extraComponents array
     // to the components array first before merging
-    this.state.settings.components =
-      this.state.settings.components.concat(this.props.overrides.extraComponents);
+    this.state.settings.components = this.state.settings.components.concat(
+      this.props.overrides.extraComponents,
+    );
     merge(this.state.definition, this.props.overrides.definition);
     merge(this.state.settings, this.props.overrides.settings);
   }

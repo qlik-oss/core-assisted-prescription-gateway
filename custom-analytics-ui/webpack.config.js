@@ -16,8 +16,7 @@ const plugins = [
     name: 'vendor',
     filename: `vendor${hashSuffix}.js`,
     minChunks(module) {
-      const context = module.context;
-      return context && context.indexOf('node_modules') >= 0;
+      return module.context && module.context.indexOf('node_modules') >= 0;
     },
   }),
   new ExtractTextPlugin(`[name]${hashSuffix}.css`),

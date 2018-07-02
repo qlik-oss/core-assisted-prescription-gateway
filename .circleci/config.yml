@@ -20,7 +20,7 @@ jobs:
           command: |
             cd custom-analytics-ui
             npm install --quiet
-            npm run eslint
+            npm run lint
             npm run build
       - run:
           name: Build Docker image

@@ -46,7 +46,8 @@ const styles = {
     cardTitleSize: {
       fontSize: '1rem',
     },
-    chartCard: { margin: '15px',
+    chartCard: {
+      margin: '15px',
       flex: '1 1 auto',
     },
   },

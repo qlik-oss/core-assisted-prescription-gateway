@@ -7,7 +7,7 @@ import { palettes } from '../../ui-constants';
 
 class Picasso extends Chart {
   renderPicasso() {
-    const layout = this.state.layout;
+    const { layout } = this.state;
 
     const data = [{
       type: 'q',
@@ -16,6 +16,7 @@ class Picasso extends Chart {
     }];
 
     if (!this.state.pic) {
+      const { settings } = this.state;
       const pic = picasso({
         palettes: [
           palettes.categorical,
@@ -23,7 +24,7 @@ class Picasso extends Chart {
       }).chart({
         element: this.container,
         data,
-        settings: this.state.settings,
+        settings,
       });
 
       pic.brush('highlight').on('update', () => {
@@ -42,12 +43,15 @@ class Picasso extends Chart {
 
   render() {
     if (this.state.error) {
-      const msg = this.state.error instanceof Event ?
-        'Failed to establish a connection to an Engine' :
-        this.state.error.message;
+      const msg = this.state.error instanceof Event
+        ? 'Failed to establish a connection to an Engine'
+        : this.state.error.message;
       return (
         <div className="picasso-chart">
-          <div>Failed to render chart: {msg}</div>
+          <div>
+Failed to render chart:
+            {msg}
+          </div>
         </div>
       );
     }
@@ -55,7 +59,9 @@ class Picasso extends Chart {
     if (!this.state.layout) {
       return (
         <div className="picasso-chart">
-          <div>Initializing...</div>
+          <div>
+Initializing...
+          </div>
         </div>
       );
     }

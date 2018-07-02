@@ -33,13 +33,14 @@ export default class App extends React.Component {
   }
 
   maybeResume = () => {
-    if ((new Date() - this.state.lastActivityDate) >= IDLE_TIMEOUT) {
+    const { lastActivityDate, retries, session } = this.state;
+    if ((new Date() - lastActivityDate) >= IDLE_TIMEOUT) {
       this.setState({ view: 'timedOut' });
-    } else if (this.state.retries < RETRY_MAX_COUNT) {
+    } else if (retries < RETRY_MAX_COUNT) {
       this.setState(prev => ({ view: 'suspended', app: prev.app, retries: prev.retries + 1 }));
       // we should retry until reaching max connection tries:
       setTimeout(() => {
-        this.state.session.resume().then(() => {
+        session.resume().then(() => {
           this.setState({ view: 'app', retries: 0 });
         }).catch(() => this.maybeResume());
       }, RETRY_DELAY);
@@ -51,27 +52,28 @@ export default class App extends React.Component {
   }
 
   render() {
-    if (this.state.view === 'app') {
+    const { view, app, retries } = this.state;
+    if (view === 'app') {
       return (
         <div className="main app-background">
           <div className="row">
             <div className="section">
-              <Dashboard app={this.state.app} />
+              <Dashboard app={app} />
             </div>
           </div>
         </div>
       );
-    } else if (this.state.view === 'suspended') {
+    } if (view === 'suspended') {
       return (
         <div className="main app-background">
           <div className="row">
             <div className="section">
-              <Suspended retries={this.state.retries} maxRetries={RETRY_MAX_COUNT} />
+              <Suspended retries={retries} maxRetries={RETRY_MAX_COUNT} />
             </div>
           </div>
         </div>
       );
-    } else if (this.state.view === 'timedOut') {
+    } if (view === 'timedOut') {
       return (
         <div className="main app-background">
           <div className="row">
@@ -81,7 +83,7 @@ export default class App extends React.Component {
           </div>
         </div>
       );
-    } else if (this.state.view === 'closed') {
+    } if (view === 'closed') {
       return (
         <div className="main app-background">
           <div className="row">
