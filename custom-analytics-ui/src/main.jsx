@@ -152,7 +152,7 @@ Assisted Prescription
               </span>
             </div>
 )}
-          onTitleTouchTap={this.navigateToLandingPage}
+          onTitleClick={this.navigateToLandingPage}
           zDepth={3}
           iconElementRight={(
             <div style={

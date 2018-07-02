@@ -239,7 +239,7 @@ export default class Dashboard extends React.Component {
                       </IconButton>
 )}
                   >
-                    <MenuItem primaryText="Clear All Selections" onTouchTap={this.clearSelections} />
+                    <MenuItem primaryText="Clear All Selections" onClick={this.clearSelections} />
                   </IconMenu>
                 </ToolbarGroup>
               </Toolbar>

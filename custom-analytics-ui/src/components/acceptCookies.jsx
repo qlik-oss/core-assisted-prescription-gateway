@@ -21,7 +21,7 @@ our use of cookies
       open={open}
       message={paragraph}
       action="Close"
-      onActionTouchTap={onAccept}
+      onClick={onAccept}
       onRequestClose={() => false}
     />
   );

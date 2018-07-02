@@ -35,13 +35,13 @@ export default class Login extends React.Component {
       <FlatButton
         label="Cancel"
         style={{ color: colors.darkBlue }}
-        onTouchTap={onCancel}
+        onClick={onCancel}
         key={1}
       />,
       <FlatButton
         label="Sign in"
         style={{ color: colors.darkBlue }}
-        onTouchTap={() => onLogin(username, password)}
+        onClick={() => onLogin(username, password)}
         key={2}
       />,
     ];
