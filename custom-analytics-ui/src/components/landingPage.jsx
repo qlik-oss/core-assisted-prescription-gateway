@@ -1,14 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import './landingPage.css';
 import { colors, styles } from '../ui-constants';
 
-injectTapEventPlugin();
-
 const RedirectButton = withRouter(({ history }) => (
-  <RaisedButton label="Get started" onTouchTap={() => { history.push('/app'); }} style={styles.transparentBackground} backgroundColor={colors.blue} labelColor={colors.white} />
+  <RaisedButton label="Get started" onClick={() => { history.push('/app'); }} style={styles.transparentBackground} backgroundColor={colors.blue} labelColor={colors.white} />
 ));
 
 export default function LandingPage() {
