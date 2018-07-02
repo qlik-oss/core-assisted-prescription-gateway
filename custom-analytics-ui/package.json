@@ -23,7 +23,7 @@
     "picasso-plugin-q": "0.5.2",
     "picasso.js": "0.5.2",
     "prop-types": "15.6.2",
-    "react": "15.5.4",
+    "react": "16.4.1",
     "react-dom": "15.5.4",
     "react-router-dom": "4.3.1",
     "react-tap-event-plugin": "2.0.1"
