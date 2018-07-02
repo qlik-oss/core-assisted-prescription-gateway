@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Card(props) {
+  const { id, title, children } = props;
   return (
-    <div id={props.id} className="card-panel">
-      <h5>{props.title}</h5>
-      {props.children}
+    <div id={id} className="card-panel">
+      <h5>
+        {title}
+      </h5>
+      {children}
     </div>
   );
 }

@@ -7,17 +7,21 @@ export default function AcceptCookies(props) {
   const paragraph = (
     <span>
       By continuing to browse the site, you are agreeing to&nbsp;
-      <a href="https://www.qlik.com/us/legal/cookies-and-privacy-policy">our use of cookies</a>.
+      <a href="https://www.qlik.com/us/legal/cookies-and-privacy-policy">
+our use of cookies
+      </a>
+.
     </span>
   );
+  const { open, onAccept } = props;
   return (
     <Snackbar
       className="ca-accept-cookies"
       bodyStyle={{ maxWidth: 'auto', height: 'auto' }}
-      open={props.open}
+      open={open}
       message={paragraph}
       action="Close"
-      onActionTouchTap={props.onAccept}
+      onActionTouchTap={onAccept}
       onRequestClose={() => false}
     />
   );

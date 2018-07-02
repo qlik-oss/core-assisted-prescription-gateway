@@ -4,7 +4,7 @@ const ERR_ABORTED = 15;
 
 const config = {
   schema: qixSchema,
-  url: `${location.origin.replace(/^http/, 'ws')}/doc/doc/drugcases`,
+  url: `${location.origin.replace(/^http/, 'ws')}/doc/doc/drugcases`, // eslint-disable-line
   suspendOnClose: true,
   interceptors: [
     {

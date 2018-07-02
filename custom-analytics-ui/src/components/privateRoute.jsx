@@ -3,27 +3,27 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default class PrivateRoute extends React.Component {
-
   componentDidMount() {
-    if (!this.props.isAuthenticated) this.props.notAuthorizedCallback();
+    const { isAuthenticated, notAuthorizedCallback } = this.props;
+    if (!isAuthenticated) notAuthorizedCallback();
   }
 
   render() {
-    const { component: Component, ...rest } = this.props;
+    const { isAuthenticated, component: Component, ...rest } = this.props;
     return (
       <Route
         {...rest}
         render={props => (
-      this.props.isAuthenticated ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{
-          pathname: '/',
-          state: { from: props.location },
-        }}
-        />
-        )
-    )}
+          isAuthenticated ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to={{
+              pathname: '/',
+              state: { from: props.location },
+            }}
+            />
+          )
+        )}
       />
     );
   }
