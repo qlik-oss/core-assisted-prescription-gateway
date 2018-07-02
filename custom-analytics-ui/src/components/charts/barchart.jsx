@@ -27,7 +27,7 @@ class Barchart extends Picasso {
       scales: {
         x: {
           data: { extract: { field: 'qDimensionInfo/0', props: { label: v => v.qText } } },
-          label: v => v.label.value,
+          label: v => v.datum.label.value,
           padding: 0.2,
         },
         y: {

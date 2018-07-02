@@ -1,7 +1,7 @@
 .ca-main .app-charts {
   width: 80vw;
   margin-left: 15px;
-  height: 100%;
+  height: calc(100vh - 64px);
   overflow: auto;
 }
 
