@@ -6,9 +6,10 @@ import PropTypes from 'prop-types';
 import picasso from 'picasso.js';
 import picassoQ from 'picasso-plugin-q';
 
-import FlatButton from 'material-ui/FlatButton';
-import AppBar from 'material-ui/AppBar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import AcceptCookies from './components/acceptCookies';
 import LandingPage from './components/landingPage';
 import App from './components/app';
@@ -62,8 +63,6 @@ Main.propTypes = {
 Main.defaultProps = {
   notAuthorizedCallback: () => { },
 };
-
-const AppBarButtonStyle = { color: 'white' };
 
 class ThePage extends React.Component {
   constructor(...args) {
@@ -136,41 +135,37 @@ class ThePage extends React.Component {
     }
     return (
       <div>
-        <AppBar
-          className="ca-app-bar"
-          showMenuIconButton={false}
-          title={(
-            <div className="pointer app-bar-title">
-          Qlik Core
+        <AppBar className="ca-app-bar" position="static">
+          <Toolbar>
+            <div className="pointer app-bar-title" onClick={this.navigateToLandingPage}>
+            Qlik Core
               <span className="app-bar-title-dash">
-                {' '}
 /
               </span>
               <span className="app-bar-subtitle">
-                {' '}
 Assisted Prescription
               </span>
             </div>
-)}
-          onTitleClick={this.navigateToLandingPage}
-          zDepth={3}
-          iconElementRight={(
-            <div style={
-            {
-              marginTop: '6px',
-              marginRight: '0px',
-              marginLeft: 'auto',
-            }}
-            >
-              <FlatButton label="App" labelStyle={AppBarButtonStyle} onClick={this.navigateToAppPage} />
+            <div>
+              <Button onClick={this.navigateToAppPage}>
+App
+              </Button>
               {
-                isAuthenticated
-                  ? (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
-                  : (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked} />)
-              }
+  isAuthenticated
+    ? (
+      <Button onClick={this.signoutClicked}>
+Sign Out
+      </Button>
+    )
+    : (
+      <Button onClick={this.signinClicked}>
+Sign In
+      </Button>
+    )
+  }
             </div>
-)}
-        />
+          </Toolbar>
+        </AppBar>
         <Main
           isAuthenticated={isAuthenticated}
           notAuthorizedCallback={this.notAuthorizedCallback}
@@ -190,10 +185,8 @@ Assisted Prescription
 }
 
 ReactDOM.render(
-  <MuiThemeProvider>
-    <HashRouter>
-      <ThePage />
-    </HashRouter>
-  </MuiThemeProvider>,
+  <HashRouter>
+    <ThePage />
+  </HashRouter>,
   document.getElementById('root'),
 );

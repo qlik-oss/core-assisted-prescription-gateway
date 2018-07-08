@@ -1,15 +1,7 @@
 .ca-landing {
-  width: 100%;
-  position: relative;
   background-size: cover;
-  min-height: calc(100vh - 64px);
-  background-image: url(../resources/landingPage-background-image.jpg);
-}
-.ca-landing .content-wrapper {
-  position: relative;
-  width: 100%;
-  min-height: calc(100vh - 64px);
-  background: linear-gradient(45deg, rgba(33,65,82,0.45) 0%,rgba(255,255,255,0) 100%);
+  height: 100vh;
+  background-image: url(../resources/landingPage-background-image.jpg), linear-gradient(45deg, rgba(33,65,82,0.45) 0%,rgba(255,255,255,0) 100%);
 }
 
 .ca-landing .landing-content {
@@ -35,6 +27,7 @@
   font-weight: 400;
   text-transform: uppercase;
 }
+
 .ca-landing .landing-subtitle {
   font-weight: 400;
   margin-top: 10px;

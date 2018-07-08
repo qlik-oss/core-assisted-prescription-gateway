@@ -57,8 +57,13 @@ body {
   height: 100%
 }
 
-.ca-app-bar {
+header.ca-app-bar {
   background: linear-gradient(to right, #44751d 0%, #3a7391 100%);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 30px, rgba(0, 0, 0, 0.23) 0px 6px 10px;
+}
+
+.ca-app-bar > div {
+  justify-content: space-between;
 }
 
 .ca-app-bar .app-bar-title-dash {
@@ -72,6 +77,7 @@ body {
   height: 64px;
   display: flex;
   align-items: center;
+  font-size: 1.6rem;
 }
 
 .ca-app-bar .app-bar-subtitle {
@@ -81,7 +87,6 @@ body {
   padding-top: 5px;
 }
 
-
-
-
-
+.ca-app-bar button {
+  color: #fff;
+}

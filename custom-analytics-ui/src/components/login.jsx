@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import { colors, styles } from '../ui-constants';
 import './login.css';
 
@@ -32,18 +32,20 @@ export default class Login extends React.Component {
     const { onCancel, onLogin, open } = this.props;
     const { username, password } = this.state;
     const actions = [
-      <FlatButton
-        label="Cancel"
+      <Button
         style={{ color: colors.darkBlue }}
         onClick={onCancel}
         key={1}
-      />,
-      <FlatButton
-        label="Sign in"
+      >
+Cancel
+      </Button>,
+      <Button
         style={{ color: colors.darkBlue }}
         onClick={() => onLogin(username, password)}
         key={2}
-      />,
+      >
+Sign in
+      </Button>,
     ];
     return (
       <Dialog
