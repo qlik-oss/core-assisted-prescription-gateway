@@ -2,7 +2,7 @@ import qixSchema from 'enigma.js/schemas/12.20.0.json';
 
 const ERR_ABORTED = 15;
 
-const config = {
+const enigmaConfig = {
   schema: qixSchema,
   url: `${location.origin.replace(/^http/, 'ws')}/doc/doc/drugcases`, // eslint-disable-line
   suspendOnClose: true,
@@ -18,4 +18,4 @@ const config = {
   ],
 };
 
-module.exports = config;
+export default enigmaConfig;
