@@ -23,7 +23,7 @@
     "picasso-plugin-q": "0.12.2",
     "picasso.js": "0.12.2",
     "prop-types": "15.6.2",
-    "react": "16.4.2",
+    "react": "16.5.0",
     "react-dom": "16.4.2",
     "react-router-dom": "4.3.1"
   },
