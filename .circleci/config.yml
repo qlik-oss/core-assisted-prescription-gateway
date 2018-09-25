@@ -12,7 +12,7 @@ jobs:
           name: Update version tag
           command: |
             # Avoid problems with branches containing '/' and '@' character.
-            BRANCH=$(sed "s|/|-|; s|@||g" <<< "$CIRCLE_BRANCH")
+            BRANCH=$(sed "s|/|-|g; s|@||g" <<< "$CIRCLE_BRANCH")
             echo "$BRANCH-$CIRCLE_BUILD_NUM" > ./version.txt
       - setup_remote_docker
       - run:
