@@ -23,8 +23,8 @@
     "picasso-plugin-q": "0.15.0",
     "picasso.js": "0.15.0",
     "prop-types": "15.6.2",
-    "react": "16.5.2",
-    "react-dom": "16.5.2",
+    "react": "16.6.0",
+    "react-dom": "16.6.0",
     "react-router-dom": "4.3.1"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
     "@babel/plugin-proposal-class-properties": "7.1.0",
     "cross-env": "5.2.0",
     "css-loader": "1.0.0",
-    "eslint": "5.7.0",
+    "eslint": "5.8.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
