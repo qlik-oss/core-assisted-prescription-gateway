@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 import picasso from 'picasso.js';
 import picassoQ from 'picasso-plugin-q';
 
-import FlatButton from 'material-ui/FlatButton';
-import AppBar from 'material-ui/AppBar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Button from '@material-ui/core/Button';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+// import { MuiThemeProvider } from '@material-ui/core/styles';
 import AcceptCookies from './components/acceptCookies';
 import LandingPage from './components/landingPage';
 import App from './components/app';
@@ -62,8 +65,6 @@ Main.propTypes = {
 Main.defaultProps = {
   notAuthorizedCallback: () => { },
 };
-
-const AppBarButtonStyle = { color: 'white' };
 
 class ThePage extends React.Component {
   constructor(...args) {
@@ -134,43 +135,45 @@ class ThePage extends React.Component {
     if (isAuthenticated === null) {
       return null;
     }
+
+    const titleStyle = {
+      color: 'white',
+      fontSize: '24px',
+    };
+
     return (
       <div>
-        <AppBar
-          className="ca-app-bar"
-          showMenuIconButton={false}
-          title={(
+        <AppBar className="ca-app-bar">
+          <Toolbar>
             <div className="pointer app-bar-title">
-          Qlik Core
+              <Typography style={titleStyle}>
+                Qlik Core
+              </Typography>
               <span className="app-bar-title-dash">
                 {' '}
-/
+ /
               </span>
               <span className="app-bar-subtitle">
                 {' '}
-Assisted Prescription
+ Assisted Prescription
               </span>
             </div>
-)}
-          onTitleClick={this.navigateToLandingPage}
-          zDepth={3}
-          iconElementRight={(
             <div style={
-            {
-              marginTop: '6px',
-              marginRight: '0px',
-              marginLeft: 'auto',
-            }}
+             {
+               marginTop: '6px',
+               marginRight: '0px',
+               marginLeft: 'auto',
+             }}
             >
-              <FlatButton label="App" labelStyle={AppBarButtonStyle} onClick={this.navigateToAppPage} />
+              <Button className="app-bar-button" onClick={this.navigateToAppPage}>App</Button>
               {
-                isAuthenticated
-                  ? (<FlatButton label="Sign Out" labelStyle={AppBarButtonStyle} onClick={this.signoutClicked} />)
-                  : (<FlatButton label="Sign In" labelStyle={AppBarButtonStyle} onClick={this.signinClicked} />)
+              isAuthenticated
+                ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
+                : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
               }
             </div>
-)}
-        />
+          </Toolbar>
+        </AppBar>
         <Main
           isAuthenticated={isAuthenticated}
           notAuthorizedCallback={this.notAuthorizedCallback}
@@ -190,10 +193,10 @@ Assisted Prescription
 }
 
 ReactDOM.render(
-  <MuiThemeProvider>
-    <HashRouter>
-      <ThePage />
-    </HashRouter>
-  </MuiThemeProvider>,
+  // <MuiThemeProvider>
+  <HashRouter>
+    <ThePage />
+  </HashRouter>,
+  // </MuiThemeProvider>,
   document.getElementById('root'),
 );

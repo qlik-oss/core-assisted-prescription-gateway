@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/more-vert';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import { Card, CardMedia, CardTitle } from 'material-ui/Card';
-import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
+import Menu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import Toolbar from '@material-ui/core/Toolbar';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import Toolbar from '@material-ui/core/Toolbar';
+// , ToolbarGroup, ToolbarTitle }
+import { Card, CardMedia, CardTitle } from '@material-ui/core/Card';
+import { List } from '@material-ui/core//List';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
 import { colors, styles } from '../ui-constants';
 import Filterbox from './charts/filterbox';
@@ -226,35 +229,36 @@ export default class Dashboard extends React.Component {
         <div className="main-content">
           <div className="app-toolbar">
             <Card zDepth={3} style={{ margin: '15px', width: '100%' }}>
-              <Toolbar style={{ backgroundColor: '#fafafa' }}>
-                <ToolbarGroup>
+              {/* <Toolbar style={{ backgroundColor: '#fafafa' }}> */}
+              <Toolbar>
+                {/* <ToolbarGroup>
                   <ToolbarTitle style={styles.userSelectNone} text="Filters" />
                 </ToolbarGroup>
-                <ToolbarGroup>
-                  <IconMenu
+                <ToolbarGroup> */}
+                  <Menu
                     style={{ marginRight: '-16px' }}
                     iconButtonElement={(
                       <IconButton touch>
-                        <NavigationExpandMoreIcon />
+                        <MoreIcon />
                       </IconButton>
 )}
                   >
                     <MenuItem primaryText="Clear All Selections" onClick={this.clearSelections} />
-                  </IconMenu>
-                </ToolbarGroup>
+                  </Menu>
+                {/* </ToolbarGroup> */}
               </Toolbar>
               <List style={{ maxHeight: 'calc(100vh - 158px)', overflowY: 'auto' }}>
-                <Subheader style={styles.userSelectNone}>
+                <ListSubheader style={styles.userSelectNone}>
 Demographics
-                </Subheader>
+                </ListSubheader>
                 <Filterbox app={app} field="Patient Age Group" title="Age" />
                 <Filterbox app={app} field="Gender" title="Gender" />
                 <Filterbox app={app} field="Patient Weight Group" title="Weight" />
                 <Filterbox app={app} field="Country" title="Location" />
                 <Divider />
-                <Subheader style={styles.userSelectNone}>
+                <ListSubheader style={styles.userSelectNone}>
 Drugs
-                </Subheader>
+                </ListSubheader>
                 <Filterbox app={app} field="Drug Dose Form" title="Drug Dose Form" />
               </List>
             </Card>

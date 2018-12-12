@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardTitle, CardText } from '@material-ui/core/Card';
 
 export default function SessionSuspended(props) {
   const { retries, maxRetries } = props;

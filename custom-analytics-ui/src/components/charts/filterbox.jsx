@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from 'material-ui/List';
+import { ListItem } from '@material-ui/core/List';
 import { colors, styles } from '../../ui-constants';
 
 import Chart from './chart';
