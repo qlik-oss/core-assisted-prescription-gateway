@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 // import { MuiThemeProvider } from '@material-ui/core/styles';
 import AcceptCookies from './components/acceptCookies';
 import LandingPage from './components/landingPage';
@@ -143,7 +142,7 @@ class ThePage extends React.Component {
 
     return (
       <div>
-        <AppBar className="ca-app-bar">
+        <AppBar position="relative" className="ca-app-bar">
           <Toolbar>
             <div className="pointer app-bar-title">
               <Typography style={titleStyle}>

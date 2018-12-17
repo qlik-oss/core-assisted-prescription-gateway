@@ -6,8 +6,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { colors, styles } from '../ui-constants';
-import './login.css';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -35,25 +33,21 @@ export default class Login extends React.Component {
     const { onCancel, onLogin, open } = this.props;
     const { username, password } = this.state;
     return (
-
       <Dialog
-        className="ca-login"
         title="Sign in"
         open={open}
-        // contentStyle={styles.login.contentStyle}
-        // overlayclassname="ca-login-overlay"
+        maxWidth="xs"
+        fullWidth
       >
-        <DialogTitle>Sign In</DialogTitle>
+        <DialogTitle>Sign in</DialogTitle>
         <DialogContent>
-          <TextField autoFocus label="username" value={username} onChange={e => this.handleUsernameChange(e)} />
+          <TextField margin="dense" fullWidth autoFocus label="User ID" value={username} onChange={e => this.handleUsernameChange(e)} />
           <br />
-          <TextField label="password" type="password" value={password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
-          <div className="action-button-wrapper">
-            <DialogActions>
-              <Button onClick={onCancel} key={1}>Cancel</Button>
-              <Button onClick={() => onLogin(username, password)} key={2}>Sign in</Button>
-            </DialogActions>
-          </div>
+          <TextField margin="dense" fullWidth label="Password" type="password" value={password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
+          <DialogActions>
+            <Button color="primary" onClick={onCancel} key={1}>Cancel</Button>
+            <Button color="primary" onClick={() => onLogin(username, password)} key={2}>Sign in</Button>
+          </DialogActions>
         </DialogContent>
       </Dialog>
     );
