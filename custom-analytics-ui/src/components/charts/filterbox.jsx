@@ -1,10 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from 'material-ui/List';
-import { colors, styles } from '../../ui-constants';
-
+import Collapse from '@material-ui/core/Collapse';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { withStyles } from '@material-ui/core';
+import { colors } from '../../ui-constants';
 import Chart from './chart';
-import './filterbox.css';
+
+const focusStyle = {
+  sStyle: {
+    backgroundColor: colors.darkGreen,
+    color: '#ffffff',
+    userSelect: 'none',
+    '&:hover': {
+      backgroundColor: colors.green,
+    },
+  },
+  xStyle: {
+    backgroundColor: '#a9a9a9',
+    color: '#000000',
+    userSelect: 'none',
+    '&:hover': {
+      backgroundColor: 'lightgrey',
+    },
+  },
+};
 
 class Filterbox extends Chart {
   constructor(...args) {
@@ -51,7 +74,13 @@ class Filterbox extends Chart {
     this.setState(oldState => Object.assign({}, oldState, { isOpen: !oldState.isOpen }));
   }
 
+  handleClick = () => {
+    this.setState(state => ({ isOpen: !state.isOpen }));
+  };
+
   render() {
+    const { classes } = this.props;
+
     if (this.state.error) {
       const msg = this.state.error instanceof Event
         ? 'Failed to establish a connection to an Engine'
@@ -76,59 +105,46 @@ Initializing...
       );
     }
 
-    const sStyle = {
-      background: colors.darkGreen,
-      color: '#ffffff',
-      userSelect: 'none',
-    };
-
-    const xStyle = {
-      background: '#a9a9a9',
-      color: '#000000',
-      userSelect: 'none',
-    };
-
-    // Needed to be able to override default element styles that got higher importance than classes
     function getStyle(item) {
-      let style = {};
-      let hoverColor = '';
+      let style = '';
 
       if (item.qState === 'S') {
-        style = sStyle;
-        hoverColor = colors.green;
+        style = classes.sStyle;
       } else if (item.qState === 'X') {
-        style = xStyle;
-        hoverColor = 'lightgrey';
+        style = classes.xStyle;
       }
 
-      return { style, hoverColor };
+      return style;
     }
-
 
     const items = this.state.layout.qListObject.qDataPages[0].qMatrix.map((matrixItem) => {
       const item = matrixItem[0];
-      const classes = `item state-${item.qState}`;
-      const listItemStyles = getStyle(item);
+      const listItemStyle = getStyle(item);
       return (
         <ListItem
+          button
+          disableGutters
+          classes={{ root: listItemStyle }}
           key={item.qElemNumber}
-          className={classes}
-          style={listItemStyles.style}
-          innerDivStyle={styles.userSelectNone}
-          hoverColor={listItemStyles.hoverColor}
-          primaryText={item.qText.replace('<= x <', ' → ')}
           onClick={() => this.toggleValue(item)}
-        />
+        >
+          <ListItemText inset primary={item.qText.replace('<= x <', ' → ')} />
+        </ListItem>
       );
     });
 
     return (
-      <ListItem
-        primaryText={this.props.title}
-        innerDivStyle={styles.userSelectNone}
-        nestedItems={items}
-        primaryTogglesNestedList
-      />
+      <div>
+        <ListItem button onClick={this.handleClick}>
+          <ListItemText primary={this.props.title} />
+          {this.state.isOpen ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+        <Collapse in={this.state.isOpen} unmountOnExit>
+          <List>
+            {items}
+          </List>
+        </Collapse>
+      </div>
     );
   }
 }
@@ -136,6 +152,7 @@ Initializing...
 Filterbox.propTypes = {
   field: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-export default Filterbox;
+export default withStyles(focusStyle)(Filterbox);

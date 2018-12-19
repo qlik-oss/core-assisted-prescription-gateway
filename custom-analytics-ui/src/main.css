@@ -81,6 +81,11 @@ body {
   padding-top: 5px;
 }
 
+.ca-app-bar .app-bar-button {
+  color: white;
+  font-size: 14px;
+}
+
 
 
 

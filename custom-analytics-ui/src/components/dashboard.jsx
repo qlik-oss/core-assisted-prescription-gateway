@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
-import MenuItem from 'material-ui/MenuItem';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/more-vert';
-import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
-import { Card, CardMedia, CardTitle } from 'material-ui/Card';
-import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
+import Menu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import { withStyles } from '@material-ui/core';
 
-import { colors, styles } from '../ui-constants';
 import Filterbox from './charts/filterbox';
 import Barchart from './charts/barchart';
 import './dashboard.css';
+import { colors } from '../ui-constants';
 
 const reactions = {
   definition: {
@@ -205,111 +207,145 @@ const deaths = {
   }],
 };
 
+const styles = {
+  filterCard: {
+    margin: '15px',
+    width: '100%',
+  },
+  filterCardTitle: {
+    backgroundColor: '#FAFAFA',
+  },
+  filterTitle: {
+    color: '#0008',
+  },
+  list: {
+    maxHeight: 'calc(100vh - 158px)',
+    overflowY: 'auto',
+  },
+  chartCard: {
+    margin: '15px',
+    flex: '1 1 auto',
+  },
+  chartCardTitle: {
+    padding: '2px 0 0 15px',
+    borderBottom: '1px solid #e1e1e1',
+    backgroundColor: '#FAFAFA',
+    textTransform: 'uppercase',
+  },
+  title: {
+    color: colors.darkBlue,
+    lineHeight: '36px',
+    fontSize: '1rem',
+  },
+};
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       app: props.app,
+      anchorEl: null,
     };
   }
 
   clearSelections = () => {
     const { app } = this.state;
     app.clearAll();
+    this.setState({ anchorEl: null });
+  }
+
+  handleFilterButtonClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleFilterButtonClose = () => {
+    this.setState({ anchorEl: null });
   }
 
   render() {
-    const { app } = this.state;
+    const { app, anchorEl } = this.state;
+    const { classes } = this.props;
+    const filterButtonOpen = Boolean(anchorEl);
+
     return (
       <div className="ca-main app-background">
         <div className="main-content">
           <div className="app-toolbar">
-            <Card zDepth={3} style={{ margin: '15px', width: '100%' }}>
-              <Toolbar style={{ backgroundColor: '#fafafa' }}>
-                <ToolbarGroup>
-                  <ToolbarTitle style={styles.userSelectNone} text="Filters" />
-                </ToolbarGroup>
-                <ToolbarGroup>
-                  <IconMenu
-                    style={{ marginRight: '-16px' }}
-                    iconButtonElement={(
-                      <IconButton touch>
-                        <NavigationExpandMoreIcon />
-                      </IconButton>
-)}
-                  >
-                    <MenuItem primaryText="Clear All Selections" onClick={this.clearSelections} />
-                  </IconMenu>
-                </ToolbarGroup>
-              </Toolbar>
-              <List style={{ maxHeight: 'calc(100vh - 158px)', overflowY: 'auto' }}>
-                <Subheader style={styles.userSelectNone}>
-Demographics
-                </Subheader>
+            <Card className={classes.filterCard}>
+              <CardHeader
+                title="Filters"
+                className={classes.filterCardTitle}
+                classes={{ title: classes.filterTitle }}
+                action={(
+                  <IconButton onClick={this.handleFilterButtonClick}>
+                    <MoreVertIcon />
+                  </IconButton>
+                )}
+              />
+              <Menu
+                anchorEl={anchorEl}
+                open={filterButtonOpen}
+                onClose={this.handleFilterButtonClose}
+              >
+                <MenuItem onClick={this.clearSelections}>Clear All Selections</MenuItem>
+              </Menu>
+              <List className={classes.list}>
+                <ListSubheader disableSticky>Demographics</ListSubheader>
                 <Filterbox app={app} field="Patient Age Group" title="Age" />
                 <Filterbox app={app} field="Gender" title="Gender" />
                 <Filterbox app={app} field="Patient Weight Group" title="Weight" />
                 <Filterbox app={app} field="Country" title="Location" />
                 <Divider />
-                <Subheader style={styles.userSelectNone}>
-Drugs
-                </Subheader>
+                <ListSubheader disableSticky>Drugs</ListSubheader>
                 <Filterbox app={app} field="Drug Dose Form" title="Drug Dose Form" />
               </List>
+
             </Card>
           </div>
           <div className="app-charts">
-            <Card zDepth={3} style={styles.app.chartCard}>
-              <CardTitle
+            <Card className={classes.chartCard}>
+              <CardHeader
                 title="Reactions"
-                className="subheader"
-                style={styles.app.cardTitle}
-                titleStyle={styles.app.cardTitleSize}
-                titleColor={colors.deepBlue}
+                className={classes.chartCardTitle}
+                classes={{ title: classes.title }}
               />
-              <CardMedia>
+              <CardContent>
                 <div className="chart-wrapper">
                   <Barchart app={app} overrides={reactions} title={reactions.title} colorType="sequential" />
                   <div className="card-divider" />
                   <Barchart app={app} overrides={outcome} title={outcome.title} orientation="horizontal" />
                 </div>
-              </CardMedia>
+              </CardContent>
             </Card>
-
-            <Card zDepth={3} style={styles.app.chartCard}>
-              <CardTitle
+            <Card className={classes.chartCard}>
+              <CardHeader
                 title="Therapy"
-                className="subheader"
-                style={styles.app.cardTitle}
-                titleStyle={styles.app.cardTitleSize}
-                titleColor={colors.deepBlue}
+                className={classes.chartCardTitle}
+                classes={{ title: classes.title }}
               />
-              <CardMedia>
+              <CardContent>
                 <div className="chart-wrapper">
                   <Barchart app={app} overrides={stop} title={stop.title} />
                   <div className="card-divider" />
                   <Barchart app={app} overrides={therapy} title={therapy.title} colorType="sequential" />
 
                 </div>
-              </CardMedia>
+              </CardContent>
             </Card>
 
-            <Card zDepth={3} style={styles.app.chartCard}>
-              <CardTitle
+            <Card className={classes.chartCard}>
+              <CardHeader
                 title="Risk"
-                className="subheader"
-                style={styles.app.cardTitle}
-                titleStyle={styles.app.cardTitleSize}
-                titleColor={colors.deepBlue}
+                className={classes.chartCardTitle}
+                classes={{ title: classes.title }}
               />
-              <CardMedia>
+              <CardContent>
                 <div className="chart-wrapper">
                   <Barchart app={app} overrides={risk} title={risk.title} colorType="sequential" />
                   <div className="card-divider" />
                   <Barchart app={app} overrides={deaths} title={deaths.title} />
                 </div>
-              </CardMedia>
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -320,4 +356,7 @@ Drugs
 
 Dashboard.propTypes = {
   app: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
+
+export default withStyles(styles)(Dashboard);

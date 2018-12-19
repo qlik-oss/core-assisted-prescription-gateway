@@ -1,21 +1,40 @@
 import React from 'react';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
+import PropTypes from 'prop-types';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
+import { withStyles } from '@material-ui/core';
 
-export default function SessionSuspended() {
+const styles = {
+  card: {
+    padding: '5%',
+  },
+  strong: {
+    fontWeight: 'bold',
+  },
+};
+
+function SessionSuspended(props) {
+  const { classes } = props;
   return (
-    <Card id="session-failed" style={{ margin: '15% 0 0 0', padding: '5%' }}>
-      <CardTitle title="Session timed out" />
-      <CardText>
-        <p>
-Your analytics session timed out due to inactivity.
-        </p>
-
-        <p>
-          <strong>
-Refresh this page to establish a new session.
-          </strong>
-        </p>
-      </CardText>
+    <Card id="session-failed" className={classes.card}>
+      <CardContent>
+        <Typography variant="h5" component="h2" gutterBottom>
+          Session timed out
+        </Typography>
+        <Typography component="p" paragraph>
+          Your analytics session timed out due to inactivity.
+        </Typography>
+        <Typography component="p" paragraph className={classes.strong}>
+          Refresh this page to establish a new session.
+        </Typography>
+      </CardContent>
     </Card>
   );
 }
+
+SessionSuspended.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SessionSuspended);

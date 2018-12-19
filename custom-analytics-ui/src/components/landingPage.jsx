@@ -1,11 +1,23 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import './landingPage.css';
-import { colors, styles } from '../ui-constants';
+import { colors } from '../ui-constants';
+
+const buttonStyle = {
+  backgroundColor: colors.blue,
+  color: colors.white,
+  borderRadius: '2px',
+};
 
 const RedirectButton = withRouter(({ history }) => (
-  <RaisedButton label="Get started" onClick={() => { history.push('/app'); }} style={styles.transparentBackground} backgroundColor={colors.blue} labelColor={colors.white} />
+  <Button
+    color="inherit"
+    style={buttonStyle}
+    onClick={() => { history.push('/app'); }}
+  >
+    Get started
+  </Button>
 ));
 
 export default function LandingPage() {

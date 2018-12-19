@@ -39,17 +39,5 @@ const styles = {
       width: '350px',
     },
   },
-  app: {
-    cardTitle: {
-      padding: '0 0 0 15px',
-    },
-    cardTitleSize: {
-      fontSize: '1rem',
-    },
-    chartCard: {
-      margin: '15px',
-      flex: '1 1 auto',
-    },
-  },
 };
 export { colors, styles, palettes };

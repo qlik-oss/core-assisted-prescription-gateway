@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import { colors, styles } from '../ui-constants';
-import './login.css';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -31,34 +32,23 @@ export default class Login extends React.Component {
   render() {
     const { onCancel, onLogin, open } = this.props;
     const { username, password } = this.state;
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        style={{ color: colors.darkBlue }}
-        onClick={onCancel}
-        key={1}
-      />,
-      <FlatButton
-        label="Sign in"
-        style={{ color: colors.darkBlue }}
-        onClick={() => onLogin(username, password)}
-        key={2}
-      />,
-    ];
     return (
       <Dialog
-        className="ca-login"
         title="Sign in"
         open={open}
-        contentStyle={styles.login.contentStyle}
-        overlayClassName="ca-login-overlay"
+        maxWidth="xs"
+        fullWidth
       >
-        <TextField underlineFocusStyle={styles.login.underline} name="username" hintText="User ID" value={username} onChange={e => this.handleUsernameChange(e)} />
-        <br />
-        <TextField underlineFocusStyle={styles.login.underline} name="password" type="password" hintText="Password" value={password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
-        <div className="action-button-wrapper">
-          {actions}
-        </div>
+        <DialogTitle>Sign in</DialogTitle>
+        <DialogContent>
+          <TextField margin="dense" fullWidth autoFocus label="User ID" value={username} onChange={e => this.handleUsernameChange(e)} />
+          <br />
+          <TextField margin="dense" fullWidth label="Password" type="password" value={password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
+          <DialogActions>
+            <Button color="primary" onClick={onCancel} key={1}>Cancel</Button>
+            <Button color="primary" onClick={() => onLogin(username, password)} key={2}>Sign in</Button>
+          </DialogActions>
+        </DialogContent>
       </Dialog>
     );
   }
