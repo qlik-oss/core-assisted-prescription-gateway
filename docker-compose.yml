@@ -1,19 +1,11 @@
-version: "3.1"
+version: "2"
 
 services:
-  openresty:
-    build: .
-    environment:
-      SESSION_COOKIE_NAME: custom-analytics
-      AUTH_STRATEGY: local
-    networks:
-      - core-assisted-prescription_default
+  engine:
+    image: qlikcore/engine:12.387.0
+    restart: always
+    command: -S AcceptEULA=${ACCEPT_EULA} -S DocumentDirectory=/data/apps
     ports:
-      - "443:443"
-    volumes:
-      - ../info/site:/usr/local/openresty/nginx/html/docs
-      - ./custom-analytics-ui/dist:/usr/local/openresty/nginx/html/custom-analytics-ui
-
-networks:
-  core-assisted-prescription_default:
-    external: true
+      - "9176:9076"
+    volumes: 
+      - ./data:/data/apps

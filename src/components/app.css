@@ -1,0 +1,45 @@
+main {
+  display: block;
+  overflow: auto;
+  height: calc(100% - 64px);
+}
+
+.ca-main {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.app-background {
+  background: linear-gradient(135deg, #eaeaea 0%, #8eac77 100%);
+}
+
+.ca-main .main-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ca-main .card-divider {
+  width: 1px;
+  flex: 0 0 auto;
+  background-color: #e1e1e1;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 950px) {
+  .ca-main .chart-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+
+  .ca-main .card-divider {
+    display: none;
+  }
+}
+
