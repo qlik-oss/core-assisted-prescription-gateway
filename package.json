@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --mode production --open --hot",
     "lint": "eslint --ext .js,.jsx .",
     "lint:fix": "eslint --ext .js,.jsx --fix ."
   },

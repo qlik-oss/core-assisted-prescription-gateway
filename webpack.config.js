@@ -7,11 +7,6 @@ const isProd = process.env.NODE_ENV === 'production';
 const hashSuffix = isProd ? '.[chunkhash]' : '';
 
 const plugins = [
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    },
-  }),
   new HtmlPlugin({
     filename: 'index.html',
     template: 'src/index.template.html',
