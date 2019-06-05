@@ -8,11 +8,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qlik-oss/core-assisted-prescription-gateway"
+    "url": "https://github.com/qlik-oss/core-assisted-prescription-ui"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "webpack-dev-server --open --hot",
+    "start": "webpack-dev-server --mode production --open --hot",
     "lint": "eslint --ext .js,.jsx .",
     "lint:fix": "eslint --ext .js,.jsx --fix ."
   },

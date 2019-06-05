@@ -1,36 +1,14 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/core-assisted-prescription-gateway
+    working_directory: ~/core-assisted-prescription-ui
     docker:
       - image: circleci/node:8
-    environment:
-      DOCKER_REPO: qlikcore/assisted-prescription-gateway
     steps:
       - checkout
       - run:
-          name: Update version tag
-          command: |
-            # Avoid problems with branches containing '/' and '@' character.
-            BRANCH=$(sed "s|/|-|g; s|@||g" <<< "$CIRCLE_BRANCH")
-            echo "$BRANCH-$CIRCLE_BUILD_NUM" > ./version.txt
-      - setup_remote_docker
-      - run:
           name: Build Custom Analytics UI
           command: |
-            cd custom-analytics-ui
             npm install --quiet
             npm run lint
             npm run build
-      - run:
-          name: Build Docker image
-          command: docker build -t $DOCKER_REPO:$(cat ./version.txt) .
-      - deploy:
-          name: Push image to Docker Hub
-          command: |
-            VER=$(cat ./version.txt)
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker tag $DOCKER_REPO:$VER $DOCKER_REPO:latest
-            fi
-            docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-            docker push $DOCKER_REPO

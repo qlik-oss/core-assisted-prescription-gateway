@@ -1,39 +1,9 @@
-# core-assisted-prescription-gateway
+# core-assisted-prescription-ui
 
-[![CircleCI](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway.svg?style=svg)](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway)
+[![CircleCI](https://circleci.com/gh/qlik-oss/core-assisted-prescription-gateway.svg?style=svg)](https://circleci.com/gh/qlik-oss/core-assisted-prescription-ui)
 
-This repo contains configuration for the openresty service running in the Qlik Core
-Assisted Prescriptions use-case.
-
-Each change to this repo will publish an image to Docker hub, tagged
-`<branch name>-<rolling build number>`, e.g. `qlikcore/assisted-prescription-gateway:master-123`.
-
-Changes on `master` branch will also update the `latest` tag on Docker hub.
+This repo contains the ui used to showcase the Assisted Prescriptions use-case.
 
 ## Contributing
 
 Contributions are welcome and encouraged! See more info at [Open Source at Qlik R&D](https://github.com/qlik-oss/open-source).
-
-## Required environment variables
-
-To use this container you need to set these environment variables:
-
-`KIBANA_HOST`, `KIBANA_PORT`,
-`GRAFANA_HOST`, `GRAFANA_PORT`,
-`VISUALIZER_HOST`, `VISUALIZER_PORT`,
-`QIX_SESSION_HOST`, `QIX_SESSION_PORT`,
-`AUTH_HOST`, `AUTH_PORT`, `AUTH_STRATEGY`
-
-And these are optional:
-
-`CERT_FILE`, `CERT_KEY` - HTTPS certificates (if not set, self-signed certificates will be generated on start up)
-`ERROR_LEVEL` - Log level for openresty. Possible values are `debug`, `info`, `notice`, `warn`, `error`, `crit`, `alert`, or `emerg` (if not set, `info` will be used)
-
-## Developing the UI
-
-_Note: You do not need to set any environment variables for this._
-
-* Start up a local environment of [core-assisted-prescription](https://github.com/qlik-oss/core-assisted-prescription#getting-started)
-* Open up a terminal (or Git Bash in Windows) and run `./run-dev.sh`
-* When it has booted up, go to https://localhost/ to see the page, 'admin' and 'password' as credentials.
-* Now you will be able to do changes to the files in `/src` folder, and it will be rebuilt and shown in your browser after a refresh.
