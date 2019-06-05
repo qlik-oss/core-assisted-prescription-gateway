@@ -21,8 +21,6 @@ import './main.css';
 
 picasso.use(picassoQ);
 
-const qliktiveRedirectParam = 'redirect_url=/#/app';
-
 const auth = {
 
   // isAuthenticated:
@@ -36,7 +34,8 @@ const auth = {
   //   window.location.href = `/login/github?${qliktiveRedirectParam}`;
   // },
   // localAuthenticate(username, password) {
-  //   window.location.href = `/login/local/callback?username=${username}&password=${password}&${qliktiveRedirectParam}`;
+  //   window.location.href =
+  // `/login/local/callback?username=${username}&password=${password}&${qliktiveRedirectParam}`;
   // },
   // signout(cb) {
   //   fetch('/logout', {
@@ -47,17 +46,16 @@ const auth = {
 
 // Main component responsible for rendering the routes when
 // the path matches the route.
-const Main = ({ isAuthenticated, notAuthorizedCallback }) => (
+const Main = ({ notAuthorizedCallback }) => (
   <main>
     <Switch>
       <Route exact path="/" component={LandingPage} />
-      <PrivateRoute path="/app" component={App} isAuthenticated={true} notAuthorizedCallback={notAuthorizedCallback} />
+      <PrivateRoute path="/app" component={App} isAuthenticated notAuthorizedCallback={notAuthorizedCallback} />
     </Switch>
   </main>
 );
 
 Main.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
   notAuthorizedCallback: PropTypes.func,
 };
 
@@ -70,7 +68,7 @@ class ThePage extends React.Component {
     super(...args);
 
     this.state = {
-      authMode: "local",
+      authMode: 'local',
       isAuthenticated: true,
       dialogIsOpen: false,
       cookieAccepted: document.cookie.indexOf('apqlikcoreaccept') !== -1,
