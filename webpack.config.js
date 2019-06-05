@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const isProd = process.env.NODE_ENV === 'production';
 const hashSuffix = isProd ? '.[chunkhash]' : '';
@@ -16,6 +17,9 @@ const plugins = [
     template: 'src/index.template.html',
     favicon: 'src/resources/favicon.ico',
   }),
+  new Dotenv({
+    systemvars: true
+  })
 ];
 
 if (process.env.NODE_ENV !== 'production') {

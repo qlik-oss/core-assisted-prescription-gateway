@@ -17,6 +17,7 @@
     "lint:fix": "eslint --ext .js,.jsx --fix ."
   },
   "dependencies": {
+    "dotenv-webpack": "1.7.0",
     "@material-ui/core": "4.0.1",
     "@material-ui/icons": "4.0.1",
     "deep-extend": "0.6.0",
