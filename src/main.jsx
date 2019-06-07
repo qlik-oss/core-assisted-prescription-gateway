@@ -163,11 +163,11 @@ class ThePage extends React.Component {
              }}
             >
               <Button className="app-bar-button" onClick={this.navigateToAppPage}>App</Button>
-              {
+              {/* {
               isAuthenticated
-                ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
-                : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
-              }
+              ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
+              : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
+              } */}
             </div>
           </Toolbar>
         </AppBar>
