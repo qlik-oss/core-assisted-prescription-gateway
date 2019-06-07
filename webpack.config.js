@@ -13,8 +13,8 @@ const plugins = [
     favicon: 'src/resources/favicon.ico',
   }),
   new Dotenv({
-    systemvars: true
-  })
+    systemvars: true,
+  }),
 ];
 
 if (process.env.NODE_ENV !== 'production') {
