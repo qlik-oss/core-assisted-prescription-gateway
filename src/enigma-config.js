@@ -1,7 +1,7 @@
 import qixSchema from 'enigma.js/schemas/12.20.0.json';
 
 const ERR_ABORTED = 15;
-const backendAdress = process.env.NODE_ENV === 'production' ? `${process.env.BACKEND}/app/doc/fc649d13-84ea-4174-8c96-67208f069587` : 'localhost:9176';
+const backendAdress = `test.carlioth.se/secure/doc/fc649d13-84ea-4174-8c96-67208f069587`;
 
 const enigmaConfig = {
   schema: qixSchema,

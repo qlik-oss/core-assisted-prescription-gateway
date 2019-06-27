@@ -10,6 +10,7 @@ export default class PrivateRoute extends React.Component {
 
   render() {
     const { isAuthenticated, component: Component, ...rest } = this.props;
+    console.log(isAuthenticated);
     return (
       <Route
         {...rest}

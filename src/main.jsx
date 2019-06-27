@@ -23,34 +23,32 @@ picasso.use(picassoQ);
 
 const auth = {
 
-  // isAuthenticated:
-  //   fetch('/is-authenticated', {
-  //     credentials: 'same-origin',
-  //   }).then(response => response.json()),
-  // idp:
-  //   fetch('/idp')
-  //     .then(response => response.text()),
-  // authenticate() {
-  //   window.location.href = `/login/github?${qliktiveRedirectParam}`;
-  // },
-  // localAuthenticate(username, password) {
-  //   window.location.href =
-  // `/login/local/callback?username=${username}&password=${password}&${qliktiveRedirectParam}`;
-  // },
-  // signout(cb) {
-  //   fetch('/logout', {
-  //     credentials: 'same-origin',
-  //   }).then(cb);
-  // },
+  isAuthenticated:
+    fetch('https://test.carlioth.se/oauth2/auth', {
+      credentials: 'include',
+      mode: 'cors',
+    }).then((response) => {
+      console.log(response);
+      return response.status===202;
+    }
+    ),
+  authenticate() {
+    window.location.href = `/login/github?${qliktiveRedirectParam}`;
+  },
+  signout(cb) {
+    fetch('/logout', {
+      credentials: 'same-origin',
+    }).then(cb);
+  },
 };
 
 // Main component responsible for rendering the routes when
 // the path matches the route.
-const Main = ({ notAuthorizedCallback }) => (
+const Main = ({ isAuthenticated, notAuthorizedCallback }) => (
   <main>
     <Switch>
       <Route exact path="/" component={LandingPage} />
-      <PrivateRoute path="/app" component={App} isAuthenticated notAuthorizedCallback={notAuthorizedCallback} />
+      <PrivateRoute path="/app" component={App} isAuthenticated={isAuthenticated} notAuthorizedCallback={notAuthorizedCallback} />
     </Switch>
   </main>
 );
@@ -68,8 +66,8 @@ class ThePage extends React.Component {
     super(...args);
 
     this.state = {
-      authMode: 'local',
-      isAuthenticated: true,
+      // authMode: 'local',
+      isAuthenticated: null,
       dialogIsOpen: false,
       cookieAccepted: document.cookie.indexOf('apqlikcoreaccept') !== -1,
     };
@@ -78,9 +76,9 @@ class ThePage extends React.Component {
     //   this.setState({ authMode });
     // });
 
-    // auth.isAuthenticated.then((authenticated) => {
-    //   this.setState({ isAuthenticated: authenticated });
-    // });
+    auth.isAuthenticated.then((authenticated) => {
+      this.setState({ isAuthenticated: authenticated });
+    });
   }
 
   signinClicked = () => {
@@ -148,19 +146,19 @@ class ThePage extends React.Component {
               </Typography>
               <span className="app-bar-title-dash">
                 {' '}
- /
+                /
               </span>
               <span className="app-bar-subtitle">
                 {' '}
- Assisted Prescription
+                Assisted Prescription
               </span>
             </div>
             <div style={
-             {
-               marginTop: '6px',
-               marginRight: '0px',
-               marginLeft: 'auto',
-             }}
+              {
+                marginTop: '6px',
+                marginRight: '0px',
+                marginLeft: 'auto',
+              }}
             >
               <Button className="app-bar-button" onClick={this.navigateToAppPage}>App</Button>
               {/* {
