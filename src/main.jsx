@@ -22,7 +22,8 @@ const auth = {
 
   isAuthenticated:
     fetch(`${process.env.AUTH_DOMAIN}/oauth2/auth`, {
-      mode: 'no-cors',
+      credentials: 'include',
+      mode: 'cors',
     }).then(response => response.status === 202,
     ),
   authenticate() {
@@ -30,7 +31,8 @@ const auth = {
   },
   signout(cb) {
     fetch(`${process.env.AUTH_DOMAIN}/oauth2/sign_in`, {
-      mode: 'no-cors',
+      mode: 'cors',
+      credentials: 'include',
     }).then(cb);
   },
 };
