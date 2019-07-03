@@ -10,11 +10,8 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import { MuiThemeProvider } from '@material-ui/core/styles';
-import AcceptCookies from './components/acceptCookies';
 import LandingPage from './components/landingPage';
 import App from './components/app';
-import Login from './components/login';
 import PrivateRoute from './components/privateRoute';
 
 import './main.css';
@@ -24,20 +21,16 @@ picasso.use(picassoQ);
 const auth = {
 
   isAuthenticated:
-    fetch('https://test.carlioth.se/oauth2/auth', {
-      credentials: 'include',
-      mode: 'cors',
-    }).then((response) => {
-      console.log(response);
-      return response.status===202;
-    }
+    fetch(`${process.env.AUTH_DOMAIN}/oauth2/auth`, {
+      mode: 'no-cors',
+    }).then(response => response.status === 202,
     ),
   authenticate() {
-    window.location.href = `/login/github?${qliktiveRedirectParam}`;
+    window.location.href = `${process.env.AUTH_DOMAIN}/oauth2/start?rd=${process.env.CALLBACK_URL}`;
   },
   signout(cb) {
-    fetch('/logout', {
-      credentials: 'same-origin',
+    fetch(`${process.env.AUTH_DOMAIN}/oauth2/sign_in`, {
+      mode: 'no-cors',
     }).then(cb);
   },
 };
@@ -55,10 +48,12 @@ const Main = ({ isAuthenticated, notAuthorizedCallback }) => (
 
 Main.propTypes = {
   notAuthorizedCallback: PropTypes.func,
+  isAuthenticated: PropTypes.bool,
 };
 
 Main.defaultProps = {
   notAuthorizedCallback: () => { },
+  isAuthenticated: false,
 };
 
 class ThePage extends React.Component {
@@ -66,15 +61,9 @@ class ThePage extends React.Component {
     super(...args);
 
     this.state = {
-      // authMode: 'local',
-      isAuthenticated: null,
+      isAuthenticated: false,
       dialogIsOpen: false,
-      cookieAccepted: document.cookie.indexOf('apqlikcoreaccept') !== -1,
     };
-
-    // auth.idp.then((authMode) => {
-    //   this.setState({ authMode });
-    // });
 
     auth.isAuthenticated.then((authenticated) => {
       this.setState({ isAuthenticated: authenticated });
@@ -82,12 +71,7 @@ class ThePage extends React.Component {
   }
 
   signinClicked = () => {
-    const { authMode } = this.state;
-    if (authMode === 'local') {
-      this.setState({ dialogIsOpen: true });
-    } else if (authMode === 'github') {
-      auth.authenticate();
-    }
+    auth.authenticate();
   }
 
   signoutClicked = () => {
@@ -95,26 +79,7 @@ class ThePage extends React.Component {
   }
 
   notAuthorizedCallback = () => {
-    const { authMode } = this.state;
-    if (authMode === 'local') {
-      this.setState({ dialogIsOpen: true });
-    } else if (authMode === 'github') {
-      alert('Please sign in to access this page'); // eslint-disable-line no-alert
-    }
-  }
-
-  cancelLoginClicked = () => {
-    this.setState({ dialogIsOpen: false });
-  }
-
-  loginClicked = (username, password) => {
-    auth.localAuthenticate(username, password);
-  }
-
-  acceptClicked = () => {
-    const cookie = `apqlikcoreaccept=true; expires=${new Date('2050-01-01').toUTCString()}; path=/`;
-    document.cookie = cookie;
-    this.setState({ cookieAccepted: true });
+    alert('Please sign in to access this page'); // eslint-disable-line no-alert
   }
 
   navigateToLandingPage = () => {
@@ -126,7 +91,7 @@ class ThePage extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, dialogIsOpen, cookieAccepted } = this.state;
+    const { isAuthenticated } = this.state;
     if (isAuthenticated === null) {
       return null;
     }
@@ -161,26 +126,17 @@ class ThePage extends React.Component {
               }}
             >
               <Button className="app-bar-button" onClick={this.navigateToAppPage}>App</Button>
-              {/* {
-              isAuthenticated
-              ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
-              : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
-              } */}
+              {
+                isAuthenticated
+                  ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
+                  : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
+              }
             </div>
           </Toolbar>
         </AppBar>
         <Main
           isAuthenticated={isAuthenticated}
           notAuthorizedCallback={this.notAuthorizedCallback}
-        />
-        <Login
-          open={dialogIsOpen}
-          onCancel={this.cancelLoginClicked}
-          onLogin={this.loginClicked}
-        />
-        <AcceptCookies
-          open={!cookieAccepted}
-          onAccept={this.acceptClicked}
         />
       </div>
     );

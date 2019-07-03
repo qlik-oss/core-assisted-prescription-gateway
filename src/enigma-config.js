@@ -1,11 +1,10 @@
 import qixSchema from 'enigma.js/schemas/12.20.0.json';
 
 const ERR_ABORTED = 15;
-const backendAdress = `test.carlioth.se/secure/doc/fc649d13-84ea-4174-8c96-67208f069587`;
 
 const enigmaConfig = {
   schema: qixSchema,
-  url: `${window.location.protocol.replace('http', 'ws')}${backendAdress}`,
+  url: `${window.location.protocol.replace('http', 'ws')}${process.env.BACKEND_ADRESS}`,
   suspendOnClose: true,
   interceptors: [
     {
