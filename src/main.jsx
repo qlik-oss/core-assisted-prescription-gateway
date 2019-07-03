@@ -79,7 +79,7 @@ class ThePage extends React.Component {
   }
 
   notAuthorizedCallback = () => {
-    alert('Please sign in to access this page'); // eslint-disable-line no-alert
+    alert('Please sign in to get access to this page'); // eslint-disable-line no-alert
   }
 
   navigateToLandingPage = () => {
