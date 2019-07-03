@@ -13,7 +13,7 @@ const plugins = [
     favicon: 'src/resources/favicon.ico',
   }),
   new Dotenv({
-    path: process.env.NODE_ENV === "production" ?  ".env.local" : ".env",
+    path: process.env.NODE_ENV === "production" ?  ".env" : ".env.local",
     systemvars: true,
   })
 ];
