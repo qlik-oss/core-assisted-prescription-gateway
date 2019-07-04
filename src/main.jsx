@@ -55,7 +55,7 @@ Main.propTypes = {
 
 Main.defaultProps = {
   notAuthorizedCallback: () => { },
-  isAuthenticated: false,
+  isAuthenticated: null,
 };
 
 class ThePage extends React.Component {
