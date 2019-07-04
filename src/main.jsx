@@ -50,12 +50,11 @@ const Main = ({ isAuthenticated, notAuthorizedCallback }) => (
 
 Main.propTypes = {
   notAuthorizedCallback: PropTypes.func,
-  isAuthenticated: PropTypes.bool,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 Main.defaultProps = {
   notAuthorizedCallback: () => { },
-  isAuthenticated: null,
 };
 
 class ThePage extends React.Component {
@@ -63,7 +62,7 @@ class ThePage extends React.Component {
     super(...args);
 
     this.state = {
-      isAuthenticated: false,
+      isAuthenticated: null,
       dialogIsOpen: false,
     };
 
