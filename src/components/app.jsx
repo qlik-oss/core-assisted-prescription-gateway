@@ -31,9 +31,6 @@ class App extends Component {
     try {
       const global = await session.open();
       const app = await global.getActiveDoc();
-      // const app = process.env.NODE_ENV === 'production'
-      //   ? await global.getActiveDoc()
-      //   : await global.openDoc('drugcases.qvf');
       this.setState({ view: 'app', app, session });
     } catch (error) {
       this.setState({ view: 'suspended' });
