@@ -1,0 +1,5 @@
+# Redirect domain aliases to primary domain
+https://ap.qlikcore.com/* https://ap.core.qlik.com/:splat 301!
+
+# Optional: Redirect default Netlify subdomain to primary domain
+https://assisted-prescription.netlify.com/* https://ap.core.qlik.com/:splat 301!
