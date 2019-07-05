@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Assisted Prescription</title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
   <script>(function(w,d,s,l,i){
     w[l]=w[l]||[];
     w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
@@ -11,7 +11,7 @@
     j.async=true;
     j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
     f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer', 'GTM-P7VJSX');
+    })(window,document,'script','dataLayer', '<%= htmlWebpackPlugin.options.GA %>');
   </script>
 
 </head>
@@ -19,7 +19,7 @@
 <body>
   <div id="root"></div>
   <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P7VJSX"
+    <iframe src="https://www.googletagmanager.com/ns.html?id=<%= htmlWebpackPlugin.options.GA %>"
   height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
 </body>

@@ -4,7 +4,7 @@ const ERR_ABORTED = 15;
 
 const enigmaConfig = {
   schema: qixSchema,
-  url: `${window.location.protocol.replace('http', 'ws')}${process.env.BACKEND_ADRESS}`,
+  url: `${window.location.protocol.replace('http', 'ws')}${process.env.BACKEND_ADDRESS}`,
   suspendOnClose: true,
   interceptors: [
     {
