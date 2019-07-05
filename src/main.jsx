@@ -10,11 +10,8 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import { MuiThemeProvider } from '@material-ui/core/styles';
-import AcceptCookies from './components/acceptCookies';
 import LandingPage from './components/landingPage';
 import App from './components/app';
-import Login from './components/login';
 import PrivateRoute from './components/privateRoute';
 
 import './main.css';
@@ -23,40 +20,36 @@ picasso.use(picassoQ);
 
 const auth = {
 
-  // isAuthenticated:
-  //   fetch('/is-authenticated', {
-  //     credentials: 'same-origin',
-  //   }).then(response => response.json()),
-  // idp:
-  //   fetch('/idp')
-  //     .then(response => response.text()),
-  // authenticate() {
-  //   window.location.href = `/login/github?${qliktiveRedirectParam}`;
-  // },
-  // localAuthenticate(username, password) {
-  //   window.location.href =
-  // `/login/local/callback?username=${username}&password=${password}&${qliktiveRedirectParam}`;
-  // },
-  // signout(cb) {
-  //   fetch('/logout', {
-  //     credentials: 'same-origin',
-  //   }).then(cb);
-  // },
+  isAuthenticated:
+    fetch(`${process.env.AUTH_DOMAIN}/oauth2/auth`, {
+      credentials: 'include',
+      mode: 'cors',
+    }).then(response => response.status === 202),
+  authenticate() {
+    window.location.href = `${process.env.AUTH_DOMAIN}/oauth2/start?rd=${process.env.CALLBACK_URL}`;
+  },
+  signout(cb) {
+    fetch(`${process.env.AUTH_DOMAIN}/oauth2/sign_in`, {
+      mode: 'cors',
+      credentials: 'include',
+    }).then(cb);
+  },
 };
 
 // Main component responsible for rendering the routes when
 // the path matches the route.
-const Main = ({ notAuthorizedCallback }) => (
+const Main = ({ isAuthenticated, notAuthorizedCallback }) => (
   <main>
     <Switch>
       <Route exact path="/" component={LandingPage} />
-      <PrivateRoute path="/app" component={App} isAuthenticated notAuthorizedCallback={notAuthorizedCallback} />
+      <PrivateRoute path="/app" component={App} isAuthenticated={isAuthenticated} notAuthorizedCallback={notAuthorizedCallback} />
     </Switch>
   </main>
 );
 
 Main.propTypes = {
   notAuthorizedCallback: PropTypes.func,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 Main.defaultProps = {
@@ -68,28 +61,17 @@ class ThePage extends React.Component {
     super(...args);
 
     this.state = {
-      authMode: 'local',
-      isAuthenticated: true,
+      isAuthenticated: null,
       dialogIsOpen: false,
-      cookieAccepted: document.cookie.indexOf('apqlikcoreaccept') !== -1,
     };
 
-    // auth.idp.then((authMode) => {
-    //   this.setState({ authMode });
-    // });
-
-    // auth.isAuthenticated.then((authenticated) => {
-    //   this.setState({ isAuthenticated: authenticated });
-    // });
+    auth.isAuthenticated.then((authenticated) => {
+      this.setState({ isAuthenticated: authenticated });
+    });
   }
 
   signinClicked = () => {
-    const { authMode } = this.state;
-    if (authMode === 'local') {
-      this.setState({ dialogIsOpen: true });
-    } else if (authMode === 'github') {
-      auth.authenticate();
-    }
+    auth.authenticate();
   }
 
   signoutClicked = () => {
@@ -97,26 +79,7 @@ class ThePage extends React.Component {
   }
 
   notAuthorizedCallback = () => {
-    const { authMode } = this.state;
-    if (authMode === 'local') {
-      this.setState({ dialogIsOpen: true });
-    } else if (authMode === 'github') {
-      alert('Please sign in to access this page'); // eslint-disable-line no-alert
-    }
-  }
-
-  cancelLoginClicked = () => {
-    this.setState({ dialogIsOpen: false });
-  }
-
-  loginClicked = (username, password) => {
-    auth.localAuthenticate(username, password);
-  }
-
-  acceptClicked = () => {
-    const cookie = `apqlikcoreaccept=true; expires=${new Date('2050-01-01').toUTCString()}; path=/`;
-    document.cookie = cookie;
-    this.setState({ cookieAccepted: true });
+    alert('Please sign in to get access to this page'); // eslint-disable-line no-alert
   }
 
   navigateToLandingPage = () => {
@@ -128,7 +91,7 @@ class ThePage extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, dialogIsOpen, cookieAccepted } = this.state;
+    const { isAuthenticated } = this.state;
     if (isAuthenticated === null) {
       return null;
     }
@@ -148,41 +111,32 @@ class ThePage extends React.Component {
               </Typography>
               <span className="app-bar-title-dash">
                 {' '}
- /
+                /
               </span>
               <span className="app-bar-subtitle">
                 {' '}
- Assisted Prescription
+                Assisted Prescription
               </span>
             </div>
             <div style={
-             {
-               marginTop: '6px',
-               marginRight: '0px',
-               marginLeft: 'auto',
-             }}
+              {
+                marginTop: '6px',
+                marginRight: '0px',
+                marginLeft: 'auto',
+              }}
             >
               <Button className="app-bar-button" onClick={this.navigateToAppPage}>App</Button>
-              {/* {
-              isAuthenticated
-              ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
-              : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
-              } */}
+              {
+                isAuthenticated
+                  ? (<Button className="app-bar-button" onClick={this.signoutClicked}>Sign Out</Button>)
+                  : (<Button className="app-bar-button" onClick={this.signinClicked}>Sign In</Button>)
+              }
             </div>
           </Toolbar>
         </AppBar>
         <Main
           isAuthenticated={isAuthenticated}
           notAuthorizedCallback={this.notAuthorizedCallback}
-        />
-        <Login
-          open={dialogIsOpen}
-          onCancel={this.cancelLoginClicked}
-          onLogin={this.loginClicked}
-        />
-        <AcceptCookies
-          open={!cookieAccepted}
-          onAccept={this.acceptClicked}
         />
       </div>
     );

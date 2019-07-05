@@ -1,18 +1,23 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+
+const GoogleAnalytics = 'GTM-P7VJSX';
 
 const isProd = process.env.NODE_ENV === 'production';
 const hashSuffix = isProd ? '.[chunkhash]' : '';
 
 const plugins = [
-  new HtmlPlugin({
+  new HtmlWebpackPlugin({
     filename: 'index.html',
     template: 'src/index.template.html',
     favicon: 'src/resources/favicon.ico',
+    title: 'Assisted Prescription',
+    GA: GoogleAnalytics,
   }),
   new Dotenv({
+    path: process.env.NODE_ENV === 'production' ? '.env' : '.env.local',
     systemvars: true,
   }),
 ];
