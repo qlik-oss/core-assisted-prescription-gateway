@@ -1,3 +1,4 @@
+/* eslint react/jsx-props-no-spreading: 0 */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -13,7 +14,7 @@ export default class PrivateRoute extends React.Component {
     return (
       <Route
         {...rest}
-        render={props => (
+        render={(props) => (
           isAuthenticated ? (
             <Component {...props} />
           ) : (

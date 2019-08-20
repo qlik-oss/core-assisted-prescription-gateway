@@ -24,7 +24,7 @@ const auth = {
     fetch(`${process.env.AUTH_DOMAIN}/oauth2/auth`, {
       credentials: 'include',
       mode: 'cors',
-    }).then(response => response.status === 202),
+    }).then((response) => response.status === 202),
   authenticate() {
     window.location.href = `${process.env.AUTH_DOMAIN}/oauth2/start?rd=${process.env.CALLBACK_URL}`;
   },
@@ -123,7 +123,8 @@ class ThePage extends React.Component {
                 marginTop: '6px',
                 marginRight: '0px',
                 marginLeft: 'auto',
-              }}
+              }
+}
             >
               <Button className="app-bar-button" onClick={this.navigateToAppPage}>App</Button>
               {

@@ -42,7 +42,7 @@ class App extends Component {
     if ((new Date() - lastActivityDate) >= IDLE_TIMEOUT) {
       this.setState({ view: 'timedOut' });
     } else if (retries < RETRY_MAX_COUNT) {
-      this.setState(prev => ({ view: 'suspended', app: prev.app, retries: prev.retries + 1 }));
+      this.setState((prev) => ({ view: 'suspended', app: prev.app, retries: prev.retries + 1 }));
       // we should retry until reaching max connection tries:
       setTimeout(() => {
         session.resume().then(() => {

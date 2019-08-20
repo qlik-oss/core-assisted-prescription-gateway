@@ -41,9 +41,9 @@ export default class Login extends React.Component {
       >
         <DialogTitle>Sign in</DialogTitle>
         <DialogContent>
-          <TextField margin="dense" fullWidth autoFocus label="User ID" value={username} onChange={e => this.handleUsernameChange(e)} />
+          <TextField margin="dense" fullWidth autoFocus label="User ID" value={username} onChange={(e) => this.handleUsernameChange(e)} />
           <br />
-          <TextField margin="dense" fullWidth label="Password" type="password" value={password} onChange={e => this.handlePasswordChange(e)} onKeyDown={e => this.loginOnEnter(e)} />
+          <TextField margin="dense" fullWidth label="Password" type="password" value={password} onChange={(e) => this.handlePasswordChange(e)} onKeyDown={(e) => this.loginOnEnter(e)} />
           <DialogActions>
             <Button color="primary" onClick={onCancel} key={1}>Cancel</Button>
             <Button color="primary" onClick={() => onLogin(username, password)} key={2}>Sign in</Button>
