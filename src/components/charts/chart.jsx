@@ -38,7 +38,7 @@ class Chart extends React.Component {
       model.on('changed', () => this.update());
       model.on('closed', () => this.createModel());
       model.emit('changed');
-    }).catch(err => this.fail(err));
+    }).catch((err) => this.fail(err));
   }
 
   fail(error) {
@@ -62,7 +62,7 @@ class Chart extends React.Component {
           error: null,
         });
       }
-    }).catch(err => this.fail(err));
+    }).catch((err) => this.fail(err));
   }
 }
 

@@ -71,11 +71,11 @@ class Filterbox extends Chart {
     event.stopPropagation();
     event.preventDefault();
 
-    this.setState(oldState => Object.assign({}, oldState, { isOpen: !oldState.isOpen }));
+    this.setState((oldState) => ({ ...oldState, isOpen: !oldState.isOpen }));
   }
 
   handleClick = () => {
-    this.setState(state => ({ isOpen: !state.isOpen }));
+    this.setState((state) => ({ isOpen: !state.isOpen }));
   };
 
   render() {
