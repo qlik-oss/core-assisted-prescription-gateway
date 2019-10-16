@@ -31,7 +31,7 @@ function SessionSuspended(props) {
           {maxRetries}
         </Typography>
         <Typography component="p" paragraph>
-          {'If you got stuck on this screen for several minutes, feel free to give us a ping '}
+          If you got stuck on this screen for several minutes, feel free to give us a ping
           <a href="https://github.com/qlik-oss/core-assisted-prescription/issues">on GitHub.</a>
         </Typography>
       </CardContent>

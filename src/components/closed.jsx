@@ -29,7 +29,7 @@ We could not establish a session :-(
 You will need to refresh this page to continue.
         </Typography>
         <Typography component="p" paragraph>
-          {'This should generally never happen so feel free to give us a ping '}
+          This should generally never happen so feel free to give us a ping
           <a href="https://github.com/qlik-oss/core-assisted-prescription/issues">on GitHub.</a>
         </Typography>
       </CardContent>
