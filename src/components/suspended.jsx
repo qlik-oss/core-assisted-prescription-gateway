@@ -20,14 +20,14 @@ function SessionSuspended(props) {
           Connecting...
         </Typography>
         <Typography component="p" paragraph>
-  We are trying to establish an analytics session for you. If you were previously
-            in a session this error may indicate that services has been updated to optimize
-            your experience. You should be reconnected automatically.
+          We are trying to establish an analytics session for you. If you were previously
+          in a session this error may indicate that services has been updated to optimize
+          your experience. You should be reconnected automatically.
         </Typography>
         <Typography component="p" paragraph>
           {'Connecting... '}
           {retries}
-  /
+          /
           {maxRetries}
         </Typography>
         <Typography component="p" paragraph>

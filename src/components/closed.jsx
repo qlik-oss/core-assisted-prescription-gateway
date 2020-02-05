@@ -23,10 +23,10 @@ function SessionClosed(props) {
           Session was closed
         </Typography>
         <Typography component="p" paragraph>
-We could not establish a session :-(
+          We could not establish a session :-(
         </Typography>
         <Typography component="p" paragraph className={classes.strong}>
-You will need to refresh this page to continue.
+          You will need to refresh this page to continue.
         </Typography>
         <Typography component="p" paragraph>
           This should generally never happen so feel free to give us a ping

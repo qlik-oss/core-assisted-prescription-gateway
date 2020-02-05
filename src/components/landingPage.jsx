@@ -27,13 +27,13 @@ export default function LandingPage() {
         <div className="content-wrapper">
           <div className="landing-content white-text right-align">
             <h2 className="landing-title">
-Insights for prescriptions
+              Insights for prescriptions
               <br />
-at your fingertips
+              at your fingertips
             </h2>
             <div className="landing-divider" />
             <h4 className="landing-subtitle">
-Save more lives, time and money
+              Save more lives, time and money
             </h4>
             <RedirectButton />
           </div>

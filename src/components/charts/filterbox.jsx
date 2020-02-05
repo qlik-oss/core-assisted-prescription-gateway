@@ -88,7 +88,7 @@ class Filterbox extends Chart {
       return (
         <div className="card-panel filterbox">
           <p>
-Failed to render filterbox:
+            Failed to render filterbox:
             {msg}
           </p>
         </div>
@@ -99,7 +99,7 @@ Failed to render filterbox:
       return (
         <div className="card-panel filterbox">
           <p>
-Initializing...
+            Initializing...
           </p>
         </div>
       );
