@@ -49,7 +49,7 @@ class Picasso extends Chart {
       return (
         <div className="picasso-chart">
           <div>
-Failed to render chart:
+            Failed to render chart:
             {msg}
           </div>
         </div>
@@ -60,7 +60,7 @@ Failed to render chart:
       return (
         <div className="picasso-chart">
           <div>
-Initializing...
+            Initializing...
           </div>
         </div>
       );
