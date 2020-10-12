@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/qlik-oss/core-assisted-prescription-ui.svg?style=svg)](https://circleci.com/gh/qlik-oss/core-assisted-prescription-ui)
 
+*As of 1 July 2020, Qlik Core is no longer available to new customers. No further maintenance will be done in this repository.*
+
 This repo contains the ui used to showcase the Assisted Prescriptions use-case.
 
 ## Developing the UI
